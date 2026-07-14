@@ -33,6 +33,8 @@ import {
   loadPluginPreferences,
   savePluginPreferences
 } from '/services/plugin-preferences.js';
+import { summarizeHome } from '/core/home-summary.js';
+import { loadExampleManuscripts } from '/services/example-data.js';
 import {
   annotateDocument,
   matchReportingGuidelines,
@@ -132,6 +134,7 @@ const state = {
     error: '',
     startedAt: 0
   },
+  examples: [],
   pdfSearch: {
     query: '',
     matches: [],
@@ -157,6 +160,8 @@ const els = {
   reader: document.getElementById('reader'),
   homeInput: document.getElementById('homePdfInput'),
   reviewLibraryBody: document.getElementById('reviewLibraryBody'),
+  homeStats: document.getElementById('homeStats'),
+  exampleManuscriptList: document.getElementById('exampleManuscriptList'),
   tocToggleButton: document.getElementById('tocToggleButton'),
   tocSplitter: document.getElementById('tocSplitter'),
   countsSplitter: document.getElementById('countsSplitter'),
@@ -755,8 +760,45 @@ function reviewCountsSummary(review = {}) {
   return parts.join(' · ') || 'Counts unavailable';
 }
 
+function renderHomeStats() {
+  const summary = summarizeHome({ reviews: state.library, examples: state.examples });
+  document.querySelectorAll('[data-home-stat]').forEach((node) => {
+    const key = node.dataset.homeStat;
+    if (key === 'examples') {
+      node.textContent = `${formatInteger(summary.examples)} example${summary.examples === 1 ? '' : 's'}`;
+      return;
+    }
+    node.textContent = formatInteger(summary[key] || 0);
+  });
+}
+
+function renderExampleManuscripts() {
+  if (!els.exampleManuscriptList) return;
+  if (!state.examples.length) {
+    els.exampleManuscriptList.innerHTML = '<div class="col-12"><div class="text-secondary small">No examples are configured yet.</div></div>';
+    renderHomeStats();
+    return;
+  }
+  els.exampleManuscriptList.innerHTML = state.examples.map((example) => `
+    <div class="col-12 col-xl-4">
+      <div class="border rounded bg-body h-100 p-3">
+        <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+          <div class="small fw-semibold text-body">${escapeHtml(example.title || 'Example manuscript')}</div>
+          <span class="badge text-bg-light">${escapeHtml(example.status || 'Example')}</span>
+        </div>
+        <div class="small text-secondary mb-3">${escapeHtml(example.description || '')}</div>
+        <div class="d-flex flex-wrap gap-1">
+          ${(Array.isArray(example.tags) ? example.tags : []).map((tag) => `<span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(tag)}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+  renderHomeStats();
+}
+
 function renderStoredReviews(reviews = []) {
   state.library = reviews;
+  renderHomeStats();
   if (!reviews.length) {
     els.reviewLibraryBody.innerHTML = `
       <tr>
@@ -4331,6 +4373,18 @@ initSplitter(els.tocSplitter, 'toc');
 initSplitter(els.countsSplitter, 'counts');
 initPdfResizeObserver();
 showHome();
+loadExampleManuscripts()
+  .then((examples) => {
+    state.examples = examples;
+    renderExampleManuscripts();
+  })
+  .catch((error) => {
+    console.warn('[deskreview-mistral-2] examples failed', error);
+    if (els.exampleManuscriptList) {
+      els.exampleManuscriptList.innerHTML = '<div class="col-12"><div class="text-secondary small">Examples could not be loaded.</div></div>';
+    }
+    renderHomeStats();
+  });
 loadPluginCatalog()
   .then((plugins) => {
     state.pluginCatalog = plugins;

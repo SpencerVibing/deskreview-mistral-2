@@ -15,8 +15,8 @@
         <div class="container-fluid px-4 py-4">
           <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
             <div>
-              <h1 class="h4 mb-1">Stored desk reviews</h1>
-              <div class="text-secondary small">These are manuscripts you analysed before, stored privately in this browser on this computer so you can reopen them without running analysis again.</div>
+              <h1 class="h4 mb-1">DeskReview Mistral 2</h1>
+              <div class="text-secondary small">Upload a manuscript, reopen stored reviews, and track the OCR4 reader benchmark from this browser.</div>
             </div>
             <label class="btn btn-dark mb-0">
               <i class="bi bi-upload"></i>
@@ -25,6 +25,49 @@
             </label>
           </div>
 
+          <div id="homeStats" class="row g-3 mb-4">
+            <div class="col-6 col-xl-3">
+              <div class="border rounded bg-body-tertiary p-3 h-100">
+                <div class="small text-secondary">Stored reviews</div>
+                <div class="h5 mb-0" data-home-stat="storedReviews">-</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="border rounded bg-body-tertiary p-3 h-100">
+                <div class="small text-secondary">Stored pages</div>
+                <div class="h5 mb-0" data-home-stat="totalPages">-</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="border rounded bg-body-tertiary p-3 h-100">
+                <div class="small text-secondary">Annotated reviews</div>
+                <div class="h5 mb-0" data-home-stat="annotatedReviews">-</div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3">
+              <div class="border rounded bg-body-tertiary p-3 h-100">
+                <div class="small text-secondary">Reader target</div>
+                <div class="h5 mb-0">3-5s</div>
+              </div>
+            </div>
+          </div>
+
+          <section class="mb-4">
+            <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
+              <h2 class="h6 mb-0">Example workflows</h2>
+              <span class="small text-secondary" data-home-stat="examples">- examples</span>
+            </div>
+            <div id="exampleManuscriptList" class="row g-3">
+              <div class="col-12">
+                <div class="text-secondary small">Loading examples...</div>
+              </div>
+            </div>
+          </section>
+
+          <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
+            <h2 class="h6 mb-0">Stored desk reviews</h2>
+            <div class="small text-secondary">Private to this browser</div>
+          </div>
           <div class="card border-0 shadow-sm">
             <div class="table-responsive">
               <table class="table table-hover align-middle mb-0">

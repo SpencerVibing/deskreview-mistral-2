@@ -80,3 +80,4 @@ This project should carry forward the useful DeskReview feature set by reimpleme
 - Milestone 6 complete: guideline details slider filters, status summaries, source quotes, quote copy actions, and jump-link-ready evidence rows added with `/core/guideline-detail.js` coverage.
 - Milestone 7 complete: plugin catalog, persisted enable/disable preferences, customization modal, custom guide definitions, and panel visibility controls added with `/core/plugin-config.js` coverage.
 - Milestone 8 complete: reporting guideline catalog, background Mistral matching endpoint, matched guideline cards, match detail view, persisted match results, and unit/baseline coverage added.
+- Milestone 9 complete: homepage expanded with local stats, reader benchmark context, example workflow cards, example data loading, and `/core/home-summary.js` coverage.

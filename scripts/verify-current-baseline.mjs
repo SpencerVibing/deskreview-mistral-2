@@ -38,6 +38,8 @@ async function waitForServer(child) {
 async function main() {
   const indexHtml = await readFile('public/index.html', 'utf8');
   assert(indexHtml.includes('id="reviewLibraryBody"'), 'Home library table body is missing.');
+  assert(indexHtml.includes('id="exampleManuscriptList"'), 'Example manuscript list is missing.');
+  assert(indexHtml.includes('id="homeStats"'), 'Home stats are missing.');
   assert(indexHtml.includes('id="reader"'), 'Reader shell is missing.');
   assert(indexHtml.includes('id="tocList"'), 'ToC list is missing.');
   assert(indexHtml.includes('id="countsGrid"'), 'Counts grid is missing.');
@@ -105,6 +107,10 @@ async function main() {
     assert(reportingCore.response.status === 200, `Expected /core/reporting-guidelines.js to return 200, got ${reportingCore.response.status}.`);
     assert(reportingCore.text.includes('normalizeReportingMatches'), 'Reporting guideline core module is missing.');
 
+    const homeCore = await request('/core/home-summary.js');
+    assert(homeCore.response.status === 200, `Expected /core/home-summary.js to return 200, got ${homeCore.response.status}.`);
+    assert(homeCore.text.includes('summarizeHome'), 'Home summary core module is missing.');
+
     const essentialData = await request('/data/ease-essential-guidelines.json');
     assert(essentialData.response.status === 200, `Expected /data/ease-essential-guidelines.json to return 200, got ${essentialData.response.status}.`);
     assert(essentialData.text.includes('EASE Essentials'), 'Essential guideline data is missing.');
@@ -116,6 +122,10 @@ async function main() {
     const reportingData = await request('/data/reporting-guidelines.json');
     assert(reportingData.response.status === 200, `Expected /data/reporting-guidelines.json to return 200, got ${reportingData.response.status}.`);
     assert(reportingData.text.includes('CONSORT'), 'Reporting guideline catalog data is missing.');
+
+    const exampleData = await request('/data/example-manuscripts.json');
+    assert(exampleData.response.status === 200, `Expected /data/example-manuscripts.json to return 200, got ${exampleData.response.status}.`);
+    assert(exampleData.text.includes('medRxiv'), 'Example manuscript data is missing.');
 
     const libraryService = await request('/services/browser-library.js');
     assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);

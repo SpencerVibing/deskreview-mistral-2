@@ -1,0 +1,25 @@
+{
+  "examples": [
+    {
+      "id": "medrxiv-baseline",
+      "title": "medRxiv OCR4 baseline",
+      "description": "Performance benchmark manuscript used to protect fast OCR-to-reader readiness.",
+      "tags": ["Benchmark", "OCR4", "Jump links"],
+      "status": "Reference example"
+    },
+    {
+      "id": "humpback-whale",
+      "title": "Humpback whale source separation",
+      "description": "Stress test for Editorial Manager cover-page metadata, title de-duplication, and ToC projection.",
+      "tags": ["ToC", "Cover metadata", "PDF anchors"],
+      "status": "Local test case"
+    },
+    {
+      "id": "guideline-demo",
+      "title": "Guideline annotation demo",
+      "description": "Illustrates document annotation, Essential checks, and matched reporting-guideline cards.",
+      "tags": ["Guidelines", "Annotation", "Details"],
+      "status": "Workflow example"
+    }
+  ]
+}
