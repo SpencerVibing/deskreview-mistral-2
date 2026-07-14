@@ -220,6 +220,7 @@ const COUNT_TILE_ORDER = [
 ];
 const COUNT_TILE_ENTRANCE_MS = 1500;
 const COUNT_RESULT_GAP_MS = 3000;
+const GUIDELINE_SELECTOR_AUTO_REVEAL_MS = 1000;
 
 const els = {
   homeView: document.getElementById('homeView'),
@@ -2875,7 +2876,7 @@ function openGuidelineSelectorModal(guideId = '') {
   const id = String(guideId || '').trim();
   if (!id) return;
   window.setTimeout(() => {
-    void showGuidelineSelectorDetail(id, { revealDelayMs: 120 });
+    void showGuidelineSelectorDetail(id, { revealDelayMs: GUIDELINE_SELECTOR_AUTO_REVEAL_MS });
   }, 0);
 }
 

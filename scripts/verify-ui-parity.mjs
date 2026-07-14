@@ -288,6 +288,12 @@ async function assertGuidelineSelectorModal(page) {
 async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
   await page.click(`#reportingGuideList [data-guideline-selector-open="${guideId}"]`);
   await page.waitForSelector('#customizeChecksModal.show', { timeout: 10000 });
+  await delay(300);
+  assert.equal(
+    await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')),
+    false,
+    'Guideline detail slider should wait after the modal grid appears.'
+  );
   await page.waitForSelector('#guidelineDetailSlider.active', { timeout: 10000 });
   await assertText(page, '#guidelineDetailName', titlePattern);
   await assertText(page, '#checklist-pane', /Checklist details|Title|Abstract|intervention|training/i);
