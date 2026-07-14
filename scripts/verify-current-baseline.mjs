@@ -39,7 +39,7 @@ async function main() {
   const indexHtml = await readFile('public/index.html', 'utf8');
   assert(indexHtml.includes('id="reviewLibraryBody"'), 'Home library table body is missing.');
   assert(indexHtml.includes('id="exampleManuscriptList"'), 'Example manuscript list is missing.');
-  assert(indexHtml.includes('id="homeStats"'), 'Home stats are missing.');
+  assert(!indexHtml.includes('id="homeStats"'), 'Header home stats should not be rendered.');
   assert(indexHtml.includes('id="reader"'), 'Reader shell is missing.');
   assert(indexHtml.includes('id="tocList"'), 'ToC list is missing.');
   assert(indexHtml.includes('id="countsGrid"'), 'Counts grid is missing.');

@@ -194,7 +194,6 @@ const els = {
   reader: document.getElementById('reader'),
   homeInput: document.getElementById('homePdfInput'),
   reviewLibraryBody: document.getElementById('reviewLibraryBody'),
-  homeStats: document.getElementById('homeStats'),
   exampleManuscriptList: document.getElementById('exampleManuscriptList'),
   tocToggleButton: document.getElementById('tocToggleButton'),
   tocSplitter: document.getElementById('tocSplitter'),
