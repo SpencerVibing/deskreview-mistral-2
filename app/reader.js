@@ -1885,50 +1885,44 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   const totals = guideSummaryTotals(summary);
   const selectedStatus = guideAggregateDefaultStatus(summary);
   const selectedMeta = guideResultStatusMeta(selectedStatus);
-  const readyPercent = Math.round((totals.present / Math.max(1, totals.total)) * 100);
   const processedGuides = guides.filter((guide) => Array.isArray(guide.results) && guide.results.length).length;
   const guideCount = guides.length;
   return `
     <div class="card border shadow-sm guide-card guide-aggregate-card" data-guide-aggregate-lane="${escapeHtml(lane)}">
       <div class="card-body p-3">
+        <div class="small text-uppercase text-secondary guide-card-kicker mb-2" data-guide-aggregate-kicker>Combined results</div>
         <div class="d-flex align-items-center gap-3">
-          <div class="guide-score-donut flex-shrink-0" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(totals.present)} present, ${escapeHtml(totals.warning)} review, ${escapeHtml(totals.absent)} absent">
+          <div class="guide-score-donut flex-shrink-0" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(totals.total)} guideline items processed">
             <div class="guide-score-donut-label">
-              <span class="fw-semibold">${escapeHtml(readyPercent)}%</span>
-              <span class="text-secondary">ready</span>
+              <span class="fw-semibold">${escapeHtml(totals.total)}</span>
+              <span class="text-secondary">items</span>
             </div>
           </div>
-          <div class="min-w-0 flex-grow-1">
-            <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Combined results</div>
-            <div class="small text-secondary">
+          <div class="min-w-0 flex-grow-1 d-flex flex-column align-items-start">
+            <div class="small text-secondary mb-2" data-guide-aggregate-processed>
               <span>${escapeHtml(processedGuides)}/${escapeHtml(guideCount)} guides processed</span>
-              <span class="mx-1">·</span>
-              <span>${escapeHtml(totals.total)} items</span>
             </div>
-          </div>
-        </div>
-        <div class="d-flex align-items-center justify-content-between gap-2 mt-3">
-          <div class="small text-secondary">${escapeHtml(totals.present)} present · ${escapeHtml(totals.absent)} absent</div>
-          <div class="btn-group btn-group-sm flex-shrink-0">
-            <button type="button" class="btn border d-inline-flex align-items-center gap-2 ${escapeHtml(selectedMeta.buttonClass)}" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(selectedStatus)}">
-              <i class="bi ${escapeHtml(selectedMeta.icon)} ${escapeHtml(selectedMeta.textClass)}" aria-hidden="true"></i>
-              <span class="fw-semibold">${escapeHtml(summary[selectedStatus] || 0)}</span>
-              <span>${escapeHtml(selectedMeta.label)}</span>
-            </button>
-            <button type="button" class="btn border dropdown-toggle dropdown-toggle-split ${escapeHtml(selectedMeta.buttonClass)}" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="visually-hidden">Choose item category</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
-                <li>
-                  <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(item.key)}">
-                    <i class="bi ${escapeHtml(item.icon)} ${escapeHtml(item.textClass)}" aria-hidden="true"></i>
-                    <span>${escapeHtml(item.label)}</span>
-                    <span class="badge ${escapeHtml(item.badgeClass)} ms-auto">${escapeHtml(summary[item.key] || 0)}</span>
-                  </button>
-                </li>
-              `).join('')}
-            </ul>
+            <div class="btn-group btn-group-sm">
+              <button type="button" class="btn border d-inline-flex align-items-center gap-2 ${escapeHtml(selectedMeta.buttonClass)}" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(selectedStatus)}">
+                <i class="bi ${escapeHtml(selectedMeta.icon)} ${escapeHtml(selectedMeta.textClass)}" aria-hidden="true"></i>
+                <span class="fw-semibold">${escapeHtml(summary[selectedStatus] || 0)}</span>
+                <span>${escapeHtml(selectedMeta.label)}</span>
+              </button>
+              <button type="button" class="btn border dropdown-toggle dropdown-toggle-split ${escapeHtml(selectedMeta.buttonClass)}" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Choose item category</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
+                  <li>
+                    <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(item.key)}">
+                      <i class="bi ${escapeHtml(item.icon)} ${escapeHtml(item.textClass)}" aria-hidden="true"></i>
+                      <span>${escapeHtml(item.label)}</span>
+                      <span class="badge ${escapeHtml(item.badgeClass)} ms-auto">${escapeHtml(summary[item.key] || 0)}</span>
+                    </button>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
