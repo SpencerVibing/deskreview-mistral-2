@@ -474,6 +474,14 @@ body {
   min-height: 0;
 }
 
+/* Bootstrap tab panes display as blocks; the reader side pane needs bounded flex children so inner panes can scroll. */
+.reader-side-shell .tab-pane.active {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .guide-lane-accordion {
   --bs-accordion-bg: transparent;
   --bs-accordion-active-bg: transparent;

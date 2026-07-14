@@ -152,6 +152,18 @@ async function main() {
     await assertText(page, '#commentList', /UI parity smoke comment/i);
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-chat-comments.png'), fullPage: true });
 
+    await page.setViewportSize({ width: 1440, height: 420 });
+    await assertScrollableContainer(page, '#tocList', { requireOverflow: true });
+    await page.click('#checks-tab');
+    await assertActiveSidePaneIsFlex(page);
+    await assertScrollableContainer(page, '.counts-panel-scroll', { requireOverflow: true });
+    await page.click('#chat-tab');
+    await assertActiveSidePaneIsFlex(page);
+    await assertScrollableContainer(page, '#chat-pane .overflow-auto');
+    await page.click('#comment-tab');
+    await assertActiveSidePaneIsFlex(page);
+    await assertScrollableContainer(page, '#comment-pane .overflow-auto');
+
     assert.deepEqual(browserErrors, [], `Browser errors were emitted:\n${browserErrors.join('\n')}`);
   } finally {
     if (browser) await browser.close();
@@ -218,6 +230,40 @@ async function assertBlockActive(page, blockKey) {
   await page.waitForFunction((key) => {
     return document.querySelector(`[data-block-id="${key}"]`)?.classList.contains('active');
   }, blockKey, { timeout: 10000 });
+}
+
+async function assertActiveSidePaneIsFlex(page) {
+  const display = await page.locator('.reader-side-shell .tab-pane.active').evaluate((node) => getComputedStyle(node).display);
+  assert.equal(display, 'flex', 'Active side panel tab should use flex layout so inner content can scroll.');
+}
+
+async function assertScrollableContainer(page, selector, { requireOverflow = false } = {}) {
+  const result = await page.locator(selector).first().evaluate((node) => {
+    const before = node.scrollTop;
+    node.scrollTop = 0;
+    const style = getComputedStyle(node);
+    const canOverflow = style.overflowY === 'auto' || style.overflowY === 'scroll';
+    node.scrollTop = 120;
+    const scrolled = node.scrollTop > 0;
+    const metrics = {
+      canOverflow,
+      scrolled,
+      clientHeight: node.clientHeight,
+      scrollHeight: node.scrollHeight,
+      overflowY: style.overflowY
+    };
+    node.scrollTop = before;
+    return metrics;
+  });
+  assert.ok(result.clientHeight > 0, `${selector} should have a bounded visible height.`);
+  assert.ok(result.canOverflow, `${selector} should allow vertical scrolling, got overflow-y: ${result.overflowY}.`);
+  if (requireOverflow) {
+    assert.ok(
+      result.scrollHeight > result.clientHeight,
+      `${selector} should have content below the fold in the short viewport.`
+    );
+    assert.ok(result.scrolled, `${selector} should move when scrollTop is changed.`);
+  }
 }
 
 main().catch((error) => {
