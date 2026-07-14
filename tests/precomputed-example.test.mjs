@@ -5,7 +5,7 @@ import { adaptPrecomputedExampleSnapshot, normalizePrecomputedStatus } from '../
 assert.equal(normalizePrecomputedStatus('Present'), 'present');
 assert.equal(normalizePrecomputedStatus('Optional'), 'optional');
 assert.equal(normalizePrecomputedStatus('N/A'), 'na');
-assert.equal(normalizePrecomputedStatus('skipped'), 'na');
+assert.equal(normalizePrecomputedStatus('skipped'), 'skipped');
 
 const payload = JSON.parse(await readFile(new URL('../data/examples/precomputed/medRxivPDF.json', import.meta.url), 'utf8'));
 const adapted = adaptPrecomputedExampleSnapshot(payload);
@@ -37,7 +37,7 @@ assert.deepEqual(figureBlocks.map((block) => block.sourcePages), [[20]]);
 const abstractGuide = adapted.essentialResults.find((guide) => guide.id === 'ease-abstract-page');
 assert.ok(abstractGuide.results.length >= 10);
 assert.ok(abstractGuide.results.some((item) => item.status === 'optional'));
-assert.equal(abstractGuide.results.filter((item) => item.status === 'skipped').length, 0);
+assert.equal(abstractGuide.results.filter((item) => item.status === 'skipped').length, 2);
 assert.ok(abstractGuide.results.some((item) => item.evidenceQuotes?.[0]?.sourceBlockKey));
 
 const consort = adapted.reportingGuideResults.find((guide) => guide.id === 'consort');

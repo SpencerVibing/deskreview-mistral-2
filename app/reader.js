@@ -1717,6 +1717,7 @@ function guidelineStatusTone(status = '') {
     warning: 'warning',
     absent: 'danger',
     optional: 'info',
+    skipped: 'secondary',
     na: 'secondary',
     pending: 'secondary',
     failed: 'danger'
@@ -1725,14 +1726,28 @@ function guidelineStatusTone(status = '') {
 
 function guidelineStatusLabel(status = '') {
   return {
-    present: 'Ready',
-    warning: 'Review',
-    absent: 'Missing',
+    present: 'Present',
+    warning: 'Warning',
+    absent: 'Absent',
     optional: 'Optional',
+    skipped: 'Skipped',
     na: 'N/A',
     pending: 'Pending',
     failed: 'Failed'
   }[status] || 'Pending';
+}
+
+const GUIDE_RESULT_STATUS_FILTERS = [
+  { key: 'absent', label: 'Absent', detailLabel: 'Absent', icon: 'bi-ban', badgeClass: 'bg-danger-subtle text-danger-emphasis', textClass: 'text-danger' },
+  { key: 'warning', label: 'Warning', detailLabel: 'Warning', icon: 'bi-exclamation-triangle-fill', badgeClass: 'bg-warning-subtle text-warning-emphasis', textClass: 'text-warning-emphasis' },
+  { key: 'present', label: 'Present', detailLabel: 'Present', icon: 'bi-check-circle-fill', badgeClass: 'bg-success-subtle text-success-emphasis', textClass: 'text-success' },
+  { key: 'optional', label: 'Optional', detailLabel: 'Optional', icon: 'bi-info-circle-fill', badgeClass: 'bg-info-subtle text-info-emphasis', textClass: 'text-info-emphasis' },
+  { key: 'skipped', label: 'Skipped', detailLabel: 'Skipped', icon: 'bi-skip-forward-fill', badgeClass: 'bg-secondary-subtle text-secondary-emphasis', textClass: 'text-secondary' },
+  { key: 'na', label: 'N/A', detailLabel: 'N/A', icon: 'bi-dash-circle-fill', badgeClass: 'bg-secondary-subtle text-secondary-emphasis', textClass: 'text-secondary' }
+];
+
+function guideResultStatusMeta(status = 'absent') {
+  return GUIDE_RESULT_STATUS_FILTERS.find((item) => item.key === status) || GUIDE_RESULT_STATUS_FILTERS[0];
 }
 
 function guideSummaryTotals(summary = {}) {
@@ -1740,10 +1755,11 @@ function guideSummaryTotals(summary = {}) {
   const warning = Number(summary.warning || 0);
   const absent = Number(summary.absent || 0);
   const optional = Number(summary.optional || 0);
+  const skipped = Number(summary.skipped || 0);
   const na = Number(summary.na || 0);
   const actionable = Math.max(0, present + warning + absent);
-  const total = actionable + Math.max(0, optional) + Math.max(0, na);
-  return { present, warning, absent, optional, na, actionable, total };
+  const total = actionable + Math.max(0, optional) + Math.max(0, skipped) + Math.max(0, na);
+  return { present, warning, absent, optional, skipped, na, actionable, total };
 }
 
 function renderGuideProgress(summary = {}, status = '') {
@@ -1774,16 +1790,17 @@ function aggregateGuideSummaries(guides = []) {
       total[key] = (total[key] || 0) + Number(value || 0);
     });
     return total;
-  }, { present: 0, warning: 0, absent: 0, optional: 0, na: 0, pending: 0 });
+  }, { present: 0, warning: 0, absent: 0, optional: 0, skipped: 0, na: 0, pending: 0 });
 }
 
 function renderGuideStatusBadges(summary = {}) {
   return `
     <div class="d-flex flex-wrap gap-1 mt-2">
       <span class="badge bg-success-subtle text-success-emphasis">${escapeHtml(summary.present || 0)} present</span>
-      <span class="badge bg-warning-subtle text-warning-emphasis">${escapeHtml(summary.warning || 0)} review</span>
-      <span class="badge bg-danger-subtle text-danger-emphasis">${escapeHtml(summary.absent || 0)} missing</span>
+      <span class="badge bg-warning-subtle text-warning-emphasis">${escapeHtml(summary.warning || 0)} warning</span>
+      <span class="badge bg-danger-subtle text-danger-emphasis">${escapeHtml(summary.absent || 0)} absent</span>
       <span class="badge bg-info-subtle text-info-emphasis">${escapeHtml(summary.optional || 0)} optional</span>
+      <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.skipped || 0)} skipped</span>
       <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.na || 0)} n/a</span>
     </div>
   `;
@@ -1792,6 +1809,167 @@ function renderGuideStatusBadges(summary = {}) {
 function renderGuidelineSelectorTitle(guideId = '', label = 'Guideline') {
   const id = String(guideId || '').trim();
   return `<span class="d-inline-block small fw-semibold text-body" data-guideline-selector-open="${escapeHtml(id)}">${escapeHtml(label || 'Guideline')}</span>`;
+}
+
+function guideResultsAcrossGuides(guides = []) {
+  return guides.flatMap((guide) => (Array.isArray(guide.results) ? guide.results : []).map((item) => ({
+    ...item,
+    guideId: guide.id || '',
+    guideName: guide.name || guide.label || 'Guideline',
+    guideSourceLabel: guide.sourceLabel || ''
+  })));
+}
+
+function guideAggregateDefaultStatus(summary = {}) {
+  return ['absent', 'warning', 'present', 'optional', 'skipped', 'na'].find((status) => Number(summary[status] || 0) > 0) || 'absent';
+}
+
+function guideStatusFilterButtons(summary = {}, selectedStatus = 'all') {
+  const filters = [
+    { key: 'all', label: 'All', count: Number(summary.total || 0) },
+    ...GUIDE_RESULT_STATUS_FILTERS.map((item) => ({
+      key: item.key,
+      label: item.detailLabel,
+      count: Number(summary[item.key] || 0)
+    }))
+  ];
+  return filters.map(({ key, label, count }) => `
+    <button type="button" class="btn ${key === selectedStatus ? 'btn-dark active' : 'btn-light border'}" data-guide-detail-filter="${escapeHtml(key)}">
+      ${escapeHtml(label)} <span class="badge text-bg-light">${escapeHtml(count)}</span>
+    </button>
+  `).join('');
+}
+
+function guideDonutGradient(summary = {}) {
+  const totals = guideSummaryTotals(summary);
+  if (!totals.total) return 'var(--bs-secondary-bg-subtle) 0deg 360deg';
+  const colors = {
+    present: 'var(--bs-success-bg-subtle)',
+    warning: 'var(--bs-warning-bg-subtle)',
+    absent: 'var(--bs-danger-bg-subtle)',
+    optional: 'var(--bs-info-bg-subtle)',
+    skipped: 'var(--bs-secondary-bg-subtle)',
+    na: 'var(--bs-tertiary-bg)'
+  };
+  let cursor = 0;
+  return ['present', 'warning', 'absent', 'optional', 'skipped', 'na']
+    .map((status, index, statuses) => {
+      const count = Number(summary[status] || 0);
+      if (!count) return '';
+      const end = index === statuses.length - 1
+        ? 360
+        : Math.min(360, cursor + ((count / totals.total) * 360));
+      const segment = `${colors[status]} ${cursor.toFixed(2)}deg ${end.toFixed(2)}deg`;
+      cursor = end;
+      return segment;
+    })
+    .filter(Boolean)
+    .join(', ') || 'var(--bs-secondary-bg-subtle) 0deg 360deg';
+}
+
+function renderGuideAggregateCard({ lane = 'essential', title = 'All guideline items', guides = [] } = {}) {
+  const results = guideResultsAcrossGuides(guides);
+  if (!results.length) return '';
+  const summary = summarizeGuideResults(results);
+  const totals = guideSummaryTotals(summary);
+  const selectedStatus = guideAggregateDefaultStatus(summary);
+  const selectedMeta = guideResultStatusMeta(selectedStatus);
+  const readyPercent = Math.round((totals.present / Math.max(1, totals.total)) * 100);
+  return `
+    <div class="card border shadow-sm guide-card guide-aggregate-card" data-guide-aggregate-lane="${escapeHtml(lane)}">
+      <div class="card-body p-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="guide-score-donut flex-shrink-0" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(totals.present)} present, ${escapeHtml(totals.warning)} review, ${escapeHtml(totals.absent)} absent">
+            <div class="guide-score-donut-label">
+              <span class="fw-semibold">${escapeHtml(readyPercent)}%</span>
+              <span class="text-secondary">ready</span>
+            </div>
+          </div>
+          <div class="min-w-0 flex-grow-1">
+            <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Combined results</div>
+            <div class="small fw-semibold text-body">${escapeHtml(title)}</div>
+            <div class="d-flex flex-wrap gap-1 mt-2">
+              ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
+                <span class="badge ${item.badgeClass}">${escapeHtml(summary[item.key] || 0)} ${escapeHtml(item.label.toLowerCase())}</span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between gap-2 mt-3">
+          ${renderGuideProgress(summary, totals.absent ? 'absent' : totals.warning ? 'warning' : 'present')}
+          <div class="btn-group btn-group-sm flex-shrink-0">
+            <button type="button" class="btn btn-light border d-inline-flex align-items-center gap-2" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(selectedStatus)}">
+              <i class="bi ${escapeHtml(selectedMeta.icon)} ${escapeHtml(selectedMeta.textClass)}" aria-hidden="true"></i>
+              <span class="fw-semibold">${escapeHtml(summary[selectedStatus] || 0)}</span>
+              <span>${escapeHtml(selectedMeta.label)}</span>
+            </button>
+            <button type="button" class="btn btn-light border dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Choose item category</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
+                <li>
+                  <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(item.key)}">
+                    <i class="bi ${escapeHtml(item.icon)} ${escapeHtml(item.textClass)}" aria-hidden="true"></i>
+                    <span>${escapeHtml(item.label)}</span>
+                    <span class="badge ${escapeHtml(item.badgeClass)} ms-auto">${escapeHtml(summary[item.key] || 0)}</span>
+                  </button>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function guideResultsForLane(lane = '') {
+  if (lane === 'essential') {
+    updateEssentialResults();
+    return state.essentialResults;
+  }
+  if (lane === 'matched') return state.reportingGuideResults;
+  return [];
+}
+
+function renderGuideResultDetailCards(results = [], selectedStatus = 'all', { showGuideName = false } = {}) {
+  return results.map((item) => {
+    const tone = guidelineStatusTone(item.status);
+    const hidden = selectedStatus !== 'all' && item.status !== selectedStatus ? ' d-none' : '';
+    return `
+      <div class="detail-card${hidden}" data-guide-result-status="${escapeHtml(item.status)}">
+        <div class="detail-card-title">
+          <span>${escapeHtml(item.label || item.id)}</span>
+          <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
+        </div>
+        ${showGuideName ? `<div class="small text-uppercase text-secondary guide-card-kicker mb-2">${escapeHtml(item.guideName || 'Guideline')}</div>` : ''}
+        ${item.section ? `<div class="small text-uppercase text-secondary guide-card-kicker mb-2">${escapeHtml(item.section)}</div>` : ''}
+        <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
+        <div class="small mb-2">${escapeHtml(item.message || '')}</div>
+        ${renderGuideEvidenceQuotes(item)}
+      </div>
+    `;
+  }).join('');
+}
+
+function renderAggregateGuideDetails(lane = '', status = 'absent') {
+  const guides = guideResultsForLane(lane);
+  const results = guideResultsAcrossGuides(guides);
+  if (!results.length) return;
+  const selectedStatus = status === 'all' ? 'all' : (GUIDE_RESULT_STATUS_FILTERS.some((item) => item.key === status) ? status : 'absent');
+  state.activeGuideFilter = selectedStatus;
+  const summary = summarizeGuideResults(results);
+  const title = lane === 'matched' ? 'All matched guideline items' : 'All Essential guideline items';
+  openDetails(lane === 'matched' ? 'reporting-guidelines' : 'essential-guidelines', `
+    <div class="small text-secondary mb-3">${escapeHtml(title)} grouped by result classification.</div>
+    <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
+      ${guideStatusFilterButtons(summary, selectedStatus)}
+    </div>
+    <div class="vstack gap-2" data-guide-results>
+      ${renderGuideResultDetailCards(results, selectedStatus, { showGuideName: true })}
+    </div>
+  `);
 }
 
 function updateEssentialResults() {
@@ -1835,7 +2013,12 @@ function renderEssentialGuidelines() {
   if (els.essentialLaneProgress) {
     els.essentialLaneProgress.innerHTML = renderGuideProgress(aggregate, aggregateStatus);
   }
-  els.essentialGuideList.innerHTML = state.essentialResults.map((guide) => {
+  const aggregateCard = renderGuideAggregateCard({
+    lane: 'essential',
+    title: 'All Essential guideline items',
+    guides: state.essentialResults
+  });
+  const guideCards = state.essentialResults.map((guide) => {
     const tone = guidelineStatusTone(guide.status);
     const summary = guide.summary || {};
     return `
@@ -1845,7 +2028,6 @@ function renderEssentialGuidelines() {
             <div class="min-w-0">
               <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Essential')}</div>
               <div>${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
-              <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
             </div>
             <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
           </div>
@@ -1855,6 +2037,7 @@ function renderEssentialGuidelines() {
       </button>
     `;
   }).join('');
+  els.essentialGuideList.innerHTML = `${aggregateCard}${guideCards}`;
   renderCustomGuidelines();
 }
 
@@ -1891,40 +2074,14 @@ function renderEssentialGuideDetails(guideId = '') {
   if (!guide) return;
   state.activeGuideFilter = 'all';
   const summary = summarizeGuideResults(guide.results);
-  const filters = [
-    ['all', 'All', summary.total],
-    ['present', 'Present', summary.present],
-    ['warning', 'Review', summary.warning],
-    ['absent', 'Missing', summary.absent],
-    ['optional', 'Optional', summary.optional],
-    ['na', 'N/A', summary.na]
-  ];
-  const visibleResults = filterGuideResults(guide.results, 'all');
+  const results = filterGuideResults(guide.results, 'all');
   openDetails('essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
     <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
-      ${filters.map(([status, label, count]) => `
-        <button type="button" class="btn ${status === 'all' ? 'btn-dark active' : 'btn-light border'}" data-guide-detail-filter="${escapeHtml(status)}">
-          ${escapeHtml(label)} <span class="badge text-bg-light">${escapeHtml(count)}</span>
-        </button>
-      `).join('')}
+      ${guideStatusFilterButtons(summary, 'all')}
     </div>
     <div class="vstack gap-2" data-guide-results>
-    ${visibleResults.map((item) => {
-      const tone = guidelineStatusTone(item.status);
-      const clickable = item.sourceBlockKey ? ' detail-clickable' : '';
-      return `
-        <div class="detail-card" data-guide-result-status="${escapeHtml(item.status)}">
-          <div class="detail-card-title">
-            <span>${escapeHtml(item.label || item.id)}</span>
-            <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
-          </div>
-          <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
-          <div class="small mb-2">${escapeHtml(item.message || '')}</div>
-          ${renderGuideEvidenceQuotes(item)}
-        </div>
-      `;
-    }).join('')}
+      ${renderGuideResultDetailCards(results)}
     </div>
   `);
 }
@@ -1957,14 +2114,18 @@ function renderReportingGuidelines() {
     if (els.matchedLaneProgress) {
       els.matchedLaneProgress.innerHTML = renderGuideProgress(aggregate, aggregateStatus);
     }
-    els.reportingGuideList.innerHTML = state.reportingGuideResults.map((guide) => `
+    const aggregateCard = renderGuideAggregateCard({
+      lane: 'matched',
+      title: 'All matched guideline items',
+      guides: state.reportingGuideResults
+    });
+    const guideCards = state.reportingGuideResults.map((guide) => `
       <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-reporting-guide-id="${escapeHtml(guide.id)}">
         <div class="card-body p-3">
           <div class="d-flex align-items-start justify-content-between gap-2">
             <div class="min-w-0">
               <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Matched guideline')}</div>
               <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
-              <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
             </div>
             <span class="badge text-bg-${guidelineStatusTone(guide.status)}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
           </div>
@@ -1973,6 +2134,7 @@ function renderReportingGuidelines() {
         </div>
       </button>
     `).join('');
+    els.reportingGuideList.innerHTML = `${aggregateCard}${guideCards}`;
     return;
   }
   if (!state.reportingGuidelineCatalog.length) {
@@ -2276,40 +2438,14 @@ function renderReportingGuideResultDetails(guideId = '') {
   if (!guide) return;
   state.activeGuideFilter = 'all';
   const summary = summarizeGuideResults(guide.results);
-  const filters = [
-    ['all', 'All', summary.total],
-    ['present', 'Present', summary.present],
-    ['warning', 'Review', summary.warning],
-    ['absent', 'Missing', summary.absent],
-    ['optional', 'Optional', summary.optional],
-    ['na', 'N/A', summary.na]
-  ];
-  const visibleResults = filterGuideResults(guide.results, 'all');
+  const results = filterGuideResults(guide.results, 'all');
   openDetails('reporting-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
     <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
-      ${filters.map(([status, label, count]) => `
-        <button type="button" class="btn ${status === 'all' ? 'btn-dark active' : 'btn-light border'}" data-guide-detail-filter="${escapeHtml(status)}">
-          ${escapeHtml(label)} <span class="badge text-bg-light">${escapeHtml(count)}</span>
-        </button>
-      `).join('')}
+      ${guideStatusFilterButtons(summary, 'all')}
     </div>
     <div class="vstack gap-2" data-guide-results>
-      ${visibleResults.map((item) => {
-        const tone = guidelineStatusTone(item.status);
-        return `
-          <div class="detail-card" data-guide-result-status="${escapeHtml(item.status)}">
-            <div class="detail-card-title">
-              <span>${escapeHtml(item.label || item.id)}</span>
-              <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
-            </div>
-            ${item.section ? `<div class="small text-uppercase text-secondary guide-card-kicker mb-2">${escapeHtml(item.section)}</div>` : ''}
-            <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
-            <div class="small mb-2">${escapeHtml(item.message || '')}</div>
-            ${renderGuideEvidenceQuotes(item)}
-          </div>
-        `;
-      }).join('')}
+      ${renderGuideResultDetailCards(results)}
     </div>
   `);
 }
@@ -2886,6 +3022,18 @@ function handleGuidelineSelectorTitleClick(event) {
   event.preventDefault();
   event.stopPropagation();
   openGuidelineSelectorModal(trigger.getAttribute('data-guideline-selector-open') || '');
+  return true;
+}
+
+function handleGuideAggregateClick(event) {
+  const trigger = event.target.closest('[data-guide-aggregate-open]');
+  if (!trigger) return false;
+  event.preventDefault();
+  event.stopPropagation();
+  renderAggregateGuideDetails(
+    trigger.getAttribute('data-guide-aggregate-open') || '',
+    trigger.getAttribute('data-guide-aggregate-status') || 'absent'
+  );
   return true;
 }
 
@@ -5502,6 +5650,7 @@ els.countsGrid.addEventListener('click', (event) => {
 });
 
 els.essentialGuideList?.addEventListener('click', (event) => {
+  if (handleGuideAggregateClick(event)) return;
   if (handleGuidelineSelectorTitleClick(event)) return;
   const button = event.target.closest('[data-essential-guide-id]');
   if (!button) return;
@@ -5509,6 +5658,7 @@ els.essentialGuideList?.addEventListener('click', (event) => {
 });
 
 els.reportingGuideList?.addEventListener('click', (event) => {
+  if (handleGuideAggregateClick(event)) return;
   if (handleGuidelineSelectorTitleClick(event)) return;
   const guideButton = event.target.closest('[data-reporting-guide-id]');
   if (guideButton) {

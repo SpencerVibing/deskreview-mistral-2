@@ -226,7 +226,8 @@ export function normalizePrecomputedStatus(value = '') {
   if (['warning', 'partial', 'unclear', 'maybe'].includes(normalized)) return 'warning';
   if (['absent', 'no', 'missing'].includes(normalized)) return 'absent';
   if (['optional', 'encouraged'].includes(normalized)) return 'optional';
-  if (['n/a', 'na', 'not applicable', 'skipped'].includes(normalized)) return 'na';
+  if (normalized === 'skipped') return 'skipped';
+  if (['n/a', 'na', 'not applicable'].includes(normalized)) return 'na';
   if (['pending', 'running'].includes(normalized)) return 'pending';
   return normalized || 'warning';
 }
@@ -236,7 +237,7 @@ function guideSummary(results = []) {
     const status = normalizePrecomputedStatus(item.status);
     summary[status] = (summary[status] || 0) + 1;
     return summary;
-  }, { present: 0, warning: 0, absent: 0, optional: 0, na: 0, pending: 0 });
+  }, { present: 0, warning: 0, absent: 0, optional: 0, skipped: 0, na: 0, pending: 0 });
 }
 
 function guideStatus(summary = {}) {

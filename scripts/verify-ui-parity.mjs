@@ -105,6 +105,13 @@ async function main() {
     await assertText(page, '#essentialGuideList', /Abstract page/i);
     await assertText(page, '#essentialGuideList', /IMRaD structure/i);
     await assertText(page, '#essentialGuideList', /Declarations/i);
+    await assertGuideAggregateCard(page, {
+      rootSelector: '#essentialGuideList [data-guide-aggregate-lane="essential"]',
+      status: 'skipped',
+      titlePattern: /All Essential guideline items/i
+    });
+    const essentialListText = await page.locator('#essentialGuideList').innerText();
+    assert.doesNotMatch(essentialListText, /Guidelines developed by the European Association of Science Editors/i);
     await page.click('#essentialGuideList [data-essential-guide-id="ease-abstract-page"]');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /Optional/i);
@@ -122,6 +129,13 @@ async function main() {
     await assertText(page, '#reportingGuideList', /SAMPL/i);
     await assertText(page, '#reportingGuideList', /TIDieR/i);
     await assertText(page, '#reportingGuideList', /ICMJE Recommendations/i);
+    await assertGuideAggregateCard(page, {
+      rootSelector: '#reportingGuideList [data-guide-aggregate-lane="matched"]',
+      status: 'absent',
+      titlePattern: /All matched guideline items/i
+    });
+    const reportingListText = await page.locator('#reportingGuideList').innerText();
+    assert.doesNotMatch(reportingListText, /randomized trials/i);
     await assertGuidelineTitleOpensSelector(page, 'cert', /CERT/i);
     await page.click('#reportingGuideList [data-reporting-guide-id="consort"]');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
@@ -283,6 +297,20 @@ async function assertGuidelineSelectorModal(page) {
     await page.locator('#customizeChecksModal .btn-close').click();
     await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 });
   });
+}
+
+async function assertGuideAggregateCard(page, { rootSelector, status, titlePattern }) {
+  await assertVisible(page, rootSelector);
+  await assertText(page, rootSelector, /Combined results/i);
+  await assertText(page, rootSelector, titlePattern);
+  await assertText(page, rootSelector, /Present/i);
+  await assertText(page, rootSelector, /Absent/i);
+  await page.click(`${rootSelector} .dropdown-toggle`);
+  await page.click(`${rootSelector} .dropdown-menu.show [data-guide-aggregate-status="${status}"]`);
+  await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
+  await assertText(page, '#detailsPanel', titlePattern);
+  await waitForVisibleGuideResult(page, status);
+  await page.click('#detailsPanelClose');
 }
 
 async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {

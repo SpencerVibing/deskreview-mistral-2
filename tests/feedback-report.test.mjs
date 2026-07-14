@@ -10,6 +10,7 @@ assert.deepEqual(summarizeStatuses([{ status: 'present' }, { status: 'warning' }
   warning: 1,
   absent: 0,
   optional: 0,
+  skipped: 0,
   na: 0,
   pending: 0
 });

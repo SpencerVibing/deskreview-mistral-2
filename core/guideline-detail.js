@@ -8,7 +8,7 @@ export function summarizeGuideResults(results = []) {
     summary[status] = (summary[status] || 0) + 1;
     summary.total += 1;
     return summary;
-  }, { total: 0, present: 0, warning: 0, absent: 0, optional: 0, na: 0, pending: 0 });
+  }, { total: 0, present: 0, warning: 0, absent: 0, optional: 0, skipped: 0, na: 0, pending: 0 });
 }
 
 export function filterGuideResults(results = [], status = 'all') {
