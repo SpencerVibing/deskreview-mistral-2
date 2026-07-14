@@ -18,6 +18,22 @@ assert.equal(adapted.semanticCounts.referenceCount, 22);
 assert.ok(adapted.pages.length >= 20);
 assert.ok(adapted.documentAnnotation.quoteAnchors.length > 5);
 
+const precomputedBlocks = adapted.pages.flatMap((page) => page.blocks || []);
+const titleBlock = precomputedBlocks.find((block) => block.precomputedKey === 'title');
+assert.ok(titleBlock);
+assert.match(
+  titleBlock.markdown,
+  /^# Combined Exercise Training vs Health Education for Older Adults with Hypertension: The HAEL Randomized Clinical Trial/m
+);
+assert.doesNotMatch(titleBlock.markdown, /^# Title page/m);
+
+const tableBlocks = precomputedBlocks.filter((block) => block.type === 'table');
+const figureBlocks = precomputedBlocks.filter((block) => block.type === 'figure');
+assert.equal(tableBlocks.length, 3);
+assert.equal(figureBlocks.length, 1);
+assert.deepEqual(tableBlocks.map((block) => block.sourcePages), [[21], [22], [23, 24]]);
+assert.deepEqual(figureBlocks.map((block) => block.sourcePages), [[20]]);
+
 const abstractGuide = adapted.essentialResults.find((guide) => guide.id === 'ease-abstract-page');
 assert.ok(abstractGuide.results.length >= 10);
 assert.ok(abstractGuide.results.some((item) => item.status === 'optional'));

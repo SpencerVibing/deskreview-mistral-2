@@ -54,6 +54,7 @@ function addBlock(pages, sourceBlocks, pageNumberValue, markdown, meta = {}) {
   const block = {
     type: meta.type || 'text',
     markdown: text(markdown),
+    sourcePages: array(meta.sourcePages).map(number).filter(Boolean),
     precomputedLabel: text(meta.label),
     precomputedKey: text(meta.key)
   };
@@ -75,6 +76,52 @@ function sectionMarkdown(label = '', value = '') {
   return `${markdownHeading(1, label)}${body ? `\n\n${body}` : ''}`;
 }
 
+function candidateTitle(snapshot = {}, titleText = '') {
+  const normalizedTitleText = normalizeLookup(titleText);
+  const candidates = [
+    snapshot.openAlexSimilarAbstracts?.input?.title,
+    snapshot.semanticScholarSimilarAbstracts?.input?.title,
+    snapshot.openAlexSimilarAbstracts?.results?.[0]?.title,
+    snapshot.openAlexAuthors?.authors?.[0]?.openAlexCandidate?.recentWorks?.[0]?.title
+  ].map(text).filter(Boolean);
+  return candidates.find((candidate) => normalizedTitleText.includes(normalizeLookup(candidate))) || '';
+}
+
+function titleHeading(snapshot = {}, section = {}) {
+  const titleText = text(section.text);
+  const lines = titleText.split(/\r?\n/).map(text).filter(Boolean);
+  const fromSnapshot = candidateTitle(snapshot, titleText);
+  if (fromSnapshot) return fromSnapshot;
+  if (lines.length > 1 && /^[a-z(]/.test(lines[1])) return `${lines[0]} ${lines[1]}`;
+  return lines[0] || text(section.startQuote) || text(section.label) || 'Title';
+}
+
+function withoutLeadingTitle(value = '', title = '') {
+  const lines = text(value).split(/\r?\n/).map(text).filter(Boolean);
+  const titleKey = normalizeLookup(title);
+  if (!lines.length || !titleKey) return text(value);
+  const consumed = [];
+  for (let index = 0; index < Math.min(8, lines.length); index += 1) {
+    consumed.push(lines[index]);
+    const candidateKey = normalizeLookup(consumed.join(' '));
+    if (candidateKey === titleKey || candidateKey.startsWith(titleKey)) {
+      return lines.slice(index + 1).join('\n');
+    }
+    if (!titleKey.startsWith(candidateKey)) break;
+  }
+  return text(value);
+}
+
+function displayItemMarkdown(item = {}, label = '') {
+  const title = text(item.title);
+  const caption = text(item.captionQuote || item.rawText);
+  const lines = [
+    title && normalizeLookup(title) !== normalizeLookup(label) ? `**${title}**` : '',
+    caption && normalizeLookup(caption) !== normalizeLookup(`${label} ${title}`) ? caption : ''
+  ].filter(Boolean);
+  return `${markdownHeading(2, label)}${lines.length ? `\n\n${lines.join('\n\n')}` : ''}`;
+}
+
 function buildSourcePages(snapshot = {}) {
   const documentMap = snapshot.documentMap || {};
   const pages = [];
@@ -92,29 +139,38 @@ function buildSourcePages(snapshot = {}) {
   ];
   sections.forEach(([key, fallbackLabel, section]) => {
     if (!section || typeof section !== 'object') return;
-    const label = text(section.label) || fallbackLabel;
-    const markdown = sectionMarkdown(label, section.text || [section.startQuote, section.endQuote].filter(Boolean).join('\n\n'));
+    const label = key === 'title' ? titleHeading(snapshot, section) : text(section.label) || fallbackLabel;
+    const sourceLabel = text(section.label) || fallbackLabel;
+    const sectionBody = key === 'title'
+      ? withoutLeadingTitle(section.text || '', label)
+      : section.text || [section.startQuote, section.endQuote].filter(Boolean).join('\n\n');
+    const markdown = sectionMarkdown(label, sectionBody);
     if (!text(markdown).replace(/^#+\s+\S+/, '').trim()) return;
-    addBlock(pages, sourceBlocks, firstPage(section), markdown, { key, label, sectionHint: label });
+    addBlock(pages, sourceBlocks, firstPage(section), markdown, {
+      key,
+      label: sourceLabel,
+      sectionHint: label,
+      sourcePages: sectionPages(section)
+    });
   });
   array(documentMap.figures).forEach((figure, index) => {
     const label = text(figure.label) || `Figure ${index + 1}`;
-    const caption = [label, figure.title, figure.captionQuote].map(text).filter(Boolean).join('\n\n');
-    addBlock(pages, sourceBlocks, firstPage(figure, 1), sectionMarkdown(label, caption), {
+    addBlock(pages, sourceBlocks, firstPage(figure, 1), displayItemMarkdown(figure, label), {
       key: `figure-${index + 1}`,
       label,
       sectionHint: 'figures',
-      type: 'figure'
+      type: 'figure',
+      sourcePages: sectionPages(figure)
     });
   });
   array(documentMap.tables).forEach((table, index) => {
     const label = text(table.label) || `Table ${index + 1}`;
-    const caption = [label, table.title, table.captionQuote].map(text).filter(Boolean).join('\n\n');
-    addBlock(pages, sourceBlocks, firstPage(table, 1), sectionMarkdown(label, caption), {
+    addBlock(pages, sourceBlocks, firstPage(table, 1), displayItemMarkdown(table, label), {
       key: `table-${index + 1}`,
       label,
       sectionHint: 'tables',
-      type: 'table'
+      type: 'table',
+      sourcePages: sectionPages(table)
     });
   });
   const maxPage = Math.max(

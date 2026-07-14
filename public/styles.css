@@ -926,21 +926,21 @@ body {
 
 .ocr-block h1 {
   margin: 0.25rem 0 1.35rem;
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-size: 1.42rem;
   font-weight: 650;
 }
 
 .ocr-block h2 {
-  margin-top: 2rem;
+  margin-top: 1.65rem;
   padding-top: 0.35rem;
   border-top: 1px solid #e5e7eb;
-  font-size: 1.45rem;
+  font-size: 1.2rem;
   font-weight: 650;
 }
 
 .ocr-block h3 {
-  margin-top: 1.55rem;
-  font-size: 1.18rem;
+  margin-top: 1.35rem;
+  font-size: 1.08rem;
   font-weight: 650;
 }
 
@@ -981,6 +981,13 @@ body {
   border: 1px solid #d4d4d8;
   border-radius: 0.375rem;
   background: #fff;
+}
+
+/* PDF-rendered display-item previews need canvas sizing outside Bootstrap utilities. */
+.pdf-source-preview-canvas canvas {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .empty-state {

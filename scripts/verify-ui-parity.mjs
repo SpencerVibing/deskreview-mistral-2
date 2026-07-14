@@ -89,9 +89,16 @@ async function main() {
     await assertCountTile(page, 'references', /22\s+refs/i);
     await assertCountTile(page, 'tables', /3\s+tables/i);
     await assertCountTile(page, 'figures', /1\s+figures/i);
+    await assertReaderUiRegressionFixes(page);
     await assertChecksAccordion(page);
     await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
+    await page.waitForFunction(() => {
+      return document.querySelectorAll('#htmlDocument [data-pdf-page-preview] canvas').length >= 4;
+    }, null, { timeout: 20000 });
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reader-checks.png'), fullPage: true });
+    await page.click('#htmlTab');
+    await page.screenshot({ path: join(OUT_DIR, 'medrxiv-html-manuscript.png'), fullPage: true });
+    await page.click('#pdfTab');
 
     await openAccordion(page, '#essentialGuidelinesHeading button', '#essentialGuidelinesPanel');
     await assertText(page, '#essentialGuideList', /Abstract page/i);
@@ -212,6 +219,25 @@ async function assertChecksAccordion(page) {
   await assertPanelState(page, '#reportingQualityPanel', false);
   await page.click('#reportingQualityHeading [data-bs-toggle="collapse"]');
   await assertPanelState(page, '#reportingQualityPanel', true);
+}
+
+async function assertReaderUiRegressionFixes(page) {
+  assert.equal(await page.locator('#openGuidelineCatalogButton').count(), 0, 'Guideline catalog kebab button should be removed.');
+  const guideBarClasses = await page.locator('.guide-progress-mini .progress-bar').evaluateAll((nodes) => nodes.map((node) => node.className));
+  assert.ok(guideBarClasses.length > 0, 'Guideline mini progress bars should render.');
+  assert.ok(
+    guideBarClasses.every((className) => /bg-\w+-subtle/.test(className)),
+    `Guideline mini progress bars should use subtle colors: ${guideBarClasses.join(', ')}`
+  );
+  const firstHeading = await page.locator('#htmlDocument .ocr-block h1').first().innerText();
+  assert.match(firstHeading, /Combined Exercise Training vs Health Education for Older Adults with Hypertension/i);
+  assert.doesNotMatch(firstHeading, /Title page/i);
+  const firstHeadingSize = await page.locator('#htmlDocument .ocr-block h1').first().evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
+  const paragraphSize = await page.locator('#htmlDocument .ocr-block p').first().evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
+  assert.ok(firstHeadingSize <= paragraphSize * 1.55, `HTML manuscript heading is too large: ${firstHeadingSize}px vs ${paragraphSize}px.`);
+  assert.equal(await page.locator('#htmlDocument [data-block-type="table"]').count(), 3, 'HTML manuscript should render three table blocks.');
+  assert.equal(await page.locator('#htmlDocument [data-block-type="figure"]').count(), 1, 'HTML manuscript should render one figure block.');
+  assert.ok(await page.locator('#htmlDocument [data-pdf-page-preview]').count() >= 4, 'Display-item source page previews should render.');
 }
 
 async function assertPanelState(page, selector, expectedOpen) {

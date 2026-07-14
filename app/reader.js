@@ -58,6 +58,7 @@ const state = {
   pdfDoc: null,
   zoom: 1,
   pdfResizeTimer: 0,
+  pdfPreviewToken: 0,
   pages: [],
   pageViews: new Map(),
   blockTargets: new Map(),
@@ -1191,6 +1192,48 @@ async function renderPdfDocument() {
   }
 }
 
+async function renderPdfPagePreviews() {
+  const nodes = [...els.htmlDocument.querySelectorAll('[data-pdf-page-preview]')]
+    .filter((node) => node.dataset.pdfPreviewRendered !== 'true');
+  if (!state.pdfDoc || !nodes.length) return;
+  const token = state.pdfPreviewToken + 1;
+  state.pdfPreviewToken = token;
+  for (const node of nodes) {
+    if (token !== state.pdfPreviewToken || !node.isConnected) return;
+    const sourcePage = Number(node.dataset.pdfPagePreview || 0);
+    if (!Number.isFinite(sourcePage) || sourcePage < 1 || sourcePage > Number(state.pdfDoc.numPages || 0)) {
+      node.innerHTML = '<div class="small text-secondary p-3">Source page preview unavailable.</div>';
+      node.dataset.pdfPreviewRendered = 'true';
+      continue;
+    }
+    try {
+      const pdfPage = await state.pdfDoc.getPage(sourcePage);
+      if (token !== state.pdfPreviewToken || !node.isConnected) return;
+      const baseViewport = pdfPage.getViewport({ scale: 1 });
+      const width = Math.max(280, Math.min(620, node.clientWidth || 520));
+      const viewport = pdfPage.getViewport({ scale: width / baseViewport.width });
+      const canvas = document.createElement('canvas');
+      const outputScale = Math.max(1, window.devicePixelRatio || 1);
+      canvas.width = Math.floor(viewport.width * outputScale);
+      canvas.height = Math.floor(viewport.height * outputScale);
+      canvas.style.width = `${Math.floor(viewport.width)}px`;
+      canvas.style.height = `${Math.floor(viewport.height)}px`;
+      await pdfPage.render({
+        canvasContext: canvas.getContext('2d'),
+        viewport,
+        transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null
+      }).promise;
+      if (token !== state.pdfPreviewToken || !node.isConnected) return;
+      node.replaceChildren(canvas);
+      node.dataset.pdfPreviewRendered = 'true';
+    } catch (error) {
+      console.warn('[deskreview-mistral-2] PDF source preview failed', error);
+      node.innerHTML = '<div class="small text-secondary p-3">Source page preview unavailable.</div>';
+      node.dataset.pdfPreviewRendered = 'true';
+    }
+  }
+}
+
 function clearPdfBlockRegions() {
   document.querySelectorAll('.pdf-region').forEach((node) => node.remove());
 }
@@ -1263,6 +1306,40 @@ function renderAssetMarkdown(line = '', page = {}) {
   return '';
 }
 
+function blockSourcePages(block = {}) {
+  const values = [
+    ...(Array.isArray(block.sourcePages) ? block.sourcePages : []),
+    ...(Array.isArray(block.pages) ? block.pages : []),
+    block.sourcePage,
+    block.sourcePageNumber,
+    block.pdfPage
+  ];
+  return [...new Set(values.map((value) => Number(value)).filter((value) => Number.isFinite(value) && value > 0))];
+}
+
+function renderPdfSourcePreviews(block = {}, page = {}) {
+  const type = blockType(block);
+  if (type !== 'table' && type !== 'figure') return '';
+  const pages = blockSourcePages(block);
+  if (!pages.length) return '';
+  const label = block.precomputedLabel || block.label || (type === 'figure' ? 'Figure' : 'Table');
+  return `
+    <div class="d-grid gap-3 my-3" data-display-source-previews="${escapeHtml(type)}">
+      ${pages.map((sourcePage) => `
+        <figure class="pdf-source-preview border rounded bg-light-subtle overflow-hidden mb-0">
+          <div class="pdf-source-preview-canvas p-2" data-pdf-page-preview="${escapeHtml(sourcePage)}" data-pdf-preview-label="${escapeHtml(label)}">
+            <div class="d-flex align-items-center gap-2 small text-secondary p-3">
+              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <span>Loading source page ${escapeHtml(sourcePage)}</span>
+            </div>
+          </div>
+          <figcaption class="small text-secondary border-top px-3 py-2">Source PDF page ${escapeHtml(sourcePage)}</figcaption>
+        </figure>
+      `).join('')}
+    </div>
+  `;
+}
+
 function markdownToHtml(markdown = '', page = {}) {
   const lines = String(markdown || '').split(/\r?\n/);
   const html = [];
@@ -1318,8 +1395,8 @@ function renderBlockContent(block = {}, page = {}) {
   const html = String(block.html || block.table_html || block.tableHtml || (
     /^<(table|figure|img)\b/i.test(content) ? content : ''
   )).trim();
-  if (html) return `<div class="table-responsive">${sanitizeMistralHtml(html)}</div>`;
-  return markdownToHtml(content, page);
+  const body = html ? `<div class="table-responsive">${sanitizeMistralHtml(html)}</div>` : markdownToHtml(content, page);
+  return `${body}${renderPdfSourcePreviews(block, page)}`;
 }
 
 function registerBlockTarget(key = '', page = {}, block = {}, blockIndex = 0) {
@@ -1643,7 +1720,7 @@ function renderGuideProgress(summary = {}, status = '') {
   if (status === 'pending') {
     return `
       <div class="progress guide-progress-mini rounded-pill" role="progressbar" aria-label="Pending guideline analysis">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="width: 100%;"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary-subtle" style="width: 100%;"></div>
       </div>
     `;
   }
@@ -1654,9 +1731,9 @@ function renderGuideProgress(summary = {}, status = '') {
   const absentWidth = Math.max(0, 100 - presentWidth - warningWidth);
   return `
     <div class="progress guide-progress-mini rounded-pill" role="progressbar" aria-label="${escapeHtml(totals.present)} present, ${escapeHtml(totals.warning)} review, ${escapeHtml(totals.absent)} missing">
-      <div class="progress-bar bg-success" style="width: ${escapeHtml(presentWidth)}%;"></div>
-      <div class="progress-bar bg-warning" style="width: ${escapeHtml(warningWidth)}%;"></div>
-      <div class="progress-bar bg-danger" style="width: ${escapeHtml(absentWidth)}%;"></div>
+      <div class="progress-bar bg-success-subtle" style="width: ${escapeHtml(presentWidth)}%;"></div>
+      <div class="progress-bar bg-warning-subtle" style="width: ${escapeHtml(warningWidth)}%;"></div>
+      <div class="progress-bar bg-danger-subtle" style="width: ${escapeHtml(absentWidth)}%;"></div>
     </div>
   `;
 }
@@ -1931,7 +2008,7 @@ function renderReportingGuidelines() {
             <span class="badge text-bg-primary">${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%</span>
           </div>
           <div class="progress mt-3 rounded-pill" role="progressbar" aria-label="${escapeHtml(match.label)} confidence" aria-valuenow="${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-primary" style="width: ${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%;"></div>
+            <div class="progress-bar bg-primary-subtle" style="width: ${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%;"></div>
           </div>
           ${match.anchorQuote ? `<div class="small text-secondary mt-2 text-truncate">${escapeHtml(match.anchorQuote)}</div>` : ''}
         </div>
@@ -4341,6 +4418,7 @@ function resetReaderState(file = null) {
   clearCheckRevealTimers();
   state.file = file;
   state.startedAt = performance.now();
+  state.pdfPreviewToken += 1;
   state.pages = [];
   state.blockTargets.clear();
   state.tocEntries = [];
@@ -4564,6 +4642,7 @@ async function renderReviewFromRecord(review = {}) {
   markRuntime('PDF rendered from library', {
     pages: Number(state.pdfDoc?.numPages || 0)
   });
+  await renderPdfPagePreviews();
   renderAllRegions();
 }
 
@@ -4619,6 +4698,7 @@ async function handleFile(file = null) {
   markRuntime('PDF rendered', {
     pages: Number(state.pdfDoc?.numPages || 0)
   });
+  await renderPdfPagePreviews();
   renderAllRegions();
 }
 
