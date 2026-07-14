@@ -34,3 +34,7 @@ export function resolveDisplayItems(displayItems = [], bodyBlocks = []) {
 export function annotateDocument(payload = {}) {
   return postJson('/api/annotate-document', payload);
 }
+
+export function matchReportingGuidelines(payload = {}) {
+  return postJson('/api/match-guidelines', payload);
+}

@@ -1,0 +1,34 @@
+{
+  "guidelines": [
+    {
+      "id": "consort",
+      "label": "CONSORT",
+      "description": "Randomized trial reporting guideline.",
+      "keywords": ["randomized", "randomised", "trial", "allocation", "intervention"]
+    },
+    {
+      "id": "strobe",
+      "label": "STROBE",
+      "description": "Observational study reporting guideline.",
+      "keywords": ["cohort", "case-control", "cross-sectional", "observational", "epidemiology"]
+    },
+    {
+      "id": "prisma",
+      "label": "PRISMA",
+      "description": "Systematic review and meta-analysis reporting guideline.",
+      "keywords": ["systematic review", "meta-analysis", "database search", "screening"]
+    },
+    {
+      "id": "care",
+      "label": "CARE",
+      "description": "Case report reporting guideline.",
+      "keywords": ["case report", "case presentation", "patient case"]
+    },
+    {
+      "id": "stard",
+      "label": "STARD",
+      "description": "Diagnostic accuracy study reporting guideline.",
+      "keywords": ["diagnostic accuracy", "sensitivity", "specificity", "index test"]
+    }
+  ]
+}

@@ -10,6 +10,10 @@ import {
   summarizeGuideResults
 } from '/core/guideline-detail.js';
 import {
+  buildGuidelineMatchRequest,
+  normalizeReportingMatches
+} from '/core/reporting-guidelines.js';
+import {
   addCustomGuide,
   normalizePluginPreferences,
   pluginIsEnabled,
@@ -23,7 +27,7 @@ import {
   listStoredReviews,
   putStoredReview
 } from '/services/browser-library.js';
-import { loadEssentialGuides } from '/services/guideline-data.js';
+import { loadEssentialGuides, loadReportingGuidelines } from '/services/guideline-data.js';
 import {
   loadPluginCatalog,
   loadPluginPreferences,
@@ -31,6 +35,7 @@ import {
 } from '/services/plugin-preferences.js';
 import {
   annotateDocument,
+  matchReportingGuidelines,
   requestOcr,
   resolveCounts,
   resolveDisplayItems,
@@ -120,6 +125,13 @@ const state = {
   activeGuideFilter: 'all',
   pluginCatalog: [],
   pluginPreferences: { enabled: {}, customGuides: [] },
+  reportingGuidelineCatalog: [],
+  reportingMatches: {
+    status: 'idle',
+    result: null,
+    error: '',
+    startedAt: 0
+  },
   pdfSearch: {
     query: '',
     matches: [],
@@ -159,6 +171,7 @@ const els = {
   essentialGuidelineSummary: document.getElementById('essentialGuidelineSummary'),
   essentialGuidelinesPluginPanel: document.getElementById('essentialGuidelinesPluginPanel'),
   reportingGuidelinesPluginPanel: document.getElementById('reportingGuidelinesPluginPanel'),
+  reportingGuideList: document.getElementById('reportingGuideList'),
   customizeChecksModal: document.getElementById('customizeChecksModal'),
   customizeChecksBody: document.getElementById('customizeChecksBody'),
   tocList: document.getElementById('tocList'),
@@ -922,6 +935,17 @@ async function annotateDocumentWithCompletion(payload = {}) {
   return data;
 }
 
+async function matchReportingGuidelinesWithCompletion(payload = {}) {
+  const started = runtimeNow();
+  const data = await matchReportingGuidelines(payload);
+  markRuntime('Reporting guideline matching finished', {
+    wallMs: Math.round(runtimeNow() - started),
+    apiMs: Number(data.elapsedMs || 0),
+    catalog: Array.isArray(payload.catalog) ? payload.catalog.length : 0
+  });
+  return data;
+}
+
 function renderLoadingHtml() {
   renderLoadingToc();
   renderLoadingCounts();
@@ -1584,12 +1608,131 @@ function applyGuideDetailFilter(status = 'all') {
   });
 }
 
+function renderReportingGuidelines() {
+  if (!els.reportingGuideList) return;
+  if (!pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines')) {
+    els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guidelines are disabled.</div>';
+    return;
+  }
+  if (!state.reportingGuidelineCatalog.length) {
+    els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guideline catalog is loading.</div>';
+    return;
+  }
+  if (state.reportingMatches.status === 'running') {
+    els.reportingGuideList.innerHTML = renderProgressCard({
+      title: 'Matching guidelines',
+      message: 'The annotation is ready. Reporting guidelines are being matched in the background.',
+      progress: null
+    });
+    return;
+  }
+  if (state.reportingMatches.status === 'failed') {
+    els.reportingGuideList.innerHTML = `<div class="alert alert-light border small mb-0">${escapeHtml(state.reportingMatches.error || 'Reporting guideline matching failed.')}</div>`;
+    return;
+  }
+  if (state.reportingMatches.status !== 'ready') {
+    els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guideline matches will appear after document annotation.</div>';
+    return;
+  }
+  const matches = state.reportingMatches.result?.matches || [];
+  const warnings = state.reportingMatches.result?.warnings || [];
+  els.reportingGuideList.innerHTML = `
+    ${warnings.length ? `<div class="alert alert-light border small mb-2">${warnings.map(escapeHtml).join('<br>')}</div>` : ''}
+    ${matches.map((match) => `
+      <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-reporting-match-id="${escapeHtml(match.guidelineId)}">
+        <div class="card-body p-3">
+          <div class="d-flex align-items-start justify-content-between gap-2">
+            <div class="min-w-0">
+              <div class="small fw-semibold text-body">${escapeHtml(match.label)}</div>
+              <div class="small text-secondary">${escapeHtml(match.rationale || '')}</div>
+            </div>
+            <span class="badge text-bg-primary">${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%</span>
+          </div>
+        </div>
+      </button>
+    `).join('') || '<div class="small text-secondary">No reporting guideline matches were returned.</div>'}
+  `;
+}
+
+function renderReportingMatchDetails(guidelineId = '') {
+  const match = state.reportingMatches.result?.matches?.find((item) => item.guidelineId === guidelineId);
+  if (!match) return;
+  openDetails('reporting-guidelines', `
+    <div class="detail-card">
+      <div class="detail-card-title">
+        <span>${escapeHtml(match.label)}</span>
+        <span class="badge text-bg-primary">${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}% match</span>
+      </div>
+      <div class="small mb-2">${escapeHtml(match.rationale || '')}</div>
+      ${match.anchorQuote ? `
+        <div class="d-flex align-items-start gap-2">
+          <div class="small text-secondary flex-grow-1${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey)}>${escapeHtml(match.anchorQuote)}</div>
+          <button class="btn btn-sm btn-light border flex-shrink-0" type="button" data-copy-quote="${escapeHtml(match.anchorQuote)}" aria-label="Copy quote">
+            <i class="bi bi-copy"></i>
+          </button>
+        </div>
+      ` : ''}
+    </div>
+  `);
+}
+
+async function updateStoredReviewReportingMatches(result = null) {
+  if (!state.currentReview?.id || !result) return;
+  try {
+    const existing = await getStoredReview(state.currentReview.id);
+    if (!existing) return;
+    existing.reportingMatches = {
+      status: 'ready',
+      result,
+      updatedAt: new Date().toISOString()
+    };
+    existing.updatedAt = new Date().toISOString();
+    await putStoredReview(existing);
+    state.currentReview = existing;
+    refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
+  } catch (error) {
+    console.warn('[deskreview-mistral-2] could not store reporting guideline matches', error);
+  }
+}
+
+function scheduleReportingGuidelineMatching() {
+  if (state.loadedFromLibrary) return;
+  if (!pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines')) return;
+  if (state.reportingMatches.status === 'ready' || state.reportingMatches.status === 'running') return;
+  if (state.documentAnnotation.status !== 'ready' || !state.reportingGuidelineCatalog.length) return;
+  const payload = buildGuidelineMatchRequest(state.documentAnnotation.result, state.reportingGuidelineCatalog);
+  if (!payload.catalog.length) return;
+  markRuntime('Reporting guideline matching started', { catalog: payload.catalog.length });
+  state.reportingMatches = { status: 'running', result: null, error: '', startedAt: performance.now() };
+  renderReportingGuidelines();
+  matchReportingGuidelinesWithCompletion(payload)
+    .then((response) => {
+      const result = normalizeReportingMatches(response.result || {}, state.reportingGuidelineCatalog);
+      state.reportingMatches = { status: 'ready', result, error: '', startedAt: state.reportingMatches.startedAt || 0 };
+      markRuntime('Reporting guideline matches ready', { matches: result.matches.length });
+      renderReportingGuidelines();
+      updateStoredReviewReportingMatches(result).catch(() => {});
+    })
+    .catch((error) => {
+      state.reportingMatches = {
+        status: 'failed',
+        result: null,
+        error: String(error?.message || error || 'Reporting guideline matching failed.'),
+        startedAt: 0
+      };
+      markRuntime('Reporting guideline matching failed', { error: state.reportingMatches.error });
+      renderReportingGuidelines();
+    });
+}
+
 function applyPluginPreferences() {
   const essentialEnabled = pluginIsEnabled(state.pluginPreferences, 'essential-guidelines');
   const reportingEnabled = pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines');
   els.essentialGuidelinesPluginPanel?.classList.toggle('d-none', !essentialEnabled);
   els.reportingGuidelinesPluginPanel?.classList.toggle('d-none', !reportingEnabled);
   renderEssentialGuidelines();
+  renderReportingGuidelines();
+  scheduleReportingGuidelineMatching();
 }
 
 function persistPluginPreferences(preferences = state.pluginPreferences) {
@@ -1659,7 +1802,8 @@ function detailTitle(kind = '') {
     tables: 'Tables',
     figures: 'Figures',
     references: 'References',
-    'essential-guidelines': 'Essential Guidelines'
+    'essential-guidelines': 'Essential Guidelines',
+    'reporting-guidelines': 'Reporting Guidelines'
   }[kind] || 'Details';
 }
 
@@ -2965,6 +3109,7 @@ function scheduleDocumentAnnotation(blocks = flatBlocks()) {
         warnings: result.warnings.length
       });
       renderEssentialGuidelines();
+      scheduleReportingGuidelineMatching();
       updateStoredReviewDocumentAnnotation(result).catch(() => {});
     })
     .catch((error) => {
@@ -2976,6 +3121,7 @@ function scheduleDocumentAnnotation(blocks = flatBlocks()) {
       };
       markRuntime('Document annotation failed', { error: state.documentAnnotation.error });
       renderEssentialGuidelines();
+      renderReportingGuidelines();
       updateStoredReviewDocumentAnnotationFailure(state.documentAnnotation.error).catch(() => {});
     })
     .finally(() => {
@@ -3650,6 +3796,7 @@ function resetReaderState(file = null) {
   state.documentAnnotation = { status: 'idle', result: null, error: '', startedAt: 0 };
   state.documentAnnotationPromise = null;
   state.essentialResults = [];
+  state.reportingMatches = { status: 'idle', result: null, error: '', startedAt: 0 };
   state.pdfSearch = { query: '', matches: [], index: -1 };
   state.ocrProgress = { status: 'idle', startedAt: 0, estimateMs: 18000 };
   state.checkReveal = { phase: 'idle', startedAt: 0, visibleKinds: [], resultKinds: [], lastResultAt: 0, resultTimer: 0, timers: [] };
@@ -3658,6 +3805,7 @@ function resetReaderState(file = null) {
   stopProgressTicker();
   closeDetails();
   renderEssentialGuidelines();
+  renderReportingGuidelines();
   resetPdfSearch();
   if (state.pdfUrl) URL.revokeObjectURL(state.pdfUrl);
 }
@@ -3686,7 +3834,8 @@ async function saveReviewToLibrary(file = null, ocr = {}) {
     referenceResolver: null,
     countResolver: null,
     displayResolver: null,
-    documentAnnotation: null
+    documentAnnotation: null,
+    reportingMatches: null
   };
   await putStoredReview(review);
   state.currentReviewId = id;
@@ -3777,7 +3926,23 @@ async function renderReviewFromRecord(review = {}) {
       startedAt: 0
     };
   }
+  if (review.reportingMatches?.status === 'ready' && review.reportingMatches.result) {
+    state.reportingMatches = {
+      status: 'ready',
+      result: normalizeReportingMatches(review.reportingMatches.result, state.reportingGuidelineCatalog),
+      error: '',
+      startedAt: 0
+    };
+  } else if (review.reportingMatches?.status === 'failed') {
+    state.reportingMatches = {
+      status: 'failed',
+      result: null,
+      error: String(review.reportingMatches.error || 'Reporting guideline matches were not available in this stored review.'),
+      startedAt: 0
+    };
+  }
   renderEssentialGuidelines();
+  renderReportingGuidelines();
   state.pdfUrl = URL.createObjectURL(review.pdfBlob);
   state.pages = Array.isArray(review.ocr.pages) ? review.ocr.pages : [];
   state.semanticCounts = review.ocr.semanticCounts || null;
@@ -4058,6 +4223,12 @@ els.essentialGuideList?.addEventListener('click', (event) => {
   renderEssentialGuideDetails(button.dataset.essentialGuideId);
 });
 
+els.reportingGuideList?.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-reporting-match-id]');
+  if (!button) return;
+  renderReportingMatchDetails(button.dataset.reportingMatchId);
+});
+
 els.runtimeSummaryModal?.addEventListener('show.bs.modal', renderRuntimeSummary);
 els.runtimeSummaryButton?.addEventListener('click', renderRuntimeSummary);
 els.runtimeSummaryCopy?.addEventListener('click', () => {
@@ -4186,5 +4357,21 @@ loadEssentialGuides()
       els.essentialGuidelineSummary.className = 'badge text-bg-danger ms-auto';
       els.essentialGuidelineSummary.textContent = 'Failed';
     }
+  });
+loadReportingGuidelines()
+  .then((guidelines) => {
+    state.reportingGuidelineCatalog = guidelines;
+    renderReportingGuidelines();
+    scheduleReportingGuidelineMatching();
+  })
+  .catch((error) => {
+    console.warn('[deskreview-mistral-2] reporting guideline catalog failed', error);
+    state.reportingMatches = {
+      status: 'failed',
+      result: null,
+      error: String(error?.message || error || 'Reporting guideline catalog failed.'),
+      startedAt: 0
+    };
+    renderReportingGuidelines();
   });
 refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));

@@ -42,6 +42,7 @@ async function main() {
   assert(indexHtml.includes('id="tocList"'), 'ToC list is missing.');
   assert(indexHtml.includes('id="countsGrid"'), 'Counts grid is missing.');
   assert(indexHtml.includes('id="essentialGuideList"'), 'Essential guide list is missing.');
+  assert(indexHtml.includes('id="reportingGuideList"'), 'Reporting guide list is missing.');
   assert(indexHtml.includes('id="customizeChecksModal"'), 'Customize checks modal is missing.');
   assert(indexHtml.includes('id="detailsPanel"'), 'Details panel is missing.');
 
@@ -100,6 +101,10 @@ async function main() {
     assert(pluginConfigCore.response.status === 200, `Expected /core/plugin-config.js to return 200, got ${pluginConfigCore.response.status}.`);
     assert(pluginConfigCore.text.includes('normalizePluginPreferences'), 'Plugin config core module is missing.');
 
+    const reportingCore = await request('/core/reporting-guidelines.js');
+    assert(reportingCore.response.status === 200, `Expected /core/reporting-guidelines.js to return 200, got ${reportingCore.response.status}.`);
+    assert(reportingCore.text.includes('normalizeReportingMatches'), 'Reporting guideline core module is missing.');
+
     const essentialData = await request('/data/ease-essential-guidelines.json');
     assert(essentialData.response.status === 200, `Expected /data/ease-essential-guidelines.json to return 200, got ${essentialData.response.status}.`);
     assert(essentialData.text.includes('EASE Essentials'), 'Essential guideline data is missing.');
@@ -107,6 +112,10 @@ async function main() {
     const pluginData = await request('/data/plugin-catalog.json');
     assert(pluginData.response.status === 200, `Expected /data/plugin-catalog.json to return 200, got ${pluginData.response.status}.`);
     assert(pluginData.text.includes('essential-guidelines'), 'Plugin catalog data is missing.');
+
+    const reportingData = await request('/data/reporting-guidelines.json');
+    assert(reportingData.response.status === 200, `Expected /data/reporting-guidelines.json to return 200, got ${reportingData.response.status}.`);
+    assert(reportingData.text.includes('CONSORT'), 'Reporting guideline catalog data is missing.');
 
     const libraryService = await request('/services/browser-library.js');
     assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);
@@ -119,6 +128,14 @@ async function main() {
     });
     assert(annotation.response.status === 400, `Expected empty annotation request to return 400, got ${annotation.response.status}.`);
     assert(annotation.text.includes('Missing OCR blocks'), 'Annotation validation response changed unexpectedly.');
+
+    const matching = await request('/api/match-guidelines', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: '{}'
+    });
+    assert(matching.response.status === 400, `Expected empty guideline matching request to return 400, got ${matching.response.status}.`);
+    assert(matching.text.includes('Missing document annotation'), 'Guideline matching validation response changed unexpectedly.');
 
     const styles = await request('/styles.css');
     assert(styles.response.status === 200, `Expected /styles.css to return 200, got ${styles.response.status}.`);

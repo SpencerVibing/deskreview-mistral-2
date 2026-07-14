@@ -476,6 +476,40 @@ function documentAnnotationSchema() {
   };
 }
 
+function guidelineMatchSchema() {
+  return {
+    type: 'json_schema',
+    json_schema: {
+      name: 'deskreview_guideline_matches',
+      strict: true,
+      schema: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['matches', 'warnings'],
+        properties: {
+          matches: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              required: ['guidelineId', 'label', 'rationale', 'confidence', 'sourceBlockKey', 'anchorQuote'],
+              properties: {
+                guidelineId: { type: 'string' },
+                label: { type: 'string' },
+                rationale: { type: 'string' },
+                confidence: { type: 'number', minimum: 0, maximum: 1 },
+                sourceBlockKey: { type: 'string' },
+                anchorQuote: { type: 'string' }
+              }
+            }
+          },
+          warnings: { type: 'array', items: { type: 'string' } }
+        }
+      }
+    }
+  };
+}
+
 function parseAnnotation(value) {
   if (!value) return null;
   if (typeof value === 'object') return value;
@@ -1013,6 +1047,105 @@ async function handleAnnotateDocument(req, res) {
   });
 }
 
+async function handleMatchGuidelines(req, res) {
+  const apiKey = String(process.env.MISTRAL_API_KEY || '').trim();
+  if (!apiKey) {
+    jsonResponse(res, { error: 'MISTRAL_API_KEY is required to match reporting guidelines.' }, 500);
+    return;
+  }
+
+  let body;
+  try {
+    body = await readJsonBody(req);
+  } catch (error) {
+    jsonResponse(res, { error: String(error?.message || error || 'Invalid request body.') }, 400);
+    return;
+  }
+
+  const catalog = Array.isArray(body.catalog) ? body.catalog : [];
+  const annotation = body.documentAnnotation && typeof body.documentAnnotation === 'object' ? body.documentAnnotation : null;
+  if (!annotation) {
+    jsonResponse(res, { error: 'Missing document annotation for guideline matching.' }, 400);
+    return;
+  }
+  if (!catalog.length) {
+    jsonResponse(res, { error: 'Missing reporting guideline catalog.' }, 400);
+    return;
+  }
+
+  const startedAt = Date.now();
+  const requestBody = {
+    model: MISTRAL_CHAT_MODEL,
+    temperature: 0,
+    response_format: guidelineMatchSchema(),
+    messages: [
+      {
+        role: 'system',
+        content: [
+          'You match manuscripts to reporting guidelines from a supplied catalog.',
+          'Return JSON only, conforming exactly to the schema.',
+          'Use only the supplied document annotation and catalog. Do not invent guideline ids.',
+          'Prefer high-confidence matches when manuscript design, title, abstract, sections, or keywords clearly indicate a guideline.',
+          'Use sourceBlockKey and anchorQuote from the annotation when possible.',
+          'Return only relevant matches. Leave matches empty when none are supported.'
+        ].join(' ')
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          task: 'Rank relevant reporting guidelines for this manuscript.',
+          documentAnnotation: annotation,
+          catalog: catalog.slice(0, 40)
+        })
+      }
+    ]
+  };
+
+  let response;
+  try {
+    const signal = AbortSignal.timeout ? AbortSignal.timeout(120000) : undefined;
+    response = await fetch(`${MISTRAL_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(requestBody),
+      signal
+    });
+  } catch (error) {
+    const message = error?.name === 'TimeoutError'
+      ? 'Mistral guideline matching timed out.'
+      : String(error?.message || error || 'Mistral guideline matching request failed.');
+    jsonResponse(res, { error: message }, error?.name === 'TimeoutError' ? 504 : 502);
+    return;
+  }
+
+  const text = await response.text();
+  let raw = null;
+  try {
+    raw = text ? JSON.parse(text) : {};
+  } catch {
+    raw = null;
+  }
+
+  if (!response.ok) {
+    jsonResponse(res, {
+      error: raw?.error?.message || raw?.message || text || `Mistral guideline matching failed (${response.status}).`,
+      elapsedMs: Date.now() - startedAt,
+      model: MISTRAL_CHAT_MODEL
+    }, response.status);
+    return;
+  }
+
+  jsonResponse(res, {
+    elapsedMs: Date.now() - startedAt,
+    model: raw?.model || MISTRAL_CHAT_MODEL,
+    usage: raw?.usage || null,
+    result: parseJsonContent(raw?.choices?.[0]?.message?.content)
+  });
+}
+
 async function serveStatic(req, res) {
   const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname === '/' ? '/index.html' : decodeURIComponent(url.pathname);
@@ -1057,6 +1190,10 @@ const server = createServer(async (req, res) => {
     }
     if (req.method === 'POST' && req.url === '/api/annotate-document') {
       await handleAnnotateDocument(req, res);
+      return;
+    }
+    if (req.method === 'POST' && req.url === '/api/match-guidelines') {
+      await handleMatchGuidelines(req, res);
       return;
     }
     if (req.method === 'GET' || req.method === 'HEAD') {
