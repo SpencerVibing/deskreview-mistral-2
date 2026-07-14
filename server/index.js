@@ -4,6 +4,12 @@ import { extname, join, resolve } from 'node:path';
 
 const ROOT = resolve(new URL('..', import.meta.url).pathname);
 const PUBLIC_ROOT = join(ROOT, 'public');
+const STATIC_ROOTS = new Map([
+  ['/app/', join(ROOT, 'app')],
+  ['/core/', join(ROOT, 'core')],
+  ['/services/', join(ROOT, 'services')],
+  ['/data/', join(ROOT, 'data')]
+]);
 
 await loadLocalEnv();
 
@@ -759,8 +765,11 @@ async function handleResolveDisplayItems(req, res) {
 async function serveStatic(req, res) {
   const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname === '/' ? '/index.html' : decodeURIComponent(url.pathname);
-  const resolved = resolve(PUBLIC_ROOT, `.${pathname}`);
-  if (!resolved.startsWith(PUBLIC_ROOT)) {
+  const rootEntry = [...STATIC_ROOTS.entries()].find(([prefix]) => pathname.startsWith(prefix));
+  const root = rootEntry ? rootEntry[1] : PUBLIC_ROOT;
+  const relativePath = rootEntry ? pathname.slice(rootEntry[0].length) : pathname.slice(1);
+  const resolved = resolve(root, relativePath || 'index.html');
+  if (!resolved.startsWith(root)) {
     res.writeHead(403);
     res.end('Forbidden');
     return;

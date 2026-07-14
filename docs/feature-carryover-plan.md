@@ -69,3 +69,8 @@ This project should carry forward the useful DeskReview feature set by reimpleme
 - Add targeted tests with each new behavior.
 - Browser smoke tests should cover upload, reader readiness, ToC, count tiles, details slider filters, quote jumps, PDF highlights, and stored review reloads as those features land.
 - If a feature slows reader readiness or weakens source-grounded jumps, stop and rework the design before continuing.
+
+## Milestone Log
+
+- Milestone 1 complete in `299c5eb`: baseline checkpoint, plan, and local smoke test.
+- Milestone 2 complete: browser app moved behind `/app/reader.js`, ToC projection extracted to `/core/toc.js`, browser storage and Mistral API calls extracted to `/services`, and ToC projection unit coverage added.

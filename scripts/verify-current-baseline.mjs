@@ -68,7 +68,19 @@ async function main() {
 
     const app = await request('/app.js');
     assert(app.response.status === 200, `Expected /app.js to return 200, got ${app.response.status}.`);
-    assert(app.text.includes('renderToc'), 'App bundle does not include ToC rendering.');
+    assert(app.text.includes('/app/reader.js'), 'Public app entrypoint does not load the reader module.');
+
+    const reader = await request('/app/reader.js');
+    assert(reader.response.status === 200, `Expected /app/reader.js to return 200, got ${reader.response.status}.`);
+    assert(reader.text.includes('renderToc'), 'Reader module does not include ToC rendering.');
+
+    const tocCore = await request('/core/toc.js');
+    assert(tocCore.response.status === 200, `Expected /core/toc.js to return 200, got ${tocCore.response.status}.`);
+    assert(tocCore.text.includes('projectTocEntries'), 'ToC core module is missing.');
+
+    const libraryService = await request('/services/browser-library.js');
+    assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);
+    assert(libraryService.text.includes('listStoredReviews'), 'Browser library service is missing.');
 
     const styles = await request('/styles.css');
     assert(styles.response.status === 200, `Expected /styles.css to return 200, got ${styles.response.status}.`);
