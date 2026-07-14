@@ -1762,12 +1762,12 @@ function guidelineStatusLabel(status = '') {
 }
 
 const GUIDE_RESULT_STATUS_FILTERS = [
-  { key: 'absent', label: 'Absent', detailLabel: 'Absent', icon: 'bi-ban', badgeClass: 'bg-danger-subtle text-danger-emphasis', textClass: 'text-danger' },
-  { key: 'warning', label: 'Warning', detailLabel: 'Warning', icon: 'bi-exclamation-triangle-fill', badgeClass: 'bg-warning-subtle text-warning-emphasis', textClass: 'text-warning-emphasis' },
-  { key: 'present', label: 'Present', detailLabel: 'Present', icon: 'bi-check-circle-fill', badgeClass: 'bg-success-subtle text-success-emphasis', textClass: 'text-success' },
-  { key: 'optional', label: 'Optional', detailLabel: 'Optional', icon: 'bi-info-circle-fill', badgeClass: 'bg-info-subtle text-info-emphasis', textClass: 'text-info-emphasis' },
-  { key: 'skipped', label: 'Skipped', detailLabel: 'Skipped', icon: 'bi-skip-forward-fill', badgeClass: 'bg-secondary-subtle text-secondary-emphasis', textClass: 'text-secondary' },
-  { key: 'na', label: 'N/A', detailLabel: 'N/A', icon: 'bi-dash-circle-fill', badgeClass: 'bg-secondary-subtle text-secondary-emphasis', textClass: 'text-secondary' }
+  { key: 'absent', label: 'Absent', detailLabel: 'Absent', icon: 'bi-ban', badgeClass: 'bg-danger-subtle text-danger-emphasis', textClass: 'text-danger', buttonClass: 'bg-danger-subtle text-danger-emphasis border-danger-subtle' },
+  { key: 'warning', label: 'Warning', detailLabel: 'Warning', icon: 'bi-exclamation-triangle-fill', badgeClass: 'bg-warning-subtle text-warning-emphasis', textClass: 'text-warning-emphasis', buttonClass: 'bg-warning-subtle text-warning-emphasis border-warning-subtle' },
+  { key: 'present', label: 'Present', detailLabel: 'Present', icon: 'bi-check-circle-fill', badgeClass: 'bg-success-subtle text-success-emphasis', textClass: 'text-success', buttonClass: 'bg-success-subtle text-success-emphasis border-success-subtle' },
+  { key: 'optional', label: 'Optional', detailLabel: 'Optional', icon: 'bi-info-circle-fill', badgeClass: 'bg-info-subtle text-info-emphasis', textClass: 'text-info-emphasis', buttonClass: 'bg-info-subtle text-info-emphasis border-info-subtle' },
+  { key: 'skipped', label: 'Skipped', detailLabel: 'Skipped', icon: 'bi-skip-forward-fill', badgeClass: 'bg-secondary-subtle text-secondary-emphasis', textClass: 'text-secondary', buttonClass: 'bg-secondary-subtle text-secondary-emphasis border-secondary-subtle' },
+  { key: 'na', label: 'N/A', detailLabel: 'N/A', icon: 'bi-dash-circle-fill', badgeClass: 'bg-secondary-subtle text-secondary-emphasis', textClass: 'text-secondary', buttonClass: 'bg-secondary-subtle text-secondary-emphasis border-secondary-subtle' }
 ];
 
 function guideResultStatusMeta(status = 'absent') {
@@ -1886,6 +1886,8 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   const selectedStatus = guideAggregateDefaultStatus(summary);
   const selectedMeta = guideResultStatusMeta(selectedStatus);
   const readyPercent = Math.round((totals.present / Math.max(1, totals.total)) * 100);
+  const processedGuides = guides.filter((guide) => Array.isArray(guide.results) && guide.results.length).length;
+  const guideCount = guides.length;
   return `
     <div class="card border shadow-sm guide-card guide-aggregate-card" data-guide-aggregate-lane="${escapeHtml(lane)}">
       <div class="card-body p-3">
@@ -1898,22 +1900,22 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
           </div>
           <div class="min-w-0 flex-grow-1">
             <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Combined results</div>
-            <div class="d-flex flex-wrap gap-1 mt-2">
-              ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
-                <span class="badge ${item.badgeClass}">${escapeHtml(summary[item.key] || 0)} ${escapeHtml(item.label.toLowerCase())}</span>
-              `).join('')}
+            <div class="small text-secondary">
+              <span>${escapeHtml(processedGuides)}/${escapeHtml(guideCount)} guides processed</span>
+              <span class="mx-1">·</span>
+              <span>${escapeHtml(totals.total)} items</span>
             </div>
           </div>
         </div>
         <div class="d-flex align-items-center justify-content-between gap-2 mt-3">
-          ${renderGuideProgress(summary, totals.absent ? 'absent' : totals.warning ? 'warning' : 'present')}
+          <div class="small text-secondary">${escapeHtml(totals.present)} present · ${escapeHtml(totals.absent)} absent</div>
           <div class="btn-group btn-group-sm flex-shrink-0">
-            <button type="button" class="btn btn-light border d-inline-flex align-items-center gap-2" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(selectedStatus)}">
+            <button type="button" class="btn border d-inline-flex align-items-center gap-2 ${escapeHtml(selectedMeta.buttonClass)}" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(selectedStatus)}">
               <i class="bi ${escapeHtml(selectedMeta.icon)} ${escapeHtml(selectedMeta.textClass)}" aria-hidden="true"></i>
               <span class="fw-semibold">${escapeHtml(summary[selectedStatus] || 0)}</span>
               <span>${escapeHtml(selectedMeta.label)}</span>
             </button>
-            <button type="button" class="btn btn-light border dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn border dropdown-toggle dropdown-toggle-split ${escapeHtml(selectedMeta.buttonClass)}" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="visually-hidden">Choose item category</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -2997,14 +2999,39 @@ function handleGuidelineSelectorTitleClick(event) {
   return true;
 }
 
+function updateGuideAggregateTrigger(trigger, status) {
+  const card = trigger.closest('[data-guide-aggregate-lane]');
+  const mainButton = card?.querySelector('.btn-group > [data-guide-aggregate-open]');
+  if (!mainButton) return;
+  const splitButton = card.querySelector('.btn-group > .dropdown-toggle-split');
+  const meta = guideResultStatusMeta(status);
+  const toneClasses = GUIDE_RESULT_STATUS_FILTERS.flatMap((item) => item.buttonClass.split(/\s+/));
+  [mainButton, splitButton].filter(Boolean).forEach((button) => {
+    button.classList.remove(...toneClasses);
+    button.classList.add(...meta.buttonClass.split(/\s+/));
+  });
+  mainButton.setAttribute('data-guide-aggregate-status', status);
+  const selectedCount = trigger.querySelector('.badge')?.textContent?.trim()
+    || mainButton.querySelector('.fw-semibold')?.textContent?.trim()
+    || '0';
+  const icon = mainButton.querySelector('i');
+  if (icon) icon.className = `bi ${meta.icon} ${meta.textClass}`;
+  const count = mainButton.querySelector('.fw-semibold');
+  if (count) count.textContent = selectedCount;
+  const label = mainButton.querySelector('span:last-child');
+  if (label) label.textContent = meta.label;
+}
+
 function handleGuideAggregateClick(event) {
   const trigger = event.target.closest('[data-guide-aggregate-open]');
   if (!trigger) return false;
   event.preventDefault();
   event.stopPropagation();
+  const status = trigger.getAttribute('data-guide-aggregate-status') || 'absent';
+  updateGuideAggregateTrigger(trigger, status);
   renderAggregateGuideDetails(
     trigger.getAttribute('data-guide-aggregate-open') || '',
-    trigger.getAttribute('data-guide-aggregate-status') || 'absent'
+    status
   );
   return true;
 }

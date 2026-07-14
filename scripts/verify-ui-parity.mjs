@@ -314,14 +314,32 @@ async function assertGuideAggregateCard(page, { rootSelector, status, titlePatte
   await assertVisible(page, rootSelector);
   await assertText(page, rootSelector, /Combined results/i);
   assert.doesNotMatch(await page.locator(rootSelector).innerText(), titlePattern, 'Combined results card should not repeat the full aggregate title.');
-  await assertText(page, rootSelector, /Present/i);
-  await assertText(page, rootSelector, /Absent/i);
+  await assertText(page, rootSelector, /guides processed/i);
+  await assertText(page, rootSelector, /items/i);
+  assert.equal(await page.locator(`${rootSelector} > .card-body > .d-flex:first-child .badge`).count(), 0, 'Combined card should not show loose status badge rows.');
+  assert.equal(await page.locator(`${rootSelector} > .card-body > .d-flex:nth-child(2) .guide-progress-mini`).count(), 0, 'Combined card should not show a mini bar chart.');
+  const defaultStatus = await page.locator(`${rootSelector} > .card-body .btn-group > [data-guide-aggregate-open]`).first().getAttribute('data-guide-aggregate-status');
+  await expectAggregateButtonTone(page, rootSelector, defaultStatus || 'absent');
   await page.click(`${rootSelector} .dropdown-toggle`);
   await page.click(`${rootSelector} .dropdown-menu.show [data-guide-aggregate-status="${status}"]`);
+  await expectAggregateButtonTone(page, rootSelector, status);
   await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
   await assertText(page, '#detailsPanel', titlePattern);
   await waitForVisibleGuideResult(page, status);
   await page.click('#detailsPanelClose');
+}
+
+async function expectAggregateButtonTone(page, rootSelector, status) {
+  const expected = {
+    absent: ['bg-danger-subtle', 'text-danger-emphasis'],
+    warning: ['bg-warning-subtle', 'text-warning-emphasis'],
+    present: ['bg-success-subtle', 'text-success-emphasis'],
+    optional: ['bg-info-subtle', 'text-info-emphasis'],
+    skipped: ['bg-secondary-subtle', 'text-secondary-emphasis'],
+    na: ['bg-secondary-subtle', 'text-secondary-emphasis']
+  }[status] || ['bg-secondary-subtle', 'text-secondary-emphasis'];
+  const className = await page.locator(`${rootSelector} > .card-body .btn-group > [data-guide-aggregate-status="${status}"]`).first().getAttribute('class');
+  expected.forEach((token) => assert.ok(className?.includes(token), `Aggregate ${status} button should include ${token}; got ${className}`));
 }
 
 async function assertCompactGuidelineCards(page, cardSelector) {
