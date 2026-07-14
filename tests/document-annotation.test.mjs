@@ -47,3 +47,16 @@ const request = buildDocumentAnnotationRequest({
 assert.equal(request.blocks.length, 1);
 assert.deepEqual(request.resolverContext.countedText, { abstract: {} });
 assert.equal(request.resolverContext.references, null);
+
+const longRequest = buildDocumentAnnotationRequest({
+  blocks: Array.from({ length: 260 }, (_, index) => ({
+    key: `block-${index + 1}`,
+    pageNumber: Math.ceil((index + 1) / 10),
+    type: 'text',
+    text: index === 259 ? 'Data availability statement' : `Block ${index + 1}`
+  }))
+});
+
+assert.equal(longRequest.blocks.length, 220);
+assert.equal(longRequest.blocks[0].blockKey, 'block-1');
+assert.equal(longRequest.blocks.at(-1).blockKey, 'block-260');

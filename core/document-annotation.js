@@ -22,6 +22,27 @@ function anchor(value = {}) {
   };
 }
 
+function annotationBlocks(blocks = [], limit = 220) {
+  const normalized = array(blocks)
+    .map((block) => ({
+      blockKey: text(block.key || block.blockKey),
+      pageNumber: number(block.pageNumber),
+      type: text(block.type),
+      text: text(block.text || block.plainText).slice(0, 2500)
+    }))
+    .filter((block) => block.blockKey && block.text);
+  if (normalized.length <= limit) return normalized;
+  const headCount = Math.max(120, Math.floor(limit * 0.72));
+  const tailCount = Math.max(0, limit - headCount);
+  const selected = [...normalized.slice(0, headCount), ...normalized.slice(-tailCount)];
+  const seen = new Set();
+  return selected.filter((block) => {
+    if (seen.has(block.blockKey)) return false;
+    seen.add(block.blockKey);
+    return true;
+  });
+}
+
 function textItem(value = {}) {
   return {
     text: text(value.text),
@@ -105,15 +126,7 @@ export function normalizeDocumentAnnotation(value = {}) {
 
 export function buildDocumentAnnotationRequest({ blocks = [], countResolver = null, referenceResolver = null, displayResolver = null } = {}) {
   return {
-    blocks: array(blocks)
-      .map((block) => ({
-        blockKey: text(block.key || block.blockKey),
-        pageNumber: number(block.pageNumber),
-        type: text(block.type),
-        text: text(block.text || block.plainText).slice(0, 2500)
-      }))
-      .filter((block) => block.blockKey && block.text)
-      .slice(0, 220),
+    blocks: annotationBlocks(blocks),
     resolverContext: {
       countedText: countResolver?.status === 'ready' ? countResolver.result || null : null,
       references: referenceResolver?.status === 'ready' ? referenceResolver.result || null : null,

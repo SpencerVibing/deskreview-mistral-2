@@ -4,31 +4,85 @@
       "id": "consort",
       "label": "CONSORT",
       "description": "Randomized trial reporting guideline.",
-      "keywords": ["randomized", "randomised", "trial", "allocation", "intervention"]
+      "keywords": ["randomized", "randomised", "trial", "allocation", "intervention", "placebo"]
     },
     {
       "id": "strobe",
       "label": "STROBE",
       "description": "Observational study reporting guideline.",
-      "keywords": ["cohort", "case-control", "cross-sectional", "observational", "epidemiology"]
+      "keywords": ["cohort", "case-control", "cross-sectional", "observational", "epidemiology", "association"]
     },
     {
       "id": "prisma",
       "label": "PRISMA",
       "description": "Systematic review and meta-analysis reporting guideline.",
-      "keywords": ["systematic review", "meta-analysis", "database search", "screening"]
+      "keywords": ["systematic review", "meta-analysis", "database search", "screening", "eligibility", "prisma"]
     },
     {
       "id": "care",
       "label": "CARE",
       "description": "Case report reporting guideline.",
-      "keywords": ["case report", "case presentation", "patient case"]
+      "keywords": ["case report", "case presentation", "patient case", "clinical case"]
     },
     {
       "id": "stard",
       "label": "STARD",
       "description": "Diagnostic accuracy study reporting guideline.",
-      "keywords": ["diagnostic accuracy", "sensitivity", "specificity", "index test"]
+      "keywords": ["diagnostic accuracy", "sensitivity", "specificity", "index test", "reference standard"]
+    },
+    {
+      "id": "spirit",
+      "label": "SPIRIT",
+      "description": "Clinical trial protocol reporting guideline.",
+      "keywords": ["protocol", "trial protocol", "study protocol", "randomized protocol", "clinical trial protocol"]
+    },
+    {
+      "id": "tripod",
+      "label": "TRIPOD",
+      "description": "Prediction model development and validation reporting guideline.",
+      "keywords": ["prediction model", "prognostic model", "risk model", "validation model", "calibration", "discrimination"]
+    },
+    {
+      "id": "arrive",
+      "label": "ARRIVE",
+      "description": "Animal research reporting guideline.",
+      "keywords": ["animal", "mice", "mouse", "rat", "rats", "in vivo", "animal experiment"]
+    },
+    {
+      "id": "squire",
+      "label": "SQUIRE",
+      "description": "Quality improvement study reporting guideline.",
+      "keywords": ["quality improvement", "implementation", "process improvement", "patient safety", "improvement intervention"]
+    },
+    {
+      "id": "cheers",
+      "label": "CHEERS",
+      "description": "Health economic evaluation reporting guideline.",
+      "keywords": ["cost-effectiveness", "economic evaluation", "health economics", "utility", "incremental cost"]
+    },
+    {
+      "id": "record",
+      "label": "RECORD",
+      "description": "Routinely collected health data reporting guideline.",
+      "keywords": ["routinely collected", "registry", "electronic health record", "administrative data", "claims data"]
+    },
+    {
+      "id": "srqr",
+      "label": "SRQR",
+      "description": "Qualitative research reporting guideline.",
+      "keywords": ["qualitative", "interview", "focus group", "thematic analysis", "grounded theory"]
+    },
+    {
+      "id": "strobe-nut",
+      "label": "STROBE-nut",
+      "description": "Nutritional epidemiology extension of STROBE.",
+      "keywords": ["nutrition", "dietary", "food frequency", "nutritional epidemiology", "diet"]
+    },
+    {
+      "id": "agree",
+      "label": "AGREE",
+      "description": "Clinical practice guideline appraisal and reporting support.",
+      "keywords": ["clinical practice guideline", "recommendation", "guideline development", "evidence-to-decision"]
     }
   ]
 }

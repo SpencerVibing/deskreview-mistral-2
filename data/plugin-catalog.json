@@ -20,6 +20,20 @@
       "description": "Matched reporting guideline checks.",
       "locked": false,
       "defaultEnabled": true
+    },
+    {
+      "id": "recommended-guidelines",
+      "label": "Open Science guidelines",
+      "description": "Recommended transparent-reporting checks that are useful for most manuscripts.",
+      "locked": false,
+      "defaultEnabled": true
+    },
+    {
+      "id": "custom-guidelines",
+      "label": "Custom guidelines",
+      "description": "User-defined checklist cards for project-specific review workflows.",
+      "locked": false,
+      "defaultEnabled": true
     }
   ]
 }

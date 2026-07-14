@@ -11,84 +11,129 @@
   </head>
   <body>
     <main class="app-shell">
-      <section id="homeView" class="h-100 overflow-auto bg-body">
-        <div class="container-fluid px-4 py-4">
-          <div class="d-flex align-items-center justify-content-between gap-3 mb-4">
-            <div>
-              <h1 class="h4 mb-1">DeskReview Mistral 2</h1>
-              <div class="text-secondary small">Upload a manuscript, reopen stored reviews, and track the OCR4 reader benchmark from this browser.</div>
+      <section id="homeView" class="landing-body h-100 overflow-auto d-flex flex-column">
+        <div class="landing-bg" aria-hidden="true"></div>
+        <header class="landing-header sticky-top border-bottom">
+          <nav class="navbar navbar-expand container py-2" aria-label="Primary">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="#" aria-label="DeskReview home">
+              <span class="landing-brand-mark d-inline-flex align-items-center justify-content-center rounded-3 text-white" aria-hidden="true"><i class="bi bi-check2-circle"></i></span>
+              DeskReview
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-2 small text-secondary" id="homeStats">
+              <span class="badge rounded-pill bg-white text-secondary border"><span data-home-stat="storedReviews">0</span> reviews</span>
+              <span class="badge rounded-pill bg-white text-secondary border"><span data-home-stat="annotatedReviews">0</span> annotated</span>
+              <span class="badge rounded-pill bg-white text-secondary border"><span data-home-stat="totalPages">0</span> pages</span>
             </div>
-            <label class="btn btn-dark mb-0">
-              <i class="bi bi-upload"></i>
-              <span>Upload PDF</span>
-              <input id="homePdfInput" class="visually-hidden" type="file" accept="application/pdf">
-            </label>
+          </nav>
+        </header>
+
+        <main class="container py-5 flex-grow-1 d-flex flex-column">
+          <div class="row align-items-center justify-content-between g-4 pb-5">
+            <div class="col-12 col-lg-6 hero-reveal">
+              <h1 id="heroHeadline" class="display-4 fw-semibold mb-3 hero-headline"><span>Is your paper</span><span class="shimmer-text"> ready to submit?</span></h1>
+              <p class="fs-5 lh-base text-secondary mb-4 hero-lead">
+                Deskreview.ai identifies the right reporting guides for your research manuscript, audits it for compliance, and delivers detailed and verifiable results in minutes.
+              </p>
+
+              <div class="d-flex gap-3 flex-wrap align-items-center">
+                <label class="btn btn-primary btn-lg shimmer-btn mb-0">
+                  <i class="bi bi-upload me-2" aria-hidden="true"></i><span>Upload PDF</span>
+                  <input id="homePdfInput" class="visually-hidden" type="file" accept="application/pdf">
+                </label>
+                <button class="btn btn-outline-secondary btn-lg" type="button" data-scroll-target="#examplesSection">
+                  <span>See examples</span>
+                </button>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Review engine for the next upload">
+                  <input type="radio" class="btn-check" name="landingLlmProvider" id="landingProviderMistral" value="mistral_ocr_medium" autocomplete="off" checked>
+                  <label class="btn btn-outline-secondary" for="landingProviderMistral">Mistral OCR</label>
+                  <input type="radio" class="btn-check" name="landingLlmProvider" id="landingProviderChatGpt" value="openai_managed" autocomplete="off" disabled>
+                  <label class="btn btn-outline-secondary" for="landingProviderChatGpt">ChatGPT</label>
+                </div>
+              </div>
+
+              <div class="privacy-note small text-body-secondary mt-3">
+                <span class="d-inline-flex align-items-center gap-2">
+                  <i class="bi bi-shield-lock text-primary" aria-hidden="true"></i>
+                  <span>Privacy first - your manuscript stays yours.</span>
+                  <a class="link-secondary text-decoration-none fw-medium ms-1 privacy-toggle" data-bs-toggle="collapse" href="#privacyDetail" role="button" aria-expanded="false" aria-controls="privacyDetail">How it works<i class="bi bi-chevron-down ms-1 privacy-chevron" aria-hidden="true"></i></a>
+                </span>
+                <div class="collapse" id="privacyDetail">
+                  <p class="border-start border-2 border-primary-subtle ps-3 mt-2 mb-0" style="max-width: 34rem;">
+                    DeskReview Mistral 2 keeps the reader fast by rendering OCR4 output first, then running guideline and reporting checks in the background for source-grounded review.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-5 text-center text-lg-end hero-reveal hero-reveal-delay">
+              <div class="position-relative d-inline-block hero-shot-wrap">
+                <img src="/assets/screenshot.png" alt="DeskReview interface preview" class="img-fluid rounded-4 shadow border empty-hero-shot">
+              </div>
+            </div>
           </div>
 
-          <div id="homeStats" class="row g-3 mb-4">
-            <div class="col-6 col-xl-3">
-              <div class="border rounded bg-body-tertiary p-3 h-100">
-                <div class="small text-secondary">Stored reviews</div>
-                <div class="h5 mb-0" data-home-stat="storedReviews">-</div>
-              </div>
+          <section id="examplesSection" class="mt-5">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h2 class="h6 small text-uppercase text-secondary fw-semibold mb-0 section-eyebrow">See examples</h2>
+              <span class="small text-secondary" data-home-stat="examples">0 examples</span>
             </div>
-            <div class="col-6 col-xl-3">
-              <div class="border rounded bg-body-tertiary p-3 h-100">
-                <div class="small text-secondary">Stored pages</div>
-                <div class="h5 mb-0" data-home-stat="totalPages">-</div>
-              </div>
+            <div id="exampleManuscriptList" class="examples-scroll d-flex flex-nowrap">
+              <div class="small text-secondary">Loading examples...</div>
             </div>
-            <div class="col-6 col-xl-3">
-              <div class="border rounded bg-body-tertiary p-3 h-100">
-                <div class="small text-secondary">Annotated reviews</div>
-                <div class="h5 mb-0" data-home-stat="annotatedReviews">-</div>
-              </div>
-            </div>
-            <div class="col-6 col-xl-3">
-              <div class="border rounded bg-body-tertiary p-3 h-100">
-                <div class="small text-secondary">Reader target</div>
-                <div class="h5 mb-0">3-5s</div>
-              </div>
-            </div>
-          </div>
+          </section>
 
-          <section class="mb-4">
-            <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
-              <h2 class="h6 mb-0">Example workflows</h2>
-              <span class="small text-secondary" data-home-stat="examples">- examples</span>
+          <section id="storedReviewsSection" class="mt-5">
+            <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+              <h2 class="h6 small text-uppercase text-secondary fw-semibold mb-0 section-eyebrow">Stored desk reviews</h2>
+              <div class="small text-secondary">Private to this browser</div>
             </div>
-            <div id="exampleManuscriptList" class="row g-3">
-              <div class="col-12">
-                <div class="text-secondary small">Loading examples...</div>
+            <div class="stored-reviews-table-wrap rounded-4 bg-white">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 stored-reviews-table">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="text-secondary fw-normal">Manuscript</th>
+                      <th scope="col" class="text-secondary fw-normal">Pages</th>
+                      <th scope="col" class="text-secondary fw-normal">Counts</th>
+                      <th scope="col" class="text-secondary fw-normal">Stored</th>
+                      <th scope="col" class="text-end text-secondary fw-normal">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reviewLibraryBody">
+                    <tr>
+                      <td colspan="5" class="text-center text-secondary py-5">Loading stored desk reviews...</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </section>
 
-          <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
-            <h2 class="h6 mb-0">Stored desk reviews</h2>
-            <div class="small text-secondary">Private to this browser</div>
-          </div>
-          <div class="card border-0 shadow-sm">
-            <div class="table-responsive">
-              <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
-                  <tr>
-                    <th scope="col" class="text-secondary fw-normal">Manuscript</th>
-                    <th scope="col" class="text-secondary fw-normal">Pages</th>
-                    <th scope="col" class="text-secondary fw-normal">Counts</th>
-                    <th scope="col" class="text-secondary fw-normal">Stored</th>
-                    <th scope="col" class="text-end text-secondary fw-normal">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="reviewLibraryBody">
-                  <tr>
-                    <td colspan="5" class="text-center text-secondary py-5">Loading stored desk reviews...</td>
-                  </tr>
-                </tbody>
-              </table>
+          <section id="integrationsSection" class="mt-auto pt-5" aria-label="Powered by integrations">
+            <div class="examples-scroll integrations-scroll d-flex align-items-center flex-nowrap text-secondary small" role="list">
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/crossref-transparent.png" class="img-fluid integration-logo" alt="Crossref"></div>
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/openalex-transparent.png" class="img-fluid integration-logo integration-logo-openalex" alt="OpenAlex"></div>
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/ORCID_full_logo.png" class="img-fluid integration-logo integration-logo-orcid" alt="ORCID"></div>
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/pubmed.png" class="img-fluid integration-logo" alt="PubMed"></div>
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/semanticscholar.png" class="img-fluid integration-logo integration-logo-semantic-scholar" alt="Semantic Scholar"></div>
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/retractionwatch-transparent.png" class="img-fluid integration-logo integration-logo-retraction-watch" alt="Retraction Watch"></div>
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/chatgpt-logo-pro-transparent.png" class="img-fluid integration-logo integration-logo-chatgpt" alt="ChatGPT"></div>
+              <div class="integration-logo-item flex-shrink-0" role="listitem"><img src="/assets/integrations/deepinfra-transparent.png" class="img-fluid integration-logo integration-logo-deepinfra" alt="DeepInfra"></div>
+            </div>
+          </section>
+        </main>
+
+        <footer class="landing-footer border-top pt-4 pb-4 mt-auto">
+          <div class="container">
+            <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 text-center">
+              <a href="#" class="link-secondary text-decoration-none">About</a>
+              <a href="#" class="link-secondary text-decoration-none">Team</a>
+              <a href="#" class="link-secondary text-decoration-none">Privacy</a>
+              <a href="#" class="link-secondary text-decoration-none">Terms</a>
+              <div class="link-secondary">contact@deskreview.ai</div>
             </div>
           </div>
-        </div>
+        </footer>
       </section>
 
       <section class="studio-reader d-none" id="reader">
@@ -172,70 +217,177 @@
 
         <div id="countsSplitter" class="studio-splitter" role="separator" aria-label="Resize checks panel" aria-orientation="vertical" tabindex="0"></div>
         <aside class="studio-pane studio-counts-pane">
-          <div class="counts-panel-scroll pt-5">
-            <div class="accordion accordion-flush checks-accordion" id="checksAccordion">
-              <div class="accordion-item" id="articleCountsPluginPanel">
-                <h2 class="accordion-header" id="articleElementCountsHeading">
-                  <button class="accordion-button bg-transparent shadow-none py-2 reader-header-label fw-normal text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#articleElementCountsPanel" aria-expanded="true" aria-controls="articleElementCountsPanel">
-                    Article element counts
-                  </button>
-                </h2>
-                <div id="articleElementCountsPanel" class="accordion-collapse collapse show" aria-labelledby="articleElementCountsHeading" data-bs-parent="#checksAccordion">
-                  <div class="accordion-body p-0">
+          <div class="reader-side-shell d-flex flex-column h-100 min-h-0">
+            <ul class="nav nav-underline nav-fill w-100 px-3 pt-3 mb-3 border-bottom border-secondary-subtle flex-nowrap side-tabs" role="tablist" aria-label="DeskReview side panel">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active w-100 px-2 py-2 d-flex flex-column align-items-center gap-1" id="checks-tab" data-bs-toggle="tab" data-bs-target="#checks-pane" type="button" role="tab" aria-controls="checks-pane" aria-selected="true">
+                  <i class="bi bi-clipboard-check" aria-hidden="true"></i>
+                  <span>Checks</span>
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 px-2 py-2 d-flex flex-column align-items-center gap-1" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chat-pane" type="button" role="tab" aria-controls="chat-pane" aria-selected="false">
+                  <i class="bi bi-chat-left-text" aria-hidden="true"></i>
+                  <span>Chat</span>
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link w-100 px-2 py-2 d-flex flex-column align-items-center gap-1" id="comment-tab" data-bs-toggle="tab" data-bs-target="#comment-pane" type="button" role="tab" aria-controls="comment-pane" aria-selected="false">
+                  <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                  <span>Comments</span>
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content flex-grow-1 min-h-0 overflow-hidden">
+              <section class="tab-pane show active h-100 overflow-hidden" id="checks-pane" role="tabpanel" aria-labelledby="checks-tab" tabindex="0">
+                <div class="counts-panel-scroll px-3 pb-3">
+                  <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                    <button id="feedbackReportButton" class="btn btn-sm btn-light text-secondary border-0 d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="modal" data-bs-target="#feedbackReportModal">
+                      <i class="bi bi-clipboard-check" aria-hidden="true"></i>
+                      <span>Feedback report</span>
+                    </button>
+                    <div class="d-flex align-items-center gap-1">
+                      <button id="runtimeSummaryButton" class="btn btn-sm btn-light border-0 text-secondary" type="button" data-bs-toggle="modal" data-bs-target="#runtimeSummaryModal" aria-label="Runtime summary">
+                        <i class="bi bi-clock-history" aria-hidden="true"></i>
+                      </button>
+                      <button id="customizeChecksButton" class="btn btn-sm btn-light border-0 text-secondary" type="button" data-bs-toggle="modal" data-bs-target="#customizeChecksModal" aria-label="Customize checks">
+                        <i class="bi bi-ui-checks-grid" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <section class="side-group-card mb-4" id="articleCountsPluginPanel">
+                    <div class="side-group-header d-flex align-items-center justify-content-between gap-2 mb-2">
+                      <div class="fw-semibold text-uppercase small text-body-tertiary">Article element counts</div>
+                    </div>
+                    <hr class="border-secondary-subtle mt-0 mb-3">
                     <div id="countsGrid" class="counts-grid">
                       <div class="empty-state counts-empty">
                         <i class="bi bi-grid-3x2-gap"></i>
                         <div>OCR4 summary counts will appear here.</div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item" id="essentialGuidelinesPluginPanel">
-                <h2 class="accordion-header" id="essentialGuidelinesHeading">
-                  <button class="accordion-button collapsed bg-transparent shadow-none py-2 reader-header-label fw-normal text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#essentialGuidelinesPanel" aria-expanded="false" aria-controls="essentialGuidelinesPanel">
-                    <span>Essential guidelines</span>
-                    <span id="essentialGuidelineSummary" class="badge text-bg-light ms-auto">Pending</span>
-                  </button>
-                </h2>
-                <div id="essentialGuidelinesPanel" class="accordion-collapse collapse" aria-labelledby="essentialGuidelinesHeading" data-bs-parent="#checksAccordion">
-                  <div class="accordion-body p-2">
-                    <div id="essentialGuideList" class="vstack gap-2">
-                      <div class="small text-secondary">Essential guide checks will appear after document annotation.</div>
+                  </section>
+
+                  <section class="side-group-card mb-4" id="guidelinesScoreContainer" data-guide-lane-group>
+                    <div class="side-group-header d-flex align-items-center justify-content-between gap-2 mb-2">
+                      <div class="fw-semibold text-uppercase small text-body-tertiary">Reporting quality guidelines</div>
+                      <button id="openGuidelineCatalogButton" class="btn btn-sm border-0 text-secondary reader-kebab-btn" type="button" aria-label="Guideline catalog" data-bs-toggle="modal" data-bs-target="#customizeChecksModal">
+                        <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
+                      </button>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="accordion-item" id="reportingGuidelinesPluginPanel">
-                <h2 class="accordion-header" id="reportingGuidelinesHeading">
-                  <button class="accordion-button collapsed bg-transparent shadow-none py-2 reader-header-label fw-normal text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#reportingGuidelinesPanel" aria-expanded="false" aria-controls="reportingGuidelinesPanel">
-                    Reporting guidelines
-                  </button>
-                </h2>
-                <div id="reportingGuidelinesPanel" class="accordion-collapse collapse" aria-labelledby="reportingGuidelinesHeading" data-bs-parent="#checksAccordion">
-                  <div class="accordion-body p-2">
-                    <div id="reportingGuideList" class="vstack gap-2">
-                      <div class="small text-secondary">Reporting guideline matches will appear after document annotation.</div>
+                    <hr class="border-secondary-subtle mt-0 mb-3">
+                    <div class="accordion accordion-flush guide-lane-accordion" id="guidelineChecksAccordion">
+                      <div id="essentialGuidelinesPluginPanel" class="accordion-item bg-transparent border-0" data-guide-lane-container="essential">
+                        <h2 class="accordion-header" id="essentialGuidelinesHeading">
+                          <button class="accordion-button collapsed bg-transparent border-0 px-0 py-0 shadow-none guideline-lane-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#essentialGuidelinesPanel" aria-expanded="false" aria-controls="essentialGuidelinesPanel">
+                            <span class="d-inline-flex flex-column align-items-start gap-1">
+                              <span class="h6 mb-0 text-secondary">Essential guidelines</span>
+                              <span id="essentialGuidelineSummary" class="small text-secondary">Pending</span>
+                            </span>
+                            <span id="essentialLaneProgress" class="ms-auto d-inline-flex justify-content-end flex-shrink-0 guide-lane-progress-slot" data-guide-lane-progress="essential"></span>
+                          </button>
+                        </h2>
+                        <div id="essentialGuidelinesPanel" class="accordion-collapse collapse" aria-labelledby="essentialGuidelinesHeading">
+                          <div class="accordion-body px-0 pt-4 pb-5">
+                            <div id="essentialGuideList" class="vstack gap-3 guide-list" data-guide-lane="essential">
+                              <div class="small text-secondary">Essential guide checks will appear after document annotation.</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div id="reportingGuidelinesPluginPanel" class="accordion-item bg-transparent border-0 mt-3" data-guide-lane-container="matched">
+                        <h2 class="accordion-header" id="matchedGuidelinesHeading">
+                          <button class="accordion-button collapsed bg-transparent border-0 px-0 py-0 shadow-none guideline-lane-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#matchedGuidelinesPanel" aria-expanded="false" aria-controls="matchedGuidelinesPanel">
+                            <span class="d-inline-flex flex-column align-items-start gap-1">
+                              <span class="h6 mb-0 text-secondary">Matched guidelines</span>
+                              <span id="matchedGuidelineSummary" class="small text-secondary">Waiting for annotation</span>
+                            </span>
+                            <span id="matchedLaneProgress" class="ms-auto d-inline-flex justify-content-end flex-shrink-0 guide-lane-progress-slot" data-guide-lane-progress="matched"></span>
+                          </button>
+                        </h2>
+                        <div id="matchedGuidelinesPanel" class="accordion-collapse collapse" aria-labelledby="matchedGuidelinesHeading">
+                          <div class="accordion-body px-0 pt-4 pb-5">
+                            <div id="reportingGuideList" class="vstack gap-3 guide-list" data-guide-lane="matched">
+                              <div class="small text-secondary">Reporting guideline matches will appear after document annotation.</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div id="recommendedGuidelinesPluginPanel" class="accordion-item bg-transparent border-0 mt-3" data-guide-lane-container="recommended">
+                        <h2 class="accordion-header" id="recommendedGuidelinesHeading">
+                          <button class="accordion-button collapsed bg-transparent border-0 px-0 py-0 shadow-none guideline-lane-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#recommendedGuidelinesPanel" aria-expanded="false" aria-controls="recommendedGuidelinesPanel">
+                            <span class="d-inline-flex flex-column align-items-start gap-1">
+                              <span class="h6 mb-0 text-secondary">Open Science guidelines</span>
+                              <span id="recommendedGuidelineSummary" class="small text-secondary">Recommended for every manuscript</span>
+                            </span>
+                            <span id="recommendedLaneProgress" class="ms-auto d-inline-flex justify-content-end flex-shrink-0 guide-lane-progress-slot" data-guide-lane-progress="recommended"></span>
+                          </button>
+                        </h2>
+                        <div id="recommendedGuidelinesPanel" class="accordion-collapse collapse" aria-labelledby="recommendedGuidelinesHeading">
+                          <div class="accordion-body px-0 pt-4 pb-5">
+                            <div id="recommendedGuideList" class="vstack gap-3 guide-list" data-guide-lane="recommended"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div id="customGuidelinesPluginPanel" class="accordion-item bg-transparent border-0 mt-3" data-guide-lane-container="custom">
+                        <h2 class="accordion-header" id="customGuidelinesHeading">
+                          <button class="accordion-button collapsed bg-transparent border-0 px-0 py-0 shadow-none guideline-lane-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#customGuidelinesPanel" aria-expanded="false" aria-controls="customGuidelinesPanel">
+                            <span class="d-inline-flex flex-column align-items-start gap-1">
+                              <span class="h6 mb-0 text-secondary">Custom guidelines</span>
+                              <span id="customGuidelineSummary" class="small text-secondary">User-defined checks</span>
+                            </span>
+                            <span id="customLaneProgress" class="ms-auto d-inline-flex justify-content-end flex-shrink-0 guide-lane-progress-slot" data-guide-lane-progress="custom"></span>
+                          </button>
+                        </h2>
+                        <div id="customGuidelinesPanel" class="accordion-collapse collapse" aria-labelledby="customGuidelinesHeading">
+                          <div class="accordion-body px-0 pt-4 pb-5">
+                            <div id="customGuideList" class="vstack gap-3 guide-list" data-guide-lane="custom"></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </section>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="p-3 d-flex align-items-center justify-content-between gap-2">
-            <button id="runtimeSummaryButton" class="btn btn-sm btn-link text-secondary text-decoration-none px-0" type="button" data-bs-toggle="modal" data-bs-target="#runtimeSummaryModal">
-              <i class="bi bi-clock-history"></i>
-              <span>Runtime summary</span>
-            </button>
-            <div class="d-flex align-items-center gap-2">
-              <button id="customizeChecksButton" class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="modal" data-bs-target="#customizeChecksModal">
-                <i class="bi bi-sliders"></i>
-                <span>Customize</span>
-              </button>
-              <button id="feedbackReportButton" class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="modal" data-bs-target="#feedbackReportModal">
-                <i class="bi bi-file-earmark-text"></i>
-                <span>Feedback report</span>
-              </button>
+              </section>
+
+              <section class="tab-pane h-100 overflow-hidden" id="chat-pane" role="tabpanel" aria-labelledby="chat-tab" tabindex="0">
+                <div class="side-panel-fill d-flex flex-column h-100">
+                  <div class="p-3 flex-grow-1 min-h-0 overflow-auto">
+                    <div id="chatMessageList" class="vstack gap-3"></div>
+                  </div>
+                  <form id="chatComposer" class="border-top p-3 bg-body" autocomplete="off">
+                    <label class="form-label small text-secondary" for="chatInput">Ask about this manuscript</label>
+                    <div class="input-group">
+                      <textarea id="chatInput" class="form-control" rows="2" placeholder="Ask for a summary, missing declaration, or where a guideline was checked"></textarea>
+                      <button id="chatSendButton" class="btn btn-dark" type="submit" aria-label="Send chat message">
+                        <i class="bi bi-send" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </section>
+
+              <section class="tab-pane h-100 overflow-hidden" id="comment-pane" role="tabpanel" aria-labelledby="comment-tab" tabindex="0">
+                <div class="side-panel-fill d-flex flex-column h-100">
+                  <div class="p-3 flex-grow-1 min-h-0 overflow-auto">
+                    <div id="commentList" class="vstack gap-3"></div>
+                  </div>
+                  <form id="commentComposer" class="border-top p-3 bg-body" autocomplete="off">
+                    <label class="form-label small text-secondary" for="commentInput">Add a comment</label>
+                    <div class="input-group">
+                      <textarea id="commentInput" class="form-control" rows="2" placeholder="Leave a note for this review"></textarea>
+                      <button id="commentAddButton" class="btn btn-dark" type="submit" aria-label="Add comment">
+                        <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </section>
             </div>
           </div>
           <section id="detailsPanel" class="details-panel" aria-hidden="true" aria-label="Count details">

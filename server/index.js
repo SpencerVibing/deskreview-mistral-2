@@ -982,7 +982,7 @@ async function handleAnnotateDocument(req, res) {
           'Use only supplied OCR block text and resolver context. Do not invent manuscript content.',
           'For title, front matter, abstract, article sections, references, tables, and figures, copy exact source text snippets and block keys when available.',
           'Use resolver context as supporting evidence when it is supplied, but if it conflicts with OCR text, prefer exact OCR source text and add a short warning.',
-          'quoteAnchors should contain concise exact quotes that later checks can use for PDF/HTML jump links.',
+          'quoteAnchors should contain concise exact quotes that later checks can use for PDF/HTML jump links, especially for declarations such as ethics approval, consent, conflicts of interest, funding, data availability, protocol registration, and author contributions when those statements are present.',
           'Warnings must be short and user-friendly. Do not mention schemas, prompts, or implementation details.'
         ].join(' ')
       },

@@ -1,10 +1,11 @@
 {
   "guides": [
     {
-      "id": "ease-essential",
-      "name": "EASE Essentials",
-      "description": "Core cross-disciplinary manuscript checks inspired by EASE author guidance.",
-      "sourceLabel": "EASE author guidance",
+      "id": "ease-abstract-page",
+      "name": "Abstract page",
+      "description": "Front-matter checks for title, author metadata, keywords, and abstract availability.",
+      "sourceLabel": "EASE Essential guidelines",
+      "lane": "essential",
       "items": [
         {
           "id": "title",
@@ -30,12 +31,43 @@
           "requirement": "Keywords are available when the manuscript provides a keyword list.",
           "type": "keywords",
           "optional": true
+        }
+      ]
+    },
+    {
+      "id": "ease-imrad",
+      "name": "IMRaD",
+      "description": "Core article-structure checks for Introduction, Methods, Results, and Discussion/Conclusion sections.",
+      "sourceLabel": "EASE Essential guidelines",
+      "lane": "essential",
+      "items": [
+        {
+          "id": "introduction",
+          "label": "Introduction",
+          "requirement": "The manuscript includes an introduction or background section.",
+          "type": "sectionKeywords",
+          "keywords": ["introduction", "background"]
         },
         {
-          "id": "article",
-          "label": "Article text",
-          "requirement": "Main article sections are identified for guideline checks and reports.",
-          "type": "article"
+          "id": "methods",
+          "label": "Methods",
+          "requirement": "The manuscript includes a methods, materials, or experimental section.",
+          "type": "sectionKeywords",
+          "keywords": ["methods", "materials", "experimental", "study design"]
+        },
+        {
+          "id": "results",
+          "label": "Results",
+          "requirement": "The manuscript includes a results or findings section.",
+          "type": "sectionKeywords",
+          "keywords": ["results", "findings"]
+        },
+        {
+          "id": "discussion",
+          "label": "Discussion or conclusion",
+          "requirement": "The manuscript includes a discussion or conclusion section.",
+          "type": "sectionKeywords",
+          "keywords": ["discussion", "conclusion", "conclusions"]
         },
         {
           "id": "references",
@@ -48,6 +80,47 @@
           "label": "Tables and figures",
           "requirement": "Tables and figures are annotated with source anchors when present.",
           "type": "displayItems",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "ease-declarations",
+      "name": "Declarations",
+      "description": "End-matter checks for ethics, conflicts of interest, funding, data availability, and source-grounded evidence.",
+      "sourceLabel": "EASE Essential guidelines",
+      "lane": "essential",
+      "items": [
+        {
+          "id": "ethics",
+          "label": "Ethics statement",
+          "requirement": "The manuscript includes an ethics approval, consent, or institutional review statement when relevant.",
+          "type": "statementKeywords",
+          "keywords": ["ethics", "ethical approval", "institutional review", "irb", "consent"],
+          "optional": true
+        },
+        {
+          "id": "conflicts",
+          "label": "Conflicts of interest",
+          "requirement": "The manuscript includes a competing interests or conflicts of interest statement.",
+          "type": "statementKeywords",
+          "keywords": ["conflict", "competing interest", "declaration of interest"],
+          "optional": true
+        },
+        {
+          "id": "funding",
+          "label": "Funding",
+          "requirement": "The manuscript includes funding, sponsor, or support information.",
+          "type": "statementKeywords",
+          "keywords": ["funding", "funder", "grant", "sponsor", "financial support"],
+          "optional": true
+        },
+        {
+          "id": "data-availability",
+          "label": "Data availability",
+          "requirement": "The manuscript includes a data availability or materials availability statement when relevant.",
+          "type": "statementKeywords",
+          "keywords": ["data availability", "availability of data", "data sharing", "repository"],
           "optional": true
         },
         {

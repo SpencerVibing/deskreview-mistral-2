@@ -117,7 +117,12 @@ async function main() {
 
     const essentialData = await request('/data/ease-essential-guidelines.json');
     assert(essentialData.response.status === 200, `Expected /data/ease-essential-guidelines.json to return 200, got ${essentialData.response.status}.`);
-    assert(essentialData.text.includes('EASE Essentials'), 'Essential guideline data is missing.');
+    assert(
+      essentialData.text.includes('Abstract page')
+        && essentialData.text.includes('IMRaD')
+        && essentialData.text.includes('Declarations'),
+      'Essential guideline sub-guide data is missing.'
+    );
 
     const pluginData = await request('/data/plugin-catalog.json');
     assert(pluginData.response.status === 200, `Expected /data/plugin-catalog.json to return 200, got ${pluginData.response.status}.`);

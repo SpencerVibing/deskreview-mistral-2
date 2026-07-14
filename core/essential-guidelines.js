@@ -19,7 +19,41 @@ function result(status = 'warning', evidence = {}) {
   };
 }
 
-function evaluateItem(type = '', annotation = {}) {
+function keywords(value = []) {
+  return array(value).map((item) => text(item).toLowerCase()).filter(Boolean);
+}
+
+function textIncludesAny(value = '', terms = []) {
+  const haystack = text(value).toLowerCase();
+  return keywords(terms).some((term) => haystack.includes(term));
+}
+
+function sectionEvidence(annotation = {}, terms = []) {
+  const sections = array(annotation.article?.sections);
+  for (const section of sections) {
+    const title = text(section.title);
+    const countedText = text(section.countedText);
+    if (textIncludesAny(`${title}\n${countedText}`, terms)) {
+      return {
+        evidenceQuote: (title || countedText).slice(0, 220),
+        sourceBlockKey: firstSourceKey(section.sourceBlockKeys)
+      };
+    }
+  }
+  const anchors = array(annotation.quoteAnchors);
+  for (const anchor of anchors) {
+    if (textIncludesAny(`${anchor.kind}\n${anchor.label}\n${anchor.quote}`, terms)) {
+      return {
+        evidenceQuote: text(anchor.quote).slice(0, 220),
+        sourceBlockKey: text(anchor.sourceBlockKey)
+      };
+    }
+  }
+  return null;
+}
+
+function evaluateItem(item = {}, annotation = {}) {
+  const type = text(item.type);
   if (type === 'title') {
     const title = text(annotation.title?.text);
     return title
@@ -107,6 +141,28 @@ function evaluateItem(type = '', annotation = {}) {
       })
       : result('warning', { message: 'No source quote anchors were returned in the document annotation.' });
   }
+  if (type === 'sectionKeywords') {
+    const evidence = sectionEvidence(annotation, item.keywords);
+    return evidence
+      ? result('present', {
+        ...evidence,
+        message: `${text(item.label || 'Section')} evidence was found in the annotated article structure.`
+      })
+      : result('absent', {
+        message: `${text(item.label || 'Required section')} was not found in the annotated article structure.`
+      });
+  }
+  if (type === 'statementKeywords') {
+    const evidence = sectionEvidence(annotation, item.keywords);
+    return evidence
+      ? result('present', {
+        ...evidence,
+        message: `${text(item.label || 'Statement')} evidence was found in the annotated article structure.`
+      })
+      : result('warning', {
+        message: `${text(item.label || 'Statement')} was not confirmed by the document annotation.`
+      });
+  }
   return result('warning', { message: 'This guideline item is not supported yet.' });
 }
 
@@ -135,7 +191,7 @@ export function evaluateEssentialGuides(guides = [], annotation = null) {
   return array(guides).map((guide) => {
     const results = array(guide.items).map((item) => ({
       ...item,
-      ...evaluateItem(item.type, annotation)
+      ...evaluateItem(item, annotation)
     }));
     const totals = summary(results);
     const status = totals.absent ? 'absent' : (totals.warning ? 'warning' : 'present');

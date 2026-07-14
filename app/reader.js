@@ -135,6 +135,28 @@ const state = {
     error: '',
     startedAt: 0
   },
+  recommendedGuides: [
+    {
+      id: 'open-data',
+      name: 'Data and materials availability',
+      description: 'Check whether readers can find the data, materials, code, or repository statement needed to verify the work.',
+      sourceLabel: 'Open Science'
+    },
+    {
+      id: 'protocol-registration',
+      name: 'Protocol or registration',
+      description: 'Check whether a protocol, preregistration, trial registration, or review registration is declared when relevant.',
+      sourceLabel: 'Open Science'
+    },
+    {
+      id: 'transparent-reporting',
+      name: 'Transparent reporting',
+      description: 'Check whether limitations, reproducibility details, and availability statements are easy to verify from the manuscript.',
+      sourceLabel: 'Open Science'
+    }
+  ],
+  chatMessages: [],
+  comments: [],
   examples: [],
   pdfSearch: {
     query: '',
@@ -175,9 +197,24 @@ const els = {
   countsGrid: document.getElementById('countsGrid'),
   essentialGuideList: document.getElementById('essentialGuideList'),
   essentialGuidelineSummary: document.getElementById('essentialGuidelineSummary'),
+  essentialLaneProgress: document.getElementById('essentialLaneProgress'),
   essentialGuidelinesPluginPanel: document.getElementById('essentialGuidelinesPluginPanel'),
   reportingGuidelinesPluginPanel: document.getElementById('reportingGuidelinesPluginPanel'),
   reportingGuideList: document.getElementById('reportingGuideList'),
+  matchedGuidelineSummary: document.getElementById('matchedGuidelineSummary'),
+  matchedLaneProgress: document.getElementById('matchedLaneProgress'),
+  recommendedGuideList: document.getElementById('recommendedGuideList'),
+  recommendedGuidelineSummary: document.getElementById('recommendedGuidelineSummary'),
+  recommendedLaneProgress: document.getElementById('recommendedLaneProgress'),
+  customGuideList: document.getElementById('customGuideList'),
+  customGuidelineSummary: document.getElementById('customGuidelineSummary'),
+  customLaneProgress: document.getElementById('customLaneProgress'),
+  chatMessageList: document.getElementById('chatMessageList'),
+  chatComposer: document.getElementById('chatComposer'),
+  chatInput: document.getElementById('chatInput'),
+  commentList: document.getElementById('commentList'),
+  commentComposer: document.getElementById('commentComposer'),
+  commentInput: document.getElementById('commentInput'),
   customizeChecksModal: document.getElementById('customizeChecksModal'),
   customizeChecksBody: document.getElementById('customizeChecksBody'),
   tocList: document.getElementById('tocList'),
@@ -835,19 +872,19 @@ function renderHomeStats() {
 function renderExampleManuscripts() {
   if (!els.exampleManuscriptList) return;
   if (!state.examples.length) {
-    els.exampleManuscriptList.innerHTML = '<div class="col-12"><div class="text-secondary small">No examples are configured yet.</div></div>';
+    els.exampleManuscriptList.innerHTML = '<div class="text-secondary small">No examples are configured yet.</div>';
     renderHomeStats();
     return;
   }
   els.exampleManuscriptList.innerHTML = state.examples.map((example) => `
-    <div class="col-12 col-xl-4">
-      <div class="border rounded bg-body h-100 p-3">
+    <div class="card example-card border shadow-sm flex-shrink-0">
+      <div class="card-body p-3 d-flex flex-column">
         <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
-          <div class="small fw-semibold text-body">${escapeHtml(example.title || 'Example manuscript')}</div>
-          <span class="badge text-bg-light">${escapeHtml(example.status || 'Example')}</span>
+          <div class="example-title small fw-semibold text-body">${escapeHtml(example.title || 'Example manuscript')}</div>
+          <span class="badge text-bg-light flex-shrink-0">${escapeHtml(example.status || 'Example')}</span>
         </div>
         <div class="small text-secondary mb-3">${escapeHtml(example.description || '')}</div>
-        <div class="d-flex flex-wrap gap-1">
+        <div class="d-flex flex-wrap gap-1 mt-auto">
           ${(Array.isArray(example.tags) ? example.tags : []).map((tag) => `<span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(tag)}</span>`).join('')}
         </div>
       </div>
@@ -1559,6 +1596,58 @@ function guidelineStatusLabel(status = '') {
   }[status] || 'Pending';
 }
 
+function guideSummaryTotals(summary = {}) {
+  const present = Number(summary.present || 0);
+  const warning = Number(summary.warning || 0);
+  const absent = Number(summary.absent || 0);
+  const na = Number(summary.na || 0);
+  const actionable = Math.max(0, present + warning + absent);
+  const total = actionable + Math.max(0, na);
+  return { present, warning, absent, na, actionable, total };
+}
+
+function renderGuideProgress(summary = {}, status = '') {
+  if (status === 'pending') {
+    return `
+      <div class="progress guide-progress-mini rounded-pill" role="progressbar" aria-label="Pending guideline analysis">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style="width: 100%;"></div>
+      </div>
+    `;
+  }
+  const totals = guideSummaryTotals(summary);
+  const denominator = Math.max(1, totals.actionable);
+  const presentWidth = Math.round((totals.present / denominator) * 100);
+  const warningWidth = Math.round((totals.warning / denominator) * 100);
+  const absentWidth = Math.max(0, 100 - presentWidth - warningWidth);
+  return `
+    <div class="progress guide-progress-mini rounded-pill" role="progressbar" aria-label="${escapeHtml(totals.present)} present, ${escapeHtml(totals.warning)} review, ${escapeHtml(totals.absent)} missing">
+      <div class="progress-bar bg-success" style="width: ${escapeHtml(presentWidth)}%;"></div>
+      <div class="progress-bar bg-warning" style="width: ${escapeHtml(warningWidth)}%;"></div>
+      <div class="progress-bar bg-danger" style="width: ${escapeHtml(absentWidth)}%;"></div>
+    </div>
+  `;
+}
+
+function aggregateGuideSummaries(guides = []) {
+  return guides.reduce((total, guide) => {
+    Object.entries(guide.summary || {}).forEach(([key, value]) => {
+      total[key] = (total[key] || 0) + Number(value || 0);
+    });
+    return total;
+  }, { present: 0, warning: 0, absent: 0, na: 0 });
+}
+
+function renderGuideStatusBadges(summary = {}) {
+  return `
+    <div class="d-flex flex-wrap gap-1 mt-2">
+      <span class="badge bg-success-subtle text-success-emphasis">${escapeHtml(summary.present || 0)} present</span>
+      <span class="badge bg-warning-subtle text-warning-emphasis">${escapeHtml(summary.warning || 0)} review</span>
+      <span class="badge bg-danger-subtle text-danger-emphasis">${escapeHtml(summary.absent || 0)} missing</span>
+      <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.na || 0)} n/a</span>
+    </div>
+  `;
+}
+
 function updateEssentialResults() {
   if (!state.essentialGuides.length) {
     state.essentialResults = [];
@@ -1575,11 +1664,13 @@ function renderEssentialGuidelines() {
   if (!pluginIsEnabled(state.pluginPreferences, 'essential-guidelines')) {
     els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are disabled.</div>';
     if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Off';
+    if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = '';
     return;
   }
   if (!state.essentialGuides.length) {
     els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are loading.</div>';
     if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Loading';
+    if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
   updateEssentialResults();
@@ -1588,38 +1679,26 @@ function renderEssentialGuidelines() {
       <div class="alert alert-light border small mb-0">${escapeHtml(state.documentAnnotation.error || 'Document annotation is unavailable.')}</div>
     `;
     if (els.essentialGuidelineSummary) {
-      els.essentialGuidelineSummary.className = 'badge text-bg-danger ms-auto';
+      els.essentialGuidelineSummary.className = 'small text-danger';
       els.essentialGuidelineSummary.textContent = 'Failed';
     }
+    if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = '';
     return;
   }
-  const aggregate = state.essentialResults.reduce((total, guide) => {
-    Object.entries(guide.summary || {}).forEach(([key, value]) => {
-      total[key] = (total[key] || 0) + Number(value || 0);
-    });
-    return total;
-  }, { present: 0, warning: 0, absent: 0, na: 0 });
+  const aggregate = aggregateGuideSummaries(state.essentialResults);
+  const aggregateStatus = state.documentAnnotation.status === 'ready'
+    ? (aggregate.absent ? 'absent' : aggregate.warning ? 'warning' : 'present')
+    : 'pending';
   const summaryText = state.documentAnnotation.status === 'ready'
     ? `${aggregate.present}/${Math.max(1, aggregate.present + aggregate.warning + aggregate.absent)}`
     : 'Pending';
   if (els.essentialGuidelineSummary) {
-    els.essentialGuidelineSummary.className = `badge text-bg-${guidelineStatusTone(state.documentAnnotation.status === 'ready' ? 'present' : 'pending')} ms-auto`;
+    els.essentialGuidelineSummary.className = 'small text-secondary';
     els.essentialGuidelineSummary.textContent = summaryText;
   }
-  const customGuides = Array.isArray(state.pluginPreferences.customGuides) ? state.pluginPreferences.customGuides : [];
-  const customGuideHtml = customGuides.map((guide) => `
-    <div class="card border shadow-sm">
-      <div class="card-body p-3">
-        <div class="d-flex align-items-start justify-content-between gap-2">
-          <div>
-            <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
-            <div class="small text-secondary">${escapeHtml(guide.description || 'Custom guide definition')}</div>
-          </div>
-          <span class="badge text-bg-secondary">Custom</span>
-        </div>
-      </div>
-    </div>
-  `).join('');
+  if (els.essentialLaneProgress) {
+    els.essentialLaneProgress.innerHTML = renderGuideProgress(aggregate, aggregateStatus);
+  }
   els.essentialGuideList.innerHTML = state.essentialResults.map((guide) => {
     const tone = guidelineStatusTone(guide.status);
     const summary = guide.summary || {};
@@ -1628,21 +1707,19 @@ function renderEssentialGuidelines() {
         <div class="card-body p-3">
           <div class="d-flex align-items-start justify-content-between gap-2">
             <div class="min-w-0">
+              <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Essential')}</div>
               <div class="small fw-semibold text-body">${escapeHtml(guide.name || 'Essential guide')}</div>
               <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
             </div>
             <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
           </div>
-          <div class="d-flex flex-wrap gap-1 mt-2">
-            <span class="badge bg-success-subtle text-success-emphasis">${escapeHtml(summary.present || 0)} present</span>
-            <span class="badge bg-warning-subtle text-warning-emphasis">${escapeHtml(summary.warning || 0)} review</span>
-            <span class="badge bg-danger-subtle text-danger-emphasis">${escapeHtml(summary.absent || 0)} missing</span>
-            <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.na || 0)} n/a</span>
-          </div>
+          <div class="mt-3">${renderGuideProgress(summary, guide.status)}</div>
+          ${renderGuideStatusBadges(summary)}
         </div>
       </button>
     `;
-  }).join('') + customGuideHtml;
+  }).join('');
+  renderCustomGuidelines();
 }
 
 function renderEssentialGuideDetails(guideId = '') {
@@ -1714,10 +1791,14 @@ function renderReportingGuidelines() {
   if (!els.reportingGuideList) return;
   if (!pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines')) {
     els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guidelines are disabled.</div>';
+    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Off';
+    if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = '';
     return;
   }
   if (!state.reportingGuidelineCatalog.length) {
     els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guideline catalog is loading.</div>';
+    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Loading catalog';
+    if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
   if (state.reportingMatches.status === 'running') {
@@ -1726,18 +1807,31 @@ function renderReportingGuidelines() {
       message: 'The annotation is ready. Reporting guidelines are being matched in the background.',
       progress: null
     });
+    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Matching in background';
+    if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
   if (state.reportingMatches.status === 'failed') {
     els.reportingGuideList.innerHTML = `<div class="alert alert-light border small mb-0">${escapeHtml(state.reportingMatches.error || 'Reporting guideline matching failed.')}</div>`;
+    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Failed';
+    if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = '';
     return;
   }
   if (state.reportingMatches.status !== 'ready') {
     els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guideline matches will appear after document annotation.</div>';
+    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Waiting for annotation';
+    if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
   const matches = state.reportingMatches.result?.matches || [];
   const warnings = state.reportingMatches.result?.warnings || [];
+  const summary = { present: matches.length, warning: warnings.length, absent: 0, na: 0 };
+  if (els.matchedGuidelineSummary) {
+    els.matchedGuidelineSummary.textContent = `${matches.length} matched${warnings.length ? `, ${warnings.length} warning${warnings.length === 1 ? '' : 's'}` : ''}`;
+  }
+  if (els.matchedLaneProgress) {
+    els.matchedLaneProgress.innerHTML = renderGuideProgress(summary, matches.length || warnings.length ? 'present' : 'warning');
+  }
   els.reportingGuideList.innerHTML = `
     ${warnings.length ? `<div class="alert alert-light border small mb-2">${warnings.map(escapeHtml).join('<br>')}</div>` : ''}
     ${matches.map((match) => `
@@ -1745,15 +1839,241 @@ function renderReportingGuidelines() {
         <div class="card-body p-3">
           <div class="d-flex align-items-start justify-content-between gap-2">
             <div class="min-w-0">
+              <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Matched guideline</div>
               <div class="small fw-semibold text-body">${escapeHtml(match.label)}</div>
               <div class="small text-secondary">${escapeHtml(match.rationale || '')}</div>
             </div>
             <span class="badge text-bg-primary">${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%</span>
           </div>
+          <div class="progress mt-3 rounded-pill" role="progressbar" aria-label="${escapeHtml(match.label)} confidence" aria-valuenow="${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-primary" style="width: ${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%;"></div>
+          </div>
+          ${match.anchorQuote ? `<div class="small text-secondary mt-2 text-truncate">${escapeHtml(match.anchorQuote)}</div>` : ''}
         </div>
       </button>
     `).join('') || '<div class="small text-secondary">No reporting guideline matches were returned.</div>'}
   `;
+}
+
+function renderRecommendedGuidelines() {
+  if (!els.recommendedGuideList) return;
+  if (!pluginIsEnabled(state.pluginPreferences, 'recommended-guidelines')) {
+    els.recommendedGuideList.innerHTML = '<div class="small text-secondary">Open Science guidelines are disabled.</div>';
+    if (els.recommendedGuidelineSummary) els.recommendedGuidelineSummary.textContent = 'Off';
+    if (els.recommendedLaneProgress) els.recommendedLaneProgress.innerHTML = '';
+    return;
+  }
+  const guides = Array.isArray(state.recommendedGuides) ? state.recommendedGuides : [];
+  if (els.recommendedGuidelineSummary) {
+    els.recommendedGuidelineSummary.textContent = `${guides.length} recommended`;
+  }
+  if (els.recommendedLaneProgress) {
+    els.recommendedLaneProgress.innerHTML = renderGuideProgress({ present: guides.length, warning: 0, absent: 0, na: 0 }, 'present');
+  }
+  els.recommendedGuideList.innerHTML = guides.map((guide) => `
+    <div class="card border shadow-sm guide-card">
+      <div class="card-body p-3">
+        <div class="d-flex align-items-start justify-content-between gap-2">
+          <div class="min-w-0">
+            <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Recommended')}</div>
+            <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
+            <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
+          </div>
+          <span class="badge text-bg-light">Recommended</span>
+        </div>
+      </div>
+    </div>
+  `).join('') || '<div class="small text-secondary">No recommended guidelines configured.</div>';
+}
+
+function renderCustomGuidelines() {
+  if (!els.customGuideList) return;
+  if (!pluginIsEnabled(state.pluginPreferences, 'custom-guidelines')) {
+    els.customGuideList.innerHTML = '<div class="small text-secondary">Custom guidelines are disabled.</div>';
+    if (els.customGuidelineSummary) els.customGuidelineSummary.textContent = 'Off';
+    if (els.customLaneProgress) els.customLaneProgress.innerHTML = '';
+    return;
+  }
+  const customGuides = Array.isArray(state.pluginPreferences.customGuides) ? state.pluginPreferences.customGuides : [];
+  if (els.customGuidelineSummary) {
+    els.customGuidelineSummary.textContent = customGuides.length
+      ? `${customGuides.length} custom`
+      : 'No custom guides';
+  }
+  if (els.customLaneProgress) {
+    els.customLaneProgress.innerHTML = customGuides.length
+      ? renderGuideProgress({ present: customGuides.length, warning: 0, absent: 0, na: 0 }, 'present')
+      : '';
+  }
+  els.customGuideList.innerHTML = customGuides.map((guide) => `
+    <div class="card border shadow-sm guide-card">
+      <div class="card-body p-3">
+        <div class="d-flex align-items-start justify-content-between gap-2">
+          <div class="min-w-0">
+            <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Custom guideline</div>
+            <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
+            <div class="small text-secondary">${escapeHtml(guide.description || 'Custom guide definition')}</div>
+          </div>
+          <span class="badge text-bg-secondary">Custom</span>
+        </div>
+      </div>
+    </div>
+  `).join('') || `
+    <div class="small text-secondary">
+      Create custom guideline checks from the Customize dialog.
+    </div>
+  `;
+}
+
+function commentsStorageKey() {
+  return 'deskreview-mistral-2-comments:v1';
+}
+
+function reviewCommentKey() {
+  return state.currentReviewId || state.currentReview?.id || '';
+}
+
+function readAllComments() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(commentsStorageKey()) || '{}');
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeAllComments(commentsByReview = {}) {
+  try {
+    localStorage.setItem(commentsStorageKey(), JSON.stringify(commentsByReview));
+  } catch {
+    // Local comments are convenience data; failing to store them must not affect OCR review.
+  }
+}
+
+function loadReviewComments() {
+  const key = reviewCommentKey();
+  if (!key) {
+    state.comments = [];
+    return;
+  }
+  const commentsByReview = readAllComments();
+  state.comments = Array.isArray(commentsByReview[key]) ? commentsByReview[key] : [];
+}
+
+function saveReviewComments() {
+  const key = reviewCommentKey();
+  if (!key) return;
+  const commentsByReview = readAllComments();
+  commentsByReview[key] = state.comments;
+  writeAllComments(commentsByReview);
+}
+
+function renderChatMessages() {
+  if (!els.chatMessageList) return;
+  const messages = state.chatMessages.length
+    ? state.chatMessages
+    : [{
+      role: 'assistant',
+      text: state.pages.length
+        ? 'Ask about counts, Essential guideline results, matched reporting guidelines, declarations, or source locations in this manuscript.'
+        : 'Upload or open a manuscript to chat about the DeskReview results.'
+    }];
+  els.chatMessageList.innerHTML = messages.map((message) => `
+    <div class="chat-message ${message.role === 'user' ? 'chat-message-user' : ''}">
+      <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(message.role === 'user' ? 'You' : 'DeskReview')}</div>
+      <div class="small text-body">${escapeHtml(message.text)}</div>
+      ${message.sourceBlockKey ? `
+        <button type="button" class="btn btn-sm btn-light border mt-2" data-detail-block-key="${escapeHtml(message.sourceBlockKey)}">
+          <i class="bi bi-arrow-up-left-square" aria-hidden="true"></i>
+          <span>Jump</span>
+        </button>
+      ` : ''}
+    </div>
+  `).join('');
+}
+
+function essentialGuideSummaryText() {
+  updateEssentialResults();
+  if (!state.essentialResults.length) return 'Essential guidelines are still loading.';
+  return state.essentialResults.map((guide) => {
+    const summary = guide.summary || {};
+    return `${guide.name}: ${summary.present || 0} present, ${summary.warning || 0} review, ${summary.absent || 0} missing`;
+  }).join('\n');
+}
+
+function declarationSummaryText() {
+  updateEssentialResults();
+  const declarations = state.essentialResults.find((guide) => guide.id === 'ease-declarations');
+  if (!declarations) return 'Declarations are still loading.';
+  return declarations.results.map((item) => `${item.label}: ${guidelineStatusLabel(item.status)} - ${item.message}`).join('\n');
+}
+
+function generateChatReply(question = '') {
+  const query = String(question || '').toLowerCase();
+  if (!state.pages.length) return 'No manuscript is open yet. Upload a PDF or open a stored review first.';
+  if (query.includes('declaration') || query.includes('ethic') || query.includes('funding') || query.includes('conflict') || query.includes('data availability')) {
+    return declarationSummaryText();
+  }
+  if (query.includes('essential') || query.includes('guideline') || query.includes('imrad') || query.includes('abstract page')) {
+    return essentialGuideSummaryText();
+  }
+  if (query.includes('reporting') || query.includes('matched') || query.includes('consort') || query.includes('strobe') || query.includes('prisma')) {
+    if (state.reportingMatches.status === 'ready') {
+      const matches = state.reportingMatches.result?.matches || [];
+      return matches.length
+        ? matches.map((match) => `${match.label}: ${Math.round(Number(match.confidence || 0) * 100)}% - ${match.rationale}`).join('\n')
+        : 'No matched reporting guidelines were returned yet.';
+    }
+    return `Reporting guideline matching is ${state.reportingMatches.status || 'waiting'}. It runs after document annotation is ready.`;
+  }
+  if (query.includes('abstract')) {
+    const abstract = state.documentAnnotation.result?.abstract;
+    if (abstract?.countedText) {
+      return `Abstract: ${Number(abstract.wordCount || 0)} words.\n${String(abstract.countedText || '').slice(0, 500)}`;
+    }
+    return 'The annotation has not returned abstract text yet.';
+  }
+  if (query.includes('count') || query.includes('word') || query.includes('reference')) {
+    const counts = state.semanticCounts || getOcrCounts();
+    return [
+      `Pages: ${state.pages.length}`,
+      `Article words: ${formatInteger(counts.articleWordCount || counts.words || 0)}`,
+      `Abstract words: ${formatInteger(counts.abstractWordCount || 0)}`,
+      `References: ${formatInteger(counts.referenceCount || 0)}`,
+      `Tables: ${formatInteger(counts.tables || 0)}`,
+      `Figures: ${formatInteger(counts.figures || 0)}`
+    ].join('\n');
+  }
+  return 'I can summarize counts, Essential guideline results, declaration checks, matched reporting guidelines, or source-linked details for the current manuscript.';
+}
+
+function renderComments() {
+  if (!els.commentList) return;
+  if (!state.comments.length) {
+    els.commentList.innerHTML = `
+      <div class="comment-card text-secondary small">
+        No comments yet. Add a note for this review, optionally after clicking a source block.
+      </div>
+    `;
+    return;
+  }
+  els.commentList.innerHTML = state.comments.map((comment) => `
+    <div class="comment-card" data-comment-id="${escapeHtml(comment.id)}">
+      <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+        <div class="small text-secondary">${escapeHtml(formatDateTime(comment.createdAt))}</div>
+        <button type="button" class="btn btn-sm btn-light border" data-delete-comment-id="${escapeHtml(comment.id)}" aria-label="Delete comment">
+          <i class="bi bi-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="small text-body">${escapeHtml(comment.text)}</div>
+      ${comment.sourceBlockKey ? `
+        <button type="button" class="btn btn-sm btn-light border mt-2" data-detail-block-key="${escapeHtml(comment.sourceBlockKey)}">
+          <i class="bi bi-arrow-up-left-square" aria-hidden="true"></i>
+          <span>Jump to source</span>
+        </button>
+      ` : ''}
+    </div>
+  `).join('');
 }
 
 function renderReportingMatchDetails(guidelineId = '') {
@@ -1830,10 +2150,16 @@ function scheduleReportingGuidelineMatching() {
 function applyPluginPreferences() {
   const essentialEnabled = pluginIsEnabled(state.pluginPreferences, 'essential-guidelines');
   const reportingEnabled = pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines');
+  const recommendedEnabled = pluginIsEnabled(state.pluginPreferences, 'recommended-guidelines');
+  const customEnabled = pluginIsEnabled(state.pluginPreferences, 'custom-guidelines');
   els.essentialGuidelinesPluginPanel?.classList.toggle('d-none', !essentialEnabled);
   els.reportingGuidelinesPluginPanel?.classList.toggle('d-none', !reportingEnabled);
+  document.getElementById('recommendedGuidelinesPluginPanel')?.classList.toggle('d-none', !recommendedEnabled);
+  document.getElementById('customGuidelinesPluginPanel')?.classList.toggle('d-none', !customEnabled);
   renderEssentialGuidelines();
   renderReportingGuidelines();
+  renderRecommendedGuidelines();
+  renderCustomGuidelines();
   scheduleReportingGuidelineMatching();
 }
 
@@ -3899,6 +4225,8 @@ function resetReaderState(file = null) {
   state.documentAnnotationPromise = null;
   state.essentialResults = [];
   state.reportingMatches = { status: 'idle', result: null, error: '', startedAt: 0 };
+  state.chatMessages = [];
+  state.comments = [];
   state.pdfSearch = { query: '', matches: [], index: -1 };
   state.ocrProgress = { status: 'idle', startedAt: 0, estimateMs: 18000 };
   state.checkReveal = { phase: 'idle', startedAt: 0, visibleKinds: [], resultKinds: [], lastResultAt: 0, resultTimer: 0, timers: [] };
@@ -3908,6 +4236,10 @@ function resetReaderState(file = null) {
   closeDetails();
   renderEssentialGuidelines();
   renderReportingGuidelines();
+  renderRecommendedGuidelines();
+  renderCustomGuidelines();
+  renderChatMessages();
+  renderComments();
   resetPdfSearch();
   if (state.pdfUrl) URL.revokeObjectURL(state.pdfUrl);
 }
@@ -3942,6 +4274,9 @@ async function saveReviewToLibrary(file = null, ocr = {}) {
   await putStoredReview(review);
   state.currentReviewId = id;
   state.currentReview = review;
+  loadReviewComments();
+  renderComments();
+  renderChatMessages();
   refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
   return review;
 }
@@ -3980,6 +4315,9 @@ async function renderReviewFromRecord(review = {}) {
   state.currentReviewId = review.id || '';
   state.currentReview = review;
   state.loadedFromLibrary = true;
+  loadReviewComments();
+  renderComments();
+  renderChatMessages();
   if (review.referenceResolver?.status === 'ready' && review.referenceResolver.result) {
     const count = Array.isArray(review.referenceResolver.result.entries) ? review.referenceResolver.result.entries.length : 0;
     state.referenceResolver = { status: 'ready', result: review.referenceResolver.result, error: '', completed: count, total: count, startedAt: 0 };
@@ -4048,6 +4386,7 @@ async function renderReviewFromRecord(review = {}) {
   state.pdfUrl = URL.createObjectURL(review.pdfBlob);
   state.pages = Array.isArray(review.ocr.pages) ? review.ocr.pages : [];
   state.semanticCounts = review.ocr.semanticCounts || null;
+  renderChatMessages();
   hydrateSemanticCountsFromSavedResults(flatBlocks());
   showReader();
   switchView('pdf');
@@ -4103,6 +4442,7 @@ async function handleFile(file = null) {
     updateMetrics(ocr, file);
     startCheckReveal();
     renderHtmlDocument();
+    renderChatMessages();
     markRuntime('HTML reader rendered', {
       pages: state.pages.length,
       blocks: flatBlocks().length
@@ -4244,6 +4584,13 @@ els.homeInput.addEventListener('change', async () => {
   }
 });
 
+document.querySelectorAll('[data-scroll-target]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const target = document.querySelector(button.dataset.scrollTarget || '');
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
 els.tocToggleButton?.addEventListener('click', () => {
   setTocOpen(!state.tocOpen);
 });
@@ -4329,6 +4676,55 @@ els.reportingGuideList?.addEventListener('click', (event) => {
   const button = event.target.closest('[data-reporting-match-id]');
   if (!button) return;
   renderReportingMatchDetails(button.dataset.reportingMatchId);
+});
+
+els.chatComposer?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const question = String(els.chatInput?.value || '').trim();
+  if (!question) return;
+  state.chatMessages.push({ role: 'user', text: question });
+  state.chatMessages.push({ role: 'assistant', text: generateChatReply(question) });
+  if (els.chatInput) els.chatInput.value = '';
+  renderChatMessages();
+  els.chatMessageList?.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+});
+
+els.chatMessageList?.addEventListener('click', (event) => {
+  const target = event.target.closest('[data-detail-block-key]');
+  if (!target) return;
+  event.preventDefault();
+  focusBlock(target.dataset.detailBlockKey, 'chat');
+});
+
+els.commentComposer?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const textValue = String(els.commentInput?.value || '').trim();
+  if (!textValue) return;
+  state.comments.push({
+    id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    text: textValue,
+    sourceBlockKey: state.activeBlockKey || '',
+    createdAt: new Date().toISOString()
+  });
+  if (els.commentInput) els.commentInput.value = '';
+  saveReviewComments();
+  renderComments();
+  els.commentList?.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+});
+
+els.commentList?.addEventListener('click', (event) => {
+  const deleteButton = event.target.closest('[data-delete-comment-id]');
+  if (deleteButton) {
+    event.preventDefault();
+    state.comments = state.comments.filter((comment) => comment.id !== deleteButton.dataset.deleteCommentId);
+    saveReviewComments();
+    renderComments();
+    return;
+  }
+  const target = event.target.closest('[data-detail-block-key]');
+  if (!target) return;
+  event.preventDefault();
+  focusBlock(target.dataset.detailBlockKey, 'comment');
 });
 
 els.runtimeSummaryModal?.addEventListener('show.bs.modal', renderRuntimeSummary);
