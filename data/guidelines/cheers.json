@@ -1,0 +1,432 @@
+{
+  "id": "cheers",
+  "Name": "CHEERS",
+  "LongName": "Consolidated Health Economic Evaluation Reporting Standards 2022 (CHEERS 2022) Statement",
+  "Description": "CHEERS 2022 provides a 28-item reporting checklist for health economic evaluations to improve transparency and completeness of reporting so that studies are identifiable, interpretable, and useful for decision making.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Health economics",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the transparency, completeness, and usefulness of reporting of health economic evaluations of interventions for policy and practice decision making.",
+  "ManuscriptType": [
+    "Original research article",
+    "Economic evaluation report"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Economic evaluation"
+  ],
+  "Keywords": [
+    "CHEERS",
+    "CHEERS 2022",
+    "health economic evaluation",
+    "economic evaluation",
+    "cost-effectiveness analysis",
+    "cost-utility analysis",
+    "cost-benefit analysis",
+    "cost analysis",
+    "health technology assessment",
+    "QALY",
+    "incremental cost-effectiveness ratio",
+    "perspective",
+    "time horizon",
+    "discounting",
+    "uncertainty analysis",
+    "heterogeneity",
+    "distributional effects",
+    "stakeholder engagement"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Economic evaluation",
+      "Cost-effectiveness analysis",
+      "Cost-utility analysis",
+      "Cost-benefit analysis",
+      "Cost analysis"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Health economics",
+      "Health technology assessment",
+      "Outcomes research"
+    ],
+    "Coverage": "Reporting of health economic evaluations of health interventions, including analyses that consider costs alone and analyses that consider both costs and consequences, across healthcare and related decision contexts.",
+    "Focus": "Checklist items covering identification and summary, decision context, analytic plan, population/setting/comparators, perspective and time horizon, discounting, outcomes and valuation, costs and resource valuation, modelling and assumptions, heterogeneity/distributional effects/uncertainty, patient and stakeholder engagement, results presentation, discussion of implications and limitations, and disclosures.",
+    "ContrastWith": "Not a tool to score study quality or judge whether methods were appropriate; it is a minimum reporting standard for describing what was done and found in an economic evaluation."
+  },
+  "references": {
+    "primary": {
+      "description": "Husereau D, Drummond M, Augustovski F, de Bekker-Grob E, Briggs AH, Carswell C, Caulley L, Chaiyakunapruk N, Greenberg D, Loder E, Mauskopf J, Mullins CD, Petrou S, Pwu RF, Staniszewska S; CHEERS 2022 ISPOR Good Research Practices Task Force. Consolidated Health Economic Evaluation Reporting Standards 2022 (CHEERS 2022) Statement: Updated Reporting Guidance for Health Economic Evaluations. BMJ. 2022;376:e067975.",
+      "url": "[https://www.bmj.com/content/376/bmj-2021-067975](https://www.bmj.com/content/376/bmj-2021-067975)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title",
+      "items": [
+        {
+          "section": "Title",
+          "item": "1",
+          "item_name": "Title",
+          "item_question": "Does the title identify the study as an economic evaluation and specify the interventions being compared?",
+          "item_question_background": "If the title does not clearly flag an economic evaluation and what is being compared, the study can be misclassified in indexing and screening, and readers cannot immediately understand the decision problem under evaluation.",
+          "item_extraction_instruction": "Extract the exact wording in the title that (a) identifies the work as an economic evaluation and (b) names the interventions/strategies being compared; if either is missing, record what is absent.",
+          "item_expected_location": "Title",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Abstract",
+      "items": [
+        {
+          "section": "Abstract",
+          "item": "2",
+          "item_name": "Abstract",
+          "item_question": "Does the abstract provide a structured summary highlighting context, key methods, results, and alternative analyses?",
+          "item_question_background": "A non-structured or incomplete abstract can omit essential assumptions and headline results (including alternative analyses), leading to incorrect interpretation by readers who rely on the abstract for decisions and evidence synthesis.",
+          "item_extraction_instruction": "Extract the structured abstract elements that describe: context/decision problem, key methods (including analytic approach), main results, and any alternative analyses; note any missing element(s).",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "3",
+          "item_name": "Background and objectives",
+          "item_question": "Does the introduction give the context for the study, the study question, and its practical relevance for decision making in policy or practice?",
+          "item_question_background": "Without a clearly stated decision context and practical relevance, readers cannot judge why the evaluation was needed or how results should inform policy or practice choices.",
+          "item_extraction_instruction": "Extract the text stating (a) decision context, (b) study question/objective, and (c) the practical relevance for policy or practice; record which of these elements are present.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "4",
+          "item_name": "Health economic analysis plan",
+          "item_question": "Does the manuscript indicate whether a health economic analysis plan was developed and where it is available?",
+          "item_question_background": "If the analysis plan is not declared and locatable, readers cannot distinguish prespecified decisions from post hoc choices that may bias estimates and conclusions.",
+          "item_extraction_instruction": "Extract statements indicating whether an analysis plan exists and where it can be accessed (e.g., supplement, repository, protocol link); if none, record 'Not reported'.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "5",
+          "item_name": "Study population",
+          "item_question": "Are characteristics of the study population described (e.g., age range, demographics, socioeconomic, or clinical characteristics)?",
+          "item_question_background": "If population characteristics are missing, applicability and transferability of costs and outcomes to other settings or decision makers cannot be assessed.",
+          "item_extraction_instruction": "Extract population descriptors reported (age range, demographics, socioeconomic, clinical characteristics) and where they appear; note key missing descriptors relevant to the study context.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "6",
+          "item_name": "Setting and location",
+          "item_question": "Does the manuscript provide relevant contextual information (setting and location) that may influence findings?",
+          "item_question_background": "Costs, resource use, and outcomes can vary greatly by system and geography; without setting/location context, results may be misapplied to different jurisdictions.",
+          "item_extraction_instruction": "Extract the setting and location details (e.g., country, care setting, system context) and any contextual features explicitly linked to costs/outcomes.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7",
+          "item_name": "Comparators",
+          "item_question": "Are the interventions or strategies being compared described, including why they were chosen?",
+          "item_question_background": "If comparators are unclear or unjustified, decision relevance is undermined and readers cannot determine whether the evaluation reflects realistic alternatives.",
+          "item_extraction_instruction": "Extract descriptions of each comparator and any rationale for inclusion (e.g., standard care, guideline-recommended option).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8",
+          "item_name": "Perspective",
+          "item_question": "Does the manuscript state the perspective(s) adopted and why chosen?",
+          "item_question_background": "Perspective determines which costs and consequences are counted; if not reported, readers cannot interpret what the reported totals represent or compare across studies.",
+          "item_extraction_instruction": "Extract the stated perspective(s) (e.g., payer, health system, societal) and the justification provided; if multiple perspectives are used, list each.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9",
+          "item_name": "Time horizon",
+          "item_question": "Is the time horizon stated and justified as appropriate?",
+          "item_question_background": "An unstated or unjustified time horizon can truncate long-term benefits or costs, biasing cost-effectiveness and misleading decision makers.",
+          "item_extraction_instruction": "Extract the time horizon used and the rationale for its appropriateness (e.g., lifetime, trial duration, policy-relevant period).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "10",
+          "item_name": "Discount rate",
+          "item_question": "Are the discount rate(s) reported along with the reason chosen?",
+          "item_question_background": "Without discounting details, present-value calculations cannot be reproduced and comparisons to guideline-recommended rates are impossible.",
+          "item_extraction_instruction": "Extract discount rate(s) for costs and outcomes (if distinct) and any rationale or reference to jurisdictional guidance.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "11",
+          "item_name": "Selection of outcomes",
+          "item_question": "Does the manuscript describe what outcomes were used as the measure(s) of benefit(s) and harm(s)?",
+          "item_question_background": "If benefit and harm outcomes are not specified, the value claim is uninterpretable and readers cannot judge whether the evaluation captured what matters for decisions.",
+          "item_extraction_instruction": "List the outcomes used to represent benefits and harms (e.g., QALYs, life-years, clinical endpoints) and identify which are primary for the economic results.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12",
+          "item_name": "Measurement of outcomes",
+          "item_question": "Does the manuscript describe how outcomes used to capture benefit(s) and harm(s) were measured?",
+          "item_question_background": "Outcome measurement choices (instruments, timing, sources) drive effect estimates; missing details prevent replication and bias appraisal.",
+          "item_extraction_instruction": "Extract methods used to measure each key outcome (source, instrument, timing, and any mapping or derivation steps).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "13",
+          "item_name": "Valuation of outcomes",
+          "item_question": "Does the manuscript describe the population and methods used to measure and value outcomes?",
+          "item_question_background": "Valuation methods (whose preferences, what tariff, how elicited) affect utilities and monetized outcomes; without them, results cannot be compared or validated.",
+          "item_extraction_instruction": "Extract the population used for valuation (e.g., general public, patients) and valuation methods (e.g., utility tariffs, WTP methods) including data sources.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "14",
+          "item_name": "Measurement and valuation of resources and costs",
+          "item_question": "Does the manuscript describe how costs were valued?",
+          "item_question_background": "If costing methods are not reported, the cost side of the analysis is opaque and cannot be reproduced or adapted to other settings.",
+          "item_extraction_instruction": "Extract how costs were valued (unit costs/prices, valuation sources, costing approach such as micro-costing or tariffs) and any assumptions.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "15",
+          "item_name": "Currency, price date, and conversion",
+          "item_question": "Does the manuscript report dates of estimated resource quantities and unit costs, plus the currency and year of conversion?",
+          "item_question_background": "Without price dates, currency, and conversion year, cost estimates cannot be inflated/deflated or compared across jurisdictions and time, risking misinterpretation.",
+          "item_extraction_instruction": "Extract resource quantity dates, unit cost dates, currency, price year, and any conversion approach (e.g., exchange rates, PPP) with the conversion year.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "16",
+          "item_name": "Rationale and description of model",
+          "item_question": "If modelling is used, does the manuscript describe the model in detail, explain why it was used, and report whether it is publicly available and where accessed?",
+          "item_question_background": "Model structure and accessibility determine credibility and reproducibility; without detailed description and access information, readers cannot assess assumptions or replicate results.",
+          "item_extraction_instruction": "If modelling is used, extract: model type/structure, rationale for modelling, key structural assumptions, and any statement about public availability and access location; if no model is used, record 'Not applicable'.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "17",
+          "item_name": "Analytics and assumptions",
+          "item_question": "Does the manuscript describe analytic methods (including statistical transformations), extrapolation methods, and approaches for validating any model used?",
+          "item_question_background": "Analytic and extrapolation choices can materially change estimates; without transparency on methods and validation, robustness and trustworthiness cannot be judged.",
+          "item_extraction_instruction": "Extract descriptions of: data analysis/statistical transformations, extrapolation methods (if any), and model validation approaches (if any), including references or diagnostics mentioned.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "18",
+          "item_name": "Characterizing heterogeneity",
+          "item_question": "Does the manuscript describe methods used to estimate how results vary for sub-groups?",
+          "item_question_background": "If heterogeneity methods are not described, subgroup results may be overinterpreted and decision makers cannot understand which populations drive value differences.",
+          "item_extraction_instruction": "Extract subgroup definitions and the method used to estimate subgroup-specific results (e.g., stratified analysis, interaction terms, scenario analyses).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "19",
+          "item_name": "Characterizing distributional effects",
+          "item_question": "Does the manuscript describe how impacts are distributed across individuals or what adjustments were made to reflect priority populations?",
+          "item_question_background": "Ignoring or failing to report distributional effects can hide inequities; readers cannot evaluate whether results align with equity or priority-setting goals.",
+          "item_extraction_instruction": "Extract any distributional analysis approach or adjustments for priority populations, including how distribution was assessed and what weights/criteria were applied if stated.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "20",
+          "item_name": "Characterizing uncertainty",
+          "item_question": "Does the manuscript describe methods to characterize sources of uncertainty in the analysis?",
+          "item_question_background": "Without uncertainty characterization, point estimates can be mistaken for certainty and decision makers cannot understand risk around conclusions.",
+          "item_extraction_instruction": "Extract methods used to characterize uncertainty (e.g., probabilistic sensitivity analysis, deterministic sensitivity analysis, scenario analyses, parameter distributions) and what sources were considered.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "21",
+          "item_name": "Approach to engagement with patients and others affected by the study",
+          "item_question": "Does the manuscript describe approaches used to engage patients/service recipients, the public, communities, or stakeholders in the design of the study?",
+          "item_question_background": "If engagement is not described, readers cannot judge whether the evaluation addressed stakeholder-relevant outcomes and assumptions or whether key perspectives were omitted.",
+          "item_extraction_instruction": "Extract who was engaged (patients/service recipients/public/communities/stakeholders such as clinicians or payers), how they were engaged, and which parts of study design were influenced.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "22",
+          "item_name": "Study parameters",
+          "item_question": "Are all analytic inputs reported (values, ranges, references), including uncertainty or distributional assumptions?",
+          "item_question_background": "If parameters and assumptions are incomplete, results cannot be reproduced and readers cannot evaluate whether inputs are plausible or selectively chosen.",
+          "item_extraction_instruction": "Extract the full set of analytic inputs (parameter values, ranges, sources/references) and any stated uncertainty/distributional assumptions; note any inputs referenced but not reported.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "23",
+          "item_name": "Summary of main results",
+          "item_question": "Does the manuscript report mean values for main categories of costs and outcomes of interest and summarize them in the most appropriate overall measure?",
+          "item_question_background": "Without clear mean costs/outcomes and an overall summary measure, readers cannot interpret value trade-offs or compare results across evaluations.",
+          "item_extraction_instruction": "Extract reported mean costs and mean outcomes by comparator and the overall summary measure used (e.g., ICER, net monetary benefit), including units and time horizon where stated.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "24",
+          "item_name": "Effect of uncertainty",
+          "item_question": "Does the manuscript describe how uncertainty about analytic judgments, inputs, or projections affects findings, including the effect of discount rate and time horizon if applicable?",
+          "item_question_background": "If uncertainty impacts are not reported, decision makers may over-trust conclusions and cannot see which assumptions drive the result.",
+          "item_extraction_instruction": "Extract reported uncertainty results (e.g., ranges, CEACs, scenario results) and any explicit discussion of discount rate/time horizon effects; if none, record 'Not reported'.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "25",
+          "item_name": "Effect of engagement with patients and others affected by the study",
+          "item_question": "Does the manuscript report what difference stakeholder involvement made to the approach or findings of the study?",
+          "item_question_background": "If the influence of engagement is not reported, readers cannot assess whether stakeholder input meaningfully shaped assumptions, outcomes, or interpretation.",
+          "item_extraction_instruction": "Extract statements describing how engagement changed study design choices, selected outcomes, assumptions, analyses, or interpretation; if engagement occurred but no effects are described, record that gap.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "26",
+          "item_name": "Study findings, limitations, generalizability, and current knowledge",
+          "item_question": "Does the discussion report key findings, limitations, ethical or equity considerations not captured, and how these could impact patients, policy, or practice?",
+          "item_question_background": "Without a balanced discussion of limitations and implications (including equity/ethics), readers may misapply findings or overlook important constraints on decision use.",
+          "item_extraction_instruction": "Extract discussion text covering: key findings, study limitations, generalizability/transferability, ethical or equity considerations not otherwise captured, and stated implications for patients, policy, or practice.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Other relevant information",
+      "items": [
+        {
+          "section": "Other relevant information",
+          "item": "27",
+          "item_name": "Source of funding",
+          "item_question": "Does the manuscript describe how the study was funded and any role of the funder in identification, design, conduct, and reporting of the analysis?",
+          "item_question_background": "If funding sources and funder roles are unclear, readers cannot assess potential influence on design choices, assumptions, or reporting emphasis.",
+          "item_extraction_instruction": "Extract the funding statement, including funder(s) and any described role in study identification, design, conduct, analysis, or reporting; if explicitly stated there was no funder role, capture that.",
+          "item_expected_location": "Other relevant information",
+          "item_optional": false
+        },
+        {
+          "section": "Other relevant information",
+          "item": "28",
+          "item_name": "Conflicts of interest",
+          "item_question": "Do the authors report conflicts of interest according to journal or ICMJE requirements?",
+          "item_question_background": "Without conflicts disclosures, readers cannot judge whether financial or other interests could have biased analytic choices or interpretation.",
+          "item_extraction_instruction": "Extract the conflicts of interest disclosures for all authors (or the statement of none) and note the reporting standard referenced (journal policy or ICMJE).",
+          "item_expected_location": "Other relevant information",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "CHEERS",
+      "CHEERS 2022",
+      "Consolidated Health Economic Evaluation Reporting Standards",
+      "Consolidated Health Economic Evaluation Reporting Standards 2022"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bCHEERS\\b",
+          "\\bCHEERS\\s*2022\\b",
+          "\\bhealth\\s+economic\\s+evaluation\\b",
+          "\\beconomic\\s+evaluation\\b",
+          "\\bcost[-\\s]?effectiveness\\b",
+          "\\bcost[-\\s]?utility\\b",
+          "\\bcost[-\\s]?benefit\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bQALY(s)?\\b",
+          "\\bICER\\b|\\bincremental\\s+cost[-\\s]?effectiveness\\s+ratio\\b",
+          "\\bnet\\s+monetary\\s+benefit\\b",
+          "\\bprobabilistic\\s+sensitivity\\s+analysis\\b",
+          "\\bcost\\s+offset(s)?\\b",
+          "\\bhealth\\s+technology\\s+assessment\\b|\\bHTA\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "We conducted a cost-effectiveness analysis comparing intervention A versus usual care and report according to CHEERS 2022.",
+      "This economic evaluation reports costs, QALYs, an ICER, and probabilistic sensitivity analysis (CHEERS 2022)."
+    ],
+    "EvidenceExamplesNegative": [
+      "We report a randomized controlled trial according to CONSORT (no economic evaluation).",
+      "This is a systematic review and meta-analysis reported according to PRISMA (not an economic evaluation report)."
+    ],
+    "Explain": "Routes manuscripts that are health economic evaluations to CHEERS 2022 based on explicit mentions of CHEERS or common economic evaluation terminology and outputs (e.g., QALYs, ICER)."
+  }
+}

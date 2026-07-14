@@ -1,0 +1,553 @@
+{
+  "id": "gather",
+  "Name": "GATHER",
+  "LongName": "Guidelines for Accurate and Transparent Health Estimates Reporting (GATHER) statement",
+  "Description": "GATHER defines minimum reporting requirements for studies that produce quantitative population-level health estimates by synthesizing multiple data sources with statistical or mathematical models.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Global health estimates reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve transparency, interpretability, and reproducibility of global health estimates by requiring explicit reporting of objectives, data inputs, analytical methods, uncertainty, results dissemination, and limitations.",
+  "ManuscriptType": [
+    "Original research article",
+    "Global health estimates report",
+    "Burden of disease estimation study"
+  ],
+  "ManuscriptSubType": [
+    "Mortality estimation study",
+    "Morbidity or prevalence estimation study",
+    "Risk exposure estimation study",
+    "Subnational or comparative population estimates study"
+  ],
+  "StudyType": [
+    "Health estimates modeling study",
+    "Population-level estimation study",
+    "Multi-source synthesis study"
+  ],
+  "Keywords": [
+    "GATHER",
+    "GATHER statement",
+    "Guidelines for Accurate and Transparent Health Estimates Reporting",
+    "global health estimates",
+    "population-level estimates",
+    "burden of disease",
+    "mortality estimates",
+    "cause-specific mortality",
+    "incidence estimates",
+    "prevalence estimates",
+    "health determinants",
+    "risk factor estimates",
+    "data synthesis",
+    "multiple data sources",
+    "model-based estimates",
+    "uncertainty intervals",
+    "health indicator modeling",
+    "country estimates",
+    "subnational estimates",
+    "time trend estimates",
+    "covariate modeling",
+    "input data documentation",
+    "source code availability",
+    "reproducible health estimates"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Health estimates modeling study",
+      "Population-level estimation study",
+      "Multi-source synthesis study"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Cross-disciplinary"
+    ],
+    "Coverage": "Studies that estimate health indicators across multiple populations, places, or time periods using multiple input datasets and formal synthesis/modeling methods.",
+    "Focus": "Transparent reporting of indicator definitions, population/time coverage, data identification and selection, input-data characteristics and bias, model specification and selection, uncertainty quantification, access to input data and analytical code, and interpretation of estimate updates.",
+    "ContrastWith": "Not intended for single-source descriptive reports (for example one survey round without multi-source synthesis), clinical trial reports, or general epidemiologic analyses that do not generate comparative population-level health estimates via modeling."
+  },
+  "references": {
+    "primary": {
+      "description": "Stevens GA, Alkema L, Black RE, et al. Guidelines for Accurate and Transparent Health Estimates Reporting: the GATHER statement. Lancet. 2016;388:e19-e23.",
+      "url": "https://doi.org/10.1016/S0140-6736(16)30388-9"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Objectives and funding",
+      "items": [
+        {
+          "section": "Objectives and funding",
+          "item": "1",
+          "item_name": "Define indicators, populations, and time periods",
+          "item_question": "Are the indicator(s), populations (including age, sex, and geographic entities), and time period(s) for estimation clearly defined?",
+          "item_question_background": "Explicit scope definitions are necessary to interpret comparability and intended policy use of estimates.",
+          "item_extraction_instruction": "Extract all target indicators, population strata (age, sex, geography), and covered time periods for the reported estimates.",
+          "item_expected_location": "Objectives / Methods / Data section",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Define the indicator(s), populations ... and time period(s) for which estimates were made.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Objectives and funding",
+          "item": "2",
+          "item_name": "List funding sources",
+          "item_question": "Are funding sources for the work reported?",
+          "item_question_background": "Funding transparency supports appraisal of potential influence and reporting completeness.",
+          "item_extraction_instruction": "Extract all funders and related support statements for the estimation work.",
+          "item_expected_location": "Funding / Acknowledgements / End matter",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "List the funding sources for the work.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data inputs",
+      "items": [
+        {
+          "section": "Data inputs",
+          "item": "3",
+          "item_name": "Data identification and access",
+          "item_question": "For synthesized data inputs, is how data were identified and accessed described?",
+          "item_question_background": "A documented search and access process is required to assess selection rigor and reproducibility.",
+          "item_extraction_instruction": "Extract data search strategy, discovery channels, and access procedures for included synthesized datasets.",
+          "item_expected_location": "Methods / Data inputs",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe how the data were identified and how the data were accessed.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Data inputs",
+          "item": "4",
+          "item_name": "Inclusion and exclusion criteria",
+          "item_question": "Are inclusion and exclusion criteria specified, including ad-hoc exclusions?",
+          "item_question_background": "Transparent eligibility criteria reduce risk of selective inclusion and hidden biases.",
+          "item_extraction_instruction": "Extract all predefined inclusion/exclusion rules and any ad-hoc exclusions applied during data processing.",
+          "item_expected_location": "Methods / Data inclusion criteria",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Specify the inclusion and exclusion criteria. Identify all ad-hoc exclusions.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Data inputs",
+          "item": "5",
+          "item_name": "Characteristics of included data sources",
+          "item_question": "Are all included data sources and core characteristics reported?",
+          "item_question_background": "Source-level metadata are necessary for judging representativeness and harmonization validity.",
+          "item_extraction_instruction": "Extract, for each included source, reference/contact, represented population, collection method, years, sex/age range, diagnostic or measurement criteria, and sample size where relevant.",
+          "item_expected_location": "Methods / Data sources / Supplementary tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Provide information about all included data sources and their main characteristics.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Data inputs",
+          "item": "6",
+          "item_name": "Potentially biased input-data categories",
+          "item_question": "Are categories of input data with potentially important bias identified and described?",
+          "item_question_background": "Bias characterization supports appropriate uncertainty interpretation and cross-source synthesis decisions.",
+          "item_extraction_instruction": "Extract any source categories flagged for bias risk and the rationale for each bias concern.",
+          "item_expected_location": "Methods / Bias assessment / Data quality",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Identify and describe any categories of input data that have potentially important biases.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        },
+        {
+          "section": "Data inputs",
+          "item": "7",
+          "item_name": "Other contributing data inputs",
+          "item_question": "For additional non-synthesized data inputs, are data and sources described?",
+          "item_question_background": "Covariates and supporting inputs can materially influence estimates and must be transparent.",
+          "item_extraction_instruction": "Extract all additional analysis inputs (for example population denominators or covariates) and their data sources.",
+          "item_expected_location": "Methods / Covariates / Supporting data",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe and give sources for any other data inputs.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Data inputs",
+          "item": "8",
+          "item_name": "Shareable data-input file format and metadata",
+          "item_question": "Are all input data provided in an efficiently extractable format, with metadata or access contacts for restricted data?",
+          "item_question_background": "Machine-readable inputs and access pathways are essential for verification and reuse.",
+          "item_extraction_instruction": "Extract where input datasets are shared, file format details, accompanying metadata, and contact/institution details when legal or ethical constraints prevent open sharing.",
+          "item_expected_location": "Data availability / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Provide all data inputs in a file format from which data can be efficiently extracted.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data analysis",
+      "items": [
+        {
+          "section": "Data analysis",
+          "item": "9",
+          "item_name": "Conceptual overview of analysis",
+          "item_question": "Is a conceptual overview of the analysis method provided (including a diagram when helpful)?",
+          "item_question_background": "A conceptual map helps readers understand model flow before technical details.",
+          "item_extraction_instruction": "Extract high-level narrative and any workflow diagram describing analytical pipeline and model structure.",
+          "item_expected_location": "Methods / Analysis overview / Figure",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Provide a conceptual overview of the data analysis method. A diagram may be helpful.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Data analysis",
+          "item": "10",
+          "item_name": "Detailed analysis steps and formulae",
+          "item_question": "Are all analysis steps described in detail, including mathematical formulae and preprocessing/adjustment/modeling steps?",
+          "item_question_background": "Technical reproducibility depends on complete step-level and mathematical reporting.",
+          "item_extraction_instruction": "Extract detailed analytical workflow: cleaning, preprocessing, adjustments, weighting, and all mathematical/statistical model definitions.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Provide a detailed description of all steps of the analysis, including mathematical formulae.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Data analysis",
+          "item": "11",
+          "item_name": "Candidate-model evaluation and final-model selection",
+          "item_question": "Are candidate models and final-model selection procedures described?",
+          "item_question_background": "Model-selection transparency is required to interpret estimate robustness and avoid opaque choices.",
+          "item_extraction_instruction": "Extract criteria and process used to evaluate candidate models and justify final model choice.",
+          "item_expected_location": "Methods / Model selection",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe how candidate models were evaluated and how the final model(s) were selected.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Data analysis",
+          "item": "12",
+          "item_name": "Model performance and sensitivity analysis",
+          "item_question": "Are model performance evaluation results and relevant sensitivity analyses reported when done?",
+          "item_question_background": "Performance diagnostics and sensitivity checks determine trustworthiness and stability of estimates.",
+          "item_extraction_instruction": "Extract performance metrics/validation outputs and any sensitivity-analysis results with interpretation.",
+          "item_expected_location": "Results / Methods / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Provide the results of an evaluation of model performance, if done, as well as the results of any relevant sensitivity analysis.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        },
+        {
+          "section": "Data analysis",
+          "item": "13",
+          "item_name": "Uncertainty calculation methods",
+          "item_question": "Are methods for calculating estimate uncertainty described, including uncertainty sources included and omitted?",
+          "item_question_background": "Uncertainty reporting is central for policy interpretation of model-based estimates.",
+          "item_extraction_instruction": "Extract uncertainty methodology, interval computation details, and explicit list of uncertainty sources accounted for and not accounted for.",
+          "item_expected_location": "Methods / Uncertainty analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe methods of calculating uncertainty of the estimates.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Data analysis",
+          "item": "14",
+          "item_name": "Access to analytical or statistical source code",
+          "item_question": "Is access information provided for analytical or statistical source code used to generate estimates?",
+          "item_question_background": "Code accessibility materially improves reproducibility and methodological auditability.",
+          "item_extraction_instruction": "Extract source-code availability statement, repository or URL, licensing/access constraints, and any key-code segment availability notes.",
+          "item_expected_location": "Code availability / Methods / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "State how analytical or statistical source code used to generate estimates can be accessed.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Results and discussion",
+      "items": [
+        {
+          "section": "Results and discussion",
+          "item": "15",
+          "item_name": "Published estimates in extractable format",
+          "item_question": "Are published estimates provided in an efficiently extractable file format?",
+          "item_question_background": "Machine-readable outputs enable downstream validation, reuse, and synthesis.",
+          "item_extraction_instruction": "Extract where final estimates are published and whether provided in machine-readable formats (for example CSV/XLS rather than only PDF).",
+          "item_expected_location": "Results / Data availability / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Provide published estimates in a file format from which data can be efficiently extracted.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Results and discussion",
+          "item": "16",
+          "item_name": "Quantitative uncertainty measure",
+          "item_question": "Is a quantitative measure of estimate uncertainty reported?",
+          "item_question_background": "Point estimates without uncertainty can mislead decision-making and overstate precision.",
+          "item_extraction_instruction": "Extract uncertainty intervals or equivalent quantitative uncertainty metrics for reported estimates.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Report a quantitative measure of the uncertainty of the estimates.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Results and discussion",
+          "item": "17",
+          "item_name": "Interpretation against existing evidence and estimate updates",
+          "item_question": "Are results interpreted in light of existing evidence, including reasons for changes from previous estimates when applicable?",
+          "item_question_background": "Contextual interpretation is necessary to distinguish true epidemiologic change from method-driven revisions.",
+          "item_extraction_instruction": "Extract interpretation comparing findings with existing evidence and, if prior estimates exist, explicit reasons for estimate changes.",
+          "item_expected_location": "Discussion / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Interpret results in light of existing evidence. If updating a previous set of estimates, describe the reasons for changes.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Results and discussion",
+          "item": "18",
+          "item_name": "Limitations and assumptions affecting interpretation",
+          "item_question": "Are limitations discussed, including modeling assumptions or data limitations that affect interpretation?",
+          "item_question_background": "A transparent limitations discussion is essential for responsible use in policy and research.",
+          "item_extraction_instruction": "Extract key model assumptions, data limitations, and their expected effect on interpretation of estimates.",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Discuss limitations of the estimates. Include a discussion of any modelling assumptions or data limitations.",
+              "locator": "GATHER checklist table"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Axis": "primary_design",
+    "Domains": [
+      "Medical and health",
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "GATHER",
+      "GATHER statement",
+      "Guidelines for Accurate and Transparent Health Estimates Reporting"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bGATHER\\b",
+          "\\bglobal\\s+health\\s+estimate(s)?\\b",
+          "\\bhealth\\s+estimate(s)?\\b",
+          "\\bpopulation[-\\s]?level\\s+estimate(s)?\\b",
+          "\\bcause[-\\s]?specific\\s+mortality\\b",
+          "\\bdisability[-\\s]?adjusted\\s+life[-\\s]?years\\b",
+          "\\bDALY(s)?\\b",
+          "\\bburden\\s+of\\s+disease\\b",
+          "\\bunder[-\\s]?5\\s+mortality\\b",
+          "\\bmaternal\\s+mortality\\b",
+          "\\bsubnational\\s+estimate(s)?\\b",
+          "\\bincidence\\s+estimate(s)?\\b",
+          "\\bprevalence\\s+estimate(s)?\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmultiple\\s+data\\s+source(s)?\\b",
+          "\\bdata\\s+synthesi[sz]e\\w*\\b",
+          "\\bmodel[-\\s]?based\\s+estimate(s)?\\b",
+          "\\buncertainty\\s+interval(s)?\\b",
+          "\\binput\\s+data\\s+source(s)?\\b",
+          "\\bcandidate\\s+model(s)?\\b",
+          "\\bmodel\\s+performance\\b",
+          "\\bsensitivity\\s+analys(is|es)\\b",
+          "\\bsource\\s+code\\s+availability\\b",
+          "\\bcovariate(s)?\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\b(estimate|estimation|estimating)\\b",
+          "\\b(population|national|subnational|global|regional)\\b",
+          "\\b(model|statistical|mathematical|synthesis)\\b"
+        ]
+      }
+    ],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsingle[-\\s]?site\\s+clinical\\s+study\\b",
+          "\\brandomi[sz]ed\\s+trial\\b",
+          "\\bcase[-\\s]?control\\b",
+          "\\bcohort\\s+study\\b",
+          "\\bqualitative\\s+interview(s)?\\b",
+          "\\bservice\\s+coverage\\s+indicator(s)?\\b",
+          "\\bhealth\\s+workforce\\s+indicator(s)?\\b",
+          "\\bhealth\\s+financing\\s+indicator(s)?\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bglobal\\s+burden\\s+of\\s+disease\\b",
+          "\\bcountry[-\\s]?year\\s+estimate(s)?\\b",
+          "\\bage[-\\s]?sex\\s+specific\\s+estimate(s)?\\b",
+          "\\bcause\\s+hierarch(y|ies)\\b",
+          "\\buncertainty\\s+propagation\\b",
+          "\\binput\\s+data\\s+harmoni[sz]ation\\b",
+          "\\bdata\\s+inclusion\\s+criteria\\b",
+          "\\bad[-\\s]?hoc\\s+exclusion(s)?\\b",
+          "\\breproducible\\s+estimate(s)?\\b",
+          "\\banalytical\\s+pipeline\\b",
+          "\\bestimate(s)?\\s+updated\\b",
+          "\\breasons?\\s+for\\s+changes?\\s+in\\s+estimate(s)?\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bgather\\s+the\\s+participants\\b",
+          "\\bgathered\\s+survey\\s+responses\\b",
+          "\\bdata\\s+gathering\\b",
+          "\\bgathering\\s+requirements\\b",
+          "\\bmeeting\\s+gathering\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We estimated national and subnational under-5 mortality from 1990-2024 by synthesizing multiple survey and vital-registration sources, reporting inclusion criteria, model selection, uncertainty intervals, and code access.",
+      "This analysis provides age-sex-country prevalence estimates using a Bayesian hierarchical model with explicit data-source metadata, ad-hoc exclusions, sensitivity analyses, and downloadable estimate files.",
+      "Updated global burden estimates are presented with reasons for changes from prior rounds, detailed input-data processing, and transparent uncertainty propagation across modeled components."
+    ],
+    "EvidenceExamplesNegative": [
+      "A randomized trial compares two hypertension treatments and reports participant outcomes without multi-source population estimation methods.",
+      "A single hospital cross-sectional survey reports local prevalence at one timepoint with no multi-population modeling or uncertainty framework for global estimates.",
+      "A qualitative policy paper discusses national health planning and data gathering challenges but does not produce quantitative modeled health estimates."
+    ],
+    "Explain": "Use this as the primary design guide for studies producing model-based population health estimates across locations or time from multiple data inputs, emphasizing transparent inputs, methods, uncertainty, and reproducibility artifacts."
+  }
+}

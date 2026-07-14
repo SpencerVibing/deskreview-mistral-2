@@ -1,0 +1,234 @@
+{
+  "id": "jars-experimental",
+  "Name": "JARS-Experimental",
+  "LongName": "JARS-Quant Table 2: Reporting Standards for Studies With an Experimental Manipulation",
+  "Description": "The JARS-Quant experimental table provides psychology-specific reporting expectations for studies with an experimental manipulation, including randomized and nonrandomized assignments and additional clinical-trial reporting modules.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology experimental reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To ensure psychology experiments and related trials report manipulations, allocation, masking, flow, fidelity, analytic methods, and trial-specific protocol details clearly enough for evaluation and replication.",
+  "ManuscriptType": [
+    "Original research article",
+    "Experimental psychology report",
+    "Behavioral intervention study",
+    "Clinical trial report"
+  ],
+  "ManuscriptSubType": [
+    "Randomized experiment",
+    "Nonrandomized experiment",
+    "Behavioral clinical trial"
+  ],
+  "StudyType": [
+    "Experimental study",
+    "Randomized study",
+    "Nonrandomized intervention study",
+    "Clinical trial"
+  ],
+  "Keywords": [
+    "JARS experimental",
+    "experimental manipulation",
+    "random assignment",
+    "nonrandom assignment",
+    "clinical trial registration",
+    "treatment fidelity",
+    "masking"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Experimental study",
+      "Randomized study",
+      "Nonrandomized intervention study",
+      "Clinical trial"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science"
+    ],
+    "Coverage": "Psychology and behavioral-science studies with an experimental manipulation, including randomized and nonrandomized allocation and trials involving clinical or health-related interventions.",
+    "Focus": "Manipulation details, delivery and analysis units, participant flow, treatment fidelity, baseline data, adverse events, randomization or assignment procedures, masking, and clinical-trial registration and protocol reporting.",
+    "ContrastWith": "Not for purely observational designs, longitudinal studies without manipulation, or research syntheses. This table is meant to be used together with the JARS-Quant master table."
+  },
+  "references": {
+    "primary": {
+      "description": "Appelbaum M, Cooper H, Kline RB, Mayo-Wilson E, Nezu AM, Rao SM. Journal Article Reporting Standards for Quantitative Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018. PMID: 29345484.",
+      "url": "https://psycnet.apa.org/fulltext/2018-00750-002.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Experimental Manipulation Core",
+      "items": [
+        {
+          "section": "Experimental Manipulation Core",
+          "item": "1",
+          "item_name": "Describe manipulations and delivery in replicable detail",
+          "item_question": "Does the manuscript report the content, delivery, setting, duration, personnel, materials, compliance activities, and procedural detail needed to replicate each experimental condition?",
+          "item_question_background": "Readers must understand not just that an intervention or manipulation occurred, but exactly what happened, who delivered it, where, and for how long.",
+          "item_extraction_instruction": "Extract the content of each manipulation, delivery method, materials, deliverer qualifications, setting, intended dosage or duration, and any procedural manual or access information.",
+          "item_expected_location": "Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Provide details of the experimental manipulation(s) intended for each study condition ... Sufficient detail to allow for replication.",
+              "locator": "Table 2 experimental manipulations row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Experimental Manipulation Core",
+          "item": "2",
+          "item_name": "Report units of delivery, analysis, and participant flow",
+          "item_question": "Does the manuscript identify the unit of delivery and analysis and report participant or group flow through the study, including attrition and inclusion in primary analyses?",
+          "item_question_background": "Experiments often involve grouped delivery or clustered assignment, so readers need to know both how the intervention was delivered and what unit actually entered the analysis.",
+          "item_extraction_instruction": "Extract the unit of delivery, unit of analysis, any analytic adjustment for unit mismatch, and the reported participant or group flow through study stages.",
+          "item_expected_location": "Method / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "State the unit of delivery ... Describe the smallest unit that was analyzed ... Report the total number of groups ... and the number of participants assigned to each group.",
+              "locator": "Table 2 units and participant flow rows"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Experimental Manipulation Core",
+          "item": "3",
+          "item_name": "Report fidelity, baseline data, adverse events, and mechanism",
+          "item_question": "Does the manuscript report treatment fidelity, baseline characteristics, adverse events, and discussion of the intended mechanism and implementation barriers?",
+          "item_question_background": "Interpreting experimental results depends on knowing whether the manipulation was delivered as intended, how groups looked at baseline, and whether harms or implementation barriers emerged.",
+          "item_extraction_instruction": "Extract fidelity evidence, baseline demographic or clinical characteristics, adverse events, and discussion of causal pathways or implementation barriers.",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Provide evidence on whether the experimental manipulation was implemented as intended ... Describe baseline demographic and clinical characteristics ... Report all important adverse events or side effects.",
+              "locator": "Table 2 results and discussion rows"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Assignment and Trial Modules",
+      "items": [
+        {
+          "section": "Assignment and Trial Modules",
+          "item": "4",
+          "item_name": "Report randomization, concealment, and masking",
+          "item_question": "For randomized experiments, does the manuscript report the unit of randomization, sequence generation, concealment, masking, and statistical methods used to compare groups?",
+          "item_question_background": "The randomized-assignment module adds allocation transparency requirements parallel to other trial-reporting standards while staying tailored to psychology experiments.",
+          "item_extraction_instruction": "Extract the randomization unit, sequence-generation method, concealment details, masking procedures, and primary comparison methods.",
+          "item_expected_location": "Method / Statistics",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Describe the unit of randomization and the procedure used to generate the random assignment sequence ... State whether and how the sequence was concealed.",
+              "locator": "Table 2 Module A"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Assignment and Trial Modules",
+          "item": "5",
+          "item_name": "Report nonrandom assignment and bias-minimization procedures",
+          "item_question": "For nonrandomized experiments, does the manuscript report the assignment method, restrictions, bias-minimization procedures, masking, and adjusted statistical analyses?",
+          "item_question_background": "When assignment is not random, transparent reporting of how assignment occurred and how selection bias was addressed becomes especially important.",
+          "item_extraction_instruction": "Extract the unit of assignment, assignment method, any blocking or minimization, matching or propensity-score procedures, masking, and statistical adjustment strategy.",
+          "item_expected_location": "Method / Statistics",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Describe the method used to assign units to study conditions ... State procedures employed to help minimize selection bias.",
+              "locator": "Table 2 Module B"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Assignment and Trial Modules",
+          "item": "6",
+          "item_name": "Report trial registration and protocol transparency for clinical trials",
+          "item_question": "For clinical trials, does the manuscript state registration status and number, describe the protocol's availability and changes, and report trial-specific participant, assessor, and intervention details?",
+          "item_question_background": "The clinical-trial module extends the experimental table with registration and protocol transparency requirements that reflect modern trial expectations.",
+          "item_extraction_instruction": "Extract trial registration status and number, protocol availability, protocol changes, assessor blinding, multisite details, and trial-specific intervention tailoring or materials information.",
+          "item_expected_location": "Title page / Abstract / Method",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "State whether trial was registered prior to implementation ... Report whether the study protocol was publicly available.",
+              "locator": "Table 2 Module C"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": true,
+          "review_reason": "The available page extract truncates some Module C rows; verify full wording if precise trial item granularity is needed."
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS experimental",
+      "JARS-Quant Table 2",
+      "Reporting Standards for Studies With an Experimental Manipulation"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bJARS\\b.*\\bexperimental\\b",
+          "\\bexperimental manipulation\\b",
+          "\\brandom assignment\\b",
+          "\\bclinical trial\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\btreatment fidelity\\b",
+          "\\bmasking\\b",
+          "\\bbaseline data\\b",
+          "\\brandom assignment\\b",
+          "\\bregistration number\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A psychology experiment reports manipulation delivery, unit of randomization, masking, participant flow, and treatment fidelity under APA reporting standards.",
+      "A behavioral clinical trial reports registration, protocol availability, assessor masking, and trial-specific intervention details."
+    ],
+    "EvidenceExamplesNegative": [
+      "A nonmanipulated correlational study should use the observational JARS module instead of the experimental one.",
+      "A meta-analysis with no experimental manipulation is not a JARS-Experimental match."
+    ],
+    "Explain": "Use this overlay for psychology manuscripts with an experimental manipulation, including randomized, nonrandomized, and clinical-trial variants."
+  }
+}

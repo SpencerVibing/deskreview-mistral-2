@@ -1,3 +1,9 @@
+import {
+  guideDescription,
+  guideKeywords,
+  guideLabel
+} from './guideline-catalog.js';
+
 function text(value = '') {
   return String(value || '').trim();
 }
@@ -20,7 +26,7 @@ export function normalizeReportingMatches(value = {}, catalog = []) {
         const guide = catalogById.get(guidelineId) || {};
         return {
           guidelineId,
-          label: text(match.label) || text(guide.label) || guidelineId,
+          label: text(match.label) || guideLabel(guide) || guidelineId,
           rationale: text(match.rationale),
           confidence: number(match.confidence),
           sourceBlockKey: text(match.sourceBlockKey),
@@ -38,9 +44,9 @@ export function buildGuidelineMatchRequest(annotation = {}, catalog = []) {
     documentAnnotation: annotation || {},
     catalog: array(catalog).map((guide) => ({
       id: text(guide.id),
-      label: text(guide.label),
-      description: text(guide.description),
-      keywords: array(guide.keywords).map(text).filter(Boolean)
+      label: guideLabel(guide),
+      description: guideDescription(guide),
+      keywords: guideKeywords(guide)
     })).filter((guide) => guide.id && guide.label)
   };
 }

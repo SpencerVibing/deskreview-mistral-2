@@ -1,0 +1,355 @@
+{
+  "id": "dart",
+  "Name": "DA-RT",
+  "LongName": "Data Access and Research Transparency (DA-RT): A Joint Statement by Political Science Journal Editors",
+  "Description": "DA-RT is a political-science transparency overlay that emphasizes data access, restricted-data disclosure, analytic transparency, long-term access to analytic materials, and formal data citation for manuscripts making evidence-based claims.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Political science research transparency",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the credibility, evaluability, and reproducibility of political science research by requiring clear access to cited data, transparent analytic procedures, availability of relevant analytic materials, and proper citation of datasets as scholarly products.",
+  "ManuscriptType": [
+    "Original research article",
+    "Political science empirical study",
+    "Qualitative or fieldwork report",
+    "Mixed-methods study",
+    "Methods and policy paper"
+  ],
+  "ManuscriptSubType": [
+    "Comparative politics study",
+    "International relations study",
+    "American politics study",
+    "Political behavior study",
+    "Transparency and replication policy overlay"
+  ],
+  "StudyType": [
+    "Empirical study",
+    "Qualitative study",
+    "Fieldwork study",
+    "Mixed-methods study",
+    "Policy and standards statement"
+  ],
+  "Keywords": [
+    "DA-RT",
+    "Data Access and Research Transparency",
+    "political science transparency",
+    "data access",
+    "research transparency",
+    "analytic transparency",
+    "data citation",
+    "trusted digital repository",
+    "restricted data",
+    "replication materials",
+    "persistent identifier",
+    "APSA",
+    "political science journal editors"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Empirical study",
+      "Qualitative study",
+      "Fieldwork study",
+      "Mixed-methods study",
+      "Policy and standards statement"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Political science"
+    ],
+    "Coverage": "Political science and closely related social-science manuscripts that make evidence-based claims and therefore should disclose how supporting data and analytic materials can be accessed, assessed, and cited.",
+    "Focus": "Trusted-repository data access, handling of restricted data, transparent description of analytic procedures, long-term availability of analytic materials, and complete dataset citation.",
+    "ContrastWith": "Not a study-design-specific checklist and not a substitute for trial, observational, qualitative, or systematic-review reporting standards. The core 2015 joint statement is a transparency-policy overlay rather than a full manuscript-structure guide, so purely formal-theory papers may only partially match unless a journal extends DA-RT-style requirements to proofs or computation."
+  },
+  "references": {
+    "primary": {
+      "description": "Data Access and Research Transparency (DA-RT): A Joint Statement by Political Science Journal Editors. Political Science Research and Methods. 2015;3(3):421. doi:10.1017/psrm.2015.44.",
+      "url": "https://doi.org/10.1017/psrm.2015.44"
+    },
+    "secondary": [
+      {
+        "description": "Political Science Research and Methods research transparency policy.",
+        "url": "https://www.cambridge.org/core/journals/political-science-research-and-methods/information/journal-policies/research-transparency"
+      },
+      {
+        "description": "American Political Science Review submission guidelines.",
+        "url": "https://apsanet.org/publications/journals/american-political-science-review/apsr-submission-guidelines/"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "Data Access",
+      "items": [
+        {
+          "section": "Data Access",
+          "item": "1",
+          "item_name": "Trusted-repository data availability",
+          "item_question": "Does the manuscript ensure that cited data are available at publication through a trusted digital repository?",
+          "item_question_background": "DA-RT's first requirement is that readers and reviewers can access the data underlying published claims at the time of publication through durable, trusted infrastructure.",
+          "item_extraction_instruction": "Extract the data availability statement, repository name, persistent identifier, and any timing language indicating availability at publication.",
+          "item_expected_location": "Data availability statement / Methods / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "Require authors to ensure that cited data are available at the time of publication through a trusted digital repository.",
+              "locator": "Joint statement bullet 1"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data Access",
+          "item": "2",
+          "item_name": "Restricted-data disclosure",
+          "item_question": "If cited data are restricted, does the manuscript clearly explain the restriction and the submission-time notification or exemption pathway?",
+          "item_question_background": "Transparency still requires explicit disclosure when classification, confidentiality, nondisclosure obligations, or logistics prevent open sharing.",
+          "item_extraction_instruction": "Extract the reason data are restricted, any editor notification or exemption statement, and any explanation of what cannot be shared.",
+          "item_expected_location": "Data availability statement / Ethics / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "If cited data are restricted because of classification, confidentiality, non-disclosure requirements, or logistical constraints, authors must notify the editor at the time of submission.",
+              "locator": "Joint statement bullet 1"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Data Access",
+          "item": "3",
+          "item_name": "Restriction handling and conditions",
+          "item_question": "Where access restrictions exist, are any editor-approved conditions or exemptions documented clearly enough for readers to understand the limits on access?",
+          "item_question_background": "The statement gives editors discretion to reject, exempt, or conditionally review restricted-data submissions; manuscripts should reflect the practical result of that decision clearly.",
+          "item_extraction_instruction": "Extract any statement describing approved restrictions, conditional access, or exemptions and summarize what access remains possible.",
+          "item_expected_location": "Data availability statement / Editorial note / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "The editor shall have full discretion in evaluating whether the underlying data can be shared, including declining to review the manuscript or granting an exemption with or without conditions.",
+              "locator": "Restriction handling paragraph"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": true,
+          "review_reason": "This is a manuscript-facing operationalization of editor-discretion language rather than a direct checklist sentence in the statement."
+        }
+      ]
+    },
+    {
+      "section": "Analytic Transparency",
+      "items": [
+        {
+          "section": "Analytic Transparency",
+          "item": "4",
+          "item_name": "Clear analytic procedures",
+          "item_question": "Does the manuscript delineate clearly the analytic procedures on which its published claims rely?",
+          "item_question_background": "Readers need a concrete account of how evidence was transformed into claims in order to evaluate credibility and reproduce or audit the analysis.",
+          "item_extraction_instruction": "Extract the named analytic procedures, workflow description, and any links to appendices, protocols, or computational scripts.",
+          "item_expected_location": "Methods / Analytic approach / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "Require authors to delineate clearly the analytic procedures upon which their published claims rely",
+              "locator": "Joint statement bullet 2"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Analytic Transparency",
+          "item": "5",
+          "item_name": "Access to analytic materials",
+          "item_question": "Does the manuscript provide access, where possible, to the relevant analytic materials needed to understand or reproduce the claims?",
+          "item_question_background": "DA-RT extends beyond data alone to the materials required to evaluate how results were produced.",
+          "item_extraction_instruction": "Extract whether code, scripts, coding rules, appendices, interview protocols, or other analytic materials are available and where they can be found.",
+          "item_expected_location": "Code availability / Supplement / Appendix / Repository statement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "where possible to provide access to all relevant analytic materials",
+              "locator": "Joint statement bullet 2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Analytic Transparency",
+          "item": "6",
+          "item_name": "Long-term preservation of analytic materials",
+          "item_question": "If analytic materials are not published with the article, are they shared through institutions with demonstrated capacity to provide long-term access?",
+          "item_question_background": "Long-term preservation matters because analytic materials lose value if they disappear shortly after publication.",
+          "item_extraction_instruction": "Extract repository, archive, institutional host, persistent identifier, and any language about long-term access or preservation.",
+          "item_expected_location": "Repository statement / Supplement / Data or code availability section",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "Such materials, if not published with the article, should be shared to the greatest extent possible through institutions with demonstrated capacity to provide long-term access.",
+              "locator": "Joint statement bullet 2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data Citation",
+      "items": [
+        {
+          "section": "Data Citation",
+          "item": "7",
+          "item_name": "Datasets cited as scholarly products",
+          "item_question": "When claims rely on data created by others, does the manuscript cite those data as intellectual products of value?",
+          "item_question_background": "DA-RT frames data citation as both a transparency requirement and a recognition of datasets as scholarly contributions.",
+          "item_extraction_instruction": "Extract dataset citations and note whether the manuscript cites external datasets directly rather than mentioning them only narratively.",
+          "item_expected_location": "References / Data availability / Footnotes",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "we will require authors who base their claims on data created by others to reference and cite those data as an intellectual product of value",
+              "locator": "Joint statement bullet 3"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data Citation",
+          "item": "8",
+          "item_name": "Complete dataset citation metadata",
+          "item_question": "Do dataset citations identify the author, title, date, version, and a persistent identifier?",
+          "item_question_background": "Complete metadata and a persistent identifier are what make dataset citations actionable for discovery, verification, and reuse.",
+          "item_extraction_instruction": "Extract citation elements for each cited dataset and note any missing author, title, date, version, or persistent identifier fields.",
+          "item_expected_location": "References / Data citations / Repository records",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 421,
+              "quote": "using data citation practices that identify a dataset's author(s), title, date, version, and a persistent identifier",
+              "locator": "Joint statement bullet 3"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reproducibility_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "DA-RT",
+      "DART",
+      "Data Access and Research Transparency",
+      "DA-RT joint statement",
+      "political science journal editors transparency statement"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bDA-RT\\b",
+          "\\bDART\\b",
+          "\\bData Access and Research Transparency\\b",
+          "\\b10\\.1017/psrm\\.2015\\.44\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdata access\\b",
+          "\\bresearch transparency\\b",
+          "\\banalytic transparency\\b",
+          "\\bdata citation\\b",
+          "\\btrusted digital repository\\b",
+          "\\breplication package\\b",
+          "\\bpersistent identifier\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bpolitical science\\b",
+          "\\bAPSA\\b",
+          "\\bcomparative politics\\b",
+          "\\binternational relations\\b",
+          "\\bamerican politics\\b",
+          "\\bpolitical behavior\\b",
+          "\\bsocial science\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdata access\\b",
+          "\\bresearch transparency\\b",
+          "\\banalytic transparency\\b",
+          "\\bdata citation\\b",
+          "\\breplication\\b",
+          "\\bpreregistration\\b",
+          "\\bfieldwork transparency\\b",
+          "\\bactive citation\\b"
+        ]
+      }
+    ],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\btrusted digital repository\\b",
+          "\\brestricted data\\b",
+          "\\banalytic materials\\b",
+          "\\bpersistent identifier\\b",
+          "\\breplication package\\b",
+          "\\bdata availability statement\\b",
+          "\\bdata citation\\b",
+          "\\bfieldwork transparency\\b",
+          "\\bqualitative transparency\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brandomized clinical trial\\b",
+          "\\bpatients?\\b",
+          "\\bhospital\\b",
+          "\\bin vivo\\b",
+          "\\bgeoscientific model\\b",
+          "\\bdiscrete-event simulation\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "The manuscript states that underlying survey and replication data are deposited in a trusted repository, provides a DOI, and cites each external dataset with version information.",
+      "A political science fieldwork article explains restricted interview data, documents the exemption pathway, and shares codebooks and redacted analytic materials through a long-term archive.",
+      "The paper references DA-RT explicitly and includes data access, analytic transparency, and dataset citation statements."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely theoretical paper with no evidentiary materials, no computation, and no data access discussion may only weakly match DA-RT.",
+      "A biomedical trial manuscript follows CONSORT and contains no political science or DA-RT-style transparency context.",
+      "A simulation methods paper discusses code release but has no social-science transparency framing or evidentiary data access requirements."
+    ],
+    "Explain": "Apply DA-RT as a social-science transparency overlay when a manuscript, especially in political science, presents evidence-based claims and should disclose data access, analytic transparency, long-term access to materials, and dataset citation practices."
+  }
+}

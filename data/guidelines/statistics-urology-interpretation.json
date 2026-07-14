@@ -1,0 +1,284 @@
+{
+  "id": "statistics-urology-interpretation",
+  "Name": "Statistics in Urology: Interpretation",
+  "LongName": "Guidelines for Reporting of Statistics for Clinical Research in Urology: Interpretation",
+  "Description": "Interpretation-focused statistical reporting overlay for clinical research manuscripts in urology. It focuses on clinically meaningful conclusions, limitations, and avoiding exaggerated causal or practical claims.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical research statistics reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Improve interpretation in urology manuscripts by encouraging conclusions that reflect the actual results, acknowledge uncertainty and limitations, and avoid overstated causal or clinical claims.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical research article",
+    "Observational study report",
+    "Randomized trial report",
+    "Diagnostic or prognostic study report"
+  ],
+  "ManuscriptSubType": [
+    "Clinical outcomes study",
+    "Time-to-event analysis report",
+    "Prediction or prognostic model report",
+    "Diagnostic test evaluation",
+    "Meta-analysis with statistical synthesis"
+  ],
+  "StudyType": [
+    "Clinical study",
+    "Observational study",
+    "Randomized trial",
+    "Diagnostic study",
+    "Prognostic study",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "statistics reporting",
+    "clinical research statistics",
+    "urology statistics",
+    "p-values",
+    "confidence intervals",
+    "time-to-event analysis",
+    "multivariable models",
+    "diagnostic tests",
+    "clinical interpretation",
+    "limitations",
+    "causal claims",
+    "conclusions"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical study",
+      "Observational study",
+      "Randomized trial",
+      "Diagnostic study",
+      "Prognostic study",
+      "Meta-analysis"
+    ],
+    "Disciplines": [
+      "Urology",
+      "Clinical medicine",
+      "Medical research",
+      "Biostatistics"
+    ],
+    "Coverage": "Clinical research manuscripts, especially in urology, that report statistical analyses of interventions, outcomes, predictors, diagnostic tests, prognostic models, or evidence synthesis.",
+    "Focus": "Transparent reporting of cohort selection and randomization, appropriate description of statistical methods, correct interpretation of p-values and confidence intervals, emphasis on effect estimates, careful handling of time-to-event analyses, sound multivariable and diagnostic modeling, and clinically meaningful conclusions.",
+    "ContrastWith": "Not a disease-specific treatment guideline and not a substitute for design-specific reporting statements such as CONSORT, STROBE, TRIPOD, or AMSTAR. It is a cross-cutting statistical overlay for clinical research reporting."
+  },
+  "references": {
+    "primary": {
+      "description": "Assel M, Sjoberg D, Elders A, Wang X, Huo D, Botchway A, Delfino K, Fan Y, Zhao Z, Koyama T, Hollenbeck B, Qin R, Zahnd W, Zabor EC, Kattan MW, Vickers AJ. Guidelines for Reporting of Statistics for Clinical Research in Urology. The Journal of Urology. 2019;201:595-604.",
+      "url": "https://www.auajournals.org/doi/epdf/10.1097/JU.0000000000000001"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Conclusions and Interpretation",
+      "items": [
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.1",
+          "item_name": "Draw a conclusion, do not just repeat the results",
+          "item_question": "Does the manuscript follow the recommendation to \"draw a conclusion, do not just repeat the results\"?",
+          "item_question_background": "The article says a conclusion should state what the findings imply for research or practice, not merely restate that an association was statistically significant.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"draw a conclusion, do not just repeat the results\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Draw a conclusion, do not just repeat the results",
+              "locator": "Guideline 5.1"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.2",
+          "item_name": "Avoid using words such as may or might",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid using words such as may or might\"?",
+          "item_question_background": "Using hedges like may can leave the reader with no more knowledge than before the study, which the authors consider a poor conclusion and even a reason to reject a paper.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid using words such as may or might\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Avoid using words such as may or might",
+              "locator": "Guideline 5.2"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.3",
+          "item_name": "A statistically significant p-value does not imply clinical significance",
+          "item_question": "Does the manuscript follow the recommendation to \"a statistically significant p-value does not imply clinical significance\"?",
+          "item_question_background": "Rejecting the null does not automatically justify treatment or policy changes; clinical recommendations need separate argument about effect size and practical consequences.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"a statistically significant p-value does not imply clinical significance\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "A statistically significant p-value does not imply clinical significance",
+              "locator": "Guideline 5.3"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.4",
+          "item_name": "Avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings\"?",
+          "item_question_background": "The paper treats generic limitations as superficial because small samples or retrospective designs are not inherently fatal; what matters is the likely direction and magnitude of resulting bias.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings\".",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings",
+              "locator": "Guideline 5.4"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.5",
+          "item_name": "Consider the impact of missing data and patient selection",
+          "item_question": "Does the manuscript follow the recommendation to \"consider the impact of missing data and patient selection\"?",
+          "item_question_background": "Authors are encouraged to examine whether excluded patients or those with missing data differ from analyzed patients, since selection and missingness can materially distort findings.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"consider the impact of missing data and patient selection\".",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Consider the impact of missing data and patient selection",
+              "locator": "Guideline 5.5"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.6",
+          "item_name": "Consider the possibility and impact of ascertainment bias",
+          "item_question": "Does the manuscript follow the recommendation to \"consider the possibility and impact of ascertainment bias\"?",
+          "item_question_background": "Ascertainment bias arises when the chance of detecting an outcome depends on the predictor, as with PSA-driven biopsy decisions, and can exaggerate apparent associations.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"consider the possibility and impact of ascertainment bias\".",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Consider the possibility and impact of ascertainment bias",
+              "locator": "Guideline 5.6"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.7",
+          "item_name": "Do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment",
+          "item_question": "Does the manuscript follow the recommendation to \"do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment\"?",
+          "item_question_background": "Differences in prognosis within one treated group do not answer whether another treatment would be better, so poor outcomes in a subgroup should not automatically be read as poor treatment candidacy.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment",
+              "locator": "Guideline 5.7"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.8",
+          "item_name": "Be cautious about causal attribution: correlation does not imply causation",
+          "item_question": "Does the manuscript follow the recommendation to \"be cautious about causal attribution: correlation does not imply causation\"?",
+          "item_question_background": "The authors note that papers often begin by studying association but end by implying intervention effects, so conclusions must not slide from correlation into unsupported causal claims.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"be cautious about causal attribution: correlation does not imply causation\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Be cautious about causal attribution: correlation does not imply causation",
+              "locator": "Guideline 5.8"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology: Interpretation",
+      "Statistics in Urology: Interpretation",
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+      "clinical research statistics reporting guideline",
+      "urology statistics reporting guideline"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\burology\\b",
+          "\\bclinical research\\b",
+          "\\bstatistics\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bp-value[s]?\\b",
+          "\\bconfidence interval[s]?\\b",
+          "\\bKaplan[- ]Meier\\b",
+          "\\bmultivariable\\b",
+          "\\bhazard ratio\\b",
+          "\\bdecision curve\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdo not accept the null hypothesis\\b",
+          "\\bdescribe cohort selection fully\\b",
+          "\\ballocation concealment\\b",
+          "\\btime[- ]to[- ]event\\b",
+          "\\boverfit\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative meta-analysis\\b",
+          "\\banimal experiment\\b",
+          "\\bcase report\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A clinical paper discusses p-values, confidence intervals, Kaplan-Meier curves, multivariable models, or diagnostic-test performance and needs a statistical reporting overlay.",
+      "A urology outcomes manuscript reports time-to-event analyses, hazard ratios, calibration, or decision curves and would benefit from this guideline."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely qualitative study without statistical inference is not a match.",
+      "A lab protocol or disease-management guideline is not the target of this reporting standard."
+    ],
+    "Explain": "Use this module when a urology clinical manuscript needs help writing appropriately cautious conclusions, acknowledging limitations, and avoiding overstatement."
+  }
+}

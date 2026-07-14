@@ -1,0 +1,351 @@
+{
+  "id": "srqr",
+  "Name": "SRQR",
+  "LongName": "Standards for Reporting Qualitative Research",
+  "Description": "The Standards for Reporting Qualitative Research (SRQR) provide a 21-item checklist to promote transparency and completeness in reporting qualitative research across disciplines. The guideline specifies essential elements to describe the study’s title, abstract, problem formulation, qualitative approach, context, sampling, data collection, analysis, findings, and considerations such as trustworthiness, limitations, conflicts of interest, and funding.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Qualitative research",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the transparency, rigor, and completeness of reporting qualitative research studies so that readers can assess credibility, transferability, and methodological integrity.",
+  "ManuscriptType": [
+    "Original research article",
+    "Qualitative study report"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Qualitative study"
+  ],
+  "Keywords": [
+    "SRQR",
+    "qualitative research",
+    "ethnography",
+    "grounded theory",
+    "phenomenology",
+    "case study",
+    "narrative research",
+    "research paradigm",
+    "reflexivity",
+    "sampling saturation",
+    "data collection",
+    "data analysis",
+    "trustworthiness",
+    "credibility",
+    "transferability",
+    "qualitative reporting guideline",
+    "thematic analysis",
+    "interpretivist paradigm"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Qualitative study",
+      "Ethnography",
+      "Grounded theory study",
+      "Phenomenological study",
+      "Case study",
+      "Narrative research"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Health professions education",
+      "Clinical research",
+      "Social sciences"
+    ],
+    "Coverage": "Completed qualitative research studies involving human participants, documents, or events, including diverse qualitative methodologies and paradigms.",
+    "Focus": "Provides structured reporting standards for qualitative study design, researcher reflexivity, context, sampling, ethics, data collection and processing, analysis, trustworthiness, findings, integration with prior work, limitations, conflicts of interest, and funding.",
+    "ContrastWith": "Not intended for randomized trials, observational quantitative studies, systematic reviews, or case reports. Unlike CONSORT or STROBE, SRQR addresses qualitative methodologies and interpretive paradigms rather than quantitative effect estimation."
+  },
+  "references": {
+    "primary": {
+      "description": "O’Brien BC, Harris IB, Beckman TJ, Reed DA, Cook DA. Standards for Reporting Qualitative Research: A Synthesis of Recommendations. Academic Medicine. 2014;89(9):1245–1251.",
+      "url": "[https://watermark02.silverchair.com/00001888-201409000-00021.pdf](https://watermark02.silverchair.com/00001888-201409000-00021.pdf)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title and abstract",
+      "items": [
+        {
+          "section": "Title and abstract",
+          "item": "S1",
+          "item_name": "Title",
+          "item_question_background": "Without a clear indication that the study is qualitative and its specific approach or data collection method, readers may misclassify the study and misunderstand its epistemological foundations.",
+          "item_question": "Does the title provide a concise description of the nature and topic of the study and identify it as qualitative or indicate the approach or data collection methods?",
+          "item_extraction_instruction": "Extract the study title and identify whether it explicitly states the study is qualitative and/or specifies the qualitative approach (e.g., ethnography, grounded theory) or data collection method (e.g., interview, focus group).",
+          "item_expected_location": "Title"
+        },
+        {
+          "section": "Title and abstract",
+          "item": "S2",
+          "item_name": "Abstract",
+          "item_question_background": "An incomplete abstract may obscure key methodological and interpretive elements, limiting discoverability and critical appraisal.",
+          "item_question": "Does the abstract summarize key elements of the study using the intended publication format, including background, purpose, methods, results, and conclusions?",
+          "item_extraction_instruction": "Extract abstract sections or sentences corresponding to background, purpose, methods, results, and conclusions; note any missing elements.",
+          "item_expected_location": "Abstract"
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "S3",
+          "item_name": "Problem formulation",
+          "item_question_background": "Without a clearly articulated problem and theoretical grounding, readers cannot judge the study’s relevance or interpretive frame.",
+          "item_question": "Does the manuscript describe the problem or phenomenon studied, its significance, relevant theory and empirical work, and include a problem statement?",
+          "item_extraction_instruction": "Extract the description of the problem/phenomenon, its significance, references to theory or prior empirical work, and the explicit problem statement.",
+          "item_expected_location": "Introduction"
+        },
+        {
+          "section": "Introduction",
+          "item": "S4",
+          "item_name": "Purpose or research question",
+          "item_question_background": "Unclear objectives increase the risk of diffuse interpretation and make it difficult to assess alignment between methods and conclusions.",
+          "item_question": "Does the manuscript clearly state the purpose of the study and specific objectives or research questions?",
+          "item_extraction_instruction": "Extract the stated purpose, objectives, and/or research questions as written.",
+          "item_expected_location": "Introduction"
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "S5",
+          "item_name": "Qualitative approach and research paradigm",
+          "item_question_background": "Without specifying the qualitative approach and paradigm, readers cannot evaluate methodological coherence or interpretive assumptions.",
+          "item_question": "Does the manuscript describe the qualitative approach, guiding theory if appropriate, research paradigm, and provide a rationale?",
+          "item_extraction_instruction": "Extract statements identifying the qualitative methodology (e.g., grounded theory, ethnography), any guiding theory, the research paradigm (e.g., constructivist), and the stated rationale.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S6",
+          "item_name": "Researcher characteristics and reflexivity",
+          "item_question_background": "Researcher positioning influences data generation and interpretation; omission obscures potential sources of bias or insight.",
+          "item_question": "Does the manuscript describe researchers’ characteristics, reflexivity, and potential influence on the research process and findings?",
+          "item_extraction_instruction": "Extract descriptions of researcher attributes, experience, relationships with participants, assumptions, and reflections on how these may have influenced the study.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S7",
+          "item_name": "Context",
+          "item_question_background": "Contextual factors shape meaning and transferability; without them, applicability to other settings cannot be assessed.",
+          "item_question": "Does the manuscript describe the setting/site and salient contextual factors, with rationale if provided?",
+          "item_extraction_instruction": "Extract descriptions of study setting, site characteristics, contextual factors, and any rationale for their relevance.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S8",
+          "item_name": "Sampling strategy",
+          "item_question_background": "Sampling decisions affect depth and breadth of perspectives; absent rationale impairs evaluation of adequacy and saturation.",
+          "item_question": "Does the manuscript explain how and why participants, documents, or events were selected and how sampling sufficiency was determined?",
+          "item_extraction_instruction": "Extract descriptions of sampling method, inclusion criteria, recruitment rationale, and criteria for stopping sampling (e.g., saturation).",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S9",
+          "item_name": "Ethical issues pertaining to human subjects",
+          "item_question_background": "Lack of ethical transparency undermines trust and raises concerns about participant protection and data confidentiality.",
+          "item_question": "Does the manuscript document ethics review approval, participant consent, or explain lack thereof, and address confidentiality and data security?",
+          "item_extraction_instruction": "Extract statements regarding ethics board approval, consent procedures, and confidentiality/data security measures.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S10",
+          "item_name": "Data collection methods",
+          "item_question_background": "Incomplete reporting of data collection procedures limits assessment of rigor and reproducibility.",
+          "item_question": "Does the manuscript describe types of data collected and detailed data collection procedures, including timing, iterative processes, triangulation, and modifications?",
+          "item_extraction_instruction": "Extract descriptions of data types, collection procedures, timing, iterative adaptations, triangulation, and rationale.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S11",
+          "item_name": "Data collection instruments and technologies",
+          "item_question_background": "Changes to instruments or technologies may influence findings; omission obscures procedural evolution.",
+          "item_question": "Does the manuscript describe instruments and technologies used for data collection and any changes over time?",
+          "item_extraction_instruction": "Extract descriptions of interview guides, questionnaires, devices, and any modifications during the study.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S12",
+          "item_name": "Units of study",
+          "item_question_background": "Without clear reporting of participant numbers and characteristics, readers cannot assess adequacy or relevance of the sample.",
+          "item_question": "Does the manuscript report the number and relevant characteristics of participants, documents, or events and their level of participation?",
+          "item_extraction_instruction": "Extract reported sample size, participant characteristics, and level of engagement; note if presented in Results.",
+          "item_expected_location": "Methods or Results"
+        },
+        {
+          "section": "Methods",
+          "item": "S13",
+          "item_name": "Data processing",
+          "item_question_background": "Data handling procedures affect analytic integrity; undisclosed processing may conceal errors or bias.",
+          "item_question": "Does the manuscript describe methods for data processing, including transcription, coding, management, and anonymization?",
+          "item_extraction_instruction": "Extract statements describing transcription, data entry, management systems, coding procedures, integrity checks, and deidentification steps.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S14",
+          "item_name": "Data analysis",
+          "item_question_background": "Opaque analytic procedures hinder evaluation of credibility and alignment with stated paradigm.",
+          "item_question": "Does the manuscript explain how inferences or themes were identified and developed, including researchers involved and analytic paradigm, with rationale?",
+          "item_extraction_instruction": "Extract description of analytic steps, coding framework, thematic development, researcher roles in analysis, paradigm references, and rationale.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "S15",
+          "item_name": "Techniques to enhance trustworthiness",
+          "item_question_background": "Without explicit credibility-enhancing strategies, readers cannot assess trustworthiness of interpretations.",
+          "item_question": "Does the manuscript describe techniques used to enhance trustworthiness and credibility, with rationale?",
+          "item_extraction_instruction": "Extract descriptions of member checking, audit trails, triangulation, peer debriefing, or other credibility techniques and rationale.",
+          "item_expected_location": "Methods"
+        }
+      ]
+    },
+    {
+      "section": "Results/Findings",
+      "items": [
+        {
+          "section": "Results/Findings",
+          "item": "S16",
+          "item_name": "Synthesis and interpretation",
+          "item_question_background": "Absent synthesis or interpretive clarity limits understanding of how raw data were transformed into meaningful findings.",
+          "item_question": "Does the manuscript present the main findings, including interpretations, themes, or theoretical developments?",
+          "item_extraction_instruction": "Extract the primary themes, interpretations, inferences, or models described as the main findings.",
+          "item_expected_location": "Results or Findings"
+        },
+        {
+          "section": "Results/Findings",
+          "item": "S17",
+          "item_name": "Links to empirical data",
+          "item_question_background": "Without illustrative evidence, readers cannot evaluate whether interpretations are grounded in the data.",
+          "item_question": "Does the manuscript provide empirical evidence (e.g., quotes, field notes, excerpts, photographs) to substantiate findings?",
+          "item_extraction_instruction": "Extract representative quotes or references to empirical materials supporting analytic claims.",
+          "item_expected_location": "Results or Findings"
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "S18",
+          "item_name": "Integration with prior work and contributions",
+          "item_question_background": "Failure to situate findings within existing scholarship obscures contribution and limits interpretive depth.",
+          "item_question": "Does the discussion integrate findings with prior work, address implications and transferability, and identify contributions to the field?",
+          "item_extraction_instruction": "Extract discussion passages linking findings to prior research, noting implications, scope of transferability, and stated contributions.",
+          "item_expected_location": "Discussion"
+        },
+        {
+          "section": "Discussion",
+          "item": "S19",
+          "item_name": "Limitations",
+          "item_question_background": "Unacknowledged limitations reduce trust in claims and obscure boundaries of interpretation.",
+          "item_question": "Does the manuscript discuss trustworthiness and limitations of the findings?",
+          "item_extraction_instruction": "Extract statements discussing study limitations and trustworthiness considerations.",
+          "item_expected_location": "Discussion"
+        }
+      ]
+    },
+    {
+      "section": "Other",
+      "items": [
+        {
+          "section": "Other",
+          "item": "S20",
+          "item_name": "Conflicts of interest",
+          "item_question_background": "Undisclosed conflicts may bias interpretation and undermine credibility.",
+          "item_question": "Does the manuscript disclose potential sources of influence or perceived influence and describe how they were managed?",
+          "item_extraction_instruction": "Extract conflict of interest disclosures and management strategies.",
+          "item_expected_location": "End matter / Conflicts of interest statement"
+        },
+        {
+          "section": "Other",
+          "item": "S21",
+          "item_name": "Funding",
+          "item_question_background": "Funding sources can shape study conduct and reporting; transparency supports appraisal of independence.",
+          "item_question": "Does the manuscript report sources of funding and the role of funders in data collection, interpretation, and reporting?",
+          "item_extraction_instruction": "Extract funding source(s), type of support, and statements about the role of funders.",
+          "item_expected_location": "Funding statement / Acknowledgements"
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "SRQR",
+      "Standards for Reporting Qualitative Research"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bqualitative\\b",
+          "\\bethnograph(y|ic)\\b",
+          "\\bgrounded theory\\b",
+          "\\bphenomenolog(y|ical)\\b",
+          "\\bcase study\\b",
+          "\\bnarrative research\\b",
+          "\\bSRQR\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\brandomi[sz]ed\\b",
+          "\\brandomized controlled trial\\b",
+          "\\bcohort study\\b",
+          "\\bcase[-\\s]?control\\b",
+          "\\bcross[-\\s]?sectional\\b",
+          "\\bsystematic review\\b",
+          "\\bmeta[-\\s]?analysis\\b",
+          "\\bCONSORT\\b",
+          "\\bSTROBE\\b",
+          "\\bPRISMA\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\binterviews?\\b",
+          "\\bfocus groups?\\b",
+          "\\bthematic analysis\\b",
+          "\\breflexivit(y|ies)\\b",
+          "\\btrustworthiness\\b",
+          "\\bmember checking\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "We conducted a qualitative grounded theory study using semi-structured interviews.",
+      "This ethnographic study explores clinicians’ experiences through thematic analysis."
+    ],
+    "EvidenceExamplesNegative": [
+      "We conducted a randomized controlled trial.",
+      "This systematic review and meta-analysis followed PRISMA guidelines."
+    ],
+    "Explain": "Maps qualitative research reports to SRQR, excluding quantitative trials, observational studies, and evidence syntheses."
+  }
+}

@@ -707,6 +707,96 @@ body {
   outline: none;
 }
 
+#customizeChecksModal .modal-dialog {
+  max-width: min(1180px, calc(100vw - 2rem));
+}
+
+#customizeChecksModal .modal-content {
+  min-height: min(78vh, 760px);
+}
+
+.guideline-selector-modal-body {
+  min-height: min(68vh, 640px);
+}
+
+.guideline-modal-column {
+  min-height: 0;
+}
+
+#guidelineFacetColumn {
+  width: 260px;
+  flex: 0 0 260px;
+}
+
+#guidelineFacetColumn .accordion-button:not(.collapsed) {
+  background: transparent;
+  color: inherit;
+}
+
+#guidelineFacetColumn .accordion-button:focus,
+#guidelineFacetColumn .category-filter-btn:focus {
+  box-shadow: none;
+}
+
+#guidelineFacetColumn .category-filter-btn.active {
+  background: var(--bs-primary-bg-subtle, #cfe2ff);
+  color: var(--bs-primary-text-emphasis, #084298);
+}
+
+#guidelineCardContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  padding: 1.25rem;
+  align-content: start;
+  min-height: 0;
+}
+
+.guideline-select-card {
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  min-height: 164px;
+}
+
+.guideline-select-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+.guideline-select-card .card-title {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.guideline-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Bootstrap does not provide an off-canvas panel scoped inside an already-open modal. */
+.guideline-detail-slider {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  bottom: 10px;
+  left: 10px;
+  transform: translateX(104%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 440ms ease, opacity 440ms ease;
+  box-shadow: -12px 0 28px rgba(15, 23, 42, 0.12);
+  z-index: 2;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.guideline-detail-slider.active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @keyframes tile-arrived {
   0% { transform: scale(1); }
   35% { transform: scale(1.1); }
@@ -1050,5 +1140,28 @@ body {
 
   .ocr-html {
     border-inline: 0;
+  }
+
+  .guideline-selector-modal-body {
+    flex-direction: column;
+  }
+
+  #guidelineFacetColumn {
+    width: 100%;
+    flex-basis: auto;
+    max-height: 220px;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+
+  #guidelineCardContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .guideline-detail-slider {
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    border-radius: 1rem 1rem 0 0;
   }
 }

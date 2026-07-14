@@ -1,0 +1,510 @@
+{
+  "id": "cert",
+  "Name": "CERT",
+  "LongName": "Consensus on Exercise Reporting Template (CERT): Explanation and Elaboration Statement",
+  "Description": "CERT is a 16-item exercise-intervention reporting checklist (with sub-items) to improve completeness, reproducibility, and implementation usefulness of reported exercise programs.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Exercise intervention reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve how exercise interventions are reported by ensuring clear detail on equipment, provider qualifications, delivery, progression, tailoring, dosage, setting, and adherence/fidelity.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical trial report",
+    "Rehabilitation and exercise intervention study",
+    "Exercise protocol paper"
+  ],
+  "ManuscriptSubType": [
+    "Exercise randomized trial",
+    "Exercise implementation study",
+    "Physical activity intervention study"
+  ],
+  "StudyType": [
+    "Exercise intervention study",
+    "Randomized controlled trial",
+    "Clinical trial protocol",
+    "Behavioral intervention study"
+  ],
+  "Keywords": [
+    "CERT",
+    "Consensus on Exercise Reporting Template",
+    "exercise reporting checklist",
+    "exercise intervention reporting",
+    "exercise dose",
+    "exercise progression",
+    "exercise tailoring",
+    "exercise adherence",
+    "exercise fidelity",
+    "home program",
+    "supervised exercise",
+    "non-exercise components",
+    "adverse events",
+    "CONSORT extension context",
+    "SPIRIT extension context"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Exercise intervention study",
+      "Randomized controlled trial",
+      "Clinical trial protocol",
+      "Behavioral intervention study"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Cross-disciplinary",
+      "Social sciences"
+    ],
+    "Coverage": "Manuscripts that evaluate or describe exercise interventions, including clinical and public-health exercise programs delivered in supervised, unsupervised, individual, group, or home-based settings.",
+    "Focus": "Detailed exercise intervention reporting: equipment, provider qualifications, delivery mode, adherence measurement, motivation strategies, progression rules, exercise content, home components, non-exercise components, adverse events, dosage, tailoring, starting level, and planned/actual fidelity.",
+    "ContrastWith": "CERT is a method-specific reporting overlay for exercise interventions and should be used alongside the primary design guideline for the study type (for example CONSORT for randomized trials)."
+  },
+  "references": {
+    "primary": {
+      "description": "Slade SC, Dionne CE, Underwood M, Buchbinder R. Consensus on Exercise Reporting Template (CERT): Explanation and Elaboration Statement. Br J Sports Med. 2016;50(23):1428-1437.",
+      "url": "https://doi.org/10.1136/bjsports-2016-096651"
+    },
+    "secondary": [
+      {
+        "description": "CERT checklist PDF resource.",
+        "url": "https://www.frontiersin.org/api/v4/articles/855133/file/Data_Sheet_1.PDF/855133_supplementary-materials_datasheets_1_pdf/1"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "CERT checklist",
+      "items": [
+        {
+          "section": "CERT checklist",
+          "item": "1",
+          "item_name": "Exercise equipment",
+          "item_question": "Is the type of exercise equipment described in detail?",
+          "item_question_background": "Equipment details are required to reproduce exercise exposure.",
+          "item_extraction_instruction": "Extract all equipment used (for example weights, machines, treadmill, cycle ergometer).",
+          "item_expected_location": "Methods (intervention description)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of the type of exercise equipment...",
+              "locator": "Item 1"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "2",
+          "item_name": "Provider qualifications",
+          "item_question": "Are exercise instructor qualifications/training described?",
+          "item_question_background": "Provider competence can influence intervention fidelity and outcomes.",
+          "item_extraction_instruction": "Extract exercise provider qualifications, supervisory expertise, and training undertaken.",
+          "item_expected_location": "Methods (providers/personnel)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of the qualifications... training undertaken by the exercise instructor",
+              "locator": "Item 2"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "3",
+          "item_name": "Individual vs group delivery",
+          "item_question": "Is it stated whether exercises are performed individually or in groups?",
+          "item_question_background": "Delivery format changes feasibility, adherence, and effect interpretation.",
+          "item_extraction_instruction": "Extract whether intervention is individual, group, or mixed format.",
+          "item_expected_location": "Methods (delivery)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Describe whether exercises are performed individually or in a group",
+              "locator": "Item 3"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "4",
+          "item_name": "Supervision and delivery mode",
+          "item_question": "Is supervision status and delivery method described?",
+          "item_question_background": "Supervision differences can materially alter dose and adherence.",
+          "item_extraction_instruction": "Extract whether exercise is supervised/unsupervised and how delivered.",
+          "item_expected_location": "Methods (delivery/supervision)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Describe whether exercises are supervised or unsupervised and how they are delivered",
+              "locator": "Item 4"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "5",
+          "item_name": "Adherence measurement",
+          "item_question": "Is adherence measurement and reporting method described?",
+          "item_question_background": "Adherence reporting is needed to interpret intervention exposure.",
+          "item_extraction_instruction": "Extract how exercise adherence was measured and reported.",
+          "item_expected_location": "Methods / Results (adherence)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of how adherence to exercise is measured and reported",
+              "locator": "Item 5"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "6",
+          "item_name": "Motivation strategies",
+          "item_question": "Are participant motivation strategies described?",
+          "item_question_background": "Motivation methods affect engagement and pragmatic applicability.",
+          "item_extraction_instruction": "Extract motivation/behavior-change strategies used to support exercise participation.",
+          "item_expected_location": "Methods (behavior support)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of motivation strategies",
+              "locator": "Item 6"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "7a",
+          "item_name": "Progression decision rules",
+          "item_question": "Are decision rules for exercise progression described?",
+          "item_question_background": "Progression logic determines treatment intensity trajectory.",
+          "item_extraction_instruction": "Extract explicit decision rule(s) used to progress exercise.",
+          "item_expected_location": "Methods (progression protocol)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of the decision rule(s) for determining exercise progression",
+              "locator": "Item 7a"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "7b",
+          "item_name": "How program progressed",
+          "item_question": "Is how the exercise program was progressed described?",
+          "item_question_background": "Operational progression details are needed for replication.",
+          "item_extraction_instruction": "Extract practical progression implementation (timing, thresholds, increments).",
+          "item_expected_location": "Methods (exercise progression)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of how the exercise program was progressed",
+              "locator": "Item 7b"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "8",
+          "item_name": "Exercise description for replication",
+          "item_question": "Are exercises described in enough detail to enable replication?",
+          "item_question_background": "Replicable exercise descriptions are the core objective of CERT.",
+          "item_extraction_instruction": "Extract exercise details and supporting materials (photos/illustrations/videos if provided).",
+          "item_expected_location": "Methods / Supplement / Appendices",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of each exercise to enable replication...",
+              "locator": "Item 8"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "9",
+          "item_name": "Home program component",
+          "item_question": "Is any home program component described?",
+          "item_question_background": "Home components can contribute materially to total intervention dose.",
+          "item_extraction_instruction": "Extract home exercise/non-clinic components and instructions.",
+          "item_expected_location": "Methods (home intervention)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Detailed description of any home program component...",
+              "locator": "Item 9"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "10",
+          "item_name": "Non-exercise components",
+          "item_question": "Are non-exercise intervention components described?",
+          "item_question_background": "Co-interventions can confound interpretation of exercise effects.",
+          "item_extraction_instruction": "Extract non-exercise components (for example education or cognitive elements).",
+          "item_expected_location": "Methods (intervention components)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Describe whether there are any non-exercise components...",
+              "locator": "Item 10"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "11",
+          "item_name": "Adverse events",
+          "item_question": "Are the type and number of adverse events reported?",
+          "item_question_background": "Safety reporting is essential in exercise interventions.",
+          "item_extraction_instruction": "Extract adverse-event types, counts, severity, and attribution where available.",
+          "item_expected_location": "Results (safety/adverse events)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Describe the type and number of adverse events that occurred during exercise",
+              "locator": "Item 11"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "12",
+          "item_name": "Setting/location",
+          "item_question": "Is the setting where exercises are performed described?",
+          "item_question_background": "Setting influences feasibility and generalizability.",
+          "item_extraction_instruction": "Extract intervention setting(s) and key contextual characteristics.",
+          "item_expected_location": "Methods (setting/location)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe the setting in which the exercises are performed",
+              "locator": "Item 12"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "13",
+          "item_name": "Dosage",
+          "item_question": "Is exercise dosage described in detail (sessions, duration, program duration, etc.)?",
+          "item_question_background": "Dose parameters are necessary for replication and dose-response interpretation.",
+          "item_extraction_instruction": "Extract repetition/set/session counts, session duration, frequency, intensity, and total program duration.",
+          "item_expected_location": "Methods (exercise prescription)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Detailed description of the exercise intervention including... repetitions/sets/sessions...",
+              "locator": "Item 13"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "14a",
+          "item_name": "Generic vs tailored",
+          "item_question": "Is it stated whether exercises are generic or tailored to individuals?",
+          "item_question_background": "Tailoring classification affects reproducibility expectations.",
+          "item_extraction_instruction": "Extract whether intervention is one-size-fits-all or individualized.",
+          "item_expected_location": "Methods (tailoring strategy)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe whether the exercises are generic ... or tailored",
+              "locator": "Item 14a"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "14b",
+          "item_name": "How tailored",
+          "item_question": "If tailored, is how exercises were tailored described in detail?",
+          "item_question_background": "Tailoring rules are needed to reproduce individualized programs.",
+          "item_extraction_instruction": "Extract tailoring rules, variables used, and implementation details.",
+          "item_expected_location": "Methods (tailoring procedures)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Detailed description of how exercises are tailored to the individual",
+              "locator": "Item 14b"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "15",
+          "item_name": "Starting level decision rule",
+          "item_question": "Is the decision rule for determining starting exercise level described?",
+          "item_question_background": "Starting-level logic influences early dose and comparability.",
+          "item_extraction_instruction": "Extract criteria used to assign starting level (for example beginner/intermediate/advanced).",
+          "item_expected_location": "Methods (baseline prescription)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe the decision rule for determining the starting level...",
+              "locator": "Item 15"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "16a",
+          "item_name": "How well (planned)",
+          "item_question": "Is planned adherence/fidelity assessment described?",
+          "item_question_background": "Planned fidelity methods are required to evaluate intervention integrity.",
+          "item_extraction_instruction": "Extract planned adherence/fidelity assessment methods and measures.",
+          "item_expected_location": "Methods (fidelity/adherence)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe how adherence or fidelity to the exercise intervention is assessed/measured",
+              "locator": "Item 16a"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "CERT checklist",
+          "item": "16b",
+          "item_name": "How well (actual)",
+          "item_question": "Is actual delivery as planned reported?",
+          "item_question_background": "Actual fidelity determines interpretability of intervention effect estimates.",
+          "item_extraction_instruction": "Extract results on extent intervention was delivered as planned.",
+          "item_expected_location": "Results (fidelity/adherence outcomes)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe the extent to which the intervention was delivered as planned",
+              "locator": "Item 16b"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health",
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "CERT",
+      "Consensus on Exercise Reporting Template",
+      "CERT checklist",
+      "exercise reporting template"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bCERT\\b",
+          "\\bConsensus\\s+on\\s+Exercise\\s+Reporting\\s+Template\\b",
+          "\\bexercise\\s+intervention\\b",
+          "\\bexercise\\s+program\\b",
+          "\\bexercise\\s+adherence\\b",
+          "\\bexercise\\s+fidelity\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bcertif(y|ication|ied)\\b",
+          "\\bTLS\\s+certificate\\b",
+          "\\bX\\.509\\b",
+          "\\bcertificate\\s+authority\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bexercise\\s+equipment\\b",
+          "\\bexercise\\s+progression\\b",
+          "\\bhome\\s+program\\b",
+          "\\bnon-exercise\\s+components\\b",
+          "\\badverse\\s+events\\b",
+          "\\bexercise\\s+dos(age|ing)\\b",
+          "\\btailored\\s+exercise\\b",
+          "\\bdelivered\\s+as\\s+planned\\b",
+          "\\bCONSORT\\b",
+          "\\bSPIRIT\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "The exercise intervention is reported using CERT with detailed progression rules, dosage, adherence, and fidelity metrics.",
+      "We provide full exercise prescription details, home program components, provider training, and adverse-event reporting.",
+      "This randomized exercise trial reports individual tailoring and starting-level decision rules per CERT items."
+    ],
+    "EvidenceExamplesNegative": [
+      "The manuscript discusses digital certificates and encrypted communication, not exercise intervention reporting.",
+      "This pharmacology trial has no exercise intervention content, progression, or exercise-dose reporting.",
+      "The article is a policy commentary without intervention delivery or adherence details."
+    ],
+    "Explain": "Adds an exercise-specific reporting overlay when manuscripts include exercise interventions and require reproducible reporting of delivery, progression, dosage, tailoring, and fidelity."
+  }
+}

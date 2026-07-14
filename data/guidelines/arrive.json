@@ -1,0 +1,529 @@
+{
+  "id": "arrive",
+  "Name": "ARRIVE",
+  "LongName": "Reporting animal research: Explanation and elaboration for the ARRIVE guidelines 2.0",
+  "Description": "This Explanation and Elaboration document accompanies ARRIVE 2.0 and provides the rationale, supporting evidence, and practical guidance for reporting each item and sub-item in the ARRIVE 2.0 checklist for animal research. It also includes best-practice advice for the design and conduct of animal studies to improve transparency and reproducibility.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Preclinical animal research",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To support authors, reviewers, and editors in applying ARRIVE 2.0 by explaining the importance of each checklist item and sub-item, clarifying key concepts, and providing guidance and examples to improve the rigour, transparency, and reproducibility of animal research reporting.",
+  "ManuscriptType": [
+    "Original research article",
+    "Preclinical study report"
+  ],
+  "ManuscriptSubType": [
+    "In vivo animal experiment report"
+  ],
+  "StudyType": [
+    "Animal experiment",
+    "In vivo experimental study"
+  ],
+  "Keywords": [
+    "ARRIVE",
+    "ARRIVE 2.0",
+    "animal research",
+    "in vivo study",
+    "preclinical research",
+    "experimental design",
+    "experimental unit",
+    "sample size calculation",
+    "inclusion criteria",
+    "exclusion criteria",
+    "randomisation",
+    "blinding",
+    "outcome measures",
+    "statistical methods",
+    "animal welfare",
+    "humane endpoints",
+    "protocol registration",
+    "data availability",
+    "competing interests",
+    "funding"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Animal experiment",
+      "In vivo experimental study",
+      "Preclinical intervention study",
+      "Mechanistic animal study"
+    ],
+    "Disciplines": [
+      "Biomedical research",
+      "Translational medicine",
+      "Pharmacology",
+      "Neuroscience",
+      "Physiology",
+      "Veterinary science"
+    ],
+    "Coverage": "In vivo bioscience research involving living animals, including hypothesis-testing and exploratory studies, where transparent reporting of design, conduct, analysis, and welfare considerations is needed for reproducibility and appraisal.",
+    "Focus": "Item-by-item explanation and elaboration of ARRIVE 2.0, including rationale and practical guidance for reporting study design (including experimental unit), sample size, inclusion/exclusion and n values, bias mitigation (randomisation/blinding), outcome definitions, statistical methods, animal characteristics and provenance, replicable procedures, complete results reporting, ethical oversight, housing/husbandry, welfare monitoring, interpretation/limitations, generalisability, protocol preparation/registration, data access, and declarations of interests/funding.",
+    "ContrastWith": "Not for studies in humans (e.g., CONSORT/STROBE) or evidence syntheses (PRISMA). ARRIVE targets in vivo animal experiments rather than in vitro-only or purely computational studies."
+  },
+  "references": {
+    "primary": {
+      "description": "Percie du Sert N, Ahluwalia A, Alam S, et al. Reporting animal research: Explanation and elaboration for the ARRIVE guidelines 2.0. PLoS Biol. 2020;18(7):e3000411.",
+      "url": "[https://pmc.ncbi.nlm.nih.gov/articles/PMC7360025/](https://pmc.ncbi.nlm.nih.gov/articles/PMC7360025/)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "ARRIVE Essential 10",
+      "items": [
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "1a",
+          "item_name": "Study design—groups compared and controls",
+          "item_question": "For each experiment, are the groups being compared described, including control group(s), and if no control group was used is the rationale stated?",
+          "item_question_background": "If comparison groups and controls are not explicitly described (or a no-control rationale is missing), readers cannot judge what the intervention effect is being compared against, which undermines internal validity and interpretability.",
+          "item_extraction_instruction": "Extract a brief description of each group compared (including control/sham/vehicle/untreated), and if no control group was used extract the stated rationale; record where this appears.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "1b",
+          "item_name": "Study design—experimental unit",
+          "item_question": "For each experiment, is the experimental unit clearly stated (e.g., a single animal, litter, or cage of animals)?",
+          "item_question_background": "If the experimental unit is unclear, analyses may incorrectly treat non-independent observations as independent (pseudoreplication), producing misleading precision and potentially invalid statistical conclusions.",
+          "item_extraction_instruction": "Extract the definition of the experimental unit used for allocation and analysis (animal/litter/cage/other) and any clarifying text about independence.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "2a",
+          "item_name": "Sample size—numbers per group and totals",
+          "item_question": "Is the exact number of experimental units allocated to each group and the total number in each experiment reported, and is the total number of animals used indicated?",
+          "item_question_background": "Without exact group-wise n and totals, readers cannot verify denominators for analyses, assess precision, or reproduce calculations, which impairs appraisal and evidence synthesis.",
+          "item_extraction_instruction": "Extract the exact number of experimental units per group for each experiment, totals per experiment, and the total number of animals used; note any discrepancies between animals and experimental units.",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "2b",
+          "item_name": "Sample size—how decided and a priori calculation",
+          "item_question": "Is it explained how the sample size was decided, including details of any a priori sample size calculation if performed?",
+          "item_question_background": "If sample size decisions and any a priori calculations are not reported, studies may be underpowered or overuse animals, and readers cannot judge whether precision and ethical use were planned versus incidental.",
+          "item_extraction_instruction": "Extract the rationale for sample size (e.g., power/precision calculation, feasibility, historical precedent) and, if a priori calculation was done, extract inputs and outputs (assumptions, effect size, alpha, power, variance, attrition) or explicitly record that no a priori calculation was done if stated.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "3a",
+          "item_name": "Inclusion and exclusion criteria—criteria and prespecification",
+          "item_question": "Are criteria for including and excluding animals (or experimental units) during the experiment and data points during analysis described, and is it stated whether criteria were established a priori (or explicitly that none were set)?",
+          "item_question_background": "Unreported inclusion/exclusion rules enable undisclosed post hoc decisions that can bias results and inflate false positives by selectively removing animals or data points.",
+          "item_extraction_instruction": "Extract any inclusion/exclusion criteria for animals/experimental units and for data points, and extract whether these were established a priori; if the manuscript states no criteria were set, record that statement.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "3b",
+          "item_name": "Inclusion and exclusion criteria—report exclusions by group with reasons",
+          "item_question": "For each experimental group, are any animals, experimental units, or data points excluded from analysis reported with reasons, or is it stated that there were no exclusions?",
+          "item_question_background": "If exclusions and reasons are not reported by group, attrition and data handling cannot be audited and differential exclusions may introduce systematic bias in estimated effects.",
+          "item_extraction_instruction": "Extract excluded animals/units/data points per group with reasons; if none, extract the explicit statement that there were no exclusions.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "3c",
+          "item_name": "Inclusion and exclusion criteria—exact n for each analysis",
+          "item_question": "For each analysis, is the exact value of n in each experimental group reported?",
+          "item_question_background": "When analysis-specific n is missing, readers cannot determine which observations contributed to each result, making reproducibility and correct interpretation of uncertainty impossible.",
+          "item_extraction_instruction": "For each reported analysis, extract the exact n per group used in that analysis (not just planned n); record where n is reported (text/table/figure).",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "4a",
+          "item_name": "Randomisation—whether used and sequence method",
+          "item_question": "Is it stated whether randomisation was used to allocate experimental units to control and treatment groups, and if so is the method for generating the randomisation sequence reported?",
+          "item_question_background": "If allocation methods are unclear, selection bias may occur through predictable or manipulated assignment, undermining internal validity and credibility of group comparisons.",
+          "item_extraction_instruction": "Extract whether randomisation was used; if yes, extract sequence generation method (and any tools/software) and any relevant details about allocation implementation; if no, extract the explicit statement that randomisation was not used.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "4b",
+          "item_name": "Randomisation—confounder minimisation strategy",
+          "item_question": "Is the strategy used to minimise potential confounders described (e.g., treatment/measurement order, animal/cage location), or is it explicitly stated that confounders were not controlled?",
+          "item_question_background": "Without reporting how order and location effects were handled (or acknowledging they were not), systematic confounding may be mistaken for treatment effects, reducing reproducibility.",
+          "item_extraction_instruction": "Extract procedures to minimise confounders (counterbalancing, randomising order, blocking, rotating cage positions, standardising timing) or extract an explicit statement that confounders were not controlled.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "5",
+          "item_name": "Blinding—who was aware at each stage",
+          "item_question": "Is it described who was aware of group allocation at allocation, conduct, outcome assessment, and data analysis stages?",
+          "item_question_background": "If blinding status is not reported by stage, performance and detection bias risks cannot be evaluated, especially for subjective assessments and analyst decisions.",
+          "item_extraction_instruction": "Extract statements specifying who was blinded or unblinded at: allocation, experiment conduct, outcome assessment, and data analysis; if blinding was not performed, extract that statement and any reasons given.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "6a",
+          "item_name": "Outcome measures—define all outcomes",
+          "item_question": "Are all outcome measures assessed clearly defined (e.g., cell death, molecular markers, behavioural changes)?",
+          "item_question_background": "If outcome measures are not explicitly defined, replication is hindered and selective outcome reporting becomes easier, weakening confidence in findings.",
+          "item_extraction_instruction": "Extract definitions of each outcome measure assessed, including what was measured and how it was operationalised; note any outcome hierarchy if stated.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "6b",
+          "item_name": "Outcome measures—primary outcome for hypothesis-testing",
+          "item_question": "For hypothesis-testing studies, is the primary outcome measure specified (the outcome used to determine sample size)?",
+          "item_question_background": "If a primary outcome is not declared for hypothesis-testing studies, the study may be vulnerable to outcome switching and multiplicity-driven conclusions, undermining interpretability.",
+          "item_extraction_instruction": "If the study is hypothesis-testing: extract the stated primary outcome measure and where it is linked to sample size determination; if not stated, record that the primary outcome was not specified.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "7a",
+          "item_name": "Statistical methods—methods and software per analysis",
+          "item_question": "For each analysis, are the statistical methods described, including the software used?",
+          "item_question_background": "Without analysis-specific statistical methods and software, results cannot be reproduced and inappropriate tests may go undetected, weakening confidence in reported effects.",
+          "item_extraction_instruction": "For each analysis, extract the statistical test/model and the software/package/version if reported; map methods to the corresponding outcomes or comparisons.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "7b",
+          "item_name": "Statistical methods—assumptions and actions if violated",
+          "item_question": "Are methods used to assess whether data met statistical assumptions described, and what was done if assumptions were not met?",
+          "item_question_background": "If assumption checks and corrective actions are not reported, analyses may be invalid (e.g., non-normality, heteroscedasticity), and readers cannot judge robustness of conclusions.",
+          "item_extraction_instruction": "Extract described assumption checks (normality, variance, independence, etc.) and any actions taken when assumptions failed (transformations, non-parametric tests, robust methods, exclusions).",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "8a",
+          "item_name": "Experimental animals—species-appropriate details",
+          "item_question": "Are species-appropriate details of animals reported (species, strain/substrain, sex, age/developmental stage, and weight if relevant)?",
+          "item_question_background": "If core animal characteristics are missing, biological context and generalisability cannot be assessed and replication with comparable animals is compromised.",
+          "item_extraction_instruction": "Extract species, strain and substrain, sex, age or developmental stage, and weight where relevant; record any group-specific differences if applicable.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "8b",
+          "item_name": "Experimental animals—provenance and status details",
+          "item_question": "Is additional relevant information reported (provenance, health/immune status, genetic modification status, genotype, and previous procedures)?",
+          "item_question_background": "Unreported provenance, health/genetic status, or prior procedures can introduce hidden variability and confounding, undermining reproducibility and interpretation.",
+          "item_extraction_instruction": "Extract animal source/vendor and provenance, health/immune status, genetic modification status and genotype, and any prior procedures or experimental history if reported.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "9a",
+          "item_name": "Experimental procedures—what/how/what used",
+          "item_question": "For each experimental group (including controls), is it described what was done, how it was done, and what was used, in enough detail for replication?",
+          "item_question_background": "If procedural details are incomplete, replication is not possible and differences in implementation may explain outcomes rather than the intended experimental manipulation.",
+          "item_extraction_instruction": "For each group (including controls), extract descriptions of interventions/procedures including what was done, how (steps/techniques), and what was used (materials, reagents, equipment).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "9b",
+          "item_name": "Experimental procedures—when and how often",
+          "item_question": "For each experimental group (including controls), are timing and frequency described (when and how often procedures were performed)?",
+          "item_question_background": "Without timing and frequency, dose exposure, habituation, and temporal effects cannot be evaluated, making replication and interpretation unreliable.",
+          "item_extraction_instruction": "Extract timing details (relative to baseline or calendar), procedure frequency, intervals, duration, and total number of administrations/measurements for each group.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "9c",
+          "item_name": "Experimental procedures—where and acclimatisation",
+          "item_question": "For each experimental group (including controls), is it described where procedures occurred, including details of any acclimatisation periods?",
+          "item_question_background": "If the experimental setting and acclimatisation are not reported, stress and environmental context effects cannot be assessed, which can materially alter outcomes and reproducibility.",
+          "item_extraction_instruction": "Extract where procedures were conducted (facility/room context if provided) and any acclimatisation periods (duration and conditions) before procedures or assessments.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "9d",
+          "item_name": "Experimental procedures—why (rationale)",
+          "item_question": "For each experimental group (including controls), is the rationale provided for procedures?",
+          "item_question_background": "Without a rationale, it is unclear whether procedures are scientifically justified or appropriate for the objective, which impairs critical appraisal and reproducibility decisions.",
+          "item_extraction_instruction": "Extract the stated rationale for key procedures (choice of dose, route, schedule, assay, behavioural test, anaesthesia/analgesia) and link each rationale to the corresponding procedure.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "10a",
+          "item_name": "Results—summary/descriptive statistics with variability",
+          "item_question": "For each experiment (including independent replications), are summary/descriptive statistics reported for each group with an appropriate measure of variability (e.g., mean and SD, or median and range)?",
+          "item_question_background": "If group-level descriptive statistics and variability are not reported, effect interpretation and data dispersion cannot be assessed, limiting reproducibility and quantitative synthesis.",
+          "item_extraction_instruction": "For each experiment and replication, extract per-group descriptive statistics and variability measures as reported; note whether the measure matches data type and analysis.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Essential 10",
+          "item": "10b",
+          "item_name": "Results—effect size with confidence interval (if applicable)",
+          "item_question": "If applicable, is the effect size reported with a confidence interval?",
+          "item_question_background": "If effect sizes and confidence intervals are omitted when applicable, results may be over-reliant on p-values and cannot be readily interpreted for magnitude and precision.",
+          "item_extraction_instruction": "Extract reported effect size(s) and corresponding confidence interval(s); if none are provided, record that effect sizes with confidence intervals were not reported.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "ARRIVE Recommended Set",
+      "items": [
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "11",
+          "item_name": "Abstract",
+          "item_question": "Does the abstract accurately summarise objectives, animal species/strain/sex, key methods, principal findings, and conclusions?",
+          "item_question_background": "If the abstract omits critical design and animal details or selectively reports findings, it can mislead readers and distort screening and evidence synthesis when full text is not accessed.",
+          "item_extraction_instruction": "Extract from the abstract: objectives, animal species/strain/sex, key methods, principal findings, and conclusions; note any missing elements.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "12a",
+          "item_name": "Background—scientific context and approach rationale",
+          "item_question": "Is sufficient scientific background provided to explain the rationale and context for the study and the experimental approach?",
+          "item_question_background": "Without clear background and rationale, the scientific need for the animal study and appropriateness of the approach cannot be assessed.",
+          "item_extraction_instruction": "Extract the background and rationale statements that motivate the study and justify the experimental approach.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "12b",
+          "item_name": "Background—model choice and relevance to objectives/humans",
+          "item_question": "Is it explained how the animal species and model address the scientific objectives and, where appropriate, the relevance to human biology?",
+          "item_question_background": "If model choice and translational relevance are not explained, readers cannot judge whether findings are likely to generalise or meaningfully inform human biology or disease.",
+          "item_extraction_instruction": "Extract justification for species/model selection and any explanation of relevance to the objectives and to human biology where applicable.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "13",
+          "item_name": "Objectives",
+          "item_question": "Are the research question, objectives, and (where appropriate) specific hypotheses clearly described?",
+          "item_question_background": "If objectives and hypotheses are vague, the study is susceptible to post hoc interpretation and selective emphasis of outcomes.",
+          "item_extraction_instruction": "Extract the stated research question, objectives, and any hypotheses being tested; identify whether hypotheses are explicit or implied.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "14",
+          "item_name": "Ethical statement",
+          "item_question": "Is the ethical review committee (or equivalent) approval reported with relevant licence/protocol numbers if applicable, or is a justification provided if approval was not sought or granted?",
+          "item_question_background": "If ethical approval and oversight are not transparently reported, compliance with legal and welfare standards cannot be verified, undermining trust and ethical accountability.",
+          "item_extraction_instruction": "Extract the name of the approving body, approval/licence/protocol numbers where applicable, and any regulatory framework cited; if approval was not obtained, extract the justification provided.",
+          "item_expected_location": "Methods / Ethics statement",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "15",
+          "item_name": "Housing and husbandry",
+          "item_question": "Are housing and husbandry conditions described, including any environmental enrichment?",
+          "item_question_background": "Unreported housing and enrichment can conceal environmental factors that alter physiology and behaviour, reducing reproducibility across facilities.",
+          "item_extraction_instruction": "Extract housing and husbandry details (cage type/grouping, light/dark cycle, temperature/humidity if stated, food/water access) and enrichment provided.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "16a",
+          "item_name": "Animal care and monitoring—pain/distress mitigation steps",
+          "item_question": "Are interventions or steps taken to reduce pain, suffering, and distress described?",
+          "item_question_background": "If welfare mitigation steps are not reported, the study’s ethical quality and potential confounding from unmanaged stress or pain cannot be evaluated.",
+          "item_extraction_instruction": "Extract analgesia/anaesthesia, refinement measures, supportive care, monitoring procedures aimed at minimising pain/suffering/distress, and any welfare-related protocol adaptations.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "16b",
+          "item_name": "Animal care and monitoring—adverse events",
+          "item_question": "Are any expected or unexpected adverse events reported (or is it stated that none occurred)?",
+          "item_question_background": "If adverse events are not reported, harms and welfare impacts may be underestimated and readers cannot assess safety, refinement needs, or validity impacts from morbidity/mortality.",
+          "item_extraction_instruction": "Extract reported adverse events (expected/unexpected), their frequency/severity if provided, actions taken, and whether none occurred if explicitly stated.",
+          "item_expected_location": "Results / Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "16c",
+          "item_name": "Animal care and monitoring—humane endpoints and monitoring frequency",
+          "item_question": "Are humane endpoints described (endpoints established, signs monitored, and monitoring frequency), or is it stated that no humane endpoints were used?",
+          "item_question_background": "Without humane endpoint criteria and monitoring frequency, it is unclear how suffering was limited and whether outcome data could be confounded by unreported morbidity thresholds.",
+          "item_extraction_instruction": "Extract humane endpoint definitions, signs monitored, monitoring schedule/frequency, and any statement that the study had no humane endpoints.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "17a",
+          "item_name": "Interpretation/scientific implications—interpretation in context",
+          "item_question": "Are results interpreted considering objectives/hypotheses, current theory, and relevant literature?",
+          "item_question_background": "If interpretation is not anchored to objectives and existing evidence, conclusions may overstate novelty or significance and misrepresent how findings fit within the field.",
+          "item_extraction_instruction": "Extract discussion text interpreting results in relation to objectives/hypotheses, theory, and prior studies; note whether interpretation is consistent with reported results.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "17b",
+          "item_name": "Interpretation/scientific implications—limitations and bias/model limits/imprecision",
+          "item_question": "Are study limitations discussed, including potential sources of bias, limitations of the animal model, and imprecision associated with results?",
+          "item_question_background": "If limitations are not reported, readers cannot judge robustness or potential bias and may over-trust findings that are sensitive to model constraints or imprecise estimates.",
+          "item_extraction_instruction": "Extract stated limitations, including bias sources (selection/performance/detection/analysis), animal model limitations, and imprecision/uncertainty considerations.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "18",
+          "item_name": "Generalisability/translation",
+          "item_question": "Is it discussed whether and how findings generalise to other species or conditions, including relevance to human biology where appropriate?",
+          "item_question_background": "Without explicit discussion of generalisability and translation, animal findings may be overgeneralised beyond the studied model and conditions, misleading downstream research and application.",
+          "item_extraction_instruction": "Extract statements about generalisability across species/conditions and any translational relevance to human biology; note any caveats provided.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "19",
+          "item_name": "Protocol registration",
+          "item_question": "Is it stated whether a protocol (research question, key design features, and analysis plan) was prepared before the study and if/where it was registered?",
+          "item_question_background": "If protocol preparation and registration are not reported, it is difficult to assess prespecification and the risk of undisclosed deviations or selective reporting.",
+          "item_extraction_instruction": "Extract whether a pre-study protocol existed and, if registered, the registry/platform and identifier/link; if not registered, extract any statement indicating this.",
+          "item_expected_location": "Methods / End matter",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "20",
+          "item_name": "Data access",
+          "item_question": "Is there a statement describing if and where study data are available?",
+          "item_question_background": "Without a data availability statement, independent verification and reuse are impeded, reducing reproducibility and transparency.",
+          "item_extraction_instruction": "Extract the data availability statement including where data can be accessed (repository, accession, DOI/link) or whether access is restricted/unavailable with reasons if stated.",
+          "item_expected_location": "Data availability statement / End matter",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "21a",
+          "item_name": "Declaration of interests—conflicts of interest",
+          "item_question": "Are potential conflicts of interest declared (financial and nonfinancial), or is it stated that none exist?",
+          "item_question_background": "If conflicts are not disclosed, readers cannot assess potential influences on study conduct, analysis, or reporting, which undermines trust and interpretability.",
+          "item_extraction_instruction": "Extract conflict of interest declarations (financial and nonfinancial) for all authors or an explicit statement that none exist.",
+          "item_expected_location": "Competing interests / Disclosures",
+          "item_optional": false
+        },
+        {
+          "section": "ARRIVE Recommended Set",
+          "item": "21b",
+          "item_name": "Declaration of interests—funding and funder role",
+          "item_question": "Are all funding sources listed (including grant identifiers) and the role of funder(s) in design, analysis, and reporting described?",
+          "item_question_background": "If funding sources and funder roles are not reported, sponsor influence cannot be evaluated and potential reporting bias or constraints on independence may be hidden.",
+          "item_extraction_instruction": "Extract all funding sources and grant identifiers; extract statements describing funder roles (or no role) in design, analysis, and reporting.",
+          "item_expected_location": "Funding statement / Acknowledgements / End matter",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "ARRIVE",
+      "ARRIVE 2.0",
+      "ARRIVE guidelines",
+      "ARRIVE Explanation and Elaboration",
+      "Reporting animal research: Explanation and elaboration for the ARRIVE guidelines 2.0",
+      "Animal Research: Reporting of In Vivo Experiments"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bARRIVE\\b",
+          "\\bARRIVE\\s*2\\.0\\b",
+          "\\bAnimal Research: Reporting\\b",
+          "\\banimal\\s+experiment\\b",
+          "\\bin\\s+vivo\\b",
+          "\\bpreclinical\\b",
+          "\\banimal\\s+model\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\brandomi[sz]ed\\s+controlled\\s+trial\\b",
+          "\\bclinical\\s+trial\\b",
+          "\\bCONSORT\\b",
+          "\\bSTROBE\\b",
+          "\\bPRISMA\\b",
+          "\\bsystematic\\s+review\\b",
+          "\\bmeta[-\\s]?analysis\\b",
+          "\\bcase\\s+report\\b",
+          "\\bprotocol\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bmouse\\b|\\bmice\\b|\\brat(s)?\\b|\\bzebrafish\\b|\\brabbit(s)?\\b|\\bguinea\\s+pig(s)?\\b|\\bnon[-\\s]?human\\s+primate(s)?\\b",
+          "\\bexperimental\\s+unit\\b",
+          "\\bblinding\\b",
+          "\\brandomi[sz]ation\\b",
+          "\\bhumane\\s+endpoint(s)?\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "This in vivo mouse study is reported in accordance with the ARRIVE 2.0 guidelines.",
+      "We followed ARRIVE 2.0 (Explanation and Elaboration) to report randomisation, blinding, and humane endpoints."
+    ],
+    "EvidenceExamplesNegative": [
+      "We conducted a randomized controlled trial in humans following CONSORT.",
+      "This systematic review and meta-analysis was reported according to PRISMA."
+    ],
+    "Explain": "Routes in vivo animal experimental studies to ARRIVE 2.0 and its accompanying Explanation and Elaboration guidance, excluding human clinical trials, observational epidemiology, protocols, and evidence syntheses."
+  }
+}

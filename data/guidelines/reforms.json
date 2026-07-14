@@ -1,0 +1,937 @@
+{
+  "id": "reforms",
+  "Name": "REFORMS",
+  "LongName": "Reporting Standards for Machine Learning Based Science",
+  "Description": "REFORMS is a cross-disciplinary reporting checklist for research manuscripts that use machine learning models as evidence for scientific claims. It organizes 32 checklist items across study goals, computational reproducibility, data quality, preprocessing, modeling, data leakage, metrics and uncertainty, and generalizability.",
+  "Category": "reporting_guideline",
+  "Subdomain": "Machine-learning-based science",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To improve the validity, reproducibility, and generalizability of ML-based science by making the scientific claim, modeling workflow, evaluation choices, leakage risks, and limits of applicability explicit and auditable.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "ML-based science report"
+  ],
+  "StudyType": [
+    "Machine learning study",
+    "Predictive modeling study",
+    "Measurement study using machine learning",
+    "Cross-disciplinary empirical study"
+  ],
+  "Keywords": [
+    "REFORMS",
+    "machine learning",
+    "ML-based science",
+    "reporting standards",
+    "computational reproducibility",
+    "data leakage",
+    "generalizability",
+    "uncertainty quantification",
+    "model selection",
+    "cross-disciplinary"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Machine learning study",
+      "Predictive modeling study",
+      "Measurement study using machine learning",
+      "Cross-disciplinary empirical study"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary",
+      "Computer science",
+      "Social sciences",
+      "Medical and health",
+      "Natural sciences"
+    ],
+    "Coverage": "Empirical manuscripts that use machine learning model performance as evidence for a scientific claim, including prediction, detection, measurement, or related analytic tasks carried out for scientific rather than purely product or benchmark purposes.",
+    "Focus": "Target population and study goals, reproducibility materials, data provenance and suitability, preprocessing, model specification and selection, leakage prevention, metrics and uncertainty reporting, and explicit discussion of external validity and limits.",
+    "ContrastWith": "REFORMS is tailored to ML-based science rather than general ML methods papers or non-ML quantitative studies. It complements design-specific guidelines and is additive to field-specific requirements such as preregistration, ethics review, or clinical reporting standards."
+  },
+  "references": {
+    "primary": {
+      "description": "Kapoor S, Cantrell E, Peng K, et al. Reporting Standards for Machine Learning Based Science. arXiv. 2023.",
+      "url": "https://arxiv.org/pdf/2308.07832"
+    },
+    "secondary": [
+      {
+        "description": "Princeton REFORMS project page with supplementary materials and appendices.",
+        "url": "https://reforms.cs.princeton.edu"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "Study Goals",
+      "items": [
+        {
+          "section": "Study Goals",
+          "item": "1a",
+          "item_name": "State the population or distribution for the scientific claim",
+          "item_question": "Does the manuscript state the population or distribution about which the scientific claim is made?",
+          "item_question_background": "The paper treats the target population as foundational because it sets the boundary of the claim and anchors later judgments about sampling, uncertainty, and generalization. The authors note that research articles often fail to state this population clearly.",
+          "item_extraction_instruction": "Extract the stated population, distribution, setting, or unit of inference to which the scientific claim is intended to generalize.",
+          "item_expected_location": "Introduction / Methods / Study goals",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "1a. Population or distribution about which the scientific claim is made",
+              "locator": "Table 2, Study goals"
+            },
+            {
+              "page": 6,
+              "quote": "The \"population of interest\" is the group to which the researchers intend the findings of the study to generalize.",
+              "locator": "Module 1, item 1a"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Study Goals",
+          "item": "1b",
+          "item_name": "Explain why that population or distribution was chosen",
+          "item_question": "Does the manuscript explain why that population or distribution was selected as the target of the scientific claim?",
+          "item_question_background": "REFORMS asks for the motivation behind the population choice because the importance and meaning of a result depend on why that population matters. The guideline also notes that this motivation may arise deductively, inductively, or iteratively from data and theory.",
+          "item_extraction_instruction": "Extract the substantive or practical rationale for studying the chosen population or distribution, including whether the study motivation is theory-driven, data-driven, or iterative.",
+          "item_expected_location": "Introduction / Study goals / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "1b. Motivation for choosing this population or distribution (1a.)",
+              "locator": "Table 2, Study goals"
+            },
+            {
+              "page": 6,
+              "quote": "Explaining the motivation for studying the population of interest helps the reader understand the importance of the study and contextualize its results.",
+              "locator": "Module 1, item 1b"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Study Goals",
+          "item": "1c",
+          "item_name": "Explain why machine learning is used",
+          "item_question": "Does the manuscript explain why machine learning methods are used for this scientific question?",
+          "item_question_background": "The guideline distinguishes ML-based science from more traditional data-modeling approaches and asks authors to justify why an algorithmic approach is appropriate. That explanation helps readers understand what ML adds beyond standard non-ML analysis.",
+          "item_extraction_instruction": "Extract the stated reasons for using machine learning instead of or alongside traditional statistical methods, including any discussion of prediction, measurement, scale, modality, or other advantages.",
+          "item_expected_location": "Introduction / Study goals / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "1c. Motivation for the use of ML methods in the study",
+              "locator": "Table 2, Study goals"
+            },
+            {
+              "page": 6,
+              "quote": "Since non-ML (\"data modeling\") methods are currently the standard approach in many scientific disciplines, explaining the motivation for using ML methods will help readers better understand a study's goals.",
+              "locator": "Module 1, item 1c"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Computational Reproducibility",
+      "items": [
+        {
+          "section": "Computational Reproducibility",
+          "item": "2a",
+          "item_name": "Identify the dataset used for training and evaluation",
+          "item_question": "Does the manuscript identify the dataset used for training and evaluation with a stable link, DOI, or equivalent persistent identifier?",
+          "item_question_background": "REFORMS frames dataset identification as a prerequisite for independent verification because readers need to know exactly which version of a dataset was used. The paper also emphasizes that dataset documentation matters, especially when data cannot be released directly.",
+          "item_extraction_instruction": "Extract the dataset names, versions, persistent identifiers, access links, and any documentation or synthetic substitute provided for restricted data.",
+          "item_expected_location": "Methods / Data availability / Supplement / Repository statement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "2a. Dataset used for training and evaluating the model along with link or DOI to uniquely identify the dataset",
+              "locator": "Table 2, Computational reproducibility"
+            },
+            {
+              "page": 8,
+              "quote": "highlight the importance of citing datasets with permanent links to clarify which version of a dataset is used in a study",
+              "locator": "Module 2, item 2a"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Computational Reproducibility",
+          "item": "2b",
+          "item_name": "Identify the exact code used",
+          "item_question": "Does the manuscript identify the exact code used to train, evaluate, and generate the reported results?",
+          "item_question_background": "The authors emphasize that code availability alone is not enough if the precise version is unclear. A DOI, commit tag, or equivalent version marker is needed so another researcher can tie the paper to the exact analysis implementation.",
+          "item_extraction_instruction": "Extract code repository links, DOIs, commit hashes, release tags, archive identifiers, and any statement about which code version generated the reported results.",
+          "item_expected_location": "Code availability / Methods / Supplement / Repository statement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "2b. Code used to train and evaluate the model and produce the results reported in the paper along with link or DOI to uniquely identify the version of the code used",
+              "locator": "Table 2, Computational reproducibility"
+            },
+            {
+              "page": 8,
+              "quote": "it is important to report the exact version of code used for running the experiments and producing the results in a paper",
+              "locator": "Module 2, item 2b"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Computational Reproducibility",
+          "item": "2c",
+          "item_name": "Describe the computing environment",
+          "item_question": "Does the manuscript describe the computing infrastructure used to generate the results?",
+          "item_question_background": "REFORMS treats hardware, software, and runtime requirements as part of the evidence chain because ML workflows can be difficult to reproduce without environment details. The paper specifically calls out CPU, RAM, operating system, package versions, and compute time.",
+          "item_extraction_instruction": "Extract the hardware, operating system, programming environment, package versions, and any resource or runtime information needed to understand reproduction requirements.",
+          "item_expected_location": "Methods / Computational environment / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "2c. Description of the computing infrastructure used",
+              "locator": "Table 2, Computational reproducibility"
+            },
+            {
+              "page": 8,
+              "quote": "authors should report details about the hardware (CPU, RAM, disk space), software (operating system, programming language, version number for each package used), and computing resources",
+              "locator": "Module 2, item 2c"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Computational Reproducibility",
+          "item": "2d",
+          "item_name": "Provide documentation for reproducing the analysis",
+          "item_question": "Does the manuscript point to documentation that explains how to set up and run the provided code and data?",
+          "item_question_background": "The paper highlights documentation because unfamiliar readers often fail before they ever run the analysis due to missing setup instructions. Good README-style guidance reduces friction between artifact release and actual reproducibility.",
+          "item_extraction_instruction": "Extract references to README files, setup instructions, installation guides, usage examples, and documentation describing expected outputs.",
+          "item_expected_location": "Code repository / Supplement / Data and code availability statement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "2d. README file which contains instructions for generating the results using the provided dataset and code",
+              "locator": "Table 2, Computational reproducibility"
+            },
+            {
+              "page": 8,
+              "quote": "Good documentation helps researchers unfamiliar with a project by walking them through the steps of setting up and running the code provided",
+              "locator": "Module 2, item 2d"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Computational Reproducibility",
+          "item": "2e",
+          "item_name": "Provide a reproduction script for the reported results",
+          "item_question": "Does the manuscript provide a script or automated workflow that reproduces the reported results?",
+          "item_question_background": "REFORMS calls a full reproduction script a high but valuable bar because it can automate dependency setup, data placement, and result generation. The paper also acknowledges that this may not always be feasible, which makes this a strong but sometimes difficult expectation.",
+          "item_extraction_instruction": "Extract whether a single script, containerized workflow, or reproducibility platform can regenerate the reported results and note any stated limitations if full automation is not possible.",
+          "item_expected_location": "Repository / Supplement / Reproducibility statement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "2e. Reproduction script to produce all results reported in the paper",
+              "locator": "Table 2, Computational reproducibility"
+            },
+            {
+              "page": 8,
+              "quote": "Note that this is a high bar for computational reproducibility. In some cases, it might not be possible to provide a script that would allow an independent researcher to reproduce all results",
+              "locator": "Module 2, item 2e"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data Quality",
+      "items": [
+        {
+          "section": "Data Quality",
+          "item": "3a",
+          "item_name": "Describe data sources and annotation processes",
+          "item_question": "Does the manuscript describe the source of the data and, when relevant, the source and process of ground-truth annotation?",
+          "item_question_background": "The guideline emphasizes data-source reporting because readers need to know when, where, and how the data and labels were created in order to judge whether the data are fit for the study's goals. It notes that reporting of annotation methods is especially uneven in ML-based science.",
+          "item_extraction_instruction": "Extract the origin of each training and evaluation dataset, collection timing, acquisition setting, and any annotation, labeling, or documentation process used to create the target values.",
+          "item_expected_location": "Methods / Data source / Dataset description",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "3a. Source(s) of data, separately for the training and evaluation datasets",
+              "locator": "Table 2, Data quality"
+            },
+            {
+              "page": 9,
+              "quote": "our checklist asks researchers to report when, where, and how data were collected, and how ground-truth annotations were performed on the dataset, if applicable",
+              "locator": "Module 3, item 3a"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Quality",
+          "item": "3b",
+          "item_name": "Describe the sampling frame",
+          "item_question": "Does the manuscript describe the distribution or sampling frame from which the dataset was drawn?",
+          "item_question_background": "REFORMS treats the sampling frame as distinct from the target population because it determines what cases could realistically enter the study. The paper notes that many articles either omit this information or bury it in inaccessible prior publications.",
+          "item_extraction_instruction": "Extract the sampling frame, eligibility rules, source population, and any description of how the observed dataset relates to that larger frame.",
+          "item_expected_location": "Methods / Data source / Participants / Sample construction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "3b. Distribution or set from which the dataset is sampled (i.e., the sampling frame)",
+              "locator": "Table 2, Data quality"
+            },
+            {
+              "page": 9,
+              "quote": "It is important to describe a study's sampling frame so that readers understand the boundaries of the study's sample and how that sample relates to the target population",
+              "locator": "Module 3, item 3b"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Quality",
+          "item": "3c",
+          "item_name": "Justify why the dataset suits the modeling task",
+          "item_question": "Does the manuscript explain why the dataset is useful for the modeling task at hand?",
+          "item_question_background": "The paper warns that broad claims like 'best available dataset' do not help readers assess fitness for purpose. Instead, authors should connect the specific strengths and weaknesses of the data to the specific scientific question and modeling task.",
+          "item_extraction_instruction": "Extract the argument for why the chosen dataset is appropriate for the intended task, including any discussion of relevance, bias, completeness, or tradeoffs.",
+          "item_expected_location": "Introduction / Methods / Data description",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "3c. Justification for why the dataset is useful for the modeling task at hand",
+              "locator": "Table 2, Data quality"
+            },
+            {
+              "page": 9,
+              "quote": "researchers should be specific about why the dataset is well-suited to the question",
+              "locator": "Module 3, item 3c"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Quality",
+          "item": "3d",
+          "item_name": "Define the outcome variable and describe it",
+          "item_question": "Does the manuscript define the outcome variable and report descriptive statistics for it?",
+          "item_question_background": "REFORMS highlights the outcome variable because scientific claims often depend on how an unobservable construct is operationalized into a measurable target. The paper asks for both the definition and descriptive context so readers can see what exactly the model is predicting or estimating.",
+          "item_extraction_instruction": "Extract the definition of the outcome or target variable, how it is measured or labeled, and any descriptive statistics or class-specific summaries reported for it.",
+          "item_expected_location": "Methods / Variables / Data description / Results table 1",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "3d. The outcome variable of the model, along with descriptive statistics",
+              "locator": "Table 2, Data quality"
+            },
+            {
+              "page": 9,
+              "quote": "The outcome variable is typically an empirical proxy for an unobservable theoretical construct.",
+              "locator": "Module 3, item 3d"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Quality",
+          "item": "3e",
+          "item_name": "Report sample size and outcome frequencies",
+          "item_question": "Does the manuscript report sample size and, when relevant, outcome frequencies or class counts?",
+          "item_question_background": "The paper links sample-size reporting to both inferential adequacy and interpretability, noting that small, imbalanced, or attrited samples can distort what a model's performance means. It specifically asks for granular counts rather than only a total N.",
+          "item_extraction_instruction": "Extract the total sample size, any subgroup or class counts, outcome frequencies, and distinctions between number of individuals and number of rows when relevant.",
+          "item_expected_location": "Methods / Data description / Results table 1",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "3e. Sample size and outcome frequencies",
+              "locator": "Table 2, Data quality"
+            },
+            {
+              "page": 9,
+              "quote": "our checklist asks that in addition to the total sample size, researchers who are conducting a classification task report the number of samples in each class",
+              "locator": "Module 3, item 3e"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Quality",
+          "item": "3f",
+          "item_name": "Report the prevalence of missing data",
+          "item_question": "Does the manuscript report the percentage of missing data in the dataset?",
+          "item_question_background": "REFORMS separates missingness prevalence from missing-data handling because both pieces matter. This item is about making the extent of missingness visible, especially since the paper notes that missing data is common and often underreported.",
+          "item_extraction_instruction": "Extract the amount of missing data overall and, when relevant, by class, variable, split, or subgroup.",
+          "item_expected_location": "Methods / Data description / Supplementary tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "3f. Percentage of missing data, split by class for a categorical outcome variable",
+              "locator": "Table 2, Data quality"
+            },
+            {
+              "page": 10,
+              "quote": "Checklist item 3f focuses on reporting the prevalence of missing data.",
+              "locator": "Module 3, item 3f"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data Quality",
+          "item": "3g",
+          "item_name": "Justify representativeness of the dataset",
+          "item_question": "Does the manuscript justify why the dataset is representative of the population or distribution named in item 1a?",
+          "item_question_background": "The guideline asks for a representativeness argument because claims about generalization are only as good as the link between the sample and the target population. The paper also notes that nonprobability samples may still support some claims if authors explain the limits and adjustments clearly.",
+          "item_extraction_instruction": "Extract the argument, evidence, or adjustment strategy used to justify that the sample can represent the target population, or note if the manuscript explains why full representativeness is not expected.",
+          "item_expected_location": "Methods / Data description / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "3g. Justification for why the distribution or set from which the dataset is drawn (3b.) is representative of the one about which the scientific claim is being made (1a.)",
+              "locator": "Table 2, Data quality"
+            },
+            {
+              "page": 10,
+              "quote": "This item asks researchers to justify that their sample is representative of the target population defined in Module 1.",
+              "locator": "Module 3, item 3g"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data Preprocessing",
+      "items": [
+        {
+          "section": "Data Preprocessing",
+          "item": "4a",
+          "item_name": "Report excluded samples and why they were excluded",
+          "item_question": "Does the manuscript identify excluded samples and explain why they were excluded?",
+          "item_question_background": "REFORMS treats exclusions as part of the scientific claim rather than a silent cleanup step because the effective study population changes when data are removed. The paper notes that even simple threshold decisions can materially change what becomes predictable.",
+          "item_extraction_instruction": "Extract any exclusion rules, removed cases, filtering thresholds, outlier handling decisions, and the rationale for those choices.",
+          "item_expected_location": "Methods / Data preprocessing / Participant or sample flow",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "4a. Identification of whether any samples are excluded with a rationale for why they are excluded",
+              "locator": "Table 2, Data preprocessing"
+            },
+            {
+              "page": 10,
+              "quote": "This item underscores the importance of reporting the specific subset of the dataset used, in addition to details about the overall data.",
+              "locator": "Module 4, item 4a"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Preprocessing",
+          "item": "4b",
+          "item_name": "Explain how impossible or corrupt samples were handled",
+          "item_question": "Does the manuscript explain how impossible or corrupt samples were handled?",
+          "item_question_background": "The paper separates impossible or corrupt samples from ordinary exclusions because these cases can arise from measurement error, bots, or impossible values and need explicit handling. Without that explanation, readers cannot tell whether the final dataset meaningfully represents the intended population.",
+          "item_extraction_instruction": "Extract how the study detected impossible or corrupt records and whether those records were removed, repaired, flagged, or transformed.",
+          "item_expected_location": "Methods / Data preprocessing / Data cleaning",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "4b. How impossible or corrupt samples are dealt with",
+              "locator": "Table 2, Data preprocessing"
+            },
+            {
+              "page": 10,
+              "quote": "Data may be impossible (e.g., a person whose height is recorded as 10 feet) or corrupted (e.g., a survey response filled out by a bot).",
+              "locator": "Module 4, item 4b"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data Preprocessing",
+          "item": "4c",
+          "item_name": "Report all transformations from raw data to model-ready data",
+          "item_question": "Does the manuscript report the transformations applied to the raw data before modeling?",
+          "item_question_background": "REFORMS emphasizes transformations because normalization, imputation, augmentation, and resampling can materially affect both validity and reproducibility. The paper specifically warns that some transformations become invalid if they are applied before the train-test separation.",
+          "item_extraction_instruction": "Extract all preprocessing transformations from raw data to model input, including normalization, imputation, encoding, augmentation, resampling, feature engineering, and any workflow diagram if provided.",
+          "item_expected_location": "Methods / Data preprocessing / Supplementary workflow",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "4c. All transformations of the dataset from its raw form (3a.) to the form used in the model",
+              "locator": "Table 2, Data preprocessing"
+            },
+            {
+              "page": 11,
+              "quote": "Choices in preprocessing technique can significantly affect the properties of the resulting model, including accuracy and interpretability",
+              "locator": "Module 4, item 4c"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Modeling",
+      "items": [
+        {
+          "section": "Modeling",
+          "item": "5a",
+          "item_name": "Describe all trained models in detail",
+          "item_question": "Does the manuscript describe all trained models in enough detail to understand their inputs, outputs, training objective, and learning algorithm?",
+          "item_question_background": "The paper treats model description as a reproducibility minimum because a reader cannot evaluate a scientific claim if the core model class, inputs, outputs, loss, or training procedure remain vague. It also notes that paper text alone often fails to support reproduction.",
+          "item_extraction_instruction": "Extract the types of models trained, their inputs and outputs, objective or loss functions, training algorithms, and any architecture or parameterization details reported.",
+          "item_expected_location": "Methods / Modeling / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "5a. Detailed descriptions of all models trained",
+              "locator": "Table 2, Modeling"
+            },
+            {
+              "page": 11,
+              "quote": "Specific details about all models trained are essential for ensuring the reproducibility of a paper.",
+              "locator": "Module 5, item 5a"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Modeling",
+          "item": "5b",
+          "item_name": "Justify the choice of model types",
+          "item_question": "Does the manuscript justify why the chosen model types are appropriate for the scientific question?",
+          "item_question_background": "REFORMS asks for this justification because model choice should follow from the kind of claim being made, such as maximizing predictive accuracy versus supporting interpretability or real-world usability. The paper explicitly notes that different scientific goals imply different model desiderata.",
+          "item_extraction_instruction": "Extract the rationale for selecting the model families considered, including any discussion of prediction quality, interpretability, practicality, fairness, or domain constraints.",
+          "item_expected_location": "Introduction / Methods / Modeling rationale",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "5b. Justification for the choice of model types implemented",
+              "locator": "Table 2, Modeling"
+            },
+            {
+              "page": 11,
+              "quote": "Here, we ask authors to provide reasons for why the set of model types they implemented is appropriate.",
+              "locator": "Module 5, item 5b"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Modeling",
+          "item": "5c",
+          "item_name": "Describe the model evaluation procedure",
+          "item_question": "Does the manuscript describe how the models were evaluated, including train-test splits or cross-validation folds?",
+          "item_question_background": "The paper places evaluation inside the modeling section because evaluation often drives model selection. It stresses that readers need to know exactly how data were partitioned and how many samples were present in each split in order to judge validity.",
+          "item_extraction_instruction": "Extract the evaluation design, such as holdout testing, cross-validation, external validation, split sizes, fold structure, and class counts within each split when reported.",
+          "item_expected_location": "Methods / Model evaluation / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "5c. Method for evaluating the model(s) reported in the paper, including details of train-test splits or cross-validation folds",
+              "locator": "Table 2, Modeling"
+            },
+            {
+              "page": 11,
+              "quote": "To ensure reproducibility and verify validity, it is necessary to report how data was split and used.",
+              "locator": "Module 5, item 5c"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Modeling",
+          "item": "5d",
+          "item_name": "Describe how the reported model was selected",
+          "item_question": "Does the manuscript describe how the final reported model or models were selected?",
+          "item_question_background": "REFORMS highlights model selection because comparing many learned models and then reporting the apparent winner can create overoptimistic claims if the selection process is opaque. The paper also points out that models with similar accuracy can differ in fairness, interpretability, or individual predictions.",
+          "item_extraction_instruction": "Extract the rule used to choose the reported model or models, including validation criteria, ranking procedure, stopping rules, or any selection based on non-accuracy attributes.",
+          "item_expected_location": "Methods / Model selection / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "5d. Method for selecting the model(s) reported in the paper",
+              "locator": "Table 2, Modeling"
+            },
+            {
+              "page": 12,
+              "quote": "Researchers should report how the final model(s) reported in a paper are selected.",
+              "locator": "Module 5, item 5d"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Modeling",
+          "item": "5e",
+          "item_name": "Describe hyperparameter tuning",
+          "item_question": "Does the manuscript report how hyperparameters were chosen or tuned for the reported model?",
+          "item_question_background": "The guideline treats hyperparameter search as part of the evidential chain because model performance can change substantially with search effort and tuning choices. The paper notes that misleading comparisons can arise when tuning is underreported or uneven across models.",
+          "item_extraction_instruction": "Extract the hyperparameters considered, search procedure, search space, stopping rules, tuning budget, and the values chosen for the final model.",
+          "item_expected_location": "Methods / Modeling / Hyperparameter tuning / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "5e. For the model(s) reported in the paper, specify details about the hyperparameter tuning",
+              "locator": "Table 2, Modeling"
+            },
+            {
+              "page": 12,
+              "quote": "details about hyperparameter search impact the resulting accuracy",
+              "locator": "Module 5, item 5e"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Modeling",
+          "item": "5f",
+          "item_name": "Justify the choice of baselines for model comparison",
+          "item_question": "Does the manuscript justify that any model comparisons are made against appropriate baselines?",
+          "item_question_background": "REFORMS includes baseline quality because claims of superiority are only meaningful if the comparison targets are trained and optimized fairly. The paper warns that weak or selectively tuned baselines can create illusory gains for a favored ML method.",
+          "item_extraction_instruction": "Extract which baselines are used, how they were selected, how they were trained and optimized, and why they are appropriate comparators for the scientific claim.",
+          "item_expected_location": "Methods / Modeling / Baselines / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "5f. Justification that model comparisons are against appropriate baselines",
+              "locator": "Table 2, Modeling"
+            },
+            {
+              "page": 12,
+              "quote": "if the baselines were not chosen using the same model selection methods, this could result in the baselines being \"weak.\"",
+              "locator": "Module 5, item 5f"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data Leakage",
+      "items": [
+        {
+          "section": "Data Leakage",
+          "item": "6a",
+          "item_name": "Show that train-test separation was preserved",
+          "item_question": "Does the manuscript justify that preprocessing and modeling steps only used information from the training data and not from the test data?",
+          "item_question_background": "The paper treats train-test contamination as a classic but still widespread source of inflated performance. It emphasizes that leakage can happen not just by training on test labels but also by doing preprocessing before the split.",
+          "item_extraction_instruction": "Extract how train-test separation was maintained throughout preprocessing, tuning, and model fitting, including any safeguards against leakage before data partitioning.",
+          "item_expected_location": "Methods / Data splitting / Preprocessing / Evaluation",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "6a. Justification that pre-processing (Section 4) and modeling (Section 5) steps only use information from the training dataset",
+              "locator": "Table 2, Data leakage"
+            },
+            {
+              "page": 12,
+              "quote": "if the train-test split occurs after any of the other pre-processing or modeling steps (Modules 4 and 5), this also results in leakage.",
+              "locator": "Module 6, item 6a"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Leakage",
+          "item": "6b",
+          "item_name": "Explain how dependencies or duplicates across splits were handled",
+          "item_question": "Does the manuscript explain how dependencies or duplicate observations across training and test sets were prevented or managed?",
+          "item_question_background": "REFORMS calls out dependent or duplicated samples because random splitting can leak future information, repeated-patient information, or duplicate records across partitions. The paper gives patient-level, time-series, and Frankenstein-dataset examples to show how subtle this problem can be.",
+          "item_extraction_instruction": "Extract any strategy used to keep dependent units, temporally adjacent cases, or duplicates from being split across training and testing partitions.",
+          "item_expected_location": "Methods / Data splitting / Evaluation / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "6b. Methods to address dependencies or duplicates between the training and test datasets",
+              "locator": "Table 2, Data leakage"
+            },
+            {
+              "page": 13,
+              "quote": "Duplicates in the datasets can also spread across training and test sets if the dataset is split randomly. This should be avoided",
+              "locator": "Module 6, item 6b"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Leakage",
+          "item": "6c",
+          "item_name": "Justify that the features are legitimate for the task",
+          "item_question": "Does the manuscript justify that the features used are legitimate for the task and do not act as proxies for the outcome?",
+          "item_question_background": "The paper treats feature legitimacy as a leakage question because some inputs encode downstream knowledge that would not be available in real use. Its clinical examples show how seemingly plausible variables can secretly function as proxies for the target.",
+          "item_extraction_instruction": "Extract any discussion showing that features are available at prediction time, are not downstream consequences of the outcome, and were reviewed for proxy leakage risks.",
+          "item_expected_location": "Methods / Variables / Feature engineering / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "6c. Justification that each feature or input used in the model is legitimate for the task at hand and does not lead to leakage",
+              "locator": "Table 2, Data leakage"
+            },
+            {
+              "page": 13,
+              "quote": "If any of the features used in a model is a proxy for the outcome, this can result in leakage.",
+              "locator": "Module 6, item 6c"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Metrics and Uncertainty",
+      "items": [
+        {
+          "section": "Metrics and Uncertainty",
+          "item": "7a",
+          "item_name": "Report and justify the performance metrics",
+          "item_question": "Does the manuscript report the performance metrics used and justify why those metrics fit the task?",
+          "item_question_background": "REFORMS emphasizes metric choice because a metric can be technically standard yet scientifically misleading, such as accuracy under severe class imbalance. The paper asks authors to connect metric choice to the actual decision problem and error costs.",
+          "item_extraction_instruction": "Extract all performance metrics used for assessment or selection and any justification linking those metrics to class balance, task goals, error tradeoffs, or scientific interpretation.",
+          "item_expected_location": "Methods / Statistical analysis / Results tables and figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "7a. All metrics used to assess and compare model performance",
+              "locator": "Table 2, Metrics and uncertainty"
+            },
+            {
+              "page": 13,
+              "quote": "We ask authors to justify the use of a particular performance metric in relation to the scientific claim.",
+              "locator": "Module 7, item 7a"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Metrics and Uncertainty",
+          "item": "7b",
+          "item_name": "Report uncertainty estimates and how they were calculated",
+          "item_question": "Does the manuscript report uncertainty estimates and explain how they were calculated?",
+          "item_question_background": "The guideline treats uncertainty as central because model performance estimates come from finite samples and stochastic training processes. The paper notes that uncertainty is often underreported even though it is necessary to judge the strength of a scientific claim.",
+          "item_extraction_instruction": "Extract the uncertainty estimates reported for model performance, such as confidence intervals or standard deviations, and how those estimates were produced.",
+          "item_expected_location": "Methods / Results / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "7b. Uncertainty estimates (e.g., confidence intervals, standard deviations), details of how these are calculated",
+              "locator": "Table 2, Metrics and uncertainty"
+            },
+            {
+              "page": 13,
+              "quote": "Uncertainty is important to capture when evaluating the strength of a scientific claim.",
+              "locator": "Module 7, item 7b"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Metrics and Uncertainty",
+          "item": "7c",
+          "item_name": "Justify any statistical tests used for model comparison",
+          "item_question": "If statistical tests are used, does the manuscript justify the choice of test and address its assumptions?",
+          "item_question_background": "REFORMS is cautious here because the paper notes that an appropriate test for ML model comparisons may not always be known and that significance testing can be misleading on its own. When such tests are used, authors should explain why the chosen test is valid for the comparison.",
+          "item_extraction_instruction": "Extract any statistical tests used to compare models, the rationale for those tests, and any checks or assumptions described for their use.",
+          "item_expected_location": "Methods / Statistical analysis / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "7c. Justification for the choice of statistical tests (if used) and a check for the assumptions of the statistical test",
+              "locator": "Table 2, Metrics and uncertainty"
+            },
+            {
+              "page": 14,
+              "quote": "if a statistical test must be performed, it should be appropriate for the comparison.",
+              "locator": "Module 7, item 7c"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Generalizability and Limitations",
+      "items": [
+        {
+          "section": "Generalizability and Limitations",
+          "item": "8a",
+          "item_name": "Provide evidence or reasoning about external validity",
+          "item_question": "Does the manuscript provide evidence or reasoning about the external validity of its claims?",
+          "item_question_background": "The paper makes external validity a dedicated module because ML-based science often evaluates models only in-distribution while making broader claims about populations, contexts, or deployment settings. REFORMS asks authors to support those claims with out-of-distribution evidence, theory, or both.",
+          "item_extraction_instruction": "Extract any empirical external validation, out-of-distribution testing, or theoretical argument used to support generalization beyond the observed sample or context.",
+          "item_expected_location": "Results / Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "8a. Evidence of external validity",
+              "locator": "Table 2, Generalizability and limitations"
+            },
+            {
+              "page": 14,
+              "quote": "we ask researchers to discuss the ability to generalize their claims from the sample to the target population and to other populations, outcomes, or contexts",
+              "locator": "Module 8, item 8a"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Generalizability and Limitations",
+          "item": "8b",
+          "item_name": "State where the findings are not expected to hold",
+          "item_question": "Does the manuscript state the contexts in which the findings are not expected to hold?",
+          "item_question_background": "REFORMS includes an explicit limits item because the authors see unjustified hype as a predictable failure mode in ML-based science. A constraints-on-generality statement helps keep conclusions aligned with evidence and clarifies where the model or claim should not be trusted.",
+          "item_extraction_instruction": "Extract any statement of boundary conditions, failure cases, contexts of expected non-generalization, or constraints on generality for the study's conclusions or model performance.",
+          "item_expected_location": "Discussion / Limitations / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "8b. Contexts in which the authors do not expect the study's findings to hold",
+              "locator": "Table 2, Generalizability and limitations"
+            },
+            {
+              "page": 15,
+              "quote": "Clarifying the circumstances under which scientific conclusions or model performance are not expected to hold helps to set clear expectations and avoid unjustified hype.",
+              "locator": "Module 8, item 8b"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "REFORMS",
+      "Reporting Standards for Machine Learning Based Science",
+      "ML-based science reporting standards",
+      "/reforms"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmachine learning\\b",
+          "\\bML-based science\\b",
+          "\\bprediction\\b",
+          "\\bmodel evaluation\\b",
+          "\\bdata leakage\\b",
+          "\\bcomputational reproducibility\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bhyperparameter\\b",
+          "\\btrain-test\\b",
+          "\\bcross-validation\\b",
+          "\\bexternal validity\\b",
+          "\\buncertainty quantification\\b",
+          "\\bgeneralizability\\b",
+          "\\bdistribution shift\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bnon-ML\\b",
+          "\\btheoretical paper\\b",
+          "\\bmethods benchmark only\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A manuscript uses machine learning model performance to support a scientific claim and needs reporting guidance on study goals, data provenance, modeling decisions, leakage prevention, uncertainty, and generalizability.",
+      "An interdisciplinary ML paper in health, social science, or natural science needs a field-agnostic checklist focused on scientific use of ML rather than pure benchmark-style ML methods research."
+    ],
+    "EvidenceExamplesNegative": [
+      "A pure ML methods paper focused on advancing a benchmark or architecture without making a scientific claim about a real-world population is not the central REFORMS use case.",
+      "A non-ML quantitative manuscript using only traditional explanatory modeling or simulation without machine learning would not meaningfully match REFORMS."
+    ],
+    "Explain": "Use REFORMS for empirical research manuscripts that use machine learning as evidence for scientific claims and need a cross-disciplinary reporting checklist spanning the full ML-based science workflow."
+  }
+}

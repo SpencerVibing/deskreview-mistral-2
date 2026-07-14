@@ -1,0 +1,338 @@
+{
+  "id": "barg",
+  "Name": "BARG",
+  "LongName": "Bayesian Analysis Reporting Guidelines",
+  "Description": "BARG is a reporting guideline for Bayesian analyses that aims to improve the quality, transparency, and reproducibility of contemporary Bayesian work. It covers model specification, computation, posterior description, decision criteria, sensitivity analysis, and reproducible sharing of code and data.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Bayesian statistical reporting",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To help researchers report Bayesian analyses in a way that makes the model, computation, inferential decisions, sensitivity to priors, and reproducibility resources transparent and evaluable.",
+  "ManuscriptType": [
+    "Original research article",
+    "Quantitative research report",
+    "Bayesian analysis report",
+    "Methods paper"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Bayesian statistical study",
+    "Quantitative study",
+    "Clinical study",
+    "Behavioral science study",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "BARG",
+    "Bayesian analysis",
+    "Bayesian reporting",
+    "priors",
+    "credible intervals",
+    "Bayes factors",
+    "MCMC",
+    "sensitivity analysis",
+    "reproducibility",
+    "posterior predictive check"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Bayesian statistical study",
+      "Quantitative study",
+      "Clinical study",
+      "Behavioral science study",
+      "Meta-analysis"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary",
+      "Social sciences",
+      "Medical and health",
+      "Natural sciences"
+    ],
+    "Coverage": "Empirical manuscripts that rely on Bayesian statistical analysis, especially contemporary applications using MCMC, prior specification, model comparison, posterior inference, and reproducible code or workflow sharing.",
+    "Focus": "Motivation for using Bayesian methods, formal model specification, prior justification, computation diagnostics, posterior summaries and predictive checks, decision criteria for null values or model comparison, sensitivity to priors, and public reproducibility materials.",
+    "ContrastWith": "BARG is a methods-specific reporting standard for Bayesian analysis, not a study-design-specific checklist. It complements design-specific guides such as CONSORT, STROBE, PRISMA, or TRIPOD when Bayesian methods are central to the analysis."
+  },
+  "references": {
+    "primary": {
+      "description": "Kruschke JK. Bayesian Analysis Reporting Guidelines. Nature Human Behaviour. 2021;5:1282-1291.",
+      "url": "https://www.nature.com/articles/s41562-021-01177-7"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Preamble",
+      "items": [
+        {
+          "section": "Preamble",
+          "item": "0",
+          "item_name": "Explain why Bayesian methods are used and what the analysis aims to accomplish",
+          "item_question": "Does the report explain why a Bayesian analysis is appropriate for the audience and clearly state the goals of the analysis?",
+          "item_question_background": "Kruschke opens BARG by noting that many readers still need help understanding why Bayesian methods are being used and what type of inferential goal is being pursued. The choice among description, prediction, or null-value assessment shapes what models, summaries, and decisions should appear later in the report.",
+          "item_extraction_instruction": "Extract any explanation of the benefits of a Bayesian analysis over alternatives and the stated goals of the analysis, such as description, prediction, model comparison, or evaluation of null values.",
+          "item_expected_location": "Introduction / Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Why Bayesian. If the audience requires it, explain what benefits will be gleaned by a Bayesian analysis",
+              "locator": "Table 1, Preamble"
+            },
+            {
+              "page": 2,
+              "quote": "Goals of analysis. Explain the goals of the analysis.",
+              "locator": "Table 1, Preamble"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Model Specification",
+      "items": [
+        {
+          "section": "Model Specification",
+          "item": "1",
+          "item_name": "Explain the model, parameters, priors, and formal specification",
+          "item_question": "Does the report clearly explain the data variables, likelihood, parameters, prior distributions, and formal specification of the Bayesian model?",
+          "item_question_background": "The article treats model explanation as the foundation of any Bayesian report because data are understood through a mathematical model with parameters whose prior and posterior credibility must be visible to readers. Without a clear account of the likelihood, parameters, and priors, later posterior summaries and decisions are not interpretable.",
+          "item_extraction_instruction": "Extract the dependent and independent variables, likelihood function, all model parameters, the prior distributions and their justification, any hierarchical structure or covariance specification, and whether a formal mathematical or code-based model specification is provided.",
+          "item_expected_location": "Methods / Statistical analysis / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Step 1. Explain the model",
+              "locator": "Table 1"
+            },
+            {
+              "page": 4,
+              "quote": "every report of a statistical analysis (whether Bayesian or frequentist) must clearly explain the mathematical model and all of its parameters.",
+              "locator": "Explaining the model"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Model Specification",
+          "item": "1b",
+          "item_name": "Show a prior predictive check when priors are informative or potentially influential",
+          "item_question": "Does the report provide a prior predictive check where needed to show that the prior generates plausible data consistent with the claimed prior knowledge?",
+          "item_question_background": "BARG highlights prior predictive checking because even well-intentioned priors can imply unrealistic data patterns. This is especially important when priors are informed or otherwise expected to shape posterior results in a meaningful way.",
+          "item_extraction_instruction": "Extract whether a prior predictive check is reported, what it shows, and how it is used to justify the prior specification.",
+          "item_expected_location": "Methods / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Prior predictive check. Especially when using informed priors but even with broad priors, it is valuable to report a prior predictive check",
+              "locator": "Table 1, Step 1"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Computation",
+      "items": [
+        {
+          "section": "Computation",
+          "item": "2",
+          "item_name": "Report software and computation details, including convergence and resolution",
+          "item_question": "Does the report identify the software used and provide evidence that the computational procedure, especially MCMC, converged and had adequate effective sample size or equivalent resolution?",
+          "item_question_background": "The article notes that many published Bayesian analyses omit key computational details such as convergence checks, effective sample size, or software information. Because Bayesian results depend on numerical approximation, computational adequacy is a reporting issue, not just a private analyst concern.",
+          "item_extraction_instruction": "Extract the software and packages used, details of the computational procedure, convergence diagnostics such as PSRF or equivalents, effective sample size or resolution measures, and any caveats if methods other than MCMC are used.",
+          "item_expected_location": "Methods / Statistical analysis / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Step 2. Report details of the computation",
+              "locator": "Table 1"
+            },
+            {
+              "page": 1,
+              "quote": "only 35.3% reported Markov chain Monte Carlo (MCMC) convergence measures",
+              "locator": "Introduction"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Posterior Results",
+      "items": [
+        {
+          "section": "Posterior Results",
+          "item": "3",
+          "item_name": "Describe the posterior distribution and assess model fit",
+          "item_question": "Does the report provide posterior predictive checks and summarize posterior distributions of key parameters, derived variables, and model-comparison quantities in a clear and explicit way?",
+          "item_question_background": "BARG emphasizes that Bayesian reports should not stop at naming a model or giving isolated point estimates. Readers need to see whether the posterior model mimics the data and how uncertainty is summarized, including whether summaries are mode/HDI-based or median/ETI-based and how model-comparison outputs are interpreted.",
+          "item_extraction_instruction": "Extract posterior predictive checks, summaries of posterior central tendency and credible intervals, the type and mass of interval used, and any Bayes factors or posterior model probabilities if model comparison is conducted.",
+          "item_expected_location": "Results / Methods / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Step 3. Describe the posterior distribution",
+              "locator": "Table 1"
+            },
+            {
+              "page": 2,
+              "quote": "Another important benefit of Bayesian analysis is the ability to generate estimates and credible intervals for any derived parameter or predicted variable.",
+              "locator": "Preamble"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Decision Criteria",
+      "items": [
+        {
+          "section": "Decision Criteria",
+          "item": "4",
+          "item_name": "Report any decisions, null-value assessments, and their criteria explicitly",
+          "item_question": "If the analysis makes decisions about null values, models, or thresholds, does the report explain why decisions are meaningful and specify the decision criteria used?",
+          "item_question_background": "Kruschke separates describing the posterior from deciding what to do with it because those are distinct inferential acts. When a report claims acceptance or rejection of a null, uses a ROPE, or relies on Bayes factors or posterior model probabilities, the practical and theoretical basis of those decisions must be made explicit.",
+          "item_extraction_instruction": "Extract any decision procedure based on loss functions, ROPE limits, Bayes factors, posterior model probabilities, decision thresholds, or null-value assessments, along with the rationale for why those decisions are theoretically meaningful.",
+          "item_expected_location": "Methods / Results / Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Step 4. Report decisions (if any) and their criteria",
+              "locator": "Table 1"
+            },
+            {
+              "page": 7,
+              "quote": "the decision about the null value should never be reported without reporting the estimate of the parameter value",
+              "locator": "Report decisions"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Sensitivity Analysis",
+      "items": [
+        {
+          "section": "Sensitivity Analysis",
+          "item": "5",
+          "item_name": "Report sensitivity to priors and show whether conclusions change",
+          "item_question": "Does the report conduct and present a sensitivity analysis showing how posterior results, Bayes factors, or decisions change under different plausible priors?",
+          "item_question_background": "The paper argues that sensitivity analysis is always needed, though the degree of scrutiny depends on how informative the prior is and whether model comparison or hypothesis testing is being used. This is especially important because many literature reviews found sensitivity analysis to be one of the most commonly omitted pieces of Bayesian reporting.",
+          "item_extraction_instruction": "Extract the priors varied in sensitivity analysis, the effect of those variations on posterior summaries, Bayes factors, posterior model probabilities, or decisions, and any explanation of why the tested prior range is meaningful.",
+          "item_expected_location": "Methods / Results / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Step 5. Report sensitivity analysis",
+              "locator": "Table 1"
+            },
+            {
+              "page": 8,
+              "quote": "The researcher should always conduct an analysis of how sensitive the posterior distribution is to the choice of prior distribution.",
+              "locator": "Reporting sensitivity analysis"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Reproducibility",
+      "items": [
+        {
+          "section": "Reproducibility",
+          "item": "6",
+          "item_name": "Make the analysis reproducible with public code, data, and environment details",
+          "item_question": "Does the report provide the code, data, software details, and auxiliary files needed for someone else to reproduce the analysis, with enough annotation that a human can follow it?",
+          "item_question_background": "The final BARG step treats reproducibility as more than a slogan: the analyst should post working scripts, version details, auxiliary files, and ideally seeded MCMC chains or other resources that allow exact or near-exact re-execution. Kruschke stresses that genuinely readable code and a stable public repository are essential for practical reproducibility.",
+          "item_extraction_instruction": "Extract whether the report provides public scripts, data, software installation details, version numbers, auxiliary files, runnable workflows, seeded MCMC settings, and stable repository links with persistent URLs.",
+          "item_expected_location": "Code availability / Data availability / Supplementary materials / Repository statement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Step 6. make it reproducible",
+              "locator": "Table 1"
+            },
+            {
+              "page": 8,
+              "quote": "A final and important part of reproducibility is making the computer code and data easily available to others by posting them at a public and persistent website.",
+              "locator": "Making it reproducible"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "BARG",
+      "Bayesian Analysis Reporting Guidelines",
+      "Nature Human Behaviour Bayesian reporting guidelines"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bBayesian\\b",
+          "\\bcredible interval\\b",
+          "\\bprior distribution\\b",
+          "\\bposterior\\b",
+          "\\bBayes factor\\b",
+          "\\bMCMC\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bposterior predictive check\\b",
+          "\\beffective sample size\\b",
+          "\\bROPE\\b",
+          "\\bprior predictive check\\b",
+          "\\bsensitivity analysis\\b",
+          "\\bStan\\b",
+          "\\bJAGS\\b",
+          "\\bBUGS\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A paper reports Bayesian parameter estimation with priors, credible intervals, MCMC diagnostics, posterior predictive checks, and public code or data.",
+      "A clinical or behavioral-science study compares Bayesian models with Bayes factors and needs explicit reporting of priors, sensitivity analysis, and reproducible scripts."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely frequentist paper that reports only p-values and confidence intervals without Bayesian modeling is not a BARG manuscript.",
+      "A qualitative or non-statistical paper with no posterior distributions, priors, or Bayesian decisions should not map to BARG."
+    ],
+    "Explain": "Use BARG for manuscripts where Bayesian analysis is central and transparent reporting of the model, computation, posterior inference, sensitivity analysis, and reproducibility materials is needed."
+  }
+}

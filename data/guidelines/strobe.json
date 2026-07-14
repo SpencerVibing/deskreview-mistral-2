@@ -1,0 +1,513 @@
+{
+  "id": "strobe",
+  "Name": "STROBE",
+  "LongName": "The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) Statement: guidelines for reporting observational studies",
+  "Description": "The STROBE Statement provides a checklist of essential items that should be addressed in reports of observational studies, including cohort, case-control, and cross-sectional studies. Its purpose is to improve transparency, reproducibility, and completeness in reporting epidemiological research by specifying what information authors should disclose in each section of an article.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Epidemiology / Observational studies",
+  "StandardizedTopDomain": "Medical and health",
+  "ManuscriptType": [
+    "Original research article"
+  ],
+  "Aim": "To improve the reporting quality of observational research by ensuring that authors clearly describe study design, methods, results, and interpretation for cohort, case-control, and cross-sectional studies.",
+  "ScopeText": "Applies to primary reports of observational epidemiologic studies—cohort studies, case-control studies, and cross-sectional studies—typically presented as original research articles. Out of scope: randomized trials, systematic reviews/meta-analyses, diagnostic accuracy studies (unless explicitly framed as one of the three covered designs), qualitative studies, case reports/series without analytic observational design, and purely methodological papers without primary observational results.",
+  "Keywords": [
+    "STROBE",
+    "observational studies",
+    "epidemiology",
+    "cohort study",
+    "case-control study",
+    "cross-sectional study",
+    "bias",
+    "confounding",
+    "study design",
+    "participant selection",
+    "statistical methods",
+    "outcomes",
+    "exposure",
+    "reporting transparency",
+    "reproducibility",
+    "health research",
+    "risk estimates",
+    "missing data",
+    "sensitivity analysis"
+  ],
+  "References": {
+    "primary": {
+      "description": "von Elm E, Altman DG, Egger M, et al. The Strengthening the Reporting of Observational Studies in Epidemiology (STROBE) Statement: guidelines for reporting observational studies. Ann Intern Med. 2007;147(8):573–577. doi:10.7326/0003-4819-147-8-200710160-00010.",
+      "url": "https://www.acpjournals.org/doi/10.7326/0003-4819-147-8-200710160-00010"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title and Abstract",
+      "items": [
+        {
+          "section": "Title and Abstract",
+          "item": "1a",
+          "item_name": "Study design in title/abstract",
+          "item_question": "Does the title or abstract indicate the study’s design with a commonly used term?",
+          "item_question_background": "Readers need the design label up front to judge what causal claims are plausible and to quickly locate comparable studies during screening and indexing.",
+          "item_extraction_instruction": "Scan the title and abstract for commonly used design terms (e.g., 'cohort', 'case-control', 'cross-sectional', 'prospective cohort'). Extract the exact phrase and where it appears (title vs abstract).",
+          "item_expected_location": "Title / Abstract"
+        },
+        {
+          "section": "Title and Abstract",
+          "item": "1b",
+          "item_name": "Balanced abstract summary",
+          "item_question": "Does the abstract provide an informative and balanced summary of what was done and what was found?",
+          "item_question_background": "If the abstract omits key methods or selectively highlights results, it can mislead readers who never access the full text and can distort evidence synthesis.",
+          "item_extraction_instruction": "From the abstract, extract one sentence (or clause) for: objective(s), setting/participants, exposure(s)/predictor(s), outcome(s), analytic approach, and main result(s). If any of these elements are missing, note what is missing.",
+          "item_expected_location": "Abstract"
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "2",
+          "item_name": "Background and rationale",
+          "item_question": "Does the introduction explain the scientific background and rationale for the investigation being reported?",
+          "item_question_background": "A clear rationale anchors the research question in prior evidence and helps readers understand what uncertainty the study is addressing.",
+          "item_extraction_instruction": "Extract the passage that summarises prior knowledge and the specific gap or rationale motivating the study.",
+          "item_expected_location": "Introduction"
+        },
+        {
+          "section": "Introduction",
+          "item": "3",
+          "item_name": "Objectives and hypotheses",
+          "item_question": "Are specific objectives, including any prespecified hypotheses, stated?",
+          "item_question_background": "Stating objectives and hypotheses in advance reduces the risk of post hoc storytelling and helps distinguish confirmatory from exploratory analyses.",
+          "item_extraction_instruction": "Extract the sentence(s) that state the objective(s) and any explicit hypothesis statements.",
+          "item_expected_location": "Introduction"
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "4",
+          "item_name": "Study design elements early",
+          "item_question": "Are key elements of study design presented early in the paper?",
+          "item_question_background": "Early disclosure of design elements (e.g., prospective vs retrospective, sampling frame) determines how readers interpret selection processes and bias risks.",
+          "item_extraction_instruction": "Locate the earliest point where design is described (often first paragraph of Methods). Extract the sentence(s) naming design and any key design elements.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "5",
+          "item_name": "Setting and dates",
+          "item_question": "Does the manuscript describe the setting, locations, and relevant dates, including periods of recruitment, exposure, follow-up, and data collection?",
+          "item_question_background": "Time and place shape exposure prevalence, outcome incidence, and healthcare context; without them, generalisability and temporal bias are hard to assess.",
+          "item_extraction_instruction": "Extract the setting/location description and all stated date ranges for recruitment, exposure measurement, follow-up, and data collection.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "6a_cohort",
+          "item_name": "Participants—eligibility, selection, follow-up (cohort)",
+          "item_question": "For cohort studies, are eligibility criteria and sources/methods of participant selection described, and are methods of follow-up described?",
+          "item_question_background": "In cohorts, unclear recruitment or follow-up procedures obscure selection bias and attrition mechanisms that can strongly distort risk estimates.",
+          "item_extraction_instruction": "If the paper is a cohort study: extract inclusion/exclusion criteria, the source population, recruitment method, and the follow-up method (e.g., registry linkage, clinic visits, phone calls) with timing.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "6a_case_control",
+          "item_name": "Participants—eligibility, case ascertainment, control selection (case-control)",
+          "item_question": "For case-control studies, are eligibility criteria and sources/methods of case ascertainment and control selection described, including the rationale for the choice of cases and controls?",
+          "item_question_background": "Case-control validity hinges on how cases and controls arise; poor reporting prevents assessment of selection bias and whether controls represent the exposure distribution of the source population.",
+          "item_extraction_instruction": "If the paper is a case-control study: extract eligibility criteria, how cases were identified/confirmed, how controls were selected, and any stated rationale for choosing those cases/controls.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "6a_cross_sectional",
+          "item_name": "Participants—eligibility and selection (cross-sectional)",
+          "item_question": "For cross-sectional studies, are eligibility criteria and sources/methods of participant selection described?",
+          "item_question_background": "Cross-sectional samples can be highly sensitive to sampling frame and participation; without selection details, prevalence estimates and associations are difficult to interpret.",
+          "item_extraction_instruction": "If the paper is a cross-sectional study: extract inclusion/exclusion criteria, sampling frame, recruitment/selection method, and participation process.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "6b_cohort_matched",
+          "item_name": "Participants—matching details (matched cohort)",
+          "item_question": "For matched cohort studies, are matching criteria and numbers of exposed and unexposed reported?",
+          "item_question_background": "Matching changes comparability and analysis requirements; without criteria and group counts, readers cannot evaluate balance or analytic appropriateness.",
+          "item_extraction_instruction": "If the cohort study uses matching: extract matching variables/criteria and the number of exposed and unexposed participants after matching (or matching ratio). If not matched, mark Not applicable.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "6b_case_control_matched",
+          "item_name": "Participants—matching details (matched case-control)",
+          "item_question": "For matched case-control studies, are matching criteria and the number of controls per case reported?",
+          "item_question_background": "Matched sampling determines the correct effect estimation approach; missing matching details can invalidate interpretation of odds ratios and standard errors.",
+          "item_extraction_instruction": "If the case-control study is matched: extract matching variables/criteria and the number of controls per case. If not matched, mark Not applicable.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "7",
+          "item_name": "Variables defined",
+          "item_question": "Are all outcomes, exposures, predictors, potential confounders, and effect modifiers clearly defined, including diagnostic criteria if applicable?",
+          "item_question_background": "Ambiguous variable definitions make replication impossible and can conceal misclassification that biases associations toward or away from the null.",
+          "item_extraction_instruction": "Extract explicit definitions for: primary outcome(s), main exposure(s), key predictors, prespecified confounders, and any effect modifiers; include diagnostic criteria where stated.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "8",
+          "item_name": "Data sources and measurement",
+          "item_question": "For each variable of interest, are sources of data and details of assessment methods provided, including comparability of assessment methods if more than one group?",
+          "item_question_background": "Differences in measurement across groups can create differential misclassification; readers need measurement detail to judge bias and harmonisation.",
+          "item_extraction_instruction": "For each main exposure and outcome (and major confounders if described), extract: data source (e.g., medical records, registry, questionnaire) and how it was measured/ascertained. If multiple groups exist, note any statements about measurement comparability.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "9",
+          "item_name": "Bias",
+          "item_question": "Does the manuscript describe efforts to address potential sources of bias?",
+          "item_question_background": "Observational estimates are especially sensitive to selection, information, and confounding biases; mitigation steps are needed to interpret credibility.",
+          "item_extraction_instruction": "Extract any described strategies to reduce bias (e.g., blinding outcome assessors, validated instruments, restriction, matching, adjustment, sensitivity analyses) and specify which bias each strategy targets if stated.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "10",
+          "item_name": "Study size",
+          "item_question": "Does the manuscript explain how the study size was arrived at?",
+          "item_question_background": "Without a rationale for sample size, readers cannot judge whether the study was powered for its objectives or whether estimates are likely imprecise by design.",
+          "item_extraction_instruction": "Extract statements about sample size determination (e.g., all eligible cases in a period, power calculation, precision-based target, pragmatic constraints).",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "11",
+          "item_name": "Quantitative variables handling",
+          "item_question": "Does the manuscript explain how quantitative variables were handled in the analyses, including any chosen groupings and why?",
+          "item_question_background": "Arbitrary categorisation or transformations can change effect estimates; transparent handling prevents hidden analytic flexibility.",
+          "item_extraction_instruction": "Identify quantitative variables that were transformed or categorised. Extract the described handling (e.g., per SD increase, log-transform) and any category cut-points with rationale.",
+          "item_expected_location": "Methods"
+        },
+        {
+          "section": "Methods",
+          "item": "12a",
+          "item_name": "Statistical methods—confounding control",
+          "item_question": "Does the manuscript describe all statistical methods, including those used to control for confounding?",
+          "item_question_background": "Confounding control choices (which model, which covariates, how selected) determine whether associations are interpretable as adjusted estimates.",
+          "item_extraction_instruction": "Extract the description of statistical models/tests and the confounding control approach (e.g., multivariable regression, propensity scores), including covariate selection method if stated.",
+          "item_expected_location": "Methods / Statistical analysis"
+        },
+        {
+          "section": "Methods",
+          "item": "12b",
+          "item_name": "Statistical methods—subgroups and interactions",
+          "item_question": "Does the manuscript describe any methods used to examine subgroups and interactions?",
+          "item_question_background": "Subgroup and interaction analyses can inflate false positives if conducted ad hoc; method disclosure clarifies whether analyses were planned and how tested.",
+          "item_extraction_instruction": "Extract the methods for subgroup analyses and interaction testing (e.g., stratification, interaction term in model) and specify which variables define subgroups/interactions.",
+          "item_expected_location": "Methods / Statistical analysis"
+        },
+        {
+          "section": "Methods",
+          "item": "12c",
+          "item_name": "Statistical methods—missing data",
+          "item_question": "Does the manuscript explain how missing data were addressed?",
+          "item_question_background": "Missing data handling (complete-case, imputation, weighting) can meaningfully change estimates; undisclosed handling hides potential bias.",
+          "item_extraction_instruction": "Extract the stated approach to missing data (e.g., complete-case analysis, multiple imputation) and any assumptions or diagnostics described.",
+          "item_expected_location": "Methods / Statistical analysis"
+        },
+        {
+          "section": "Methods",
+          "item": "12d_cohort",
+          "item_name": "Statistical methods—loss to follow-up (cohort)",
+          "item_question": "For cohort studies, if applicable, does the manuscript explain how loss to follow-up was addressed?",
+          "item_question_background": "Attrition can induce informative censoring; readers need to know whether and how the analysis accounted for drop-out or incomplete follow-up.",
+          "item_extraction_instruction": "If cohort study and loss to follow-up could occur: extract methods addressing it (e.g., censoring rules, inverse probability weighting, comparison of completers vs non-completers). If no follow-up, mark Not applicable.",
+          "item_expected_location": "Methods / Statistical analysis"
+        },
+        {
+          "section": "Methods",
+          "item": "12d_case_control",
+          "item_name": "Statistical methods—matching (case-control)",
+          "item_question": "For case-control studies, if applicable, does the manuscript explain how matching of cases and controls was addressed?",
+          "item_question_background": "Ignoring matching in analysis can bias standard errors or estimates; reporting shows whether conditional methods were used appropriately.",
+          "item_extraction_instruction": "If case-control study is matched: extract the analytic approach that accounts for matching (e.g., conditional logistic regression, matched-pairs analysis). If not matched, mark Not applicable.",
+          "item_expected_location": "Methods / Statistical analysis"
+        },
+        {
+          "section": "Methods",
+          "item": "12d_cross_sectional",
+          "item_name": "Statistical methods—sampling strategy (cross-sectional)",
+          "item_question": "For cross-sectional studies, if applicable, does the manuscript describe analytical methods taking account of the sampling strategy?",
+          "item_question_background": "Complex surveys require weights, clustering, and stratification adjustments; ignoring them can misstate population estimates and uncertainty.",
+          "item_extraction_instruction": "If cross-sectional study uses complex sampling: extract how the analysis accounted for it (e.g., survey weights, design-based variance). If simple random sampling, mark Not applicable.",
+          "item_expected_location": "Methods / Statistical analysis"
+        },
+        {
+          "section": "Methods",
+          "item": "12e",
+          "item_name": "Statistical methods—sensitivity analyses",
+          "item_question": "Does the manuscript describe any sensitivity analyses?",
+          "item_question_background": "Sensitivity analyses show how robust conclusions are to key assumptions (e.g., unmeasured confounding, alternative definitions), which is crucial for observational inference.",
+          "item_extraction_instruction": "Extract each sensitivity analysis described (what assumption/choice was varied, and what alternative analysis was run). If none, mark Absent.",
+          "item_expected_location": "Methods / Statistical analysis"
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "13a",
+          "item_name": "Participants—numbers at each stage",
+          "item_question": "Does the manuscript report numbers of individuals at each stage of the study (e.g., potentially eligible, examined, confirmed eligible, included, completing follow-up, analysed)?",
+          "item_question_background": "Stage-wise counts reveal selection and attrition patterns that can signal bias and help readers reproduce denominators for reported analyses.",
+          "item_extraction_instruction": "Extract the reported counts at each study stage. If a flow diagram is used, extract the key numbers from it or cite the relevant figure/table caption.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "13b",
+          "item_name": "Participants—reasons for non-participation",
+          "item_question": "Does the manuscript give reasons for non-participation at each stage?",
+          "item_question_background": "Reasons for exclusion, refusal, and drop-out help assess whether missingness is related to exposure or outcome and thus likely to bias results.",
+          "item_extraction_instruction": "Extract the stated reasons for non-participation/exclusion/attrition, ideally paired with the stage at which they occurred.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "13c",
+          "item_name": "Participants—flow diagram considered",
+          "item_question": "Does the manuscript consider use of a flow diagram?",
+          "item_question_background": "A flow diagram compresses complex inclusion/exclusion and follow-up information into an auditable structure that supports rapid critical appraisal.",
+          "item_extraction_instruction": "Check for a participant flow diagram figure or a diagram-like table summarising flow. If present, extract the figure/table identifier; if absent, mark Absent (this item is 'consider', not always required).",
+          "item_expected_location": "Results / Figures",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "14a",
+          "item_name": "Descriptive data—participant characteristics",
+          "item_question": "Does the manuscript give characteristics of study participants (e.g., demographic, clinical, social) and information on exposures and potential confounders?",
+          "item_question_background": "Baseline characteristics and confounder distribution are needed to judge comparability of groups and plausibility of residual confounding.",
+          "item_extraction_instruction": "Extract the table/paragraph that reports participant characteristics and (where applicable) exposure levels and key confounders.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "14b",
+          "item_name": "Descriptive data—missing data counts",
+          "item_question": "Does the manuscript indicate the number of participants with missing data for each variable of interest?",
+          "item_question_background": "Variable-level missingness can bias specific estimates; reporting per-variable counts lets readers assess which analyses are most affected.",
+          "item_extraction_instruction": "Extract the reported missing-data counts per key variable (often in a table footnote or separate statement). If not reported, mark Absent.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "14c_cohort",
+          "item_name": "Descriptive data—follow-up time (cohort)",
+          "item_question": "For cohort studies, does the manuscript summarise follow-up time (e.g., average and total amount)?",
+          "item_question_background": "Follow-up duration determines exposure opportunity and outcome accrual; without it, incidence rates and time-to-event interpretations are unclear.",
+          "item_extraction_instruction": "If cohort study: extract the reported follow-up summary (mean/median, range, person-time, or total follow-up).",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "15_cohort",
+          "item_name": "Outcome data (cohort)",
+          "item_question": "For cohort studies, are numbers of outcome events or summary measures over time reported?",
+          "item_question_background": "Cohort inference depends on event counts and time structure; missing event summaries obscure absolute risks and model stability.",
+          "item_extraction_instruction": "If cohort study: extract outcome event counts and any over-time summaries (e.g., incidence rate, Kaplan–Meier estimates) as reported.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "15_case_control",
+          "item_name": "Outcome/exposure data (case-control)",
+          "item_question": "For case-control studies, are numbers in each exposure category or summary measures of exposure reported?",
+          "item_question_background": "Case-control credibility requires knowing exposure distribution among cases and controls; without it, effect estimates cannot be sanity-checked.",
+          "item_extraction_instruction": "If case-control study: extract counts by exposure category for cases vs controls (or exposure summary measures) as reported.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "15_cross_sectional",
+          "item_name": "Outcome data (cross-sectional)",
+          "item_question": "For cross-sectional studies, are numbers of outcome events or summary measures reported?",
+          "item_question_background": "Prevalence and association interpretations rely on transparent outcome counts/summary measures; missing counts hinder appraisal and pooling.",
+          "item_extraction_instruction": "If cross-sectional study: extract outcome counts or summary measures (e.g., prevalence, mean outcome) as reported.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "16a",
+          "item_name": "Main results—adjusted and unadjusted estimates",
+          "item_question": "Does the manuscript provide unadjusted estimates and, if applicable, confounder-adjusted estimates with precision (e.g., 95% CI), and make clear which confounders were adjusted for and why?",
+          "item_question_background": "Without clarity on adjustment sets and estimate precision, readers cannot judge whether findings are robust or whether covariate choices drove conclusions.",
+          "item_extraction_instruction": "Extract the primary effect estimate(s) with confidence interval (or SE) and indicate whether unadjusted and adjusted estimates are both presented. Extract the list of confounders included and any rationale for inclusion.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "16b",
+          "item_name": "Main results—category boundaries",
+          "item_question": "When continuous variables were categorized, does the manuscript report the category boundaries?",
+          "item_question_background": "Cut-points can create or hide associations; reporting boundaries is required to reproduce analyses and compare across studies.",
+          "item_extraction_instruction": "Identify any continuous variable that was categorized (e.g., age groups, exposure quartiles). Extract the exact category boundaries as reported.",
+          "item_expected_location": "Results"
+        },
+        {
+          "section": "Results",
+          "item": "16c",
+          "item_name": "Main results—relative to absolute risk translation",
+          "item_question": "If relevant, does the manuscript consider translating estimates of relative risk into absolute risk for a meaningful time period?",
+          "item_question_background": "Relative measures can overstate practical impact when baseline risk is low; absolute risks help readers interpret clinical or public-health significance.",
+          "item_extraction_instruction": "Check whether the paper presents absolute risk differences, numbers needed to treat/harm, or absolute risk over time alongside relative estimates. Extract the absolute measure if present; otherwise mark Absent/Optional depending on relevance.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "17",
+          "item_name": "Other analyses",
+          "item_question": "Does the manuscript report other analyses done (e.g., analyses of subgroups and interactions, and sensitivity analyses)?",
+          "item_question_background": "Reporting all performed analyses reduces selective reporting and helps readers understand the analytic search space that could affect inference.",
+          "item_extraction_instruction": "Extract descriptions (and key results if provided) of subgroup analyses, interaction analyses, and sensitivity analyses reported outside the primary analysis.",
+          "item_expected_location": "Results"
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "18",
+          "item_name": "Key results",
+          "item_question": "Does the discussion summarise key results with reference to study objectives?",
+          "item_question_background": "Linking conclusions back to prespecified objectives prevents overreach and clarifies which questions the data actually addressed.",
+          "item_extraction_instruction": "Extract the discussion passage that summarises main findings and explicitly links them to the objective(s) stated in the Introduction.",
+          "item_expected_location": "Discussion"
+        },
+        {
+          "section": "Discussion",
+          "item": "19",
+          "item_name": "Limitations",
+          "item_question": "Does the discussion discuss limitations of the study, including sources of potential bias or imprecision, and discuss both direction and magnitude of any potential bias?",
+          "item_question_background": "Transparent limitation reporting helps readers calibrate confidence and understand how biases could shift estimates (toward or away from harm/benefit).",
+          "item_extraction_instruction": "Extract the limitations section/passage, including any statements about bias direction (e.g., toward the null) or magnitude (e.g., likely small/large).",
+          "item_expected_location": "Discussion"
+        },
+        {
+          "section": "Discussion",
+          "item": "20",
+          "item_name": "Interpretation",
+          "item_question": "Does the discussion give a cautious overall interpretation of results considering objectives, limitations, multiplicity of analyses, results from similar studies, and other relevant evidence?",
+          "item_question_background": "Overconfident interpretation can turn correlational findings into implied causation; balanced interpretation integrates uncertainty and external evidence.",
+          "item_extraction_instruction": "Extract the concluding interpretive paragraph(s) that synthesise findings with prior literature and acknowledge uncertainty/multiplicity if mentioned.",
+          "item_expected_location": "Discussion"
+        },
+        {
+          "section": "Discussion",
+          "item": "21",
+          "item_name": "Generalisability",
+          "item_question": "Does the discussion discuss the generalisability (external validity) of the study results?",
+          "item_question_background": "External validity depends on setting, population, and measurement context; without this discussion, readers cannot judge applicability to their own populations.",
+          "item_extraction_instruction": "Extract statements about to whom/where the results apply (and do not apply), including any constraints related to setting, eligibility, or measurement.",
+          "item_expected_location": "Discussion"
+        }
+      ]
+    },
+    {
+      "section": "Other information",
+      "items": [
+        {
+          "section": "Other information",
+          "item": "22",
+          "item_name": "Funding",
+          "item_question": "Does the manuscript give the source of funding and the role of the funders for the present study and, if applicable, for the original study on which the present article is based?",
+          "item_question_background": "Funding and funder involvement can influence design, analysis, and reporting decisions; declaring both source and role supports conflict-of-interest appraisal.",
+          "item_extraction_instruction": "Locate the Funding/Support/Role of the funder statement. Extract funder names, grant numbers (if present), and any statement about the funders’ role (e.g., 'no role in design/analysis').",
+          "item_expected_location": "Funding / Declarations / Acknowledgements"
+        }
+      ]
+    }
+  ],
+  "StudyType": [
+    "Original research article"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Original research article"
+    ],
+    "Disciplines": [
+      "Epidemiology / Observational studies"
+    ],
+    "Coverage": "This guideline applies to reports of observational studies in epidemiology, specifically cohort studies, case-control studies, and cross-sectional studies. It covers primary research articles reporting original observational data in health-related research. It does not apply to randomized controlled trials, systematic reviews, meta-analyses, case reports, qualitative research, or purely methodological/statistical simulation papers without primary observational data.",
+    "Focus": "Observational study reporting quality: clear design description, participant flow and selection, exposure/outcome definitions, confounding and bias handling, statistical methods, risk estimates, missing data, and sensitivity analyses.",
+    "ContrastWith": "Not for randomized controlled trials (CONSORT), systematic reviews/meta-analyses (PRISMA/MOOSE/ENTREQ), case reports (CARE), qualitative primary studies (SRQR), diagnostic accuracy studies (STARD), or prediction model studies (TRIPOD)."
+  },
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "STROBE",
+      "STROBE Statement: Strengthening the Reporting of Observational Studies in Epidemiology"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|study_type|abstract|keywords",
+        "Patterns": [
+          "\\bobservational\\b",
+          "\\bcohort\\b",
+          "\\bcase control\\b",
+          "\\bcross sectional\\b",
+          "\\brisk factor\\b",
+          "\\bincidence\\b",
+          "\\bprevalence\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\btumou?r marker\\b",
+          "\\bprognostic biomarker\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bdiagnostic accuracy\\b",
+          "\\bindex test\\b",
+          "\\breference standard\\b",
+          "\\bsensitivity\\b",
+          "\\bspecificity\\b",
+          "\\bROC\\b",
+          "\\barea under the curve\\b",
+          "\\bAUC\\b",
+          "\\bSTARD\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [],
+    "EvidenceExamplesNegative": [],
+    "Explain": "General observational studies should map to STROBE."
+  }
+}

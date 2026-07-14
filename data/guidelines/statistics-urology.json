@@ -1,0 +1,1031 @@
+{
+  "id": "statistics-urology",
+  "Name": "Statistics in Urology",
+  "LongName": "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+  "Description": "A cross-cutting statistical reporting guideline for clinical research manuscripts in urology. It addresses common problems in study-design reporting, hypothesis testing, p-value interpretation, estimation, time-to-event analysis, multivariable modeling, diagnostic-test reporting, and the wording of conclusions.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical research statistics reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the statistical analysis, reporting, and interpretation of clinical research articles by identifying common errors and specifying practical recommendations for design reporting, estimation, inference, modeling, and interpretation.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical research article",
+    "Observational study report",
+    "Randomized trial report",
+    "Diagnostic or prognostic study report"
+  ],
+  "ManuscriptSubType": [
+    "Clinical outcomes study",
+    "Time-to-event analysis report",
+    "Prediction or prognostic model report",
+    "Diagnostic test evaluation",
+    "Meta-analysis with statistical synthesis"
+  ],
+  "StudyType": [
+    "Clinical study",
+    "Observational study",
+    "Randomized trial",
+    "Diagnostic study",
+    "Prognostic study",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "statistics reporting",
+    "clinical research statistics",
+    "urology statistics",
+    "p-values",
+    "confidence intervals",
+    "time-to-event analysis",
+    "multivariable models",
+    "diagnostic tests",
+    "clinical interpretation"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical study",
+      "Observational study",
+      "Randomized trial",
+      "Diagnostic study",
+      "Prognostic study",
+      "Meta-analysis"
+    ],
+    "Disciplines": [
+      "Urology",
+      "Clinical medicine",
+      "Medical research",
+      "Biostatistics"
+    ],
+    "Coverage": "Clinical research manuscripts, especially in urology, that report statistical analyses of interventions, outcomes, predictors, diagnostic tests, prognostic models, or evidence synthesis.",
+    "Focus": "Transparent reporting of cohort selection and randomization, appropriate description of statistical methods, correct interpretation of p-values and confidence intervals, emphasis on effect estimates, careful handling of time-to-event analyses, sound multivariable and diagnostic modeling, and clinically meaningful conclusions.",
+    "ContrastWith": "Not a disease-specific treatment guideline and not a substitute for design-specific reporting statements such as CONSORT, STROBE, TRIPOD, or AMSTAR. It is a cross-cutting statistical overlay for clinical research reporting."
+  },
+  "references": {
+    "primary": {
+      "description": "Assel M, Sjoberg D, Elders A, Wang X, Huo D, Botchway A, Delfino K, Fan Y, Zhao Z, Koyama T, Hollenbeck B, Qin R, Zahnd W, Zabor EC, Kattan MW, Vickers AJ. Guidelines for Reporting of Statistics for Clinical Research in Urology. The Journal of Urology. 2019;201:595-604.",
+      "url": "https://www.auajournals.org/doi/epdf/10.1097/JU.0000000000000001"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Reporting of Design and Statistical Analysis",
+      "items": [
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.1",
+          "item_name": "Follow existing reporting guidelines for the type of study you are reporting",
+          "item_question": "Does the manuscript follow the recommendation to \"follow existing reporting guidelines for the type of study you are reporting\"?",
+          "item_question_background": "The paper points authors to design-specific standards such as CONSORT, ReMARK, TRIPOD, STROBE, and AMSTAR because many core reporting expectations are already well defined elsewhere.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"follow existing reporting guidelines for the type of study you are reporting\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Follow existing reporting guidelines for the type of study you are reporting",
+              "locator": "Guideline 1.1"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.2",
+          "item_name": "Describe cohort selection fully",
+          "item_question": "Does the manuscript follow the recommendation to \"describe cohort selection fully\"?",
+          "item_question_background": "A cohort label alone is not enough; the article says readers need dates, inclusion criteria, whether the series was consecutive or selected, and exclusions counted one by one to understand who entered the analysis.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"describe cohort selection fully\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe cohort selection fully",
+              "locator": "Guideline 1.2"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.3",
+          "item_name": "Describe the practical steps of randomization in randomized trials",
+          "item_question": "Does the manuscript follow the recommendation to \"describe the practical steps of randomization in randomized trials\"?",
+          "item_question_background": "The key issue is allocation concealment: simply mentioning a randomization list or envelopes does not show that recruiters could not predict or alter assignments before enrollment.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"describe the practical steps of randomization in randomized trials\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe the practical steps of randomization in randomized trials",
+              "locator": "Guideline 1.3"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.4",
+          "item_name": "Statistical methods should describe the study questions and statistical approaches used to address each question",
+          "item_question": "Does the manuscript follow the recommendation to \"statistical methods should describe the study questions and statistical approaches used to address each question\"?",
+          "item_question_background": "The article criticizes generic method blurbs because they only show that obviously wrong tests were avoided; authors should instead tie each primary question to its specific analysis and rationale.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"statistical methods should describe the study questions and statistical approaches used to address each question\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Statistical methods should describe the study questions and statistical approaches used to address each question",
+              "locator": "Guideline 1.4"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.5",
+          "item_name": "Statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set",
+          "item_question": "Does the manuscript follow the recommendation to \"statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set\"?",
+          "item_question_background": "Replication is treated as a scientific cornerstone here, so vague phrases like adjusting for confounders or non-linear methods are insufficient without naming variables, coding choices, and model details.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set",
+              "locator": "Guideline 1.5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Inference and P-Values",
+      "items": [
+        {
+          "section": "Inference and P-Values",
+          "item": "2.1",
+          "item_name": "Do not accept the null hypothesis",
+          "item_question": "Does the manuscript follow the recommendation to \"do not accept the null hypothesis\"?",
+          "item_question_background": "The guideline stresses that hypothesis tests only justify rejecting or failing to reject the null; a non-significant p-value does not prove no effect, just as a not-guilty verdict does not prove innocence.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not accept the null hypothesis\".",
+          "item_expected_location": "Results / Discussion",
+          "evidence_mode": "absence_based_success",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Do not accept the null hypothesis",
+              "locator": "Guideline 2.1"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.2",
+          "item_name": "P-values just above 5% are not a trend, and are not moving",
+          "item_question": "Does the manuscript follow the recommendation to \"p-values just above 5% are not a trend, and are not moving\"?",
+          "item_question_background": "Calling p=0.07 a trend or saying it approaches significance falsely suggests motion or meaning that the number does not carry; the authors prefer plain language about limited evidence and lack of conventional significance.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"p-values just above 5% are not a trend, and are not moving\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "P-values just above 5% are not a trend, and are not moving",
+              "locator": "Guideline 2.2"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.3",
+          "item_name": "P-values and 95% confidence intervals do not quantify the probability of a hypothesis",
+          "item_question": "Does the manuscript follow the recommendation to \"p-values and 95% confidence intervals do not quantify the probability of a hypothesis\"?",
+          "item_question_background": "The article corrects two common misreadings: a p-value is not the chance findings are due to chance, and a 95% confidence interval is not a 95% probability that the truth lies inside the observed interval.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"p-values and 95% confidence intervals do not quantify the probability of a hypothesis\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "P-values and 95% confidence intervals do not quantify the probability of a hypothesis",
+              "locator": "Guideline 2.3"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.4",
+          "item_name": "Do not use confidence intervals to test hypotheses",
+          "item_question": "Does the manuscript follow the recommendation to \"do not use confidence intervals to test hypotheses\"?",
+          "item_question_background": "Confidence intervals are presented as tools for estimation, not substitutes for hypothesis tests, and the paper notes they can disagree with p-values because they may be computed differently.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not use confidence intervals to test hypotheses\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Do not use confidence intervals to test hypotheses",
+              "locator": "Guideline 2.4"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.5",
+          "item_name": "Take care interpreting results when reporting multiple p-values",
+          "item_question": "Does the manuscript follow the recommendation to \"take care interpreting results when reporting multiple p-values\"?",
+          "item_question_background": "The more hypotheses a study tests, the more likely at least one low p-value is spurious, so evidence from a p=0.04 is weaker in a study with many comparisons than in a single-hypothesis study.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"take care interpreting results when reporting multiple p-values\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Take care interpreting results when reporting multiple p-values",
+              "locator": "Guideline 2.5"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.6",
+          "item_name": "Do not report separate p-values for each of two different groups to address whether there is a difference between groups",
+          "item_question": "Does the manuscript follow the recommendation to \"do not report separate p-values for each of two different groups to address whether there is a difference between groups\"?",
+          "item_question_background": "The authors emphasize one scientific question should map to one tested hypothesis and one p-value; separate within-group p-values can mislead even when the groups barely differ from each other.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not report separate p-values for each of two different groups to address whether there is a difference between groups\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Do not report separate p-values for each of two different groups to address whether there is a difference between groups",
+              "locator": "Guideline 2.6"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.7",
+          "item_name": "Use interaction terms in place of subgroup analyses",
+          "item_question": "Does the manuscript follow the recommendation to \"use interaction terms in place of subgroup analyses\"?",
+          "item_question_background": "Subgroup claims based on significance in one group but not another are treated as the same logic error as separate group tests; the proper question is whether effects differ between groups, which needs an interaction term.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"use interaction terms in place of subgroup analyses\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Use interaction terms in place of subgroup analyses",
+              "locator": "Guideline 2.7"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.8",
+          "item_name": "Tests for change over time are generally uninteresting",
+          "item_question": "Does the manuscript follow the recommendation to \"tests for change over time are generally uninteresting\"?",
+          "item_question_background": "The paper argues these tests often ask a null hypothesis already known to be false, such as no change over years, so estimation of the size of change is usually more informative than inference about whether any change exists.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"tests for change over time are generally uninteresting\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Tests for change over time are generally uninteresting",
+              "locator": "Guideline 2.8"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.9",
+          "item_name": "Avoid using statistical tests to determine the type of analysis to be conducted",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid using statistical tests to determine the type of analysis to be conducted\"?",
+          "item_question_background": "Choosing methods by preliminary tests such as normality or heterogeneity tests can be unhelpful because those null hypotheses are often false by default and may not meaningfully identify the best analysis.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid using statistical tests to determine the type of analysis to be conducted\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Avoid using statistical tests to determine the type of analysis to be conducted",
+              "locator": "Guideline 2.9"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.10",
+          "item_name": "When reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible",
+          "item_question": "Does the manuscript follow the recommendation to \"when reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible\"?",
+          "item_question_background": "The article shows that ambiguous p-values hide what comparison was actually tested and can encourage inappropriate tests, such as baseline p-values in randomized trials for differences that are known to be chance-generated.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"when reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "When reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible",
+              "locator": "Guideline 2.10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Reporting of Study Estimates",
+      "items": [
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.1",
+          "item_name": "Use appropriate levels of precision",
+          "item_question": "Does the manuscript follow the recommendation to \"use appropriate levels of precision\"?",
+          "item_question_background": "Overprecise numbers imply a level of measurement certainty that the data do not support; the paper urges authors to think about every reported number instead of copying software output verbatim.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"use appropriate levels of precision\".",
+          "item_expected_location": "Abstract / Results / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Use appropriate levels of precision",
+              "locator": "Guideline 3.1"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.2",
+          "item_name": "Avoid redundant statistics in cohort descriptions",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid redundant statistics in cohort descriptions\"?",
+          "item_question_background": "Each descriptive number should add information; reporting both sexes when one determines the other, or group summaries plus the combined cohort, clutters the table without informing readers.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid redundant statistics in cohort descriptions\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Avoid redundant statistics in cohort descriptions",
+              "locator": "Guideline 3.2"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.3",
+          "item_name": "For descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided",
+          "item_question": "Does the manuscript follow the recommendation to \"for descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided\"?",
+          "item_question_background": "The authors prefer medians and quartiles because they reveal the center and spread for many patients, whereas the range reflects only two observations and is usually uninformative about distribution.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "For descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided",
+              "locator": "Guideline 3.3"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.4",
+          "item_name": "Report estimates for the main study questions",
+          "item_question": "Does the manuscript follow the recommendation to \"report estimates for the main study questions\"?",
+          "item_question_background": "The article wants authors to answer the actual scientific question numerically, such as a between-group difference or effect size, rather than only listing group summaries or significance labels.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"report estimates for the main study questions\".",
+          "item_expected_location": "Abstract / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report estimates for the main study questions",
+              "locator": "Guideline 3.4"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.5",
+          "item_name": "Report confidence intervals for the main estimates of interest",
+          "item_question": "Does the manuscript follow the recommendation to \"report confidence intervals for the main estimates of interest\"?",
+          "item_question_background": "Confidence intervals should surround the estimate that answers the main question, such as a difference between groups, rather than every descriptive number in the paper.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"report confidence intervals for the main estimates of interest\".",
+          "item_expected_location": "Abstract / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report confidence intervals for the main estimates of interest",
+              "locator": "Guideline 3.5"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.6",
+          "item_name": "Do not treat categorical variables as continuous",
+          "item_question": "Does the manuscript follow the recommendation to \"do not treat categorical variables as continuous\"?",
+          "item_question_background": "Ordinal categories like Gleason groups do not have equal spacing, so averaging them or fitting a one-step increase model imposes numerical relationships the categories were never designed to carry.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not treat categorical variables as continuous\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Do not treat categorical variables as continuous",
+              "locator": "Guideline 3.6"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.7",
+          "item_name": "Avoid categorization of continuous variables unless there is a convincing rationale",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid categorization of continuous variables unless there is a convincing rationale\"?",
+          "item_question_background": "Turning age or biomarkers into bins discards information and assumes people within a category are effectively the same, which can be implausible and avoidable with continuous or non-linear modeling.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid categorization of continuous variables unless there is a convincing rationale\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Avoid categorization of continuous variables unless there is a convincing rationale",
+              "locator": "Guideline 3.7"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.8",
+          "item_name": "Do not use statistical methods to obtain cut points for clinical practice",
+          "item_question": "Does the manuscript follow the recommendation to \"do not use statistical methods to obtain cut points for clinical practice\"?",
+          "item_question_background": "Data-driven cut points based on smallest p-values or ROC geometry ignore real clinical tradeoffs, such as whether missing disease is worse than unnecessary treatment.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not use statistical methods to obtain cut points for clinical practice\".",
+          "item_expected_location": "Methods / Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Do not use statistical methods to obtain cut points for clinical practice",
+              "locator": "Guideline 3.8"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.9",
+          "item_name": "Association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling",
+          "item_question": "Does the manuscript follow the recommendation to \"association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling\"?",
+          "item_question_background": "The paper encourages direct visual display of how risk changes across a continuous predictor because plots and non-linear fits can show shapes of association that a single linear coefficient can hide.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling\".",
+          "item_expected_location": "Results / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling",
+              "locator": "Guideline 3.9"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.10",
+          "item_name": "Do not ignore significant heterogeneity in meta-analyses",
+          "item_question": "Does the manuscript follow the recommendation to \"do not ignore significant heterogeneity in meta-analyses\"?",
+          "item_question_background": "A heterogeneity signal should trigger investigation into why studies differ; simply switching attention to a random-effects estimate leaves the substantive sources of variation unexplained.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not ignore significant heterogeneity in meta-analyses\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Do not ignore significant heterogeneity in meta-analyses",
+              "locator": "Guideline 3.10"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.11",
+          "item_name": "For time-to-event variables, report the number but not the proportion of events",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event variables, report the number but not the proportion of events\"?",
+          "item_question_background": "Because patients enter at different times and are followed unequally, a raw event proportion is meaningless for survival data; time-based probabilities or median survival convey the analysis appropriately.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event variables, report the number but not the proportion of events\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event variables, report the number but not the proportion of events",
+              "locator": "Guideline 3.11"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.12",
+          "item_name": "For time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time\"?",
+          "item_question_background": "Overall median follow-up can badly mislead when deaths are common or late entrants are added, so the article recommends follow-up summaries that reflect event-free observation more honestly.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time",
+              "locator": "Guideline 3.12"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.13",
+          "item_name": "For time-to-event analyses, describe when follow-up starts, and when and how patients are censored",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, describe when follow-up starts, and when and how patients are censored\"?",
+          "item_question_background": "The paper highlights that incorrect censoring dates can overestimate survival and that cause-specific endpoints require careful decisions about deaths from other causes and possible competing-risk methods.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, describe when follow-up starts, and when and how patients are censored\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, describe when follow-up starts, and when and how patients are censored",
+              "locator": "Guideline 3.13"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.14",
+          "item_name": "For time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event\"?",
+          "item_question_background": "These quantities are described as problematic under censoring because they distort time-to-event information instead of respecting incomplete follow-up.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event",
+              "locator": "Guideline 3.14"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.15",
+          "item_name": "For time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates\"?",
+          "item_question_background": "Using information learned after follow-up begins creates invalid analyses, so the article recommends landmark or time-dependent approaches when predictors evolve over time.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates",
+              "locator": "Guideline 3.15"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.16",
+          "item_name": "When presenting Kaplan-Meier figures, present the number at risk and truncate follow-up when numbers are low",
+          "item_question": "Does the manuscript follow the recommendation to \"when presenting kaplan-meier figures, present the number at risk and truncate follow-up when numbers are low\"?",
+          "item_question_background": "Numbers at risk help readers see censoring over time, and the paper notes that the tail of a Kaplan-Meier curve becomes unstable once very few patients remain under observation.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"when presenting kaplan-meier figures, present the number at risk and truncate follow-up when numbers are low\".",
+          "item_expected_location": "Figures / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "When presenting Kaplan-Meier figures, present the number at risk and truncate follow-up when numbers are low",
+              "locator": "Guideline 3.16"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Multivariable Models and Diagnostic Tests",
+      "items": [
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.1",
+          "item_name": "Multivariable, propensity and instrumental variable analyses are not magic wands",
+          "item_question": "Does the manuscript follow the recommendation to \"multivariable, propensity and instrumental variable analyses are not magic wands\"?",
+          "item_question_background": "Adjustment cannot guarantee comparable groups because measured covariates are coarse proxies and important confounders may be unmeasured; the article also notes propensity and instrumental methods are often oversold.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"multivariable, propensity and instrumental variable analyses are not magic wands\".",
+          "item_expected_location": "Discussion / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Multivariable, propensity and instrumental variable analyses are not magic wands",
+              "locator": "Guideline 4.1"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.2",
+          "item_name": "Avoid stepwise selection",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid stepwise selection\"?",
+          "item_question_background": "Data-driven variable selection is criticized for increasing overfit and making downstream quantities such as confidence intervals hard to trust, except in limited exploratory settings.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid stepwise selection\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid stepwise selection",
+              "locator": "Guideline 4.2"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.3",
+          "item_name": "Avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions\"?",
+          "item_question_background": "When the scientific target is the intervention effect, reporting every adjustment covariate estimate distracts from the main result and often adds little because those covariate effects are already well known.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions",
+              "locator": "Guideline 4.3"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.4",
+          "item_name": "Rescale predictors to obtain interpretable estimates",
+          "item_question": "Does the manuscript follow the recommendation to \"rescale predictors to obtain interpretable estimates\"?",
+          "item_question_background": "Very small-unit effect sizes can produce numerically awkward estimates, so the paper advises rescaling predictors, such as per 10 years instead of per year, to make intervals and effect sizes interpretable.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"rescale predictors to obtain interpretable estimates\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Rescale predictors to obtain interpretable estimates",
+              "locator": "Guideline 4.4"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.5",
+          "item_name": "Avoid reporting univariate and multivariable analyses unless there is a good reason",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid reporting univariate and multivariable analyses unless there is a good reason\"?",
+          "item_question_background": "The authors allow both only when comparing them answers a substantive mechanism question; otherwise routine side-by-side reporting adds noise rather than insight.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid reporting univariate and multivariable analyses unless there is a good reason\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid reporting univariate and multivariable analyses unless there is a good reason",
+              "locator": "Guideline 4.5"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.6",
+          "item_name": "Avoid ranking predictors in terms of strength",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid ranking predictors in terms of strength\"?",
+          "item_question_background": "Ranking predictors by odds ratios or hazard ratios is misleading because those numbers depend on coding, scale, variable type, and prevalence rather than on a universal notion of importance.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid ranking predictors in terms of strength\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid ranking predictors in terms of strength",
+              "locator": "Guideline 4.6"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.7",
+          "item_name": "Discrimination is a property not of a multivariable model, but of the predictors and the data set",
+          "item_question": "Does the manuscript follow the recommendation to \"discrimination is a property not of a multivariable model, but of the predictors and the data set\"?",
+          "item_question_background": "Discrimination depends heavily on what predictors are available and how much they vary in the sample, so comparing model discrimination across different datasets can be deceptive.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"discrimination is a property not of a multivariable model, but of the predictors and the data set\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Discrimination is a property not of a multivariable model, but of the predictors and the data set",
+              "locator": "Guideline 4.7"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.8",
+          "item_name": "Correction for overfit is strongly recommended for internal validation",
+          "item_question": "Does the manuscript follow the recommendation to \"correction for overfit is strongly recommended for internal validation\"?",
+          "item_question_background": "Evaluating a model on the same data used to build it is likened to predicting last week’s weather; internal validation should therefore correct for overfit using resampling or cross-validation that repeats all model-building steps.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"correction for overfit is strongly recommended for internal validation\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Correction for overfit is strongly recommended for internal validation",
+              "locator": "Guideline 4.8"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.9",
+          "item_name": "Calibration should be reported and interpreted correctly",
+          "item_question": "Does the manuscript follow the recommendation to \"calibration should be reported and interpreted correctly\"?",
+          "item_question_background": "Calibration matters because patients care whether predicted risks match observed risks, and the article argues for graphical assessment on independent data rather than Hosmer-Lemeshow testing or claims that a model is inherently well calibrated.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"calibration should be reported and interpreted correctly\".",
+          "item_expected_location": "Results / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Calibration should be reported and interpreted correctly",
+              "locator": "Guideline 4.9"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.10",
+          "item_name": "Avoid reporting sensitivity and specificity for continuous predictors or a model",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid reporting sensitivity and specificity for continuous predictors or a model\"?",
+          "item_question_background": "Sensitivity and specificity at chosen cut points do not by themselves reveal clinical value, because usefulness depends on prevalence and on the relative costs of false positives and false negatives.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid reporting sensitivity and specificity for continuous predictors or a model\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Avoid reporting sensitivity and specificity for continuous predictors or a model",
+              "locator": "Guideline 4.10"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.11",
+          "item_name": "Report the clinical consequences of using a test or a model",
+          "item_question": "Does the manuscript follow the recommendation to \"report the clinical consequences of using a test or a model\"?",
+          "item_question_background": "The paper prefers concrete consequences, such as biopsies done and cancers found or missed at an illustrative threshold, over abstract summary statistics like ROC curves alone.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"report the clinical consequences of using a test or a model\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Report the clinical consequences of using a test or a model",
+              "locator": "Guideline 4.11"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.12",
+          "item_name": "Interpret decision curves with careful reference to threshold probabilities",
+          "item_question": "Does the manuscript follow the recommendation to \"interpret decision curves with careful reference to threshold probabilities\"?",
+          "item_question_background": "A decision curve is only meaningful if the threshold range is clinically plausible; net benefit over unrealistic thresholds does not show a model is useful in practice.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"interpret decision curves with careful reference to threshold probabilities\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Interpret decision curves with careful reference to threshold probabilities",
+              "locator": "Guideline 4.12"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Conclusions and Interpretation",
+      "items": [
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.1",
+          "item_name": "Draw a conclusion, do not just repeat the results",
+          "item_question": "Does the manuscript follow the recommendation to \"draw a conclusion, do not just repeat the results\"?",
+          "item_question_background": "The article says a conclusion should state what the findings imply for research or practice, not merely restate that an association was statistically significant.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"draw a conclusion, do not just repeat the results\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Draw a conclusion, do not just repeat the results",
+              "locator": "Guideline 5.1"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.2",
+          "item_name": "Avoid using words such as may or might",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid using words such as may or might\"?",
+          "item_question_background": "Using hedges like may can leave the reader with no more knowledge than before the study, which the authors consider a poor conclusion and even a reason to reject a paper.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid using words such as may or might\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Avoid using words such as may or might",
+              "locator": "Guideline 5.2"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.3",
+          "item_name": "A statistically significant p-value does not imply clinical significance",
+          "item_question": "Does the manuscript follow the recommendation to \"a statistically significant p-value does not imply clinical significance\"?",
+          "item_question_background": "Rejecting the null does not automatically justify treatment or policy changes; clinical recommendations need separate argument about effect size and practical consequences.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"a statistically significant p-value does not imply clinical significance\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "A statistically significant p-value does not imply clinical significance",
+              "locator": "Guideline 5.3"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.4",
+          "item_name": "Avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings\"?",
+          "item_question_background": "The paper treats generic limitations as superficial because small samples or retrospective designs are not inherently fatal; what matters is the likely direction and magnitude of resulting bias.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings\".",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Avoid pseudo limitations such as small sample size and retrospective analysis, and consider instead sources of potential bias and the mechanism for their effect on findings",
+              "locator": "Guideline 5.4"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.5",
+          "item_name": "Consider the impact of missing data and patient selection",
+          "item_question": "Does the manuscript follow the recommendation to \"consider the impact of missing data and patient selection\"?",
+          "item_question_background": "Authors are encouraged to examine whether excluded patients or those with missing data differ from analyzed patients, since selection and missingness can materially distort findings.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"consider the impact of missing data and patient selection\".",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Consider the impact of missing data and patient selection",
+              "locator": "Guideline 5.5"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.6",
+          "item_name": "Consider the possibility and impact of ascertainment bias",
+          "item_question": "Does the manuscript follow the recommendation to \"consider the possibility and impact of ascertainment bias\"?",
+          "item_question_background": "Ascertainment bias arises when the chance of detecting an outcome depends on the predictor, as with PSA-driven biopsy decisions, and can exaggerate apparent associations.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"consider the possibility and impact of ascertainment bias\".",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Consider the possibility and impact of ascertainment bias",
+              "locator": "Guideline 5.6"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.7",
+          "item_name": "Do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment",
+          "item_question": "Does the manuscript follow the recommendation to \"do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment\"?",
+          "item_question_background": "Differences in prognosis within one treated group do not answer whether another treatment would be better, so poor outcomes in a subgroup should not automatically be read as poor treatment candidacy.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Do not confuse outcome with response among subgroups of patients undergoing the same treatment, as patients with poorer outcomes may still be good candidates for that treatment",
+              "locator": "Guideline 5.7"
+            }
+          ]
+        },
+        {
+          "section": "Conclusions and Interpretation",
+          "item": "5.8",
+          "item_name": "Be cautious about causal attribution: correlation does not imply causation",
+          "item_question": "Does the manuscript follow the recommendation to \"be cautious about causal attribution: correlation does not imply causation\"?",
+          "item_question_background": "The authors note that papers often begin by studying association but end by implying intervention effects, so conclusions must not slide from correlation into unsupported causal claims.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"be cautious about causal attribution: correlation does not imply causation\".",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Be cautious about causal attribution: correlation does not imply causation",
+              "locator": "Guideline 5.8"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": false,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+      "clinical research statistics reporting guideline",
+      "urology statistics reporting guideline"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\burology\\b",
+          "\\bclinical research\\b",
+          "\\bstatistics\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bp-value[s]?\\b",
+          "\\bconfidence interval[s]?\\b",
+          "\\bKaplan[- ]Meier\\b",
+          "\\bmultivariable\\b",
+          "\\bhazard ratio\\b",
+          "\\bdecision curve\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdo not accept the null hypothesis\\b",
+          "\\bdescribe cohort selection fully\\b",
+          "\\ballocation concealment\\b",
+          "\\btime[- ]to[- ]event\\b",
+          "\\boverfit\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative meta-analysis\\b",
+          "\\banimal experiment\\b",
+          "\\bcase report\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A clinical paper discusses p-values, confidence intervals, Kaplan-Meier curves, multivariable models, or diagnostic-test performance and needs a statistical reporting overlay.",
+      "A urology outcomes manuscript reports time-to-event analyses, hazard ratios, calibration, or decision curves and would benefit from this guideline."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely qualitative study without statistical inference is not a match.",
+      "A lab protocol or disease-management guideline is not the target of this reporting standard."
+    ],
+    "Explain": "Use this guideline as a statistical reporting overlay for clinical research manuscripts, especially in urology, when the manuscript needs help with design reporting, inference, estimation, time-to-event methods, multivariable modeling, diagnostic-test reporting, and interpretation."
+  }
+}

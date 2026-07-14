@@ -1,0 +1,210 @@
+{
+  "id": "jars-observational",
+  "Name": "JARS-Observational",
+  "LongName": "JARS-Quant Table 3: Reporting Standards for Studies Using No Experimental Manipulation",
+  "Description": "The JARS-Quant observational table adapts psychology-specific reporting expectations for nonexperimental studies, including single-group designs, natural-group comparisons, and observational or correlational studies.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology observational reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the reporting of observational and other nonexperimental psychology studies by clarifying expectations for design description, participant selection, variables, comparability of assessment, analysis, and limitations.",
+  "ManuscriptType": [
+    "Original research article",
+    "Observational psychology report",
+    "Correlational study report"
+  ],
+  "ManuscriptSubType": [
+    "Single-group observational study",
+    "Natural-group comparison",
+    "Archival or record-linkage study"
+  ],
+  "StudyType": [
+    "Observational study",
+    "Correlational study",
+    "Natural history study"
+  ],
+  "Keywords": [
+    "JARS observational",
+    "nonexperimental design",
+    "natural-group comparison",
+    "correlational study",
+    "participant selection",
+    "comparability of assessment"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Observational study",
+      "Correlational study",
+      "Natural history study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science"
+    ],
+    "Coverage": "Psychology and behavioral-science studies that do not involve an experimental manipulation, including single-group analyses and comparisons across naturally occurring groups.",
+    "Focus": "Study design, data type, participant selection, data sources, variable definition and measurement, comparability across groups, confounder handling, and study limitations.",
+    "ContrastWith": "Not for manipulated experiments, clinical trials, or research syntheses. This module supplements the JARS-Quant master table for nonexperimental designs."
+  },
+  "references": {
+    "primary": {
+      "description": "Appelbaum M, Cooper H, Kline RB, Mayo-Wilson E, Nezu AM, Rao SM. Journal Article Reporting Standards for Quantitative Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018. PMID: 29345484.",
+      "url": "https://psycnet.apa.org/fulltext/2018-00750-002.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Design and Sampling",
+      "items": [
+        {
+          "section": "Design and Sampling",
+          "item": "1",
+          "item_name": "State study design and data use",
+          "item_question": "Does the manuscript clearly describe the nonexperimental design and the type of data used?",
+          "item_question_background": "Readers need to know whether the study is observational, correlational, natural-history, archival, or another nonexperimental form before they can interpret its claims.",
+          "item_extraction_instruction": "Extract the named study design and the type or source of data used.",
+          "item_expected_location": "Title / Abstract / Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Study design ... Describe the design of the study. Data use ... State the type of data used.",
+              "locator": "Table 3 title/abstract rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Sampling",
+          "item": "2",
+          "item_name": "Describe participant selection and data sources",
+          "item_question": "Does the manuscript explain how participants or units were selected for each group and identify any data sources, codes, or record-linkage procedures used?",
+          "item_question_background": "Selection and data-source transparency are essential for evaluating sampling validity, comparability, and reproducibility in nonexperimental work.",
+          "item_extraction_instruction": "Extract participant selection methods, group counts, matching criteria, and any record-linkage codes, algorithms, or archival sources used.",
+          "item_expected_location": "Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Describe the method(s) of selecting participants ... Identify data sources used ... include codes or algorithms to select participants or link records.",
+              "locator": "Table 3 participant selection row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Variables and Analysis",
+      "items": [
+        {
+          "section": "Variables and Analysis",
+          "item": "3",
+          "item_name": "Define variables and comparability of assessment",
+          "item_question": "Does the manuscript define exposures, predictors, confounders, and effect modifiers and explain how variables were measured and how assessment comparability was handled across groups?",
+          "item_question_background": "Without clear definitions and comparable assessment procedures, observed group differences may reflect measurement differences rather than substantive effects.",
+          "item_extraction_instruction": "Extract definitions and measurement of exposures, predictors, confounders, and effect modifiers, plus any explanation of cross-group assessment comparability.",
+          "item_expected_location": "Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Define all variables clearly ... Describe comparability of assessment across groups.",
+              "locator": "Table 3 variables and comparability rows"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Variables and Analysis",
+          "item": "4",
+          "item_name": "Explain analytic treatment of confounding and effect modification",
+          "item_question": "Does the manuscript describe how predictors, confounders, and effect modifiers were incorporated into the analysis?",
+          "item_question_background": "Nonexperimental designs depend heavily on transparent analytic handling of confounders and effect modifiers to make associations interpretable.",
+          "item_extraction_instruction": "Extract how predictors, confounders, and effect modifiers entered the analytic model or comparison strategy.",
+          "item_expected_location": "Analysis / Statistics",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Describe how predictors, confounders, and effect modifiers were included in the analysis.",
+              "locator": "Table 3 analysis row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Variables and Analysis",
+          "item": "5",
+          "item_name": "Discuss observational-study limitations explicitly",
+          "item_question": "Does the manuscript discuss limitations such as misclassification, unmeasured confounding, or changing eligibility criteria over time?",
+          "item_question_background": "JARS-Observational expects authors to surface the major inferential weaknesses that commonly affect nonexperimental studies.",
+          "item_extraction_instruction": "Extract any discussion of misclassification, unmeasured confounding, changing eligibility criteria, or other design-specific limitations.",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Describe potential limitations of the study ... misclassification, unmeasured confounding, and changing eligibility criteria over time.",
+              "locator": "Table 3 limitations row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS observational",
+      "JARS-Quant Table 3",
+      "Reporting Standards for Studies Using No Experimental Manipulation"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bJARS\\b.*\\bno experimental manipulation\\b",
+          "\\bobservational study\\b",
+          "\\bcorrelational\\b",
+          "\\bnatural-group comparison\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bconfounder\\b",
+          "\\beffect modifier\\b",
+          "\\bparticipant selection\\b",
+          "\\barchival records\\b",
+          "\\bmatching criteria\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A psychology observational study reports participant selection, record-linkage rules, confounders, and comparability of assessment using the JARS observational module.",
+      "A natural-group comparison paper explicitly cites JARS Table 3 and discusses misclassification and unmeasured confounding."
+    ],
+    "EvidenceExamplesNegative": [
+      "A randomized experiment with treatment delivery details should map to JARS-Experimental instead.",
+      "A research synthesis with no primary participants is not a JARS-Observational match."
+    ],
+    "Explain": "Use this module for psychology manuscripts with no experimental manipulation, especially observational, correlational, archival, or natural-group comparison designs."
+  }
+}

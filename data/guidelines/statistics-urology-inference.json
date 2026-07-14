@@ -1,0 +1,319 @@
+{
+  "id": "statistics-urology-inference",
+  "Name": "Statistics in Urology: Inference",
+  "LongName": "Guidelines for Reporting of Statistics for Clinical Research in Urology: Inference and P-Values",
+  "Description": "Inference-focused statistical reporting overlay for clinical research manuscripts in urology. It addresses p-value interpretation, null-hypothesis language, multiplicity, and other common inferential mistakes.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical research statistics reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Improve interpretation of hypothesis tests and p-values in urology manuscripts by discouraging misleading null-hypothesis language, overclaiming from near-threshold p-values, and poorly handled multiplicity.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical research article",
+    "Observational study report",
+    "Randomized trial report",
+    "Diagnostic or prognostic study report"
+  ],
+  "ManuscriptSubType": [
+    "Clinical outcomes study",
+    "Time-to-event analysis report",
+    "Prediction or prognostic model report",
+    "Diagnostic test evaluation",
+    "Meta-analysis with statistical synthesis"
+  ],
+  "StudyType": [
+    "Clinical study",
+    "Observational study",
+    "Randomized trial",
+    "Diagnostic study",
+    "Prognostic study",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "statistics reporting",
+    "clinical research statistics",
+    "urology statistics",
+    "p-values",
+    "confidence intervals",
+    "time-to-event analysis",
+    "multivariable models",
+    "diagnostic tests",
+    "clinical interpretation",
+    "null hypothesis",
+    "multiple comparisons",
+    "hypothesis testing"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical study",
+      "Observational study",
+      "Randomized trial",
+      "Diagnostic study",
+      "Prognostic study",
+      "Meta-analysis"
+    ],
+    "Disciplines": [
+      "Urology",
+      "Clinical medicine",
+      "Medical research",
+      "Biostatistics"
+    ],
+    "Coverage": "Clinical research manuscripts, especially in urology, that report statistical analyses of interventions, outcomes, predictors, diagnostic tests, prognostic models, or evidence synthesis.",
+    "Focus": "Transparent reporting of cohort selection and randomization, appropriate description of statistical methods, correct interpretation of p-values and confidence intervals, emphasis on effect estimates, careful handling of time-to-event analyses, sound multivariable and diagnostic modeling, and clinically meaningful conclusions.",
+    "ContrastWith": "Not a disease-specific treatment guideline and not a substitute for design-specific reporting statements such as CONSORT, STROBE, TRIPOD, or AMSTAR. It is a cross-cutting statistical overlay for clinical research reporting."
+  },
+  "references": {
+    "primary": {
+      "description": "Assel M, Sjoberg D, Elders A, Wang X, Huo D, Botchway A, Delfino K, Fan Y, Zhao Z, Koyama T, Hollenbeck B, Qin R, Zahnd W, Zabor EC, Kattan MW, Vickers AJ. Guidelines for Reporting of Statistics for Clinical Research in Urology. The Journal of Urology. 2019;201:595-604.",
+      "url": "https://www.auajournals.org/doi/epdf/10.1097/JU.0000000000000001"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Inference and P-Values",
+      "items": [
+        {
+          "section": "Inference and P-Values",
+          "item": "2.1",
+          "item_name": "Do not accept the null hypothesis",
+          "item_question": "Does the manuscript follow the recommendation to \"do not accept the null hypothesis\"?",
+          "item_question_background": "The guideline stresses that hypothesis tests only justify rejecting or failing to reject the null; a non-significant p-value does not prove no effect, just as a not-guilty verdict does not prove innocence.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not accept the null hypothesis\".",
+          "item_expected_location": "Results / Discussion",
+          "evidence_mode": "absence_based_success",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Do not accept the null hypothesis",
+              "locator": "Guideline 2.1"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.2",
+          "item_name": "P-values just above 5% are not a trend, and are not moving",
+          "item_question": "Does the manuscript follow the recommendation to \"p-values just above 5% are not a trend, and are not moving\"?",
+          "item_question_background": "Calling p=0.07 a trend or saying it approaches significance falsely suggests motion or meaning that the number does not carry; the authors prefer plain language about limited evidence and lack of conventional significance.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"p-values just above 5% are not a trend, and are not moving\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "P-values just above 5% are not a trend, and are not moving",
+              "locator": "Guideline 2.2"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.3",
+          "item_name": "P-values and 95% confidence intervals do not quantify the probability of a hypothesis",
+          "item_question": "Does the manuscript follow the recommendation to \"p-values and 95% confidence intervals do not quantify the probability of a hypothesis\"?",
+          "item_question_background": "The article corrects two common misreadings: a p-value is not the chance findings are due to chance, and a 95% confidence interval is not a 95% probability that the truth lies inside the observed interval.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"p-values and 95% confidence intervals do not quantify the probability of a hypothesis\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "P-values and 95% confidence intervals do not quantify the probability of a hypothesis",
+              "locator": "Guideline 2.3"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.4",
+          "item_name": "Do not use confidence intervals to test hypotheses",
+          "item_question": "Does the manuscript follow the recommendation to \"do not use confidence intervals to test hypotheses\"?",
+          "item_question_background": "Confidence intervals are presented as tools for estimation, not substitutes for hypothesis tests, and the paper notes they can disagree with p-values because they may be computed differently.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not use confidence intervals to test hypotheses\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Do not use confidence intervals to test hypotheses",
+              "locator": "Guideline 2.4"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.5",
+          "item_name": "Take care interpreting results when reporting multiple p-values",
+          "item_question": "Does the manuscript follow the recommendation to \"take care interpreting results when reporting multiple p-values\"?",
+          "item_question_background": "The more hypotheses a study tests, the more likely at least one low p-value is spurious, so evidence from a p=0.04 is weaker in a study with many comparisons than in a single-hypothesis study.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"take care interpreting results when reporting multiple p-values\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Take care interpreting results when reporting multiple p-values",
+              "locator": "Guideline 2.5"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.6",
+          "item_name": "Do not report separate p-values for each of two different groups to address whether there is a difference between groups",
+          "item_question": "Does the manuscript follow the recommendation to \"do not report separate p-values for each of two different groups to address whether there is a difference between groups\"?",
+          "item_question_background": "The authors emphasize one scientific question should map to one tested hypothesis and one p-value; separate within-group p-values can mislead even when the groups barely differ from each other.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not report separate p-values for each of two different groups to address whether there is a difference between groups\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Do not report separate p-values for each of two different groups to address whether there is a difference between groups",
+              "locator": "Guideline 2.6"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.7",
+          "item_name": "Use interaction terms in place of subgroup analyses",
+          "item_question": "Does the manuscript follow the recommendation to \"use interaction terms in place of subgroup analyses\"?",
+          "item_question_background": "Subgroup claims based on significance in one group but not another are treated as the same logic error as separate group tests; the proper question is whether effects differ between groups, which needs an interaction term.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"use interaction terms in place of subgroup analyses\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Use interaction terms in place of subgroup analyses",
+              "locator": "Guideline 2.7"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.8",
+          "item_name": "Tests for change over time are generally uninteresting",
+          "item_question": "Does the manuscript follow the recommendation to \"tests for change over time are generally uninteresting\"?",
+          "item_question_background": "The paper argues these tests often ask a null hypothesis already known to be false, such as no change over years, so estimation of the size of change is usually more informative than inference about whether any change exists.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"tests for change over time are generally uninteresting\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Tests for change over time are generally uninteresting",
+              "locator": "Guideline 2.8"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.9",
+          "item_name": "Avoid using statistical tests to determine the type of analysis to be conducted",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid using statistical tests to determine the type of analysis to be conducted\"?",
+          "item_question_background": "Choosing methods by preliminary tests such as normality or heterogeneity tests can be unhelpful because those null hypotheses are often false by default and may not meaningfully identify the best analysis.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid using statistical tests to determine the type of analysis to be conducted\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Avoid using statistical tests to determine the type of analysis to be conducted",
+              "locator": "Guideline 2.9"
+            }
+          ]
+        },
+        {
+          "section": "Inference and P-Values",
+          "item": "2.10",
+          "item_name": "When reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible",
+          "item_question": "Does the manuscript follow the recommendation to \"when reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible\"?",
+          "item_question_background": "The article shows that ambiguous p-values hide what comparison was actually tested and can encourage inappropriate tests, such as baseline p-values in randomized trials for differences that are known to be chance-generated.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"when reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "When reporting p-values be clear about the hypothesis tested and ensure that the hypothesis is sensible",
+              "locator": "Guideline 2.10"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology: Inference and P-Values",
+      "Statistics in Urology: Inference",
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+      "clinical research statistics reporting guideline",
+      "urology statistics reporting guideline"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\burology\\b",
+          "\\bclinical research\\b",
+          "\\bstatistics\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bp-value[s]?\\b",
+          "\\bconfidence interval[s]?\\b",
+          "\\bKaplan[- ]Meier\\b",
+          "\\bmultivariable\\b",
+          "\\bhazard ratio\\b",
+          "\\bdecision curve\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdo not accept the null hypothesis\\b",
+          "\\bdescribe cohort selection fully\\b",
+          "\\ballocation concealment\\b",
+          "\\btime[- ]to[- ]event\\b",
+          "\\boverfit\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative meta-analysis\\b",
+          "\\banimal experiment\\b",
+          "\\bcase report\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A clinical paper discusses p-values, confidence intervals, Kaplan-Meier curves, multivariable models, or diagnostic-test performance and needs a statistical reporting overlay.",
+      "A urology outcomes manuscript reports time-to-event analyses, hazard ratios, calibration, or decision curves and would benefit from this guideline."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely qualitative study without statistical inference is not a match.",
+      "A lab protocol or disease-management guideline is not the target of this reporting standard."
+    ],
+    "Explain": "Use this module when a urology clinical manuscript needs help with p-value language, inferential interpretation, multiple testing, and related hypothesis-testing errors."
+  }
+}

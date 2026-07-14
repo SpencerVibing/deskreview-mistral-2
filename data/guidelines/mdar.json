@@ -1,0 +1,430 @@
+{
+  "id": "mdar",
+  "Name": "MDAR",
+  "LongName": "Materials Design Analysis Reporting Framework",
+  "Description": "MDAR is a general life-sciences reporting framework that sets minimum expectations for transparent reporting of materials, study design, analysis, and reporting outputs such as data, code, and protocol information. It is intended as a cross-cutting baseline that complements more specialized discipline-specific guidelines.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Life sciences transparency and reproducibility reporting",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To improve transparent reporting in the life sciences by requiring authors to disclose how research materials can be accessed and identified, how the study was designed and governed, how analyses and exclusions were handled, and how supporting data, code, and relevant specialist reporting standards are reported.",
+  "ManuscriptType": [
+    "Original research article",
+    "Preclinical research report",
+    "Laboratory study report",
+    "Life-sciences research report"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Laboratory experiment",
+    "Preclinical study",
+    "Human-participant study",
+    "Animal study",
+    "Field or specimen study",
+    "Secondary data analysis"
+  ],
+  "Keywords": [
+    "MDAR",
+    "materials design analysis reporting",
+    "transparent reporting",
+    "life sciences",
+    "reproducibility",
+    "replicability",
+    "materials availability",
+    "data availability",
+    "code availability",
+    "protocol registration"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Laboratory experiment",
+      "Preclinical study",
+      "Human-participant study",
+      "Animal study",
+      "Field or specimen study",
+      "Secondary data analysis"
+    ],
+    "Disciplines": [
+      "Life sciences",
+      "Biomedical science",
+      "Preclinical research",
+      "Molecular biology",
+      "Cell biology",
+      "Translational research"
+    ],
+    "Coverage": "Broadly applicable life-sciences manuscripts, especially exploratory laboratory and preclinical studies, where transparent reporting of materials, protocols, design safeguards, analyses, and research outputs is needed.",
+    "Focus": "Accessibility, identification, and characterization of materials; preregistration and detailed protocols; experimental design safeguards such as randomization and blinding; replication and sample definition; ethics and permits; attrition and statistical methods; data and code availability; and alignment with community-specific reporting standards.",
+    "ContrastWith": "MDAR is a general baseline framework rather than a specialist design-specific standard. It is meant to complement, not replace, focused guidelines such as ARRIVE, CONSORT, PRISMA, or domain-specific resource-reporting standards."
+  },
+  "references": {
+    "primary": {
+      "description": "Materials Design Analysis Reporting (MDAR) reproducibility checklist for authors.",
+      "url": "https://www.science.org/action/downloadSupplement?doi=10.1126%2Fscience.adc9998&file=science.adc9998_mdar_reproducibility_checklist.pdf"
+    },
+    "secondary": [
+      {
+        "description": "Macleod M, Collings AM, Graf C, et al. The MDAR (Materials Design Analysis Reporting) Framework for transparent reporting in the life sciences. PNAS. 2021;118(17):e2103238118.",
+        "url": "https://www.pnas.org/doi/epdf/10.1073/pnas.2103238118"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "Materials",
+      "items": [
+        {
+          "section": "Materials",
+          "item": "1",
+          "item_name": "Provide a materials availability statement for newly created materials",
+          "item_question": "Does the manuscript include a dedicated materials availability statement describing whether newly created materials can be accessed and any restrictions on access?",
+          "item_question_background": "The MDAR framework treats accessibility as a core reporting principle, so newly created materials should not remain implicit or undiscoverable; readers need a clear statement explaining whether the materials exist, how they can be obtained, and what limits apply.",
+          "item_extraction_instruction": "Extract the materials availability statement, including what newly created materials are available, how they can be accessed, and any restrictions or conditions on access.",
+          "item_expected_location": "Methods / Data or materials availability / Back matter",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "The manuscript includes a dedicated \"materials availability statement\" providing transparent disclosure about availability of newly created materials including details on how materials can be accessed and describing any restrictions on access.",
+              "locator": "Checklist, Materials, Newly created materials"
+            },
+            {
+              "page": 2,
+              "quote": "Accessibility refers to the disclosure of whether and how a specific Framework element ... is accessible, including any restrictions to that access.",
+              "locator": "PNAS article, organizing principles"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Materials",
+          "item": "2",
+          "item_name": "Identify and characterize reagents, biological materials, and study populations",
+          "item_question": "Does the manuscript uniquely identify the relevant commercial reagents, sequences, cell materials, organisms, microbes, plants, animals, and human-participant descriptors needed for unambiguous interpretation and replication?",
+          "item_question_background": "MDAR emphasizes identification and characterization because many life-science findings depend on the exact material or population used; without supplier details, accession numbers, RRIDs, strain information, or core participant descriptors, replication and comparison across studies become unreliable.",
+          "item_extraction_instruction": "Extract supplier names, catalog numbers, RRIDs, accession numbers, species, strain, sex, age, genetic modification status, source information, and participant demographic descriptors where relevant to the study.",
+          "item_expected_location": "Methods / Materials / Participants / Figure legends / Supplementary methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "For commercial reagents, provide supplier name, catalogue number and RRID, if available.",
+              "locator": "Checklist, Materials, Antibodies"
+            },
+            {
+              "page": 2,
+              "quote": "Cell lines: Provide species information, strain. Provide accession number in repository OR supplier name, catalog number, clone number, OR RRID.",
+              "locator": "Checklist, Materials, Cell materials"
+            },
+            {
+              "page": 2,
+              "quote": "If collected and within the bounds of privacy constraints report on age, sex and gender or ethnicity for all study participants.",
+              "locator": "Checklist, Materials, Human research participants"
+            },
+            {
+              "page": 2,
+              "quote": "Identification refers to the information necessary for unique and unambiguous designation and provenance of each element ... Characterization refers to the minimum description of the item which is relevant for interpretation and replication.",
+              "locator": "PNAS article, organizing principles"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Design",
+      "items": [
+        {
+          "section": "Design",
+          "item": "3",
+          "item_name": "Report preregistered study protocols or trial registration where applicable",
+          "item_question": "If the study protocol was preregistered, does the manuscript provide the protocol DOI, trial registration number, or equivalent registration citation?",
+          "item_question_background": "MDAR uses study-protocol disclosure to make design intentions auditable, especially where preregistration or formal trial registration can distinguish prospective design decisions from post hoc reporting.",
+          "item_extraction_instruction": "Extract any preregistration DOI, trial registration number, protocol citation, or explicit statement that no preregistration or trial registration applies.",
+          "item_expected_location": "Methods / Study protocol / Registration statement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "If study protocol has been pre-registered, provide DOI. For clinical trials, provide the trial registration number OR cite DOI.",
+              "locator": "Checklist, Design, Study protocol"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design",
+          "item": "4",
+          "item_name": "Provide detailed laboratory protocol references when available",
+          "item_question": "Does the manuscript provide a DOI or other citable reference for detailed step-by-step laboratory protocols when such protocols are available?",
+          "item_question_background": "The framework recognizes that manuscript methods sections are often too compressed to hold every operational step, so reproducibility depends on linking readers to durable protocol records when those exist.",
+          "item_extraction_instruction": "Extract any DOI, protocol citation, repository link, or other citable reference for detailed laboratory procedures.",
+          "item_expected_location": "Methods / Protocols / Supplementary methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Provide DOI OR other citation details if detailed step-by-step protocols are available.",
+              "locator": "Checklist, Design, Laboratory protocol"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design",
+          "item": "5",
+          "item_name": "State core experimental-design safeguards",
+          "item_question": "For experimental studies where relevant, does the manuscript report sample size determination, randomization, blinding, and inclusion or exclusion criteria, including when these safeguards were not done?",
+          "item_question_background": "The design section of MDAR is aimed at the recurrent reporting gaps that most directly affect internal validity, asking authors to say not only what safeguards were used but also when potentially feasible safeguards were omitted.",
+          "item_extraction_instruction": "Extract whether sample size determination, randomization, blinding, and inclusion or exclusion criteria were used, how they were implemented, or explicit statements that they were not done or not applicable.",
+          "item_expected_location": "Methods / Experimental design / Statistics",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "For in vivo studies: State whether and how the following have been done ... Sample size determination ... Randomisation ... Blinding ... Inclusion/exclusion criteria.",
+              "locator": "Checklist, Design, Experimental study design"
+            },
+            {
+              "page": 1,
+              "quote": "The inconsistent reporting of key elements of experimental and analytical design ... has been shown to impair replication and raise doubt about the robustness of results.",
+              "locator": "PNAS article, introduction"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Design",
+          "item": "6",
+          "item_name": "Define the sample and report in-laboratory replication",
+          "item_question": "Does the manuscript state how many times the experiment was replicated in the laboratory and define whether the reported n reflects technical or biological replicates?",
+          "item_question_background": "Replication within the laboratory and clear definition of what counts as n are central for interpreting how much evidence a study actually provides, since technical repeats and independent biological replicates support different inferential claims.",
+          "item_extraction_instruction": "Extract the number of laboratory replications, how n is defined, and whether counts refer to technical replicates, biological replicates, or both.",
+          "item_expected_location": "Methods / Figure legends / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "State number of times the experiment was replicated in laboratory. Define whether data describe technical or biological replicates.",
+              "locator": "Checklist, Design, Sample definition and in-laboratory replication"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Design",
+          "item": "7",
+          "item_name": "Report ethics, permits, and dual-use approvals as applicable",
+          "item_question": "Does the manuscript state the approving authority and reference number for human, animal, field, specimen, or dual-use oversight, or explain when no approval or permit was required?",
+          "item_question_background": "MDAR treats governance as part of design transparency because approval pathways differ across human, animal, field, and dual-use work, and readers need to know which oversight mechanisms applied or why they did not.",
+          "item_extraction_instruction": "Extract ethics approval bodies, permit authorities, approval or protocol numbers, dual-use regulatory approvals, and any explanation for why approval or permitting was not required.",
+          "item_expected_location": "Methods / Ethics statement / Regulatory approvals",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Studies involving human participants: State details of authority granting ethics approval ... provide reference number for approval.",
+              "locator": "Checklist, Design, Ethics"
+            },
+            {
+              "page": 3,
+              "quote": "Studies involving specimen and field samples: State if relevant permits obtained, provide details of authority approving study; if none were required, explain why.",
+              "locator": "Checklist, Design, Ethics"
+            },
+            {
+              "page": 3,
+              "quote": "If study is subject to dual use research of concern regulations, state the authority granting approval and reference number for the regulatory approval.",
+              "locator": "Checklist, Design, DURC"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Analysis",
+      "items": [
+        {
+          "section": "Analysis",
+          "item": "8",
+          "item_name": "Explain attrition, exclusions, and whether exclusion criteria were predetermined",
+          "item_question": "Does the manuscript report whether exclusion criteria were preestablished and explain any omitted samples or data points, including whether omissions were due to attrition or intentional exclusion?",
+          "item_question_background": "The analysis section focuses on the difference between planned and post hoc data loss because unexplained exclusions can materially alter results while remaining invisible if attrition and intentional omissions are not separated clearly.",
+          "item_extraction_instruction": "Extract any exclusion criteria, whether they were determined before data collection, what data or samples were omitted, and the stated reason for each omission.",
+          "item_expected_location": "Methods / Analysis / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Describe whether exclusion criteria were preestablished. Report if sample or data points were omitted from analysis. If yes report if this was due to attrition or intentional exclusion and provide justification.",
+              "locator": "Checklist, Analysis, Attrition"
+            },
+            {
+              "page": 3,
+              "quote": "There had been poor agreement around ... whether criteria for exclusion had been determined prior to data collection.",
+              "locator": "PNAS article, pilot findings"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Analysis",
+          "item": "9",
+          "item_name": "Describe and justify statistical tests",
+          "item_question": "Does the manuscript describe the statistical tests used and justify the choice of tests?",
+          "item_question_background": "MDAR keeps the statistics expectation deliberately minimal but still insists that the analytical approach be identifiable and reasoned, since opaque or unjustified test selection weakens interpretability and downstream reuse.",
+          "item_extraction_instruction": "Extract each statistical test used, the rationale for selecting it, and any linked analytical details necessary to interpret the main findings.",
+          "item_expected_location": "Methods / Statistical analysis / Supplementary methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Describe statistical tests used and justify choice of tests.",
+              "locator": "Checklist, Analysis, Statistics"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Analysis",
+          "item": "10",
+          "item_name": "Provide a data availability statement for new and reused data",
+          "item_question": "Does the manuscript include a data availability statement covering newly created and reused datasets, including access details, identifiers, and any restrictions on access?",
+          "item_question_background": "The framework extends accessibility beyond narrative methods by asking for explicit disclosure of where the underlying data live, how they can be reached, and whether legal, ethical, or practical restrictions limit reuse.",
+          "item_extraction_instruction": "Extract the data availability statement, repository accession numbers, DOIs, URLs, citations for reused data, licensing details, and any restrictions on data access.",
+          "item_expected_location": "Data availability / Back matter / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "For newly created and reused datasets, the manuscript includes a data availability statement that provides details for access or notes restrictions on access.",
+              "locator": "Checklist, Analysis, Data availability"
+            },
+            {
+              "page": 4,
+              "quote": "If newly created datasets are publicly available, provide accession number in repository OR DOI OR URL and licensing details where available.",
+              "locator": "Checklist, Analysis, Data availability"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Analysis",
+          "item": "11",
+          "item_name": "Provide a code availability statement for essential code or algorithms",
+          "item_question": "Does the manuscript include a code availability statement for newly generated or reused custom code, software, or algorithms essential for replicating the main findings?",
+          "item_question_background": "Because computational reproducibility often depends on custom analysis code rather than the narrative description alone, MDAR asks authors to disclose whether code exists, where it can be obtained, and what constraints apply.",
+          "item_extraction_instruction": "Extract the code availability statement, repository identifiers, DOIs, URLs, citations for reused code, licensing information, and any restrictions on code access.",
+          "item_expected_location": "Code availability / Data availability / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "For all newly generated custom computer code/software/mathematical algorithm or re-used code essential for replicating the main findings of the study, the manuscript includes a data availability statement that provides details for access or notes restrictions.",
+              "locator": "Checklist, Analysis, Code availability"
+            },
+            {
+              "page": 4,
+              "quote": "If newly generated code is publicly available, provide accession number in repository, OR DOI OR URL and licensing details where available.",
+              "locator": "Checklist, Analysis, Code availability"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Reporting",
+      "items": [
+        {
+          "section": "Reporting",
+          "item": "12",
+          "item_name": "State adherence to relevant community reporting standards",
+          "item_question": "Does the manuscript state whether relevant community guidelines were followed and whether any accompanying checklist was submitted or provided?",
+          "item_question_background": "The MDAR paper explicitly positions the framework as a baseline, not a replacement for specialist standards, so authors should still disclose use of more focused guidelines where those better fit the study design or domain.",
+          "item_extraction_instruction": "Extract any statement that relevant specialist guidelines were followed, which guideline(s) were used, and whether a corresponding checklist was submitted or supplied with the manuscript.",
+          "item_expected_location": "Reporting checklist / Methods / Back matter",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "State if relevant guidelines (e.g., ICMJE, MIBBI, ARRIVE) have been followed, and whether a checklist (e.g., CONSORT, PRISMA, ARRIVE) is provided with the manuscript.",
+              "locator": "Checklist, Reporting, Adherence to community standards"
+            },
+            {
+              "page": 2,
+              "quote": "The MDAR Framework is not comprehensive and should not supersede any existing reporting standards. It is a generalist framework intended to be broadly applicable to research in the life sciences and to lift minimum expectations in a concerted way.",
+              "locator": "PNAS article, scope of framework"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "MDAR",
+      "Materials Design Analysis Reporting",
+      "MDAR framework",
+      "MDAR checklist"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bMDAR\\b",
+          "\\bmaterials design analysis reporting\\b",
+          "\\bmaterials availability statement\\b",
+          "\\bdata availability statement\\b",
+          "\\bcode availability\\b",
+          "\\bRRID\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brandomi[sz]ation\\b",
+          "\\bblinding\\b",
+          "\\btechnical replicates\\b",
+          "\\bbiological replicates\\b",
+          "\\bmaterials availability\\b",
+          "\\bdual use research of concern\\b",
+          "\\bpre-registered\\b",
+          "\\bRRID\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A life-sciences manuscript reports materials availability, RRIDs for key reagents, preregistration or protocol links, randomization and blinding, technical versus biological replicates, and data and code availability statements.",
+      "A preclinical paper follows ARRIVE and also discloses ethics approvals, exclusion criteria, statistical-test justification, and repository accessions for newly generated data under the MDAR framework."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely theoretical manuscript with no materials, protocols, data, code, or experimental design reporting needs would not ordinarily map to MDAR.",
+      "A manuscript that only mentions one specialist checklist but provides no broader life-sciences transparency reporting on materials, design, analysis, or availability statements is not a strong MDAR match."
+    ],
+    "Explain": "Use MDAR as a broad life-sciences transparency framework for manuscripts that need baseline reporting on materials, design, analysis, and reporting outputs such as data, code, protocols, and approvals."
+  }
+}

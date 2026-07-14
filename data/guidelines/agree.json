@@ -1,0 +1,320 @@
+{
+  "id": "agree",
+  "Name": "AGREE Reporting Checklist",
+  "LongName": "AGREE Reporting Checklist: A Tool to Improve Reporting of Clinical Practice Guidelines",
+  "Description": "The AGREE Reporting Checklist provides guidance on the minimum information that should be reported in clinical practice guidelines to enhance transparency, completeness, and usability. It aligns with the AGREE II instrument domains and supports clear documentation of guideline development processes and recommendations.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical practice guidelines",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the reporting quality, transparency, and completeness of clinical practice guidelines by specifying essential items that describe their scope, stakeholder involvement, development rigor, clarity, applicability, and editorial independence.",
+  "ManuscriptType": [
+    "Clinical practice guideline report"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Clinical practice guideline"
+  ],
+  "Keywords": [
+    "AGREE",
+    "AGREE II",
+    "clinical practice guideline",
+    "guideline reporting",
+    "guideline development",
+    "evidence synthesis",
+    "recommendations",
+    "stakeholder involvement",
+    "methodological rigor",
+    "applicability",
+    "editorial independence",
+    "conflict of interest",
+    "health policy",
+    "implementation"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical practice guideline",
+      "Evidence-based guideline",
+      "Consensus-based guideline"
+    ],
+    "Disciplines": [
+      "Clinical medicine",
+      "Public health",
+      "Health policy",
+      "Healthcare quality improvement"
+    ],
+    "Coverage": "Reports of clinical practice guidelines addressing diagnosis, management, prevention, or treatment in healthcare.",
+    "Focus": "Transparent reporting of guideline objectives, development methodology, evidence appraisal, recommendation formulation, implementation considerations, and independence from funding bias.",
+    "ContrastWith": "Not for primary research studies, systematic reviews without recommendations, trial protocols, or health technology assessments unless structured as clinical practice guidelines."
+  },
+  "references": {
+    "primary": {
+      "description": "Brouwers MC, et al. AGREE Reporting Checklist: A Tool to Improve Reporting of Clinical Practice Guidelines. BMJ. 2016;352:i1152.",
+      "url": "[https://www.bmj.com/content/bmj/352/bmj.i1152.full.pdf](https://www.bmj.com/content/bmj/352/bmj.i1152.full.pdf)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Scope and Purpose",
+      "item": "1",
+      "item_name": "Objectives",
+      "item_question_background": "Without clearly stated objectives, users cannot determine the intent or relevance of the guideline to specific clinical decisions.",
+      "item_extraction_instruction": "Extract the overall objective(s) of the guideline, including the health intent (e.g., prevention, diagnosis, treatment) and expected outcomes.",
+      "item_expected_location": "Introduction / Executive summary",
+      "item_optional": false
+    },
+    {
+      "section": "Scope and Purpose",
+      "item": "2",
+      "item_name": "Questions",
+      "item_question_background": "Unspecified clinical questions obscure the decision problems addressed and hinder alignment with patient or policy needs.",
+      "item_extraction_instruction": "Identify and extract the specific clinical questions covered, including population, intervention, comparator, and outcomes where applicable.",
+      "item_expected_location": "Introduction / Methods",
+      "item_optional": false
+    },
+    {
+      "section": "Scope and Purpose",
+      "item": "3",
+      "item_name": "Population",
+      "item_question_background": "Failure to define the target population limits applicability and may lead to inappropriate use in unintended groups.",
+      "item_extraction_instruction": "Extract descriptions of the target population, including age, sex, clinical condition, disease stage, comorbidities, and exclusions.",
+      "item_expected_location": "Introduction / Scope section",
+      "item_optional": false
+    },
+    {
+      "section": "Stakeholder Involvement",
+      "item": "4",
+      "item_name": "Guideline development group",
+      "item_question_background": "Unclear group composition prevents assessment of expertise breadth and potential bias in recommendation development.",
+      "item_extraction_instruction": "Extract names, disciplines, institutions, and roles of guideline development group members.",
+      "item_expected_location": "Methods / Acknowledgements",
+      "item_optional": false
+    },
+    {
+      "section": "Stakeholder Involvement",
+      "item": "5",
+      "item_name": "Target users",
+      "item_question_background": "If intended users are not defined, implementation efforts may miss key professional audiences.",
+      "item_extraction_instruction": "Identify and extract the intended target users (e.g., primary care physicians, specialists, policymakers).",
+      "item_expected_location": "Introduction / Scope",
+      "item_optional": false
+    },
+    {
+      "section": "Stakeholder Involvement",
+      "item": "6",
+      "item_name": "Patient and public involvement",
+      "item_question_background": "Lack of patient input reporting obscures whether recommendations reflect patient values and preferences.",
+      "item_extraction_instruction": "Extract descriptions of how patient or public views were sought and incorporated, or state if none were involved.",
+      "item_expected_location": "Methods",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "7",
+      "item_name": "Search methods",
+      "item_question_background": "Without search details, readers cannot judge comprehensiveness of evidence identification.",
+      "item_extraction_instruction": "Extract databases searched, search dates, time limits, and search strategies.",
+      "item_expected_location": "Methods (Evidence search)",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "8",
+      "item_name": "Evidence selection criteria",
+      "item_question_background": "Unreported inclusion criteria raise concerns about selective evidence use.",
+      "item_extraction_instruction": "Extract inclusion and exclusion criteria for selecting evidence.",
+      "item_expected_location": "Methods (Study selection)",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "9",
+      "item_name": "Strengths and limitations of evidence",
+      "item_question_background": "Without appraisal details, users cannot judge certainty or reliability of recommendations.",
+      "item_extraction_instruction": "Extract methods used to assess quality/strength of evidence and summaries of strengths and limitations.",
+      "item_expected_location": "Methods / Evidence appraisal",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "10",
+      "item_name": "Formulation of recommendations",
+      "item_question_background": "Opaque recommendation processes may conceal dominance of certain viewpoints or non-evidence-based decisions.",
+      "item_extraction_instruction": "Extract methods used to formulate recommendations, including consensus techniques or voting processes.",
+      "item_expected_location": "Methods",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "11",
+      "item_name": "Consideration of benefits and harms",
+      "item_question_background": "Recommendations that do not transparently weigh benefits against harms may mislead clinical decisions.",
+      "item_extraction_instruction": "Extract descriptions of how benefits, harms, and risks were considered in formulating recommendations.",
+      "item_expected_location": "Methods / Recommendation rationale",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "12",
+      "item_name": "Link between recommendations and evidence",
+      "item_question_background": "Absent explicit evidence links, users cannot trace the justification for specific recommendations.",
+      "item_extraction_instruction": "Extract statements or tables linking each recommendation to supporting evidence.",
+      "item_expected_location": "Recommendations section",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "13",
+      "item_name": "External review",
+      "item_question_background": "Lack of independent review reporting limits confidence in methodological robustness.",
+      "item_extraction_instruction": "Extract information about external review processes, reviewer types, and how feedback was addressed.",
+      "item_expected_location": "Methods / Acknowledgements",
+      "item_optional": false
+    },
+    {
+      "section": "Rigour of Development",
+      "item": "14",
+      "item_name": "Updating procedure",
+      "item_question_background": "Without update plans, guidelines risk becoming outdated and clinically unsafe.",
+      "item_extraction_instruction": "Extract statements describing plans or timelines for updating the guideline.",
+      "item_expected_location": "Methods / End matter",
+      "item_optional": false
+    },
+    {
+      "section": "Clarity of Presentation",
+      "item": "15",
+      "item_name": "Specific and unambiguous recommendations",
+      "item_question_background": "Ambiguous wording reduces implementability and increases inconsistent interpretation.",
+      "item_extraction_instruction": "Extract example recommendations and confirm they are specific, clear, and actionable.",
+      "item_expected_location": "Recommendations section",
+      "item_optional": false
+    },
+    {
+      "section": "Clarity of Presentation",
+      "item": "16",
+      "item_name": "Management options",
+      "item_question_background": "Incomplete description of alternatives limits informed clinical choice.",
+      "item_extraction_instruction": "Extract descriptions of different management options considered.",
+      "item_expected_location": "Recommendations / Discussion",
+      "item_optional": false
+    },
+    {
+      "section": "Clarity of Presentation",
+      "item": "17",
+      "item_name": "Identifiable key recommendations",
+      "item_question_background": "If key recommendations are not easily identifiable, users may overlook critical guidance.",
+      "item_extraction_instruction": "Determine whether key recommendations are clearly highlighted, summarized, or boxed; extract how they are presented.",
+      "item_expected_location": "Executive summary / Recommendations",
+      "item_optional": false
+    },
+    {
+      "section": "Applicability",
+      "item": "18",
+      "item_name": "Facilitators and barriers to application",
+      "item_question_background": "Ignoring contextual barriers reduces the likelihood of real-world implementation.",
+      "item_extraction_instruction": "Extract descriptions of anticipated facilitators and barriers to applying the recommendations.",
+      "item_expected_location": "Discussion / Implementation section",
+      "item_optional": false
+    },
+    {
+      "section": "Applicability",
+      "item": "19",
+      "item_name": "Implementation advice or tools",
+      "item_question_background": "Absence of practical tools limits uptake despite sound recommendations.",
+      "item_extraction_instruction": "Extract any tools, algorithms, checklists, or advice provided to support implementation.",
+      "item_expected_location": "Appendices / Implementation section",
+      "item_optional": false
+    },
+    {
+      "section": "Applicability",
+      "item": "20",
+      "item_name": "Resource implications",
+      "item_question_background": "Recommendations without cost or resource considerations may be unrealistic in constrained settings.",
+      "item_extraction_instruction": "Extract statements about resource use, costs, or economic considerations.",
+      "item_expected_location": "Discussion / Economic considerations",
+      "item_optional": false
+    },
+    {
+      "section": "Applicability",
+      "item": "21",
+      "item_name": "Monitoring and auditing criteria",
+      "item_question_background": "Without measurable indicators, evaluating adherence and impact is difficult.",
+      "item_extraction_instruction": "Extract any proposed monitoring, audit, or performance indicators.",
+      "item_expected_location": "Implementation / Appendices",
+      "item_optional": false
+    },
+    {
+      "section": "Editorial Independence",
+      "item": "22",
+      "item_name": "Funding body influence",
+      "item_question_background": "Undisclosed sponsor influence may bias recommendations toward funder interests.",
+      "item_extraction_instruction": "Extract funding sources and statements regarding the role of the funding body in guideline development.",
+      "item_expected_location": "Funding / Acknowledgements",
+      "item_optional": false
+    },
+    {
+      "section": "Editorial Independence",
+      "item": "23",
+      "item_name": "Competing interests",
+      "item_question_background": "Unreported conflicts of interest undermine trust in recommendation neutrality.",
+      "item_extraction_instruction": "Extract declarations of competing interests for guideline development members and management strategies for conflicts.",
+      "item_expected_location": "Competing interests / Disclosures",
+      "item_optional": false
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "AGREE",
+      "AGREE II Reporting Checklist",
+      "Appraisal of Guidelines for Research and Evaluation Reporting Checklist"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bAGREE\\b",
+          "\\bclinical practice guidelines?\\b",
+          "\\bevidence[- ]based guidelines?\\b",
+          "\\bconsensus[- ]based guidelines?\\b",
+          "\\bconsensus guidelines?\\b",
+          "\\bguideline development\\b",
+          "\\bguideline report\\b",
+          "\\bguideline recommendations?\\b",
+          "\\bguideline (?:panel|committee)\\b",
+          "\\bguideline for (?:the )?(?:management|diagnosis|treatment|screening|prevention)\\b",
+          "\\bguidelines?\\b.*\\brecommendations?\\b",
+          "\\brecommendations?\\b.*\\bguidelines?\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\brandomi[sz]ed controlled trial\\b",
+          "\\btrial protocol\\b",
+          "\\bstudy protocol\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bAGREE II\\b",
+          "\\bguideline reporting checklist\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [],
+    "EvidenceExamplesNegative": [],
+    "Explain": "Applies to reports of clinical practice guidelines referencing AGREE or structured guideline development and recommendation reporting."
+  }
+}

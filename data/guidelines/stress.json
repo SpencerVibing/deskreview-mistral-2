@@ -1,0 +1,462 @@
+{
+  "id": "stress",
+  "Name": "STRESS",
+  "LongName": "Strengthening the Reporting of Empirical Simulation Studies (STRESS) guidelines",
+  "Description": "STRESS provides structured reporting checklists for empirical simulation studies to improve clarity, reproducibility, and reuse across discrete-event simulation, agent-based simulation, and system dynamics.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Simulation study reporting",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To strengthen transparent and reproducible reporting of empirical simulation studies by ensuring objectives, model logic, data, experimentation, implementation, and model-sharing details are completely documented.",
+  "ManuscriptType": [
+    "Original research article",
+    "Simulation study",
+    "Operational research methods paper"
+  ],
+  "ManuscriptSubType": [
+    "Discrete-event simulation study",
+    "Agent-based simulation study",
+    "System dynamics simulation study"
+  ],
+  "StudyType": [
+    "Empirical simulation study",
+    "Discrete-event simulation",
+    "Agent-based simulation",
+    "System dynamics"
+  ],
+  "Keywords": [
+    "STRESS guidelines",
+    "simulation reporting",
+    "reproducibility",
+    "model transparency",
+    "discrete-event simulation",
+    "discrete event simulation",
+    "DES",
+    "agent-based simulation",
+    "agent based simulation",
+    "agent-based model",
+    "agent based model",
+    "ABM",
+    "system dynamics",
+    "system dynamics model",
+    "simulation model",
+    "simulation study",
+    "empirical simulation",
+    "Monte Carlo simulation",
+    "queueing simulation",
+    "queuing simulation",
+    "event scheduling",
+    "simulation experiment",
+    "scenario analysis",
+    "what-if analysis",
+    "warm-up period",
+    "run length",
+    "number of replications",
+    "random seed",
+    "random number generator",
+    "stock-flow diagram",
+    "verification and validation",
+    "model calibration",
+    "ORMS",
+    "simulation experimentation",
+    "model documentation"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Empirical simulation study",
+      "Discrete-event simulation",
+      "Agent-based simulation",
+      "System dynamics"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary",
+      "Engineering & Technology",
+      "Social sciences"
+    ],
+    "Coverage": "Empirical simulation manuscripts that build, calibrate, verify, validate, and experiment with DES, ABS, SD, Monte Carlo, queueing, or hybrid simulation models in applied settings.",
+    "Focus": "Complete and auditable reporting of simulation objectives, model structure and logic, parameter/data provenance, preprocessing assumptions, scenario design, run configuration (initialisation, warm-up, run length, replications), random sampling controls, implementation environment, and model/code access for reuse.",
+    "ContrastWith": "Not applicable to non-simulation uses of the term stress (for example psychological stress, PTSD, stress testing in cardiology, or material/structural stress analyses) unless the manuscript is explicitly an empirical simulation-study report."
+  },
+  "references": {
+    "primary": {
+      "description": "Monks T, Currie CSM, Onggo BS, et al. Strengthening the reporting of empirical simulation studies: Introducing the STRESS guidelines. Journal of Simulation. 2019;13(1):55-67.",
+      "url": "https://www.tandfonline.com/doi/full/10.1080/17477778.2018.1442155"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Objectives",
+      "items": [
+        {
+          "section": "Objectives",
+          "item": "1.1",
+          "item_name": "Purpose of the model",
+          "item_question": "Is the purpose of the simulation model and its intended use clearly reported?",
+          "item_question_background": "A clear purpose frames the model scope and justifies design choices.",
+          "item_extraction_instruction": "Extract the explicit study purpose, modelling rationale, and intended use (experimental frame).",
+          "item_expected_location": "Introduction / Objectives",
+          "item_optional": false
+        },
+        {
+          "section": "Objectives",
+          "item": "1.2",
+          "item_name": "Model outputs",
+          "item_question": "Are the model outputs that will be estimated and analyzed clearly specified?",
+          "item_question_background": "Explicit outputs are required to evaluate whether analyses address study aims.",
+          "item_extraction_instruction": "Extract all primary and secondary model outputs, including definitions and units where available.",
+          "item_expected_location": "Objectives / Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Objectives",
+          "item": "1.3",
+          "item_name": "Experimentation aims",
+          "item_question": "Are the aims of simulation experimentation clearly defined?",
+          "item_question_background": "Experiment aims clarify what scenarios or interventions are being compared and why.",
+          "item_extraction_instruction": "Extract the stated objectives of experimentation, including optimization, comparison, sensitivity, or what-if goals.",
+          "item_expected_location": "Methods / Experiment design",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Logic",
+      "items": [
+        {
+          "section": "Logic",
+          "item": "2.1",
+          "item_name": "Base model overview diagram",
+          "item_question": "Is an overview diagram of the base model logic provided?",
+          "item_question_background": "Overview diagrams make complex model structure interpretable and auditable.",
+          "item_extraction_instruction": "Extract whether a high-level model diagram is provided and what key model components it includes.",
+          "item_expected_location": "Methods / Model overview / Figures",
+          "item_optional": false
+        },
+        {
+          "section": "Logic",
+          "item": "2.2",
+          "item_name": "Base model logic",
+          "item_question": "Is the base model logic described in enough detail to understand how the model works?",
+          "item_question_background": "Detailed base logic is required for reproducibility and reuse.",
+          "item_extraction_instruction": "Extract textual and/or mathematical description of baseline process logic, state transitions, and mechanism flow.",
+          "item_expected_location": "Methods / Model logic",
+          "item_optional": false
+        },
+        {
+          "section": "Logic",
+          "item": "2.3",
+          "item_name": "Scenario logic",
+          "item_question": "Are differences in logic between baseline and alternative scenarios clearly described?",
+          "item_question_background": "Without clear scenario deltas, it is difficult to attribute output differences to model changes.",
+          "item_extraction_instruction": "Extract each scenario and precisely what logic changes relative to the base model.",
+          "item_expected_location": "Methods / Experiment design",
+          "item_optional": true
+        },
+        {
+          "section": "Logic",
+          "item": "2.4",
+          "item_name": "Algorithms",
+          "item_question": "Are key algorithms, rules, or equations used in the model documented?",
+          "item_question_background": "Algorithmic transparency is essential for independent replication.",
+          "item_extraction_instruction": "Extract algorithms, equations, decision rules, and pseudo-code used in core model logic.",
+          "item_expected_location": "Methods / Technical appendix",
+          "item_optional": false
+        },
+        {
+          "section": "Logic",
+          "item": "2.5",
+          "item_name": "Components",
+          "item_question": "Are model components and their roles clearly described for the simulation paradigm used?",
+          "item_question_background": "Component-level detail anchors reproducibility for DES, ABS, and SD models.",
+          "item_extraction_instruction": "Extract all major components (for example entities/activities/resources, agents/environment/interactions, or stocks/flows/auxiliaries) and their roles.",
+          "item_expected_location": "Methods / Model specification",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Data",
+      "items": [
+        {
+          "section": "Data",
+          "item": "3.1",
+          "item_name": "Data sources",
+          "item_question": "Are all data sources used for model development and experimentation described?",
+          "item_question_background": "Source transparency is required to assess data quality and representativeness.",
+          "item_extraction_instruction": "Extract all input data sources, sample sizes, and acquisition methods.",
+          "item_expected_location": "Methods / Data",
+          "item_optional": false
+        },
+        {
+          "section": "Data",
+          "item": "3.2",
+          "item_name": "Input parameters",
+          "item_question": "Are parameter values/distributions and their origins documented?",
+          "item_question_background": "Parameter provenance underpins reproducible execution and sensitivity checks.",
+          "item_extraction_instruction": "Extract fixed parameters, stochastic distributions, parameter values, and source/estimation approach for each.",
+          "item_expected_location": "Methods / Data / Tables",
+          "item_optional": false
+        },
+        {
+          "section": "Data",
+          "item": "3.3",
+          "item_name": "Pre-processing",
+          "item_question": "Are data preprocessing and transformation steps reported?",
+          "item_question_background": "Preprocessing can materially affect model behaviour and outcomes.",
+          "item_extraction_instruction": "Extract data-cleaning, transformation, aggregation, and feature-engineering steps prior to simulation.",
+          "item_expected_location": "Methods / Data preprocessing",
+          "item_optional": false
+        },
+        {
+          "section": "Data",
+          "item": "3.4",
+          "item_name": "Assumptions",
+          "item_question": "Are explicit assumptions made during modelling and data preparation documented?",
+          "item_question_background": "Assumptions are often key drivers of model validity and transferability.",
+          "item_extraction_instruction": "Extract all substantive modelling and data assumptions, including justifications.",
+          "item_expected_location": "Methods / Assumptions",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Experimentation",
+      "items": [
+        {
+          "section": "Experimentation",
+          "item": "4.1",
+          "item_name": "Initialisation",
+          "item_question": "Is model initialization clearly reported?",
+          "item_question_background": "Initialization choices affect early dynamics and output validity.",
+          "item_extraction_instruction": "Extract initial state settings, warm-up procedures (if used), and handling of transient conditions.",
+          "item_expected_location": "Methods / Experiment setup",
+          "item_optional": false
+        },
+        {
+          "section": "Experimentation",
+          "item": "4.2",
+          "item_name": "Run length",
+          "item_question": "Is run length and stopping condition clearly specified?",
+          "item_question_background": "Run length determines whether outcomes are representative and comparable.",
+          "item_extraction_instruction": "Extract run duration, stopping criteria, and time horizon rationale.",
+          "item_expected_location": "Methods / Experiment setup",
+          "item_optional": false
+        },
+        {
+          "section": "Experimentation",
+          "item": "4.3",
+          "item_name": "Estimation approach",
+          "item_question": "Is the output estimation approach adequately described?",
+          "item_question_background": "Replication and estimation choices determine statistical reliability.",
+          "item_extraction_instruction": "Extract number of replications, summary statistics, confidence intervals, and any variance-reduction approach.",
+          "item_expected_location": "Methods / Analysis",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Implementation",
+      "items": [
+        {
+          "section": "Implementation",
+          "item": "5.1",
+          "item_name": "Software or programming language",
+          "item_question": "Is the implementation software or programming language clearly identified?",
+          "item_question_background": "Implementation context is needed to recreate execution environment.",
+          "item_extraction_instruction": "Extract software/platform/language names and version/build details.",
+          "item_expected_location": "Methods / Implementation",
+          "item_optional": false
+        },
+        {
+          "section": "Implementation",
+          "item": "5.2",
+          "item_name": "Random sampling",
+          "item_question": "Are random-number generation and stochastic sampling procedures reported when relevant?",
+          "item_question_background": "Stochastic reproducibility depends on RNG settings and sampling method.",
+          "item_extraction_instruction": "Extract pseudo-random number generator details, seeding/stream policy, and sampling method for stochastic elements.",
+          "item_expected_location": "Methods / Implementation",
+          "item_optional": true
+        },
+        {
+          "section": "Implementation",
+          "item": "5.3",
+          "item_name": "Model execution",
+          "item_question": "Is model execution control clearly described?",
+          "item_question_background": "Execution policy (for example event processing or integration step) affects results.",
+          "item_extraction_instruction": "Extract execution approach details such as event scheduling mechanism, time-step/integration settings, and execution workflow.",
+          "item_expected_location": "Methods / Implementation",
+          "item_optional": false
+        },
+        {
+          "section": "Implementation",
+          "item": "5.4",
+          "item_name": "System specification",
+          "item_question": "Are system/hardware specifications and runtime context documented when relevant?",
+          "item_question_background": "Runtime context supports practical reproducibility, especially for larger models.",
+          "item_extraction_instruction": "Extract hardware and operating environment details and any relevant runtime characteristics.",
+          "item_expected_location": "Methods / Implementation",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Code access",
+      "items": [
+        {
+          "section": "Code access",
+          "item": "6.1",
+          "item_name": "Computer model sharing statement",
+          "item_question": "Is there a clear statement on model/code accessibility?",
+          "item_question_background": "Model sharing statements are central to reproducibility and reuse.",
+          "item_extraction_instruction": "Extract model/code sharing policy, repository/access path, and any restrictions.",
+          "item_expected_location": "Data availability / Supplement / Methods",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary",
+      "Engineering & Technology",
+      "Social sciences"
+    ],
+    "Aliases": [
+      "STRESS",
+      "STRESS guidelines",
+      "Strengthening the Reporting of Empirical Simulation Studies"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bSTRESS\\s+guidelines?\\b",
+          "\\bStrengthening\\s+the\\s+Reporting\\s+of\\s+Empirical\\s+Simulation\\s+Studies\\b",
+          "\\bdiscrete[-\\s]?event\\s+simulation\\b",
+          "\\bDES\\b",
+          "\\bagent[-\\s]?based\\s+simulation\\b",
+          "\\bagent[-\\s]?based\\s+model\\b",
+          "\\bABM\\b",
+          "\\bsystem\\s+dynamics\\b",
+          "\\bsystem\\s+dynamics\\s+model\\b",
+          "\\bsimulation\\s+model\\b",
+          "\\bsimulation\\s+study\\b",
+          "\\bempirical\\s+simulation\\b",
+          "\\bMonte\\s+Carlo\\s+simulation\\b",
+          "\\bqueue?u?ing\\s+simulation\\b",
+          "\\bevent\\s+scheduling\\b",
+          "\\bsimulation\\s+experiment\\b",
+          "\\bscenario\\s+analysis\\b",
+          "\\bwhat[-\\s]?if\\s+analysis\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bwarm[-\\s]?up\\s+period\\b",
+          "\\brun\\s+length\\b",
+          "\\bnumber\\s+of\\s+replications\\b",
+          "\\brandom\\s+seed\\b",
+          "\\brandom\\s+number\\s+generator\\b",
+          "\\bstock[-\\s]?flow\\s+diagram\\b",
+          "\\bverification\\s+and\\s+validation\\b",
+          "\\bmodel\\s+calibration\\b",
+          "\\binput\\s+parameter(s)?\\b",
+          "\\bscenario\\s+logic\\b",
+          "\\bbase\\s+model\\s+logic\\b",
+          "\\bmodel\\s+sharing\\s+statement\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsimulation\\b",
+          "\\b(model|study|experiment|scenario)\\b"
+        ]
+      }
+    ],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bpsychological\\s+stress\\b",
+          "\\bstress\\s+disorder\\b",
+          "\\bpost[-\\s]?traumatic\\s+stress\\s+disorder\\b",
+          "\\bcardiac\\s+stress\\s+test\\b",
+          "\\bexercise\\s+stress\\s+test\\b",
+          "\\bheat\\s+stress\\b",
+          "\\boxidative\\s+stress\\b",
+          "\\bstress\\s+fracture\\b",
+          "\\bmaterial\\s+stress\\b",
+          "\\bstructural\\s+stress\\b",
+          "\\btensile\\s+stress\\b",
+          "\\bstress[-\\s]?strain\\b",
+          "\\bbiomechanical\\s+stress\\s+testing\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bSTRESS-DES\\b",
+          "\\bSTRESS-ABS\\b",
+          "\\bSTRESS-SD\\b",
+          "\\bdiscrete[-\\s]?event\\s+simulation\\b",
+          "\\bagent[-\\s]?based\\s+simulation\\b",
+          "\\bsystem\\s+dynamics\\s+model\\b",
+          "\\bqueue?u?ing\\s+simulation\\b",
+          "\\bevent\\s+scheduling\\b",
+          "\\bsimulation\\s+experiment(s)?\\b",
+          "\\bscenario\\s+analysis\\b",
+          "\\bwhat[-\\s]?if\\s+analysis\\b",
+          "\\bwarm[-\\s]?up\\s+period\\b",
+          "\\brun\\s+length\\b",
+          "\\bnumber\\s+of\\s+replications\\b",
+          "\\brandom\\s+seed\\b",
+          "\\brandom\\s+number\\s+generator\\b",
+          "\\bstock[-\\s]?flow\\s+diagram\\b",
+          "\\bverification\\s+and\\s+validation\\b",
+          "\\bmodel\\s+calibration\\b",
+          "\\bmodel\\s+sharing\\s+statement\\b",
+          "\\binput\\s+parameter\\s+distribution(s)?\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bpost[-\\s]?traumatic\\s+stress\\s+disorder\\b",
+          "\\bPTSD\\b",
+          "\\bDASS[-\\s]?21\\b",
+          "\\bperceived\\s+stress\\s+scale\\b",
+          "\\bheat\\s+stress\\s+index\\b",
+          "\\boxidative\\s+stress\\s+marker(s)?\\b",
+          "\\btensile\\s+strength\\b",
+          "\\bvon\\s+mises\\s+stress\\b",
+          "\\bstress[-\\s]?strain\\s+curve\\b",
+          "\\bstress\\s+echocardiography\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We developed a discrete-event simulation of emergency department flow and report model objectives, entity logic, warm-up period, run length, number of replications, and random seed handling.",
+      "An agent-based model study evaluates intervention scenarios with explicit base-model logic, scenario logic changes, calibration, verification and validation, and a model-sharing statement.",
+      "This system dynamics simulation reports stock-flow structure, parameter sources, preprocessing assumptions, simulation experiment setup, and implementation details needed for replication.",
+      "The manuscript compares what-if scenarios in a queueing simulation and provides input parameter distributions, random number generator details, and confidence-interval estimation across replications."
+    ],
+    "EvidenceExamplesNegative": [
+      "This manuscript studies psychological stress and depression scores in students and does not describe any empirical simulation model.",
+      "The paper reports post-traumatic stress disorder prevalence and logistic regression analysis, with no DES, ABS, SD, or simulation experimentation.",
+      "This article evaluates cardiac exercise stress tests in patients and includes no simulation model logic, run configuration, or replication setup.",
+      "The study investigates tensile and stress-strain properties of composite materials and is not an empirical simulation-study reporting manuscript."
+    ],
+    "Explain": "Use as a reporting-overlay support guide for empirical simulation manuscripts when DES/ABS/SD or equivalent simulation-experiment language appears in methods/implementation text, even if the paper does not explicitly cite STRESS."
+  }
+}

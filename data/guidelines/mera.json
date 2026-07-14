@@ -1,0 +1,686 @@
+{
+  "id": "mera",
+  "Name": "mERA",
+  "LongName": "mHealth Evidence Reporting and Assessment checklist",
+  "Description": "mERA is a reporting framework for digital health interventions, designed to improve transparency and comparability of mHealth program evidence by combining core digital-health reporting criteria with study-method reporting items.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Digital health intervention reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To standardize reporting of digital health intervention studies so program content, context, implementation, and methodological rigor are sufficiently documented for appraisal and synthesis.",
+  "ManuscriptType": [
+    "Original research article",
+    "Digital health intervention study",
+    "mHealth implementation study",
+    "Telemedicine program evaluation"
+  ],
+  "ManuscriptSubType": [
+    "mHealth effectiveness study",
+    "Digital intervention feasibility study",
+    "Implementation evaluation"
+  ],
+  "StudyType": [
+    "Digital health intervention study",
+    "Implementation research",
+    "Quantitative and mixed-methods program evaluation"
+  ],
+  "Keywords": [
+    "mERA",
+    "mHealth Evidence Reporting and Assessment",
+    "digital health reporting",
+    "telemedicine reporting",
+    "mHealth checklist",
+    "WHO mTERG",
+    "digital intervention evidence",
+    "implementation reporting"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Digital health intervention study",
+      "Implementation research",
+      "Quantitative and mixed-methods program evaluation"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Engineering & Technology",
+      "Cross-disciplinary"
+    ],
+    "Coverage": "Studies that evaluate, pilot, or implement digital health or mHealth interventions and need transparent reporting of intervention context, implementation details, and methodological quality.",
+    "Focus": "Comprehensive reporting of digital intervention rationale, delivery context, study methods, participant flow, outcomes, and study quality criteria relevant to digital health evidence.",
+    "ContrastWith": "mERA is a digital-health reporting overlay and should be combined with study-design-specific standards such as CONSORT or STROBE where appropriate."
+  },
+  "references": {
+    "primary": {
+      "description": "Agarwal S, Lefevre AE, Labrique AB. A Call to Digital Health Practitioners: New Guidelines Can Help Improve the Quality of Digital Health Evidence. JMIR Mhealth Uhealth. 2017;5(10):e136.",
+      "url": "https://doi.org/10.2196/mhealth.6640"
+    },
+    "secondary": [
+      {
+        "description": "Agarwal S, LeFevre AE, Lee J, et al. Guidelines for reporting of health interventions using mobile phones: mobile health (mHealth) evidence reporting and assessment (mERA) checklist. BMJ. 2016;352:i1174.",
+        "url": "https://doi.org/10.1136/bmj.i1174"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "mERA methodology checklist",
+      "items": [
+        {
+          "section": "mERA methodology checklist",
+          "item": "1",
+          "item_name": "Rationale/scientific rationale",
+          "item_question": "Is mERA methodology item 1 (Rationale/scientific rationale) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 1 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "2",
+          "item_name": "Objectives/hypotheses",
+          "item_question": "Is mERA methodology item 2 (Objectives/hypotheses) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 2 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "3",
+          "item_name": "Logic model/theoretical framework",
+          "item_question": "Is mERA methodology item 3 (Logic model/theoretical framework) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 3 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "4",
+          "item_name": "Study design",
+          "item_question": "Is mERA methodology item 4 (Study design) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 4 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "5",
+          "item_name": "Outcomes",
+          "item_question": "Is mERA methodology item 5 (Outcomes) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 5 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "6",
+          "item_name": "Data collection methods",
+          "item_question": "Is mERA methodology item 6 (Data collection methods) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 6 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "7",
+          "item_name": "Participant eligibility",
+          "item_question": "Is mERA methodology item 7 (Participant eligibility) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 7 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "8",
+          "item_name": "Participant recruitment",
+          "item_question": "Is mERA methodology item 8 (Participant recruitment) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 8 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "9",
+          "item_name": "Bias",
+          "item_question": "Is mERA methodology item 9 (Bias) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 9 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "10",
+          "item_name": "Sampling",
+          "item_question": "Is mERA methodology item 10 (Sampling) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 10 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "11",
+          "item_name": "Setting and location",
+          "item_question": "Is mERA methodology item 11 (Setting and location) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 11 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "12",
+          "item_name": "Comparator",
+          "item_question": "Is mERA methodology item 12 (Comparator) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 12 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "13",
+          "item_name": "Data sources",
+          "item_question": "Is mERA methodology item 13 (Data sources) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 13 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "14",
+          "item_name": "Enrollment",
+          "item_question": "Is mERA methodology item 14 (Enrollment) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 14 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "15",
+          "item_name": "Description of study population",
+          "item_question": "Is mERA methodology item 15 (Description of study population) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 15 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "16",
+          "item_name": "Reporting on outcomes",
+          "item_question": "Is mERA methodology item 16 (Reporting on outcomes) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 16 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "17",
+          "item_name": "Summary of evidence",
+          "item_question": "Is mERA methodology item 17 (Summary of evidence) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 17 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "18",
+          "item_name": "Limitations",
+          "item_question": "Is mERA methodology item 18 (Limitations) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 18 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "19",
+          "item_name": "Generalizability",
+          "item_question": "Is mERA methodology item 19 (Generalizability) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 19 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "20",
+          "item_name": "Conclusions",
+          "item_question": "Is mERA methodology item 20 (Conclusions) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 20 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "21",
+          "item_name": "Funding",
+          "item_question": "Is mERA methodology item 21 (Funding) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 21 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "22",
+          "item_name": "Ethical considerations",
+          "item_question": "Is mERA methodology item 22 (Ethical considerations) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 22 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "23",
+          "item_name": "Competing interests",
+          "item_question": "Is mERA methodology item 23 (Competing interests) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 23 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "24",
+          "item_name": "Confounding",
+          "item_question": "Is mERA methodology item 24 (Confounding) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 24 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "25",
+          "item_name": "Statistical methods",
+          "item_question": "Is mERA methodology item 25 (Statistical methods) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 25 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "26",
+          "item_name": "Missing data",
+          "item_question": "Is mERA methodology item 26 (Missing data) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 26 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "27",
+          "item_name": "Analytic methods",
+          "item_question": "Is mERA methodology item 27 (Analytic methods) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 27 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "28",
+          "item_name": "Data validation",
+          "item_question": "Is mERA methodology item 28 (Data validation) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 28 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "mERA methodology checklist",
+          "item": "29",
+          "item_name": "Reflexivity of account",
+          "item_question": "Is mERA methodology item 29 (Reflexivity of account) reported?",
+          "item_question_background": "Consistent reporting of digital health methods improves interpretability, synthesis, and implementation learning.",
+          "item_extraction_instruction": "Extract evidence that item 29 is reported, with the exact location/wording used by authors.",
+          "item_expected_location": "Methods / Results / Discussion / End matter (as applicable)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Textbox 1. mHealth Evidence Reporting and Assessment (mERA) methodology.",
+              "locator": "Textbox 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health",
+      "Engineering & Technology",
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "mERA",
+      "mHealth Evidence Reporting and Assessment",
+      "mERA checklist"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmERA\\b",
+          "\\bmHealth\\s+Evidence\\s+Reporting\\s+and\\s+Assessment\\b",
+          "\\bdigital\\s+health\\s+intervention\\b",
+          "\\btelemedicine\\b",
+          "\\bmHealth\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmera\\s+district\\b",
+          "\\bMera\\s+region\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bWHO\\b",
+          "\\bmTERG\\b",
+          "\\bdigital\\s+health\\s+evidence\\b",
+          "\\bparticipant\\s+recruitment\\b",
+          "\\bdata\\s+collection\\s+methods\\b",
+          "\\bconfounding\\b",
+          "\\bmissing\\s+data\\b",
+          "\\bethical\\s+considerations\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "The study reports mERA-aligned digital health intervention details with methods, recruitment, outcomes, and implementation context.",
+      "Authors explicitly cite mHealth Evidence Reporting and Assessment guidance.",
+      "Telemedicine implementation outcomes are reported alongside methodological quality items."
+    ],
+    "EvidenceExamplesNegative": [
+      "The manuscript is a generic software engineering paper without health intervention evidence.",
+      "The article mentions mobile apps but provides no intervention evaluation methods or outcomes.",
+      "This is a policy commentary with no study design or participant reporting."
+    ],
+    "Explain": "Adds a digital-health reporting overlay when manuscripts evaluate mHealth/telemedicine interventions and need structured evidence reporting beyond design-specific checklists."
+  }
+}

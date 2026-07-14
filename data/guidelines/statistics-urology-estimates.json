@@ -1,0 +1,420 @@
+{
+  "id": "statistics-urology-estimates",
+  "Name": "Statistics in Urology: Estimates",
+  "LongName": "Guidelines for Reporting of Statistics for Clinical Research in Urology: Estimates",
+  "Description": "Estimation-focused statistical reporting overlay for clinical research manuscripts in urology. It emphasizes effect sizes, confidence intervals, time-to-event reporting, and clear presentation of study estimates.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical research statistics reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Improve reporting of estimates in urology manuscripts by emphasizing effect sizes, confidence intervals, precision, clinically interpretable comparisons, and careful reporting of time-to-event analyses.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical research article",
+    "Observational study report",
+    "Randomized trial report",
+    "Diagnostic or prognostic study report"
+  ],
+  "ManuscriptSubType": [
+    "Clinical outcomes study",
+    "Time-to-event analysis report",
+    "Prediction or prognostic model report",
+    "Diagnostic test evaluation",
+    "Meta-analysis with statistical synthesis"
+  ],
+  "StudyType": [
+    "Clinical study",
+    "Observational study",
+    "Randomized trial",
+    "Diagnostic study",
+    "Prognostic study",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "statistics reporting",
+    "clinical research statistics",
+    "urology statistics",
+    "p-values",
+    "confidence intervals",
+    "time-to-event analysis",
+    "multivariable models",
+    "diagnostic tests",
+    "clinical interpretation",
+    "effect estimates",
+    "hazard ratio",
+    "Kaplan-Meier"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical study",
+      "Observational study",
+      "Randomized trial",
+      "Diagnostic study",
+      "Prognostic study",
+      "Meta-analysis"
+    ],
+    "Disciplines": [
+      "Urology",
+      "Clinical medicine",
+      "Medical research",
+      "Biostatistics"
+    ],
+    "Coverage": "Clinical research manuscripts, especially in urology, that report statistical analyses of interventions, outcomes, predictors, diagnostic tests, prognostic models, or evidence synthesis.",
+    "Focus": "Transparent reporting of cohort selection and randomization, appropriate description of statistical methods, correct interpretation of p-values and confidence intervals, emphasis on effect estimates, careful handling of time-to-event analyses, sound multivariable and diagnostic modeling, and clinically meaningful conclusions.",
+    "ContrastWith": "Not a disease-specific treatment guideline and not a substitute for design-specific reporting statements such as CONSORT, STROBE, TRIPOD, or AMSTAR. It is a cross-cutting statistical overlay for clinical research reporting."
+  },
+  "references": {
+    "primary": {
+      "description": "Assel M, Sjoberg D, Elders A, Wang X, Huo D, Botchway A, Delfino K, Fan Y, Zhao Z, Koyama T, Hollenbeck B, Qin R, Zahnd W, Zabor EC, Kattan MW, Vickers AJ. Guidelines for Reporting of Statistics for Clinical Research in Urology. The Journal of Urology. 2019;201:595-604.",
+      "url": "https://www.auajournals.org/doi/epdf/10.1097/JU.0000000000000001"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Reporting of Study Estimates",
+      "items": [
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.1",
+          "item_name": "Use appropriate levels of precision",
+          "item_question": "Does the manuscript follow the recommendation to \"use appropriate levels of precision\"?",
+          "item_question_background": "Overprecise numbers imply a level of measurement certainty that the data do not support; the paper urges authors to think about every reported number instead of copying software output verbatim.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"use appropriate levels of precision\".",
+          "item_expected_location": "Abstract / Results / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Use appropriate levels of precision",
+              "locator": "Guideline 3.1"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.2",
+          "item_name": "Avoid redundant statistics in cohort descriptions",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid redundant statistics in cohort descriptions\"?",
+          "item_question_background": "Each descriptive number should add information; reporting both sexes when one determines the other, or group summaries plus the combined cohort, clutters the table without informing readers.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid redundant statistics in cohort descriptions\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Avoid redundant statistics in cohort descriptions",
+              "locator": "Guideline 3.2"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.3",
+          "item_name": "For descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided",
+          "item_question": "Does the manuscript follow the recommendation to \"for descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided\"?",
+          "item_question_background": "The authors prefer medians and quartiles because they reveal the center and spread for many patients, whereas the range reflects only two observations and is usually uninformative about distribution.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "For descriptive statistics, median and quartiles are preferred over means and standard deviations or standard errors, and range should be avoided",
+              "locator": "Guideline 3.3"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.4",
+          "item_name": "Report estimates for the main study questions",
+          "item_question": "Does the manuscript follow the recommendation to \"report estimates for the main study questions\"?",
+          "item_question_background": "The article wants authors to answer the actual scientific question numerically, such as a between-group difference or effect size, rather than only listing group summaries or significance labels.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"report estimates for the main study questions\".",
+          "item_expected_location": "Abstract / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report estimates for the main study questions",
+              "locator": "Guideline 3.4"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.5",
+          "item_name": "Report confidence intervals for the main estimates of interest",
+          "item_question": "Does the manuscript follow the recommendation to \"report confidence intervals for the main estimates of interest\"?",
+          "item_question_background": "Confidence intervals should surround the estimate that answers the main question, such as a difference between groups, rather than every descriptive number in the paper.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"report confidence intervals for the main estimates of interest\".",
+          "item_expected_location": "Abstract / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report confidence intervals for the main estimates of interest",
+              "locator": "Guideline 3.5"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.6",
+          "item_name": "Do not treat categorical variables as continuous",
+          "item_question": "Does the manuscript follow the recommendation to \"do not treat categorical variables as continuous\"?",
+          "item_question_background": "Ordinal categories like Gleason groups do not have equal spacing, so averaging them or fitting a one-step increase model imposes numerical relationships the categories were never designed to carry.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not treat categorical variables as continuous\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Do not treat categorical variables as continuous",
+              "locator": "Guideline 3.6"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.7",
+          "item_name": "Avoid categorization of continuous variables unless there is a convincing rationale",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid categorization of continuous variables unless there is a convincing rationale\"?",
+          "item_question_background": "Turning age or biomarkers into bins discards information and assumes people within a category are effectively the same, which can be implausible and avoidable with continuous or non-linear modeling.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid categorization of continuous variables unless there is a convincing rationale\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Avoid categorization of continuous variables unless there is a convincing rationale",
+              "locator": "Guideline 3.7"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.8",
+          "item_name": "Do not use statistical methods to obtain cut points for clinical practice",
+          "item_question": "Does the manuscript follow the recommendation to \"do not use statistical methods to obtain cut points for clinical practice\"?",
+          "item_question_background": "Data-driven cut points based on smallest p-values or ROC geometry ignore real clinical tradeoffs, such as whether missing disease is worse than unnecessary treatment.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not use statistical methods to obtain cut points for clinical practice\".",
+          "item_expected_location": "Methods / Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Do not use statistical methods to obtain cut points for clinical practice",
+              "locator": "Guideline 3.8"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.9",
+          "item_name": "Association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling",
+          "item_question": "Does the manuscript follow the recommendation to \"association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling\"?",
+          "item_question_background": "The paper encourages direct visual display of how risk changes across a continuous predictor because plots and non-linear fits can show shapes of association that a single linear coefficient can hide.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling\".",
+          "item_expected_location": "Results / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Association between a continuous predictor and outcome can be demonstrated graphically, particularly by using non-linear modeling",
+              "locator": "Guideline 3.9"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.10",
+          "item_name": "Do not ignore significant heterogeneity in meta-analyses",
+          "item_question": "Does the manuscript follow the recommendation to \"do not ignore significant heterogeneity in meta-analyses\"?",
+          "item_question_background": "A heterogeneity signal should trigger investigation into why studies differ; simply switching attention to a random-effects estimate leaves the substantive sources of variation unexplained.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"do not ignore significant heterogeneity in meta-analyses\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Do not ignore significant heterogeneity in meta-analyses",
+              "locator": "Guideline 3.10"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.11",
+          "item_name": "For time-to-event variables, report the number but not the proportion of events",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event variables, report the number but not the proportion of events\"?",
+          "item_question_background": "Because patients enter at different times and are followed unequally, a raw event proportion is meaningless for survival data; time-based probabilities or median survival convey the analysis appropriately.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event variables, report the number but not the proportion of events\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event variables, report the number but not the proportion of events",
+              "locator": "Guideline 3.11"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.12",
+          "item_name": "For time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time\"?",
+          "item_question_background": "Overall median follow-up can badly mislead when deaths are common or late entrants are added, so the article recommends follow-up summaries that reflect event-free observation more honestly.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, report median follow-up for patients without the event or the number followed without an event at a given follow-up time",
+              "locator": "Guideline 3.12"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.13",
+          "item_name": "For time-to-event analyses, describe when follow-up starts, and when and how patients are censored",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, describe when follow-up starts, and when and how patients are censored\"?",
+          "item_question_background": "The paper highlights that incorrect censoring dates can overestimate survival and that cause-specific endpoints require careful decisions about deaths from other causes and possible competing-risk methods.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, describe when follow-up starts, and when and how patients are censored\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, describe when follow-up starts, and when and how patients are censored",
+              "locator": "Guideline 3.13"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.14",
+          "item_name": "For time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event\"?",
+          "item_question_background": "These quantities are described as problematic under censoring because they distort time-to-event information instead of respecting incomplete follow-up.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event\".",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, avoid reporting mean follow-up or survival time, or estimates of survival for those who had the event",
+              "locator": "Guideline 3.14"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.15",
+          "item_name": "For time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates",
+          "item_question": "Does the manuscript follow the recommendation to \"for time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates\"?",
+          "item_question_background": "Using information learned after follow-up begins creates invalid analyses, so the article recommends landmark or time-dependent approaches when predictors evolve over time.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"for time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "For time-to-event analyses, make sure that all predictors are known at time zero or consider alternative approaches such as a landmark analysis or time-dependent covariates",
+              "locator": "Guideline 3.15"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Study Estimates",
+          "item": "3.16",
+          "item_name": "When presenting Kaplan-Meier figures, present the number at risk and truncate follow-up when numbers are low",
+          "item_question": "Does the manuscript follow the recommendation to \"when presenting kaplan-meier figures, present the number at risk and truncate follow-up when numbers are low\"?",
+          "item_question_background": "Numbers at risk help readers see censoring over time, and the paper notes that the tail of a Kaplan-Meier curve becomes unstable once very few patients remain under observation.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"when presenting kaplan-meier figures, present the number at risk and truncate follow-up when numbers are low\".",
+          "item_expected_location": "Figures / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "When presenting Kaplan-Meier figures, present the number at risk and truncate follow-up when numbers are low",
+              "locator": "Guideline 3.16"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology: Estimates",
+      "Statistics in Urology: Estimates",
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+      "clinical research statistics reporting guideline",
+      "urology statistics reporting guideline"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\burology\\b",
+          "\\bclinical research\\b",
+          "\\bstatistics\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bp-value[s]?\\b",
+          "\\bconfidence interval[s]?\\b",
+          "\\bKaplan[- ]Meier\\b",
+          "\\bmultivariable\\b",
+          "\\bhazard ratio\\b",
+          "\\bdecision curve\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdo not accept the null hypothesis\\b",
+          "\\bdescribe cohort selection fully\\b",
+          "\\ballocation concealment\\b",
+          "\\btime[- ]to[- ]event\\b",
+          "\\boverfit\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative meta-analysis\\b",
+          "\\banimal experiment\\b",
+          "\\bcase report\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A clinical paper discusses p-values, confidence intervals, Kaplan-Meier curves, multivariable models, or diagnostic-test performance and needs a statistical reporting overlay.",
+      "A urology outcomes manuscript reports time-to-event analyses, hazard ratios, calibration, or decision curves and would benefit from this guideline."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely qualitative study without statistical inference is not a match.",
+      "A lab protocol or disease-management guideline is not the target of this reporting standard."
+    ],
+    "Explain": "Use this module when a urology clinical manuscript needs help presenting effect estimates, confidence intervals, time-to-event results, and other quantitative summaries clearly."
+  }
+}

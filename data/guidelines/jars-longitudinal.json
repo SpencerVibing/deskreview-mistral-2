@@ -1,0 +1,227 @@
+{
+  "id": "jars-longitudinal",
+  "Name": "JARS-Longitudinal",
+  "LongName": "JARS-Quant Table 4: Reporting Standards for Longitudinal Studies",
+  "Description": "The JARS-Quant longitudinal table adds reporting expectations specific to studies that observe the same unit on the same response variables across multiple occasions.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology longitudinal reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the reporting of longitudinal studies by specifying expectations for wave-by-wave sample description, attrition, contextual changes, timing, missing data, analytic assumptions, and overlap with prior publications.",
+  "ManuscriptType": [
+    "Original research article",
+    "Longitudinal psychology report",
+    "Developmental or educational longitudinal study"
+  ],
+  "ManuscriptSubType": [
+    "Panel study",
+    "Repeated-measures longitudinal study",
+    "Prospective longitudinal cohort"
+  ],
+  "StudyType": [
+    "Longitudinal study",
+    "Repeated observation study"
+  ],
+  "Keywords": [
+    "JARS longitudinal",
+    "longitudinal reporting",
+    "attrition",
+    "waves of data collection",
+    "repeated measures",
+    "multiple publication overlap"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Longitudinal study",
+      "Repeated observation study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Education"
+    ],
+    "Coverage": "Psychology and related behavioral or educational studies that repeatedly observe the same unit over time or across prespecified occasions.",
+    "Focus": "Reporting of sample characteristics, recruitment and retention, attrition, contextual changes over time, timing of waves, missing-data handling, longitudinal analytic assumptions, and prior publication overlap.",
+    "ContrastWith": "Not intended for single-session within-subject designs, multivariate-outcome designs without repeated measurement of the same attribute, or time-series experiments with distinct standards. This module is used together with the relevant JARS-Quant base design."
+  },
+  "references": {
+    "primary": {
+      "description": "Appelbaum M, Cooper H, Kline RB, Mayo-Wilson E, Nezu AM, Rao SM. Journal Article Reporting Standards for Quantitative Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018. PMID: 29345484.",
+      "url": "https://psycnet.apa.org/fulltext/2018-00750-002.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Sample and Retention",
+      "items": [
+        {
+          "section": "Sample and Retention",
+          "item": "1",
+          "item_name": "Describe longitudinal sample characteristics and recruitment unit",
+          "item_question": "Does the manuscript report the sampling or reporting unit and the key sample characteristics relevant to longitudinal interpretation?",
+          "item_question_background": "Longitudinal studies require a clear statement of the unit being followed and enough demographic and contextual information to understand who is retained across waves.",
+          "item_extraction_instruction": "Extract the reporting unit and sample characteristics such as N per group, age, sex, ethnicity, socioeconomic status, family or geographic context, when applicable.",
+          "item_expected_location": "Method / Sample description",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Describe reporting (sampling or randomization) unit ... N per group, age, and sex distribution ... Country, region, city, and geographic characteristics.",
+              "locator": "Table 4 sample characteristics row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Sample and Retention",
+          "item": "2",
+          "item_name": "Report attrition and retention patterns",
+          "item_question": "Does the manuscript report attrition at each wave and any differential attrition across major sociodemographic groups or experimental conditions?",
+          "item_question_background": "Attrition patterns can drive bias in longitudinal inference and must be described wave by wave rather than only as a final sample count.",
+          "item_extraction_instruction": "Extract attrition at each wave, reasons for attrition, and any differential attrition by key characteristics or conditions.",
+          "item_expected_location": "Method / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Report attrition at each wave, breaking down reasons for attrition. Report any differential attrition by major sociodemographic and experimental condition.",
+              "locator": "Table 4 attrition row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Sample and Retention",
+          "item": "3",
+          "item_name": "Describe contextual changes over the life of the study",
+          "item_question": "Does the manuscript report important contextual changes for participants or units as the study progressed?",
+          "item_question_background": "Major contextual shifts can alter the interpretation of longitudinal change, especially in long-running developmental, educational, or social studies.",
+          "item_extraction_instruction": "Extract any reported contextual changes such as school closures, economic changes, social shifts, or major life events that matter for interpreting later waves.",
+          "item_expected_location": "Method / Discussion / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Report any contextual changes for participants (units) as the study progressed.",
+              "locator": "Table 4 additional sample description row"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Timing and Analysis",
+      "items": [
+        {
+          "section": "Timing and Analysis",
+          "item": "4",
+          "item_name": "Report wave-specific measures and timing",
+          "item_question": "Does the manuscript specify the independent and dependent variables at each wave and the years or occasions of data collection?",
+          "item_question_background": "Longitudinal interpretation depends on knowing what was measured when, and whether constructs or measurement schedules changed over time.",
+          "item_extraction_instruction": "Extract the independent and dependent variables measured at each wave and the years or prespecified occasions when data were collected.",
+          "item_expected_location": "Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Specify independent variables and dependent variables at each wave of data collection. Report the years in which each wave of the data collection occurred.",
+              "locator": "Table 4 method and measurement row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Timing and Analysis",
+          "item": "5",
+          "item_name": "Report missing data handling and analytic assumptions",
+          "item_question": "Does the manuscript report the amount of missing data, how it was handled analytically, and which analytic approaches and assumptions were used?",
+          "item_question_background": "Longitudinal designs nearly always encounter missingness and modeling decisions that strongly affect estimates of change over time.",
+          "item_extraction_instruction": "Extract the extent of missing data, the analytic handling of missingness, the longitudinal analytic approach, and any stated assumptions.",
+          "item_expected_location": "Method / Analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Report the amount of missing data and how issues of missing data where handled analytically. Specify analytic approaches utilized and assumptions made in performing these analyses.",
+              "locator": "Table 4 missing data and analysis rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Timing and Analysis",
+          "item": "6",
+          "item_name": "Disclose overlap with prior publications",
+          "item_question": "Does the manuscript explain where portions of the data were previously published and the degree of overlap with the current report?",
+          "item_question_background": "Longitudinal datasets are often reused across multiple reports, so transparent disclosure of overlap is essential.",
+          "item_extraction_instruction": "Extract any statement about prior publications from the same longitudinal dataset and the extent of overlap with the present manuscript.",
+          "item_expected_location": "Author note / Method / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Provide information on where any portions of the data have been previously published and the degree of overlap with current report.",
+              "locator": "Table 4 multiple publication row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS longitudinal",
+      "JARS-Quant Table 4",
+      "Reporting Standards for Longitudinal Studies"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bJARS\\b.*\\blongitudinal\\b",
+          "\\blongitudinal study\\b",
+          "\\bwave of data collection\\b",
+          "\\battrition at each wave\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brepeated observations\\b",
+          "\\battrition\\b",
+          "\\bmissing data\\b",
+          "\\bwave\\b",
+          "\\bpanel study\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A developmental psychology paper reports wave-by-wave attrition, contextual changes, years of data collection, and overlap with earlier publications.",
+      "A longitudinal educational study explains missing-data handling and analytic assumptions alongside repeated observations of the same participants."
+    ],
+    "EvidenceExamplesNegative": [
+      "A single-session within-subject experiment is not a JARS-Longitudinal match.",
+      "A meta-analysis with no repeated participant observations should not map to this module."
+    ],
+    "Explain": "Use this module for psychology manuscripts that repeatedly observe the same unit across multiple occasions and need longitudinal-specific reporting."
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "id": "statistics-urology-multivariable",
+  "Name": "Statistics in Urology: Multivariable Models",
+  "LongName": "Guidelines for Reporting of Statistics for Clinical Research in Urology: Multivariable Models and Diagnostic Tests",
+  "Description": "Modeling-focused statistical reporting overlay for clinical research manuscripts in urology. It covers multivariable models, confounding adjustment, diagnostic-test reporting, model performance, and overfitting.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical research statistics reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Improve reporting of multivariable models and diagnostic-test analyses in urology manuscripts by clarifying adjustment strategy, model specification, performance reporting, and overfitting risks.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical research article",
+    "Observational study report",
+    "Randomized trial report",
+    "Diagnostic or prognostic study report"
+  ],
+  "ManuscriptSubType": [
+    "Clinical outcomes study",
+    "Time-to-event analysis report",
+    "Prediction or prognostic model report",
+    "Diagnostic test evaluation",
+    "Meta-analysis with statistical synthesis"
+  ],
+  "StudyType": [
+    "Clinical study",
+    "Observational study",
+    "Randomized trial",
+    "Diagnostic study",
+    "Prognostic study",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "statistics reporting",
+    "clinical research statistics",
+    "urology statistics",
+    "p-values",
+    "confidence intervals",
+    "time-to-event analysis",
+    "multivariable models",
+    "diagnostic tests",
+    "clinical interpretation",
+    "confounding adjustment",
+    "calibration",
+    "overfitting"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical study",
+      "Observational study",
+      "Randomized trial",
+      "Diagnostic study",
+      "Prognostic study",
+      "Meta-analysis"
+    ],
+    "Disciplines": [
+      "Urology",
+      "Clinical medicine",
+      "Medical research",
+      "Biostatistics"
+    ],
+    "Coverage": "Clinical research manuscripts, especially in urology, that report statistical analyses of interventions, outcomes, predictors, diagnostic tests, prognostic models, or evidence synthesis.",
+    "Focus": "Transparent reporting of cohort selection and randomization, appropriate description of statistical methods, correct interpretation of p-values and confidence intervals, emphasis on effect estimates, careful handling of time-to-event analyses, sound multivariable and diagnostic modeling, and clinically meaningful conclusions.",
+    "ContrastWith": "Not a disease-specific treatment guideline and not a substitute for design-specific reporting statements such as CONSORT, STROBE, TRIPOD, or AMSTAR. It is a cross-cutting statistical overlay for clinical research reporting."
+  },
+  "references": {
+    "primary": {
+      "description": "Assel M, Sjoberg D, Elders A, Wang X, Huo D, Botchway A, Delfino K, Fan Y, Zhao Z, Koyama T, Hollenbeck B, Qin R, Zahnd W, Zabor EC, Kattan MW, Vickers AJ. Guidelines for Reporting of Statistics for Clinical Research in Urology. The Journal of Urology. 2019;201:595-604.",
+      "url": "https://www.auajournals.org/doi/epdf/10.1097/JU.0000000000000001"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Multivariable Models and Diagnostic Tests",
+      "items": [
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.1",
+          "item_name": "Multivariable, propensity and instrumental variable analyses are not magic wands",
+          "item_question": "Does the manuscript follow the recommendation to \"multivariable, propensity and instrumental variable analyses are not magic wands\"?",
+          "item_question_background": "Adjustment cannot guarantee comparable groups because measured covariates are coarse proxies and important confounders may be unmeasured; the article also notes propensity and instrumental methods are often oversold.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"multivariable, propensity and instrumental variable analyses are not magic wands\".",
+          "item_expected_location": "Discussion / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Multivariable, propensity and instrumental variable analyses are not magic wands",
+              "locator": "Guideline 4.1"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.2",
+          "item_name": "Avoid stepwise selection",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid stepwise selection\"?",
+          "item_question_background": "Data-driven variable selection is criticized for increasing overfit and making downstream quantities such as confidence intervals hard to trust, except in limited exploratory settings.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid stepwise selection\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid stepwise selection",
+              "locator": "Guideline 4.2"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.3",
+          "item_name": "Avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions\"?",
+          "item_question_background": "When the scientific target is the intervention effect, reporting every adjustment covariate estimate distracts from the main result and often adds little because those covariate effects are already well known.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid reporting estimates such as odds or hazard ratios for covariates when examining the effects of interventions",
+              "locator": "Guideline 4.3"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.4",
+          "item_name": "Rescale predictors to obtain interpretable estimates",
+          "item_question": "Does the manuscript follow the recommendation to \"rescale predictors to obtain interpretable estimates\"?",
+          "item_question_background": "Very small-unit effect sizes can produce numerically awkward estimates, so the paper advises rescaling predictors, such as per 10 years instead of per year, to make intervals and effect sizes interpretable.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"rescale predictors to obtain interpretable estimates\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Rescale predictors to obtain interpretable estimates",
+              "locator": "Guideline 4.4"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.5",
+          "item_name": "Avoid reporting univariate and multivariable analyses unless there is a good reason",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid reporting univariate and multivariable analyses unless there is a good reason\"?",
+          "item_question_background": "The authors allow both only when comparing them answers a substantive mechanism question; otherwise routine side-by-side reporting adds noise rather than insight.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid reporting univariate and multivariable analyses unless there is a good reason\".",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid reporting univariate and multivariable analyses unless there is a good reason",
+              "locator": "Guideline 4.5"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.6",
+          "item_name": "Avoid ranking predictors in terms of strength",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid ranking predictors in terms of strength\"?",
+          "item_question_background": "Ranking predictors by odds ratios or hazard ratios is misleading because those numbers depend on coding, scale, variable type, and prevalence rather than on a universal notion of importance.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid ranking predictors in terms of strength\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Avoid ranking predictors in terms of strength",
+              "locator": "Guideline 4.6"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.7",
+          "item_name": "Discrimination is a property not of a multivariable model, but of the predictors and the data set",
+          "item_question": "Does the manuscript follow the recommendation to \"discrimination is a property not of a multivariable model, but of the predictors and the data set\"?",
+          "item_question_background": "Discrimination depends heavily on what predictors are available and how much they vary in the sample, so comparing model discrimination across different datasets can be deceptive.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"discrimination is a property not of a multivariable model, but of the predictors and the data set\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Discrimination is a property not of a multivariable model, but of the predictors and the data set",
+              "locator": "Guideline 4.7"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.8",
+          "item_name": "Correction for overfit is strongly recommended for internal validation",
+          "item_question": "Does the manuscript follow the recommendation to \"correction for overfit is strongly recommended for internal validation\"?",
+          "item_question_background": "Evaluating a model on the same data used to build it is likened to predicting last week’s weather; internal validation should therefore correct for overfit using resampling or cross-validation that repeats all model-building steps.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"correction for overfit is strongly recommended for internal validation\".",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Correction for overfit is strongly recommended for internal validation",
+              "locator": "Guideline 4.8"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.9",
+          "item_name": "Calibration should be reported and interpreted correctly",
+          "item_question": "Does the manuscript follow the recommendation to \"calibration should be reported and interpreted correctly\"?",
+          "item_question_background": "Calibration matters because patients care whether predicted risks match observed risks, and the article argues for graphical assessment on independent data rather than Hosmer-Lemeshow testing or claims that a model is inherently well calibrated.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"calibration should be reported and interpreted correctly\".",
+          "item_expected_location": "Results / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Calibration should be reported and interpreted correctly",
+              "locator": "Guideline 4.9"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.10",
+          "item_name": "Avoid reporting sensitivity and specificity for continuous predictors or a model",
+          "item_question": "Does the manuscript follow the recommendation to \"avoid reporting sensitivity and specificity for continuous predictors or a model\"?",
+          "item_question_background": "Sensitivity and specificity at chosen cut points do not by themselves reveal clinical value, because usefulness depends on prevalence and on the relative costs of false positives and false negatives.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"avoid reporting sensitivity and specificity for continuous predictors or a model\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Avoid reporting sensitivity and specificity for continuous predictors or a model",
+              "locator": "Guideline 4.10"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.11",
+          "item_name": "Report the clinical consequences of using a test or a model",
+          "item_question": "Does the manuscript follow the recommendation to \"report the clinical consequences of using a test or a model\"?",
+          "item_question_background": "The paper prefers concrete consequences, such as biopsies done and cancers found or missed at an illustrative threshold, over abstract summary statistics like ROC curves alone.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"report the clinical consequences of using a test or a model\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Report the clinical consequences of using a test or a model",
+              "locator": "Guideline 4.11"
+            }
+          ]
+        },
+        {
+          "section": "Multivariable Models and Diagnostic Tests",
+          "item": "4.12",
+          "item_name": "Interpret decision curves with careful reference to threshold probabilities",
+          "item_question": "Does the manuscript follow the recommendation to \"interpret decision curves with careful reference to threshold probabilities\"?",
+          "item_question_background": "A decision curve is only meaningful if the threshold range is clinically plausible; net benefit over unrealistic thresholds does not show a model is useful in practice.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"interpret decision curves with careful reference to threshold probabilities\".",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Interpret decision curves with careful reference to threshold probabilities",
+              "locator": "Guideline 4.12"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology: Multivariable Models and Diagnostic Tests",
+      "Statistics in Urology: Multivariable Models",
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+      "clinical research statistics reporting guideline",
+      "urology statistics reporting guideline"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\burology\\b",
+          "\\bclinical research\\b",
+          "\\bstatistics\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bp-value[s]?\\b",
+          "\\bconfidence interval[s]?\\b",
+          "\\bKaplan[- ]Meier\\b",
+          "\\bmultivariable\\b",
+          "\\bhazard ratio\\b",
+          "\\bdecision curve\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdo not accept the null hypothesis\\b",
+          "\\bdescribe cohort selection fully\\b",
+          "\\ballocation concealment\\b",
+          "\\btime[- ]to[- ]event\\b",
+          "\\boverfit\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative meta-analysis\\b",
+          "\\banimal experiment\\b",
+          "\\bcase report\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A clinical paper discusses p-values, confidence intervals, Kaplan-Meier curves, multivariable models, or diagnostic-test performance and needs a statistical reporting overlay.",
+      "A urology outcomes manuscript reports time-to-event analyses, hazard ratios, calibration, or decision curves and would benefit from this guideline."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely qualitative study without statistical inference is not a match.",
+      "A lab protocol or disease-management guideline is not the target of this reporting standard."
+    ],
+    "Explain": "Use this module when a urology clinical manuscript needs help reporting multivariable modeling, diagnostic performance, calibration, discrimination, confounding adjustment, or overfitting."
+  }
+}

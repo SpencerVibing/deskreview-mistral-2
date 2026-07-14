@@ -1,0 +1,413 @@
+{
+  "id": "rob2-individual",
+  "Name": "RoB 2",
+  "LongName": "Revised Cochrane Risk of Bias Tool for Randomized Trials (Individually Randomized Trials Guidance)",
+  "Description": "A structured risk-of-bias assessment tool for randomized trials. This guidance document explains how to apply RoB 2.0 to individually randomized trials, including the preliminary setup of the assessment, the five mandatory bias domains, the use of signalling questions, and the logic for reaching domain-level and overall risk-of-bias judgements.",
+  "Category": "quality_assessment_tool",
+  "Subdomain": "Randomized trials",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Assess the risk of bias for a particular result from a randomized trial by using structured signalling questions across mandatory bias domains and then reaching domain-level and overall judgements that are consistent and transparent.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Randomized trial report"
+  ],
+  "StudyType": [
+    "Randomized parallel group trial",
+    "Individually randomized trial",
+    "Randomized cross-over trial",
+    "Matched randomized design"
+  ],
+  "Keywords": [
+    "RoB 2",
+    "risk of bias",
+    "randomized trial",
+    "Cochrane",
+    "bias arising from the randomization process",
+    "missing outcome data",
+    "reported result selection",
+    "signalling questions"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Randomized parallel group trial",
+      "Individually randomized trial",
+      "Randomized cross-over trial",
+      "Matched randomized design"
+    ],
+    "Disciplines": [
+      "Clinical research",
+      "Evidence synthesis",
+      "Epidemiology",
+      "Biostatistics",
+      "Health research"
+    ],
+    "Coverage": "Assessment of risk of bias for specific results from randomized trials, especially individually randomized and parallel-group designs, with extensions noted for cluster-randomized and cross-over trials.",
+    "Focus": "Specifying the target result and effect of interest, answering signalling questions independently, judging five mandatory bias domains, and combining those judgements into an overall risk-of-bias assessment.",
+    "ContrastWith": "RoB 2 is a study-appraisal tool, not a manuscript-reporting standard. It is used to judge the trustworthiness of reported trial results rather than to tell authors how to write a trial report."
+  },
+  "references": {
+    "primary": {
+      "description": "Higgins JPT, Savovic J, Page MJ, Sterne JAC, et al. Revised Cochrane risk of bias tool for randomized trials (RoB 2.0), guidance for individually randomized trials. 20 October 2016.",
+      "url": "https://www.unisa.edu.au/contentassets/72bf75606a2b4abcaf7f17404af374ad/rob2-0_indiv_main_guidance.pdf"
+    },
+    "secondary": [
+      {
+        "description": "Risk of bias tools website, current version of RoB 2, including links to current parallel-trial guidance and separate cluster-randomized and crossover variants.",
+        "url": "https://www.riskofbias.info/welcome/rob-2-0-tool/current-version-of-rob-2"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "Assessment Setup",
+      "items": [
+        {
+          "section": "Assessment Setup",
+          "item": "1",
+          "item_name": "Specify the trial design being assessed",
+          "item_question": "Does the assessment specify the study design, such as randomized parallel group, cluster-randomized, or randomized cross-over or other matched design?",
+          "item_question_background": "RoB 2 is not a one-size-fits-all form used identically across every randomized design. The guidance begins by requiring the assessor to identify the design because some domains and supporting considerations differ across parallel, cluster, and cross-over variants.",
+          "item_extraction_instruction": "Extract the trial design named in the assessment and note whether the individually randomized guidance is appropriate or whether a design-specific RoB 2 variant should be used.",
+          "item_expected_location": "Risk-of-bias form / Methods / Review appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "We offer several templates for addressing these domains",
+              "locator": "Introduction"
+            },
+            {
+              "page": 5,
+              "quote": "Study design",
+              "locator": "Box 1 Preliminary considerations"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Assessment Setup",
+          "item": "2",
+          "item_name": "Specify the exact outcome and numerical result being assessed",
+          "item_question": "Does the assessment identify the particular outcome and the exact numerical result, such as a named estimate, table entry, figure, or paragraph, to which the risk-of-bias judgement applies?",
+          "item_question_background": "The guidance stresses that RoB 2 is result-specific, not just study-specific. A trial can contribute multiple outcomes and multiple analyses, so the assessor needs to anchor the judgement to a clearly identified result rather than to the study in the abstract.",
+          "item_extraction_instruction": "Extract the outcome, time point if relevant, and the exact numerical result or reference that uniquely identifies the result being assessed.",
+          "item_expected_location": "Risk-of-bias form / Review appendix / Evidence table",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Assessment of risk of bias is specific to a particular result",
+              "locator": "Introduction"
+            },
+            {
+              "page": 5,
+              "quote": "Specify the numerical result being assessed",
+              "locator": "Box 1 Preliminary considerations"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Assessment Setup",
+          "item": "3",
+          "item_name": "Specify the effect of interest",
+          "item_question": "Does the assessment state whether it is targeting the effect of assignment to intervention or the effect of starting and adhering to intervention?",
+          "item_question_background": "A central feature of RoB 2 is that risk-of-bias judgement depends on the estimand-like effect of interest. The same trial can face different concerns, especially for deviations from intended interventions, depending on whether the target is assignment or adherence.",
+          "item_extraction_instruction": "Extract which effect of interest is selected and any explanation for why that effect was chosen for the assessment.",
+          "item_expected_location": "Risk-of-bias form / Review methods / Assessment notes",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Review authors need to define the intervention effect in which they are interested",
+              "locator": "Effect of interest discussion"
+            },
+            {
+              "page": 5,
+              "quote": "to assess the effect of assignment to intervention",
+              "locator": "Box 1 Preliminary considerations"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Assessment Setup",
+          "item": "4",
+          "item_name": "Document the sources used to inform the assessment",
+          "item_question": "Does the assessment document which information sources were consulted, such as the journal article, protocol, statistical analysis plan, registry entries, regulatory documents, or personal communication?",
+          "item_question_background": "RoB 2 assumes that no single source necessarily contains everything needed for a trustworthy judgement. The preliminary box therefore asks assessors to record which documents or communications informed the assessment so others can understand the evidentiary basis of the judgement.",
+          "item_extraction_instruction": "Extract all sources used to inform the risk-of-bias assessment, including trial reports, protocols, SAPs, registries, regulatory documents, or correspondence.",
+          "item_expected_location": "Risk-of-bias form / Review appendix / Assessment notes",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Which of the following sources have you obtained",
+              "locator": "Box 1 Preliminary considerations"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Assessment Setup",
+          "item": "5",
+          "item_name": "Answer signalling questions independently and transparently",
+          "item_question": "Does the assessment answer the signalling questions independently, use the prescribed response options, and support those answers with brief reasoning or direct quotations where possible?",
+          "item_question_background": "The signalling questions are the backbone of RoB 2 because they turn vague impressions into structured, factual prompts. The guidance explicitly says they should be answered independently and supported with short text or quotations, which helps make the eventual risk judgement reproducible.",
+          "item_extraction_instruction": "Extract the signalling question responses, note the use of the standard response options, and capture any supporting quotations or free-text justification attached to those answers.",
+          "item_expected_location": "Risk-of-bias worksheet / Assessment appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Signalling questions should be answered independently",
+              "locator": "1.2 Signalling questions"
+            },
+            {
+              "page": 3,
+              "quote": "Brief direct quotations from the text of the study report should be used when possible",
+              "locator": "1.2.1 Free-text boxes alongside signalling questions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Bias Domains",
+      "items": [
+        {
+          "section": "Bias Domains",
+          "item": "6",
+          "item_name": "Judge bias arising from the randomization process",
+          "item_question": "Does the assessment evaluate whether the allocation sequence was random, whether it was concealed until participants were recruited and assigned, and whether baseline problems suggest the randomization process was compromised?",
+          "item_question_background": "The first domain focuses on whether randomization actually achieved its purpose of preventing confounding. The guidance emphasizes that sequence generation, allocation concealment, and suspicious baseline patterns all matter because failures in any of these can undermine the trial before intervention effects are even measured.",
+          "item_extraction_instruction": "Extract the domain judgement and the evidence regarding sequence generation, allocation concealment, and any baseline imbalances or anomalies used to support the judgement.",
+          "item_expected_location": "Risk-of-bias domain table / Review appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Bias arising from the randomization process",
+              "locator": "Introduction, domain list"
+            },
+            {
+              "page": 12,
+              "quote": "Was the allocation sequence random?",
+              "locator": "Box 2 signalling questions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Bias Domains",
+          "item": "7",
+          "item_name": "Judge bias due to deviations from intended interventions",
+          "item_question": "Does the assessment evaluate whether deviations from the intended interventions occurred, whether they were related to the trial context, and whether the analysis appropriately addressed the chosen effect of interest?",
+          "item_question_background": "This domain is where the chosen effect of interest becomes especially important. The guidance treats deviations differently depending on whether the target is the effect of assignment or the effect of adherence, so the assessor must connect behavioural departures from protocol to the estimand being considered.",
+          "item_extraction_instruction": "Extract the domain judgement and the evidence about protocol deviations, awareness of intervention status, departures from intended intervention, and whether the analysis matched the targeted effect of interest.",
+          "item_expected_location": "Risk-of-bias domain table / Review appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Bias due to deviations from intended interventions",
+              "locator": "Introduction, domain list"
+            },
+            {
+              "page": 3,
+              "quote": "Differences in the risk of bias assessment mainly relate to biases due to deviations from the intended intervention",
+              "locator": "Effect of interest discussion"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Bias Domains",
+          "item": "8",
+          "item_name": "Judge bias due to missing outcome data",
+          "item_question": "Does the assessment evaluate whether outcome data were missing in a way that could depend on the true outcome or otherwise distort the estimated result?",
+          "item_question_background": "Missing outcome data are not automatically biasing, but they become problematic when the absence of data is linked to prognosis, outcome status, or intervention-related processes. This domain asks assessors to judge whether the observed data plausibly preserve the intended comparison.",
+          "item_extraction_instruction": "Extract the domain judgement and the evidence about the amount, reasons, and likely consequences of missing outcome data for the specific result being assessed.",
+          "item_expected_location": "Risk-of-bias domain table / Review appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Bias due to missing outcome data",
+              "locator": "Introduction, domain list"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Bias Domains",
+          "item": "9",
+          "item_name": "Judge bias in measurement of the outcome",
+          "item_question": "Does the assessment evaluate whether the outcome was measured appropriately and comparably across intervention groups, including whether outcome assessors could have been influenced by knowledge of intervention received?",
+          "item_question_background": "Outcome measurement can introduce bias when methods differ across groups or when assessors are influenced by awareness of intervention status, especially for subjective outcomes. This domain focuses on whether the recorded outcome is a trustworthy proxy for what the trial was meant to measure.",
+          "item_extraction_instruction": "Extract the domain judgement and the evidence about how outcomes were measured, whether measurements differed across groups, and whether knowledge of intervention could have influenced measurement.",
+          "item_expected_location": "Risk-of-bias domain table / Review appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Bias in measurement of the outcome",
+              "locator": "Introduction, domain list"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Bias Domains",
+          "item": "10",
+          "item_name": "Judge bias in selection of the reported result",
+          "item_question": "Does the assessment evaluate whether the reported result may have been selected from multiple eligible analyses, measurements, or time points on the basis of the observed findings?",
+          "item_question_background": "Selective result reporting can make an otherwise well-conducted trial look more persuasive than it really is. This domain asks whether the reported estimate appears to have been chosen after seeing the data rather than following a pre-existing analysis plan or clearly defined reporting strategy.",
+          "item_extraction_instruction": "Extract the domain judgement and the evidence about prespecified analyses, alternative eligible results, multiplicity of measurements or analyses, and any trial documents used to evaluate selective reporting.",
+          "item_expected_location": "Risk-of-bias domain table / Review appendix / Protocol comparison",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Bias in selection of the reported result",
+              "locator": "Introduction, domain list"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Judgement Synthesis",
+      "items": [
+        {
+          "section": "Judgement Synthesis",
+          "item": "11",
+          "item_name": "Provide explicit reasons for domain-level and overall judgements",
+          "item_question": "Does the assessment provide clear reasoning for any domain-level or overall judgements of some concerns or high risk of bias?",
+          "item_question_background": "RoB 2 is not meant to end with a label alone. The guidance insists that assessors explain why they judged some concerns or high risk so that other reviewers can audit the path from signalling questions to the final judgement.",
+          "item_extraction_instruction": "Extract the free-text rationale given for each non-low domain judgement and for the overall risk-of-bias judgement.",
+          "item_expected_location": "Risk-of-bias worksheet / Review appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "It is essential that the reasons are provided for any judgements of “Some concerns” or “High” risk of bias",
+              "locator": "1.3.2 Free-text boxes alongside risk of bias judgements"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Judgement Synthesis",
+          "item": "12",
+          "item_name": "Reach an overall risk-of-bias judgement across domains",
+          "item_question": "Does the assessment combine the domain-level judgements into an overall judgement of low risk of bias, some concerns, or high risk of bias for the specific result being assessed?",
+          "item_question_background": "The overall RoB 2 judgement is meant to summarize how much confidence remains in a specific result after all relevant domains are considered together. The guidance gives a clear mapping from domain-level concerns to the overall judgement and emphasizes that the assessment is still result-specific at this final stage.",
+          "item_extraction_instruction": "Extract the overall risk-of-bias judgement for the specific result and the mapping logic from domain judgements to that overall conclusion.",
+          "item_expected_location": "Risk-of-bias summary table / Review appendix / Main results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Reaching an overall judgement about risk of bias",
+              "locator": "1.3.4"
+            },
+            {
+              "page": 4,
+              "quote": "The study is judged to be at low risk of bias for all domains for this result",
+              "locator": "Table 1"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Judgement Synthesis",
+          "item": "13",
+          "item_name": "Record the likely direction of bias only when it can be justified",
+          "item_question": "If the assessment comments on the direction of bias, does it do so only when there is a clear rationale rather than by guesswork?",
+          "item_question_background": "RoB 2 includes direction of bias as an optional component, but the guidance is careful here: many biases may favour one intervention or move results toward or away from the null, yet assessors should not speculate when the likely direction is unclear.",
+          "item_extraction_instruction": "Extract any optional judgement about the likely direction of bias and note the rationale provided; if no clear rationale is offered, note that no direction should be guessed.",
+          "item_expected_location": "Risk-of-bias worksheet / Review appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "If review authors do not have a clear rationale for judging the likely direction of the bias, they should not attempt to guess it",
+              "locator": "1.3.3 Direction of bias"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "RoB 2",
+      "RoB 2.0",
+      "Revised Cochrane risk of bias tool for randomized trials",
+      "risk of bias 2"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bRoB\\s?2\\b",
+          "\\brisk of bias\\b",
+          "\\brandomi[sz]ed trial\\b",
+          "\\ballocation sequence\\b",
+          "\\bmissing outcome data\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsignalling questions\\b",
+          "\\brandomization process\\b",
+          "\\bdeviations from intended interventions\\b",
+          "\\bselection of the reported result\\b",
+          "\\beffect of assignment to intervention\\b",
+          "\\beffect of starting and adhering to intervention\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A systematic review of randomized trials assesses each trial result using RoB 2 domains such as the randomization process, missing outcome data, and selection of the reported result.",
+      "A review team needs a structured tool for judging risk of bias for a specific estimate from an individually randomized trial, including whether the target effect is assignment or adherence."
+    ],
+    "EvidenceExamplesNegative": [
+      "An observational study or nonrandomized intervention study should not be assessed with RoB 2; a nonrandomized risk-of-bias tool such as ROBINS-I would be more appropriate.",
+      "A manuscript-reporting checklist request is not a RoB 2 use case, because RoB 2 appraises study credibility rather than prescribing article structure."
+    ],
+    "Explain": "Use RoB 2 for structured risk-of-bias assessment of results from randomized trials, especially individually randomized or parallel-group designs, when a review or evidence synthesis needs transparent domain-level and overall bias judgements."
+  }
+}

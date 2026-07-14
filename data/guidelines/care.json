@@ -1,0 +1,436 @@
+{
+  "id": "care",
+  "Name": "CARE",
+  "LongName": "The CARE (CAse REport) Guidelines: Consensus-based Clinical Case Reporting Guideline Development",
+  "Description": "The CARE Guidelines provide a consensus-based reporting framework for clinical case reports to improve completeness, transparency, and usefulness. The checklist outlines essential information to include when reporting individual patient cases in clinical medicine.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical case reports",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the accuracy, transparency, and completeness of published clinical case reports by providing a standardized checklist of essential reporting elements.",
+  "ManuscriptType": [
+    "Case report",
+    "Clinical case report"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Case report"
+  ],
+  "Keywords": [
+    "CARE guidelines",
+    "case report",
+    "clinical case",
+    "patient case",
+    "medical case report",
+    "case-based reporting",
+    "clinical narrative",
+    "diagnostic assessment",
+    "therapeutic intervention",
+    "patient perspective",
+    "timeline",
+    "informed consent",
+    "adverse events",
+    "follow-up",
+    "case report checklist",
+    "consensus guideline"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Case report",
+      "Case series (single-patient focus)"
+    ],
+    "Disciplines": [
+      "Clinical medicine",
+      "Primary care",
+      "Specialty medicine",
+      "Nursing",
+      "Allied health"
+    ],
+    "Coverage": "Reports describing the clinical course of an individual patient, including presentation, diagnosis, intervention, and outcomes across medical disciplines.",
+    "Focus": "Structured and transparent reporting of patient information, clinical findings, diagnostic assessment, therapeutic interventions, follow-up, outcomes, and patient perspective in single case reports.",
+    "ContrastWith": "Not intended for randomized trials (CONSORT), observational analytic studies (STROBE), systematic reviews (PRISMA), or formal case series with comparative statistical analysis."
+  },
+  "references": {
+    "primary": {
+      "description": "Gagnier JJ, Kienle G, Altman DG, et al. The CARE Guidelines: Consensus-based Clinical Case Reporting Guideline Development. J Clin Epidemiol. 2014;67(1):46–51.",
+      "url": "[https://pmc.ncbi.nlm.nih.gov/articles/PMC3822203/](https://pmc.ncbi.nlm.nih.gov/articles/PMC3822203/)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title",
+      "items": [
+        {
+          "section": "Title",
+          "item": "1",
+          "item_name": "Title",
+          "item_question": "Does the title identify the report as a case report and include the phenomenon of greatest interest?",
+          "item_question_background": "If a case report is not clearly labeled in the title, it may be misclassified or overlooked in indexing and evidence synthesis.",
+          "item_extraction_instruction": "Check whether the title includes the words 'case report' (or equivalent) and specifies the main condition, intervention, or phenomenon of interest.",
+          "item_expected_location": "Title"
+        }
+      ]
+    },
+    {
+      "section": "Keywords",
+      "items": [
+        {
+          "section": "Keywords",
+          "item": "2",
+          "item_name": "Keywords",
+          "item_question": "Are 2–5 key words provided that identify the case and its main topics?",
+          "item_question_background": "Keywords enhance discoverability in databases; insufficient or vague terms limit retrieval and dissemination.",
+          "item_extraction_instruction": "Extract the list of keywords and confirm there are between 2 and 5 that reflect the main condition, intervention, and context.",
+          "item_expected_location": "Keywords section"
+        }
+      ]
+    },
+    {
+      "section": "Abstract",
+      "items": [
+        {
+          "section": "Abstract",
+          "item": "3a",
+          "item_name": "Introduction in abstract",
+          "item_question": "Does the abstract include a brief introduction summarizing the case’s unique contribution?",
+          "item_question_background": "Without a concise framing of why the case matters, readers cannot quickly judge relevance or novelty.",
+          "item_extraction_instruction": "Extract the opening sentence(s) of the abstract that summarize the background and uniqueness of the case.",
+          "item_expected_location": "Abstract"
+        },
+        {
+          "section": "Abstract",
+          "item": "3b",
+          "item_name": "Main symptoms and findings",
+          "item_question": "Does the abstract describe the patient’s main symptoms and important clinical findings?",
+          "item_question_background": "Key presenting features anchor the diagnostic reasoning; omission obscures clinical context.",
+          "item_extraction_instruction": "Extract the description of the patient’s main symptoms and significant clinical findings from the abstract.",
+          "item_expected_location": "Abstract"
+        },
+        {
+          "section": "Abstract",
+          "item": "3c",
+          "item_name": "Main diagnoses, interventions, and outcomes",
+          "item_question": "Does the abstract summarize the main diagnoses, therapeutic interventions, and outcomes?",
+          "item_question_background": "Summarizing diagnosis, treatment, and outcomes allows rapid appraisal of clinical trajectory and impact.",
+          "item_extraction_instruction": "Extract statements describing the final diagnosis, key interventions, and primary outcomes in the abstract.",
+          "item_expected_location": "Abstract"
+        },
+        {
+          "section": "Abstract",
+          "item": "3d",
+          "item_name": "Conclusion in abstract",
+          "item_question": "Does the abstract conclude with the main lessons or take-away message?",
+          "item_question_background": "A clear take-away prevents overinterpretation and clarifies what clinicians should learn from the case.",
+          "item_extraction_instruction": "Extract the concluding sentence(s) of the abstract that state the primary lesson or implication.",
+          "item_expected_location": "Abstract"
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "4",
+          "item_name": "Introduction",
+          "item_question": "Does the introduction provide background and rationale for reporting the case?",
+          "item_question_background": "Background context justifies why the case is noteworthy and situates it within existing literature.",
+          "item_extraction_instruction": "Extract the paragraph(s) in the introduction that explain the context, prior knowledge, and rationale for presenting the case.",
+          "item_expected_location": "Introduction"
+        }
+      ]
+    },
+    {
+      "section": "Patient Information",
+      "items": [
+        {
+          "section": "Patient Information",
+          "item": "5a",
+          "item_name": "Demographics",
+          "item_question": "Are patient demographic characteristics described (e.g., age, sex, ethnicity, occupation)?",
+          "item_question_background": "Demographics influence disease prevalence and applicability; omission limits interpretability and generalisability.",
+          "item_extraction_instruction": "Extract patient age, sex, ethnicity (if reported), occupation, and other relevant demographic details.",
+          "item_expected_location": "Case presentation / Patient information"
+        },
+        {
+          "section": "Patient Information",
+          "item": "5b",
+          "item_name": "Main symptoms",
+          "item_question": "Are the patient’s main symptoms or chief complaints described?",
+          "item_question_background": "Chief complaints initiate the clinical reasoning pathway; without them, diagnostic logic cannot be reconstructed.",
+          "item_extraction_instruction": "Extract the stated main symptoms or chief complaints at presentation.",
+          "item_expected_location": "Case presentation"
+        },
+        {
+          "section": "Patient Information",
+          "item": "5c",
+          "item_name": "Medical, family, and psychosocial history",
+          "item_question": "Is relevant medical, family, and psychosocial history described?",
+          "item_question_background": "Past history and context shape risk assessment and differential diagnosis; missing history obscures causal interpretation.",
+          "item_extraction_instruction": "Extract relevant past medical history, family history, psychosocial factors, lifestyle, and genetic information if available.",
+          "item_expected_location": "Case presentation / History"
+        }
+      ]
+    },
+    {
+      "section": "Clinical Findings",
+      "items": [
+        {
+          "section": "Clinical Findings",
+          "item": "6",
+          "item_name": "Clinical findings",
+          "item_question": "Are significant physical examination findings described?",
+          "item_question_background": "Objective clinical findings validate symptom reports and guide diagnostic assessment.",
+          "item_extraction_instruction": "Extract key physical examination and other clinically relevant findings.",
+          "item_expected_location": "Case presentation / Clinical findings"
+        }
+      ]
+    },
+    {
+      "section": "Timeline",
+      "items": [
+        {
+          "section": "Timeline",
+          "item": "7",
+          "item_name": "Timeline",
+          "item_question": "Is a timeline provided summarizing important dates and events?",
+          "item_question_background": "A timeline clarifies sequence and temporality, which are critical for causal inference and understanding progression.",
+          "item_extraction_instruction": "Identify and extract any timeline table or narrative summarizing symptom onset, diagnosis, interventions, and follow-up.",
+          "item_expected_location": "Case presentation / Timeline"
+        }
+      ]
+    },
+    {
+      "section": "Diagnostic Assessment",
+      "items": [
+        {
+          "section": "Diagnostic Assessment",
+          "item": "8a",
+          "item_name": "Diagnostic methods",
+          "item_question": "Are diagnostic methods described (e.g., laboratory tests, imaging, surveys)?",
+          "item_question_background": "Without test descriptions, readers cannot assess diagnostic validity or reproducibility.",
+          "item_extraction_instruction": "Extract the diagnostic tests and assessment methods used, including laboratory, imaging, pathology, or other tools.",
+          "item_expected_location": "Case presentation / Diagnostic assessment"
+        },
+        {
+          "section": "Diagnostic Assessment",
+          "item": "8b",
+          "item_name": "Diagnostic challenges",
+          "item_question": "Are diagnostic challenges described (e.g., financial, cultural, linguistic barriers)?",
+          "item_question_background": "Contextual barriers can delay or alter diagnosis; reporting them informs real-world applicability.",
+          "item_extraction_instruction": "Extract any reported diagnostic difficulties, uncertainties, or barriers encountered.",
+          "item_expected_location": "Case presentation / Diagnostic assessment"
+        },
+        {
+          "section": "Diagnostic Assessment",
+          "item": "8c",
+          "item_name": "Diagnostic reasoning",
+          "item_question": "Is diagnostic reasoning described, including alternative diagnoses considered?",
+          "item_question_background": "Explicit reasoning allows readers to evaluate clinical logic and differential diagnosis handling.",
+          "item_extraction_instruction": "Extract the narrative describing clinical reasoning, differential diagnoses, and justification for final diagnosis.",
+          "item_expected_location": "Case presentation / Diagnostic assessment"
+        },
+        {
+          "section": "Diagnostic Assessment",
+          "item": "8d",
+          "item_name": "Prognostic characteristics",
+          "item_question": "Are prognostic characteristics described where applicable?",
+          "item_question_background": "Prognostic factors inform expected disease course and contextualize outcomes.",
+          "item_extraction_instruction": "Extract reported prognostic factors or staging information, if applicable.",
+          "item_expected_location": "Case presentation / Diagnostic assessment"
+        }
+      ]
+    },
+    {
+      "section": "Therapeutic Intervention",
+      "items": [
+        {
+          "section": "Therapeutic Intervention",
+          "item": "9a",
+          "item_name": "Intervention type",
+          "item_question": "Are therapeutic intervention types described (e.g., pharmacologic, surgical, preventive)?",
+          "item_question_background": "Identifying intervention type clarifies mechanism and scope of management strategy.",
+          "item_extraction_instruction": "Extract the type(s) of intervention administered.",
+          "item_expected_location": "Case presentation / Therapeutic intervention"
+        },
+        {
+          "section": "Therapeutic Intervention",
+          "item": "9b",
+          "item_name": "Intervention administration",
+          "item_question": "Are details of intervention administration provided (dosage, strength, duration)?",
+          "item_question_background": "Incomplete dosing or procedural details prevent replication and translation into practice.",
+          "item_extraction_instruction": "Extract dosage, route, frequency, duration, and procedural details of interventions.",
+          "item_expected_location": "Case presentation / Therapeutic intervention"
+        },
+        {
+          "section": "Therapeutic Intervention",
+          "item": "9c",
+          "item_name": "Changes in intervention",
+          "item_question": "Are changes in intervention (with rationale) described?",
+          "item_question_background": "Adjustments to treatment reflect response and tolerance; omission hides dynamic clinical decision-making.",
+          "item_extraction_instruction": "Extract any modifications to therapy and the reasons provided.",
+          "item_expected_location": "Case presentation / Therapeutic intervention"
+        }
+      ]
+    },
+    {
+      "section": "Follow-up and Outcomes",
+      "items": [
+        {
+          "section": "Follow-up and Outcomes",
+          "item": "10a",
+          "item_name": "Clinician- and patient-assessed outcomes",
+          "item_question": "Are clinician- and patient-assessed outcomes described?",
+          "item_question_background": "Outcome perspectives from both clinician and patient provide a fuller understanding of effectiveness and quality of life impact.",
+          "item_extraction_instruction": "Extract objective outcomes (clinical/lab measures) and patient-reported outcomes if described.",
+          "item_expected_location": "Case presentation / Follow-up"
+        },
+        {
+          "section": "Follow-up and Outcomes",
+          "item": "10b",
+          "item_name": "Follow-up tests and results",
+          "item_question": "Are follow-up diagnostic tests and their results described?",
+          "item_question_background": "Follow-up testing confirms response or progression; omission obscures trajectory.",
+          "item_extraction_instruction": "Extract follow-up investigations and results.",
+          "item_expected_location": "Case presentation / Follow-up"
+        },
+        {
+          "section": "Follow-up and Outcomes",
+          "item": "10c",
+          "item_name": "Adherence and tolerability",
+          "item_question": "Is intervention adherence and tolerability described?",
+          "item_question_background": "Non-adherence and adverse tolerability influence outcome interpretation and real-world applicability.",
+          "item_extraction_instruction": "Extract statements about adherence, side effects, and tolerability.",
+          "item_expected_location": "Case presentation / Follow-up"
+        },
+        {
+          "section": "Follow-up and Outcomes",
+          "item": "10d",
+          "item_name": "Adverse and unanticipated events",
+          "item_question": "Are adverse and unanticipated events described?",
+          "item_question_background": "Unexpected harms are often the main contribution of case reports; missing them undermines safety learning.",
+          "item_extraction_instruction": "Extract any reported adverse or unexpected events.",
+          "item_expected_location": "Case presentation / Follow-up"
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "11a",
+          "item_name": "Strengths and limitations",
+          "item_question": "Does the discussion address strengths and limitations of the case report?",
+          "item_question_background": "Acknowledging limitations prevents overgeneralisation from a single case and clarifies evidentiary boundaries.",
+          "item_extraction_instruction": "Extract discussion of methodological or contextual strengths and limitations.",
+          "item_expected_location": "Discussion"
+        },
+        {
+          "section": "Discussion",
+          "item": "11b",
+          "item_name": "Relevant literature",
+          "item_question": "Does the discussion reference relevant medical literature?",
+          "item_question_background": "Situating the case within existing evidence distinguishes novelty from known patterns.",
+          "item_extraction_instruction": "Extract citations or narrative comparisons to similar published cases or studies.",
+          "item_expected_location": "Discussion"
+        },
+        {
+          "section": "Discussion",
+          "item": "11c",
+          "item_name": "Scientific rationale and conclusions",
+          "item_question": "Does the discussion provide a scientific rationale and clear conclusions?",
+          "item_question_background": "Explicit reasoning from observation to inference prevents unsupported speculation.",
+          "item_extraction_instruction": "Extract concluding statements that articulate rationale and key lessons.",
+          "item_expected_location": "Discussion"
+        }
+      ]
+    },
+    {
+      "section": "Patient Perspective",
+      "items": [
+        {
+          "section": "Patient Perspective",
+          "item": "12",
+          "item_name": "Patient perspective",
+          "item_question": "Is the patient’s perspective or experience described?",
+          "item_question_background": "Including the patient voice enhances understanding of lived experience and treatment impact.",
+          "item_extraction_instruction": "Extract any direct quotes or narrative describing the patient’s perspective; if absent, mark Absent.",
+          "item_expected_location": "Case presentation / Separate patient perspective section",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Informed Consent",
+      "items": [
+        {
+          "section": "Informed Consent",
+          "item": "13",
+          "item_name": "Informed consent",
+          "item_question": "Does the report state that informed consent was obtained from the patient?",
+          "item_question_background": "Case reports involve identifiable personal information; ethical publication requires documented informed consent.",
+          "item_extraction_instruction": "Locate and extract the informed consent statement confirming patient consent for publication.",
+          "item_expected_location": "End matter / Ethics / Consent statement"
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "CARE Guidelines",
+      "CAse REport Guidelines",
+      "CARE checklist"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bcase report\\b",
+          "\\bcase series\\b",
+          "\\bclinical case\\b",
+          "\\bcare guideline(s)?\\b",
+          "\\bcare checklist\\b",
+          "\\bsingle case\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\brandomi[sz]ed\\b",
+          "\\bclinical trial\\b",
+          "\\bcohort\\b",
+          "\\bcase[- ]control\\b",
+          "\\bcross[- ]sectional\\b",
+          "\\bsystematic review\\b",
+          "\\bmeta[- ]analysis\\b",
+          "\\bprediction\\s+model(s)?\\b",
+          "\\bprognostic\\s+model(s)?\\b",
+          "\\brisk\\s+score(s)?\\b",
+          "\\bscoring\\s+tool(s)?\\b",
+          "\\btriage\\s+score(s)?\\b",
+          "\\bmodel(?:ling)?\\s+of\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A rare adverse drug reaction: a case report",
+      "CARE guideline case report"
+    ],
+    "EvidenceExamplesNegative": [
+      "Randomized controlled trial of...",
+      "Systematic review and meta-analysis of..."
+    ],
+    "Explain": "Routes single-patient clinical case reports to the CARE guideline. Excludes trials, observational analytic studies, and evidence syntheses."
+  }
+}

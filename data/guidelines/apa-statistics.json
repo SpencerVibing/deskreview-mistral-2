@@ -1,0 +1,340 @@
+{
+  "id": "apa-statistics",
+  "Name": "APA Numbers and Statistics Guide",
+  "LongName": "APA Style Numbers and Statistics Guide",
+  "Description": "A concise APA Style instructional guide covering how to write numbers, decimals, and statistical expressions in manuscripts. It provides practical rules for when to use numerals versus words, how to format decimals and p values, and how to present statistical notation consistently in text, tables, and figures.",
+  "Category": "reporting_guideline",
+  "Subdomain": "APA statistical and numerical style",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "Improve consistency, readability, and correctness in APA-style presentation of numbers and statistics across manuscripts, tables, and figures.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "APA-style manuscript"
+  ],
+  "StudyType": [
+    "Experimental study",
+    "Observational study",
+    "Survey study",
+    "Meta-analysis",
+    "Quantitative manuscript"
+  ],
+  "Keywords": [
+    "APA Style",
+    "numbers",
+    "statistics",
+    "p values",
+    "decimals",
+    "numerals",
+    "statistical symbols",
+    "tables and figures",
+    "formatting"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Experimental study",
+      "Observational study",
+      "Survey study",
+      "Meta-analysis",
+      "Quantitative manuscript"
+    ],
+    "Disciplines": [
+      "Psychology",
+      "Behavioral science",
+      "Education",
+      "Social sciences",
+      "Health sciences"
+    ],
+    "Coverage": "APA-style manuscripts that need practical guidance on how to format numbers, decimal places, p values, and statistical notation in prose, tables, and figures.",
+    "Focus": "Use of numerals versus words, commas in numbers, decimals and leading zeros, decimal precision for common statistics, exact p-value reporting, mathematical operators, italics for statistical symbols, and abbreviation practices.",
+    "ContrastWith": "This guide is a style and formatting overlay, not a methodological or study-design reporting standard. It complements statistical-reporting guidance by telling authors how to present numbers and statistics correctly in APA style."
+  },
+  "references": {
+    "primary": {
+      "description": "American Psychological Association. APA Style numbers and statistics guide. 2024.",
+      "url": "https://apastyle.apa.org/instructional-aids/numbers-statistics-guide.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Numbers",
+      "items": [
+        {
+          "section": "Numbers",
+          "item": "1",
+          "item_name": "Use numerals for numbers in statistical and measurement contexts",
+          "item_question": "Does the manuscript use numerals for numbers that appear in statistics, measurements, times, ages, dates, scores, exact sums of money, numbered series, and similar technical contexts?",
+          "item_question_background": "The guide makes a broad distinction between ordinary narrative numbers and numbers serving technical or quantitative functions. In statistical and measurement contexts, numerals improve precision and reduce ambiguity, even for values below 10.",
+          "item_extraction_instruction": "Extract examples of numbers used in statistical, measurement, time, age, date, score, money, and numbered-series contexts and verify that numerals are used consistently.",
+          "item_expected_location": "Whole manuscript / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Use numerals (1, 2, 3, etc.)",
+              "locator": "Numbers"
+            },
+            {
+              "page": 1,
+              "quote": "numbers used in statistics",
+              "locator": "Numbers"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Numbers",
+          "item": "2",
+          "item_name": "Use words for small narrative numbers and sentence-initial numbers",
+          "item_question": "Does the manuscript use words for numbers zero through nine in ordinary narrative use and for numbers that begin a sentence, heading, or title?",
+          "item_question_background": "APA style preserves conventional readability by favoring words for small narrative numbers, except in technical contexts. The guide also highlights a common exception: numbers that begin a sentence, heading, or title should be written out.",
+          "item_extraction_instruction": "Extract narrative uses of small numbers and any numbers that begin sentences, headings, or titles, and verify that they are written as words where APA expects this.",
+          "item_expected_location": "Whole manuscript / Headings / Titles",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Use words (zero, one, two, three, etc.)",
+              "locator": "Numbers"
+            },
+            {
+              "page": 1,
+              "quote": "numbers beginning a sentence, heading, or title",
+              "locator": "Numbers"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Numbers",
+          "item": "3",
+          "item_name": "Handle back-to-back numerical modifiers and number punctuation correctly",
+          "item_question": "Does the manuscript combine numerals and words appropriately in back-to-back numerical modifiers and apply commas and plurals of numbers according to APA rules?",
+          "item_question_background": "This item targets several easy-to-miss style details that affect readability and correctness, such as avoiding awkward numeral stacks, inserting commas in large numbers where required, and forming plurals of numerals without apostrophes.",
+          "item_extraction_instruction": "Extract examples of back-to-back numerical modifiers, numbers of 1,000 or more, and pluralized numerals or abbreviations, and verify APA-compliant formatting.",
+          "item_expected_location": "Whole manuscript / Tables / Figure labels",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Combine numerals and words to express back-to-back numerical modifiers",
+              "locator": "Numbers"
+            },
+            {
+              "page": 1,
+              "quote": "Use commas between groups of three digits in most figures of 1,000 or more",
+              "locator": "Commas in numbers"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Decimals",
+      "items": [
+        {
+          "section": "Decimals",
+          "item": "4",
+          "item_name": "Use leading zeros correctly before decimals",
+          "item_question": "Does the manuscript use a zero before decimals when the statistic can exceed 1 and omit the zero when the statistic cannot be greater than 1, such as for proportions, correlations, and significance levels?",
+          "item_question_background": "APA style treats the leading zero as meaningful information about the scale of the quantity. When a statistic is bounded above by 1, omitting the zero signals that bounded scale, whereas retaining it is appropriate for quantities that may exceed 1.",
+          "item_extraction_instruction": "Extract decimals for proportions, correlations, p values, and unbounded statistics, and verify whether leading zeros are used or omitted correctly.",
+          "item_expected_location": "Results / Tables / Figures / Statistical notation",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Put a zero before the decimal point",
+              "locator": "Decimals"
+            },
+            {
+              "page": 2,
+              "quote": "Do not use a zero before a decimal when the statistic cannot be greater than 1",
+              "locator": "Decimals"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Decimals",
+          "item": "5",
+          "item_name": "Use appropriate decimal precision for common statistics",
+          "item_question": "Does the manuscript report means, standard deviations, correlations, proportions, and inferential statistics with decimal precision consistent with APA's general guidance and the practical precision of the data?",
+          "item_question_background": "The guide gives pragmatic default decimal places for common statistical outputs while emphasizing that authors should round as much as possible without losing meaningful precision. The main goal is to avoid both spurious detail and insufficient resolution.",
+          "item_extraction_instruction": "Extract reported means, standard deviations, correlations, proportions, and inferential statistics and assess whether their decimal precision follows the APA guide or is justified by the measurement context.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Report means and standard deviations for data measured on integer scales",
+              "locator": "Decimals"
+            },
+            {
+              "page": 2,
+              "quote": "Round as much as possible while considering prospective use and statistical precision",
+              "locator": "Decimals"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Decimals",
+          "item": "6",
+          "item_name": "Report p values in APA style",
+          "item_question": "Does the manuscript report exact p values to two or three decimals and use \"p < .001\" rather than additional decimals for very small p values?",
+          "item_question_background": "The guide gives a specific and familiar APA convention for p-value display that balances informativeness with readability. Exact values are preferred for most cases, while values below .001 are reported as a threshold rather than with longer decimal strings.",
+          "item_extraction_instruction": "Extract all reported p values and verify whether they are shown as exact values to two or three decimals, except where values below .001 are written as 'p < .001'.",
+          "item_expected_location": "Results / Tables / Figures / Statistical reporting",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Report exact p values to two or three decimals",
+              "locator": "Decimals"
+            },
+            {
+              "page": 2,
+              "quote": "report p values less than .001 as “p < .001.”",
+              "locator": "Decimals"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Statistics Formatting",
+      "items": [
+        {
+          "section": "Statistics Formatting",
+          "item": "7",
+          "item_name": "Avoid duplicating statistics across text and displays",
+          "item_question": "Does the manuscript avoid repeating the same statistics in both the text and a table or figure?",
+          "item_question_background": "This is a compact but useful APA principle: manuscript economy and clarity are improved when statistics are presented once in the place where they are most useful rather than duplicated across formats.",
+          "item_extraction_instruction": "Extract whether the same statistics appear redundantly in prose and in accompanying tables or figures.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Do not repeat statistics in both the text and a table or figure.",
+              "locator": "Statistics"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Statistics Formatting",
+          "item": "8",
+          "item_name": "Format operators symbols and statistical terms correctly",
+          "item_question": "Does the manuscript use spaces around mathematical operators appropriately, pair symbols with operators, and use written statistical terms in narrative text instead of symbols where APA expects this?",
+          "item_question_background": "The guide distinguishes between mathematical display and narrative discussion. Symbols and operators belong in formal statistical expressions, whereas prose should often use the spelled-out term to keep the text readable and stylistically consistent.",
+          "item_extraction_instruction": "Extract uses of mathematical operators and statistical expressions in prose, tables, and equations, and verify spacing and the choice between symbol and term.",
+          "item_expected_location": "Results / Statistical reporting / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Put a space before and after a mathematical operator",
+              "locator": "Statistics"
+            },
+            {
+              "page": 2,
+              "quote": "Use the term, not the symbol, for statistics in the text",
+              "locator": "Statistics"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Statistics Formatting",
+          "item": "9",
+          "item_name": "Use italics and abbreviation rules for statistical notation correctly",
+          "item_question": "Does the manuscript italicize statistical symbols and algebraic variables as APA requires, keep Greek letters nonitalic, avoid defining standard symbols, and define nonstandard abbreviations?",
+          "item_question_background": "APA statistical notation uses typography to help readers distinguish variable-like symbols from ordinary text. The guide also separates familiar statistical abbreviations, which need no definition, from less standard abbreviations that must be defined for readers.",
+          "item_extraction_instruction": "Extract statistical symbols, Greek letters, standard abbreviations, and nonstandard abbreviations, and verify italics and definition practices.",
+          "item_expected_location": "Results / Tables / Figures / Notes",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Use italics for letters used as statistical symbols or algebraic variables",
+              "locator": "Statistics"
+            },
+            {
+              "page": 2,
+              "quote": "Do not define symbols or abbreviations that represent statistics",
+              "locator": "Statistics"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "APA numbers and statistics guide",
+      "APA Style numbers and statistics guide",
+      "numbers-statistics-guide"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bAPA\\b",
+          "\\bp values?\\b",
+          "\\bdecimal places?\\b",
+          "\\bstatistical symbols?\\b",
+          "\\bnumerals?\\b",
+          "\\bLikert scale\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bM\\s*=\\s*",
+          "\\bSD\\b",
+          "\\bchi-square\\b",
+          "\\bcorrelation\\b",
+          "\\bexact p values?\\b",
+          "\\bitalics\\b",
+          "\\bleading zero\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A psychology or social-science manuscript needs guidance on whether to write numbers as numerals or words, how many decimals to report, and how to format p values and statistical symbols in APA style.",
+      "An author is preparing APA-style tables and text and needs a formatting overlay for statistical notation rather than a methodological reporting standard."
+    ],
+    "EvidenceExamplesNegative": [
+      "A manuscript asking for design-specific reporting requirements, such as trial registration or risk-of-bias domains, is not primarily a fit for this APA style guide.",
+      "A purely qualitative manuscript with no quantitative results or numerical formatting issues is unlikely to need this overlay."
+    ],
+    "Explain": "Use this APA style overlay when manuscripts need guidance on how to present numbers, decimals, p values, and statistical notation consistently in APA format."
+  }
+}

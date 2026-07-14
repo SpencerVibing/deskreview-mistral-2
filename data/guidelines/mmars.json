@@ -1,0 +1,242 @@
+{
+  "id": "mmars",
+  "Name": "MMARS",
+  "LongName": "Mixed Methods Article Reporting Standards",
+  "Description": "MMARS is APA's reporting standard for manuscripts that intentionally collect, analyze, and integrate qualitative and quantitative data within a mixed methods design.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology mixed methods reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the reporting of mixed methods research by specifying how authors should describe mixed methods aims, design type, qualitative and quantitative strands, integration procedures, and the validity or integrity of inferences drawn across strands.",
+  "ManuscriptType": [
+    "Original research article",
+    "Mixed methods research report"
+  ],
+  "ManuscriptSubType": [
+    "Convergent mixed methods study",
+    "Exploratory sequential mixed methods study",
+    "Explanatory sequential mixed methods study"
+  ],
+  "StudyType": [
+    "Mixed methods study"
+  ],
+  "Keywords": [
+    "MMARS",
+    "mixed methods reporting standards",
+    "mixed methods design",
+    "integration",
+    "convergent design",
+    "explanatory sequential",
+    "exploratory sequential"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Mixed methods study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science",
+      "Education"
+    ],
+    "Coverage": "Psychology and related social-science studies that intentionally collect, analyze, and integrate qualitative and quantitative data within a mixed methods design.",
+    "Focus": "Mixed methods design identification, ordering of qualitative and quantitative aims, rationale for mixing, strand-specific sampling and analysis, integration procedures, and mixed-methods validity or legitimacy.",
+    "ContrastWith": "Not for purely qualitative or purely quantitative studies. MMARS is used when a study intentionally integrates qualitative and quantitative strands to generate insights not available from either alone."
+  },
+  "references": {
+    "primary": {
+      "description": "Levitt HM, Bamberg M, Creswell JW, Frost DM, Josselson R, Suárez-Orozco C. Journal Article Reporting Standards for Qualitative Primary, Qualitative Meta-Analytic, and Mixed Methods Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018;73(1):26-46. doi:10.1037/amp0000151.",
+      "url": "https://doi.org/10.1037/amp0000151"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Framing and Design",
+      "items": [
+        {
+          "section": "Framing and Design",
+          "item": "1",
+          "item_name": "Identify the study as mixed methods and state mixed goals clearly",
+          "item_question": "Does the manuscript identify the study as mixed methods and state qualitative, quantitative, and mixed methods objectives in an order consistent with the design?",
+          "item_question_background": "MMARS asks authors to make the mixed nature of the study explicit and to distinguish the goals of each strand from the overall integrative goal.",
+          "item_extraction_instruction": "Extract how the title and abstract identify mixed methods, the named mixed methods design, and the qualitative, quantitative, and mixed methods objectives or aims.",
+          "item_expected_location": "Title / Abstract / Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Indicate the mixed methods design ... State three types of research objectives/aims/goals: qualitative, quantitative, and mixed methods.",
+              "locator": "Table 3 title/abstract and study objectives rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Framing and Design",
+          "item": "2",
+          "item_name": "Justify the mixed methods design and integration rationale",
+          "item_question": "Does the method section explain why mixed methods is appropriate, identify and define the mixed methods design type, describe the qualitative and quantitative approaches, and justify the added value of integrating them?",
+          "item_question_background": "The heart of MMARS is explicit justification for why the study needed both qualitative and quantitative data and how the chosen design operationalizes their integration.",
+          "item_extraction_instruction": "Extract the rationale for using mixed methods, the named design type, the qualitative and quantitative approaches used, any combined inquiry approaches, and the justification for integrating both databases.",
+          "item_expected_location": "Method / Research design overview",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Explain why mixed methods research is appropriate ... Identify the type of mixed methods design used and define it ... Provide a rationale or justification for the need to collect both qualitative and quantitative data and the added value of integrating the results.",
+              "locator": "Table 3 research design overview row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Sources, Sampling, and Analysis",
+      "items": [
+        {
+          "section": "Sources, Sampling, and Analysis",
+          "item": "3",
+          "item_name": "Describe qualitative and quantitative sources and sampling separately",
+          "item_question": "Does the manuscript distinguish qualitative and quantitative data sources, describe their relationship, and report sampling and recruitment for each strand in an order consistent with the mixed methods design?",
+          "item_question_background": "Mixed methods studies often involve distinct sources and samples across strands, so readers need each strand described separately as well as any relationship between them.",
+          "item_extraction_instruction": "Extract the qualitative and quantitative sources, their relationship if any, the order of procedures across strands, and the strand-specific sampling and recruitment descriptions.",
+          "item_expected_location": "Method / Participants or other data sources / Sampling / Recruitment",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "Clearly identify the sources of qualitative and quantitative data ... Describe the qualitative and the quantitative sampling in separate sections ... Discuss the recruitment strategy for qualitative and quantitative research separately.",
+              "locator": "Table 3 participants/data sources, sampling, and recruitment rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Sources, Sampling, and Analysis",
+          "item": "4",
+          "item_name": "Describe strand-specific analyses and the integration procedure",
+          "item_question": "Does the manuscript devote separate attention to qualitative analysis, quantitative analysis, and the mixed methods integration procedure, and does it address integrity, validity, reliability, or legitimacy across strands?",
+          "item_question_background": "MMARS requires authors to show not only that each strand was analyzed rigorously but also how the strands were actually mixed or integrated and how the resulting inferences were supported.",
+          "item_extraction_instruction": "Extract the strand-specific analytic procedures, the mixed methods integration strategy such as merging or connecting, and any discussion of methodological integrity, quantitative validity or reliability, and mixed methods validity or legitimacy.",
+          "item_expected_location": "Method / Data analysis / Validity",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "Devote separate sections to the qualitative data analysis, the quantitative data analysis, and the mixed methods analysis ... Indicate methodological integrity, quantitative validity and reliability, and mixed methods validity or legitimacy.",
+              "locator": "Table 3 data analysis and validity rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Findings and Discussion",
+      "items": [
+        {
+          "section": "Findings and Discussion",
+          "item": "5",
+          "item_name": "Show how qualitative and quantitative results were integrated",
+          "item_question": "Do the findings or results sections indicate how qualitative and quantitative results were mixed or integrated, for example through joint displays, connected strands, transformed data, or other design-consistent integration procedures?",
+          "item_question_background": "The defining feature of mixed methods research is the integration of strands, so the results must show how that integration occurred rather than simply presenting two parallel studies.",
+          "item_extraction_instruction": "Extract how the qualitative and quantitative findings are sequenced and integrated, including use of joint displays, graphs, tables, transformed data, or connected explanatory links.",
+          "item_expected_location": "Findings / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Indicate how the qualitative and quantitative results were “mixed” or integrated ... discussion, tables of joint displays, graphs, data transformation.",
+              "locator": "Table 3 findings/results row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Findings and Discussion",
+          "item": "6",
+          "item_name": "Discuss implications of the integrated findings",
+          "item_question": "Does the discussion reflect on the implications of the integrated findings from across the qualitative and quantitative strands?",
+          "item_question_background": "MMARS expects the discussion to interpret not only each strand individually but also the added meaning that emerged from integration.",
+          "item_extraction_instruction": "Extract how the discussion interprets the integrated findings and what implications it draws across the combined strands.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "The Discussion section ... reflects upon the implications of the integrated findings from across the two methods.",
+              "locator": "Table 3 discussion row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "MMARS",
+      "Mixed Methods Article Reporting Standards",
+      "APA mixed methods reporting standards"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bMMARS\\b",
+          "\\bmixed methods\\b",
+          "\\bqualitative and quantitative\\b",
+          "\\bconvergent design\\b",
+          "\\bexplanatory sequential\\b",
+          "\\bexploratory sequential\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bjoint display\\b",
+          "\\bintegration\\b",
+          "\\bmixed methods design\\b",
+          "\\bqualitative strand\\b",
+          "\\bquantitative strand\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative meta-analysis\\b",
+          "\\bprimary qualitative study only\\b",
+          "\\bpurely quantitative\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A convergent mixed methods study reports qualitative and quantitative strands separately, uses a joint display, and explains the added value of integration.",
+      "An explanatory sequential design states qualitative, quantitative, and mixed methods aims and shows how interview findings were used to explain survey results."
+    ],
+    "EvidenceExamplesNegative": [
+      "A stand-alone interview study without quantitative data is not an MMARS manuscript.",
+      "A purely quantitative experiment with no integration of qualitative data should not map to MMARS."
+    ],
+    "Explain": "Use MMARS for manuscripts that intentionally collect and integrate qualitative and quantitative data within a mixed methods design."
+  }
+}

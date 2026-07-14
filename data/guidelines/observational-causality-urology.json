@@ -1,0 +1,322 @@
+{
+  "id": "observational-causality-urology",
+  "Name": "Observational-Urology only",
+  "LongName": "Guidelines for Reporting Observational Research in Urology: The Importance of Clear Reference to Causality",
+  "Description": "A reporting guideline for observational studies in urology that focuses on how authors should frame, analyze, and discuss causality. It addresses causal language, practical implications, explicit treatment of causal questions in the introduction, methods for describing causal pathways and confounding, evaluation of residual bias, and drawing research or clinical implications that are consistent with the strength of causal inference.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Observational causal inference reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the reporting of observational research in urology by requiring explicit treatment of causal questions, clearer use of causal language, and better alignment between study aims, methods, interpretation, and practical recommendations.",
+  "ManuscriptType": [
+    "Original research article",
+    "Observational study report",
+    "Comparative effectiveness study",
+    "Epidemiologic study report"
+  ],
+  "ManuscriptSubType": [
+    "Cohort study",
+    "Case-control study",
+    "Registry study",
+    "Comparative observational treatment study"
+  ],
+  "StudyType": [
+    "Observational study",
+    "Epidemiologic study",
+    "Comparative effectiveness study"
+  ],
+  "Keywords": [
+    "causality",
+    "causal inference",
+    "observational research",
+    "urology",
+    "confounding",
+    "mediation",
+    "causal language",
+    "directed acyclic graphs",
+    "propensity score",
+    "SUTVA"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Observational study",
+      "Epidemiologic study",
+      "Comparative effectiveness study"
+    ],
+    "Disciplines": [
+      "Urology",
+      "Clinical medicine",
+      "Epidemiology",
+      "Medical research",
+      "Biostatistics"
+    ],
+    "Coverage": "Observational studies in urology where authors estimate associations between exposures and outcomes and where there is any reasonable question about causality.",
+    "Focus": "Explicit use of causal language, practical implications of causal claims, direct reference to causality in study aims, description of causal pathways, statistical handling of confounding and mediation, assessment of residual bias, and causal interpretation in discussion and conclusions.",
+    "ContrastWith": "Not a generic design-reporting checklist like STROBE and not a purely statistical reporting guide. This guideline specifically addresses how observational studies should talk about and evaluate causality."
+  },
+  "references": {
+    "primary": {
+      "description": "Vickers AJ, Assel M, Dunn RL, Zabor EC, Kattan MW, van Smeden M, Dahly D. Guidelines for Reporting Observational Research in Urology: The Importance of Clear Reference to Causality. The Journal of Urology. 2023;210:10-14.",
+      "url": "https://www.auajournals.org/doi/epdf/10.1097/JU.0000000000003479"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Causal Framing",
+      "items": [
+        {
+          "section": "Causal Framing",
+          "item": "1",
+          "item_name": "Use causal language judiciously and explicitly",
+          "item_question": "Does the manuscript use causal language explicitly and appropriately, rather than hiding behind associational wording while still implying causation?",
+          "item_question_background": "The paper argues that authors often avoid words like \"cause\" in the methods section but then use terms such as reduce, improve, or prevent in the results or conclusions, effectively making a causal claim without owning it.",
+          "item_extraction_instruction": "Extract the study's causal or associational wording across the title, introduction, methods, results, discussion, and conclusions, noting whether terms such as effect, reduce, increase, impact, or practice recommendations imply causality.",
+          "item_expected_location": "Title / Introduction / Methods / Results / Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Authors should be judicious and explicit in their use of causal language.",
+              "locator": "Guideline 1"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Causal Framing",
+          "item": "2",
+          "item_name": "Discuss causality in the context of practical action",
+          "item_question": "Does the manuscript connect any causal claim to the practical action that would follow if the claim were true?",
+          "item_question_background": "The authors emphasize that causal thinking matters because clinical and public-health actions depend on it; the same observed association can imply very different actions depending on whether the mechanism is direct, indirect, or confounded.",
+          "item_extraction_instruction": "Extract whether the paper links causal claims to possible interventions, counseling, treatment choices, screening decisions, or other practical actions, and whether those actions depend on a specific causal pathway.",
+          "item_expected_location": "Introduction / Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Causality should be discussed in the context of practical action.",
+              "locator": "Guideline 2"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Causal Framing",
+          "item": "3",
+          "item_name": "Make explicit reference to causality in the Introduction",
+          "item_question": "Does the Introduction explicitly state whether the study is asking a causal question, and if not, does it justify why the study is descriptive or predictive instead?",
+          "item_question_background": "The paper warns that authors should not label a study descriptive or predictive merely to avoid grappling with causal inference; if there is no causal hypothesis, the rationale for that choice should be explicit.",
+          "item_extraction_instruction": "Extract the study aim as stated in the Introduction and record whether the authors explicitly frame it as causal, non-causal, descriptive, or predictive, including any rationale for avoiding causal investigation.",
+          "item_expected_location": "Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "There should be explicit reference to causality in the “Introduction” section.",
+              "locator": "Guideline 3"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Methods for Causal Questions",
+      "items": [
+        {
+          "section": "Methods for Causal Questions",
+          "item": "4a",
+          "item_name": "Describe possible causal pathways",
+          "item_question": "Where the study explores causal mechanisms, does the Methods section describe the relevant causal pathways, including mediators, confounders, or colliders when relevant?",
+          "item_question_background": "The guideline says that once investigators identify plausible mechanisms, they can build analyses accordingly; in simple treatment comparisons this may be brief, but more complex settings require careful articulation of pathways and roles of variables.",
+          "item_extraction_instruction": "Extract any description of causal pathways, including directed acyclic graphs or narrative descriptions of mediators, confounders, colliders, and competing causal explanations.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe possible causal pathways in the “Methods” section.",
+              "locator": "Guideline 4a"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods for Causal Questions",
+          "item": "4b",
+          "item_name": "Describe statistical methods used to address causality",
+          "item_question": "Does the manuscript explain how its statistical methods address causality, including the rationale for covariate choice, confounding control, mediation analysis, positivity, exposure consistency, or SUTVA where relevant?",
+          "item_question_background": "The authors explicitly reject vague claims about \"adjusting\" for confounding and want the rationale for covariates and causal assumptions tied to the underlying pathway, not treated as a generic modeling step.",
+          "item_extraction_instruction": "Extract the causal-analysis strategy, including rationale for covariates, treatment of confounding, use of mediation analysis, discussion of positivity, exposure dose consistency, and any SUTVA-related considerations.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe statistical methods to address causality.",
+              "locator": "Guideline 4b"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Results and Interpretation",
+      "items": [
+        {
+          "section": "Results and Interpretation",
+          "item": "4c",
+          "item_name": "Assess control of confounding in the Results section",
+          "item_question": "Does the Results section assess how well confounding has been controlled, rather than assuming that multivariable adjustment or propensity methods solved the problem automatically?",
+          "item_question_background": "A central point of the paper is that differences in measured confounders usually imply differences in unmeasured or imperfectly measured confounders, so adjusted analyses do not by themselves eliminate concern about causal bias.",
+          "item_extraction_instruction": "Extract how the paper evaluates control of confounding in the Results section, including baseline imbalances, table 1 comparisons, predictive strength of covariates, and any discussion of residual or unmeasured confounding.",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Assess control of confounding in the “Results” section.",
+              "locator": "Guideline 4c"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Results and Interpretation",
+          "item": "4d",
+          "item_name": "Carefully assess causal inference and causal estimates in the Discussion",
+          "item_question": "Does the Discussion evaluate causal inference in light of the proposed pathways, the study findings, the literature, residual bias, and the plausibility of the size of the estimated effect?",
+          "item_question_background": "The paper wants discussion sections to weigh causal claims against mechanism, confounding, alternative explanations, external literature, and even the plausibility of large effect sizes, rather than simply restating adjusted associations.",
+          "item_extraction_instruction": "Extract how the Discussion evaluates causal inference, including mechanism-based reasoning, comparison with prior studies or basic science, discussion of residual bias, and comments on whether the estimated effect size is plausible.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Carefully assess causal inference and causal estimates in the “Discussion” section.",
+              "locator": "Guideline 4d"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Results and Interpretation",
+          "item": "4e",
+          "item_name": "Draw research and clinical implications that match the causal findings",
+          "item_question": "Do the conclusions draw specific implications for research or clinical practice that are consistent with the strength and nature of the study's causal inference?",
+          "item_question_background": "The authors reject vague conclusions about association and also reject vague calls for further research; implications should be explicit, actionable, and aligned with what the study can really support causally.",
+          "item_extraction_instruction": "Extract the study's concluding implications for research or practice and assess whether they are specific, actionable, and appropriately matched to the paper's causal argument.",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Draw implications for research and/or clinical practice in light of causal findings.",
+              "locator": "Guideline 4e"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Language Examples",
+      "items": [
+        {
+          "section": "Language Examples",
+          "item": "5",
+          "item_name": "Use language examples to align wording with causal intent",
+          "item_question": "Does the manuscript's wording resemble the paper's recommended language for causal and non-causal reporting rather than the discouraged examples?",
+          "item_question_background": "The article includes a dedicated table of language to use and avoid across scenarios such as non-causal studies, introduction wording, imbalanced covariates, and discussion, showing that wording itself is part of the reporting standard.",
+          "item_extraction_instruction": "Compare the manuscript's wording against the examples-to-use and examples-to-avoid table, noting especially whether causal claims, recommendations, and caveats are phrased consistently with the study's design and analysis.",
+          "item_expected_location": "Introduction / Results / Discussion / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "The Table gives specific examples of language to use and avoid.",
+              "locator": "Introductory note to example table"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "Guidelines for Reporting Observational Research in Urology",
+      "observational causality reporting guideline",
+      "urology causal inference reporting guideline"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bobservational\\b",
+          "\\bcausal\\b",
+          "\\bcausality\\b",
+          "\\bconfounding\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bassociation\\b",
+          "\\bpropensity\\b",
+          "\\bdirected acyclic graph\\b",
+          "\\bmediation\\b",
+          "\\bSUTVA\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bclear reference to causality\\b",
+          "\\bcausal language\\b",
+          "\\bassess control of confounding\\b",
+          "\\bpractical action\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brandomized trial\\b",
+          "\\bcase report\\b",
+          "\\bqualitative\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "An observational urology study claims a drug reduces risk or that a lifestyle change prevents cancer and needs guidance on whether its language and methods support causal interpretation.",
+      "A comparative effectiveness manuscript discusses confounding, propensity methods, mediation, or causal pathways and needs a causality-focused reporting overlay."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely descriptive case report is not the target of this guideline.",
+      "A randomized trial does not primarily need this observational-causality overlay."
+    ],
+    "Explain": "Use this guideline for observational studies in urology when the manuscript touches causal questions, causal wording, confounding control, mediation, or practice recommendations that depend on more than mere association."
+  }
+}

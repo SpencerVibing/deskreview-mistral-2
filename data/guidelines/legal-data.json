@@ -1,0 +1,590 @@
+{
+  "id": "legal-data",
+  "Name": "Legal Data",
+  "LongName": "Legal Interoperability of Research Data: Principles and Implementation Guidelines",
+  "Description": "A cross-disciplinary legal and policy framework for enabling lawful, machine-readable, and harmonized access, reuse, and integration of research data across jurisdictions and institutions.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Research data law, policy, and governance",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To improve legal interoperability of research data by promoting minimal-restriction reuse defaults, clear rights determination, balanced legal interests, transparent rights statements, harmonization mechanisms, and proper attribution and credit.",
+  "ManuscriptType": [
+    "Policy framework paper",
+    "Data governance guideline",
+    "Standards and recommendations paper",
+    "Research data management guidance"
+  ],
+  "ManuscriptSubType": [
+    "Legal interoperability framework",
+    "Rights and licensing guidance",
+    "Institutional or governmental data policy guideline",
+    "Cross-jurisdiction data sharing guidance"
+  ],
+  "StudyType": [
+    "Policy and governance framework",
+    "Legal analysis and guidance",
+    "Standards and principles statement"
+  ],
+  "Keywords": [
+    "legal interoperability",
+    "research data legal interoperability",
+    "RDA-CODATA",
+    "rights statement",
+    "rights holder",
+    "access and reuse of research data",
+    "public domain",
+    "CC0",
+    "PDDL",
+    "CC-BY 4.0",
+    "legal use conditions",
+    "least restrictive reuse",
+    "harmonization of rights",
+    "metadata legal status",
+    "attribution and credit",
+    "data licensing",
+    "sui generis database rights",
+    "EULA",
+    "periods of exclusive use",
+    "open data policy"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Policy and governance framework",
+      "Legal analysis and guidance",
+      "Standards and principles statement"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary"
+    ],
+    "Coverage": "Cross-domain guidance documents and policy manuscripts that define legal conditions for sharing, integrating, and reusing research data, especially in public-sector and publicly funded research contexts.",
+    "Focus": "Rights determination, legal-use-condition transparency, reusable rights statements, waiver/licensing strategy, justified restrictions, harmonization across jurisdictions or institutions, and attribution/credit norms for research data reuse.",
+    "ContrastWith": "Not a study-design reporting guide (for example trials, observational studies, or systematic reviews) and not a technical file-format interoperability standard by itself; it is a legal-policy overlay for data access and reuse governance."
+  },
+  "references": {
+    "primary": {
+      "description": "Chen R, Uhlir PF, and the RDA-CODATA Legal Interoperability Interest Group. Legal Interoperability of Research Data: Principles and Implementation Guidelines. Version 1.0. 20 Oct 2016. Zenodo.",
+      "url": "https://doi.org/10.5281/zenodo.162241"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Principle One: Facilitate lawful access and reuse",
+      "items": [
+        {
+          "section": "Principle One: Facilitate lawful access and reuse",
+          "item": "1A",
+          "item_name": "Open and unrestricted default",
+          "item_question": "Does the manuscript state that access to and reuse of research data should be open and unrestricted by default, or otherwise with the fewest limitations possible?",
+          "item_question_background": "A least-restriction default is foundational for legal interoperability across datasets.",
+          "item_extraction_instruction": "Extract explicit default-position language on openness, unrestricted reuse, or minimal legal constraints.",
+          "item_expected_location": "Principles / Executive summary / Policy recommendations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 1A. Access to and reuse of research data should be open and unrestricted as a default rule...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Principle One: Facilitate lawful access and reuse",
+          "item": "1B",
+          "item_name": "Public-domain legal instruments",
+          "item_question": "Does the manuscript identify legal instruments that can place research data collections in the public domain without reuse restrictions?",
+          "item_question_background": "Public-domain mechanisms reduce friction when combining datasets from multiple rights contexts.",
+          "item_extraction_instruction": "Extract named legal mechanisms for public-domain dedication and who can apply them (government, institution, researcher).",
+          "item_expected_location": "Implementation guidance / Legal instruments section",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 1B. Governments, institutions, or researchers can apply one of an array of legal instruments to place collections of research data in the public domain...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Principle One: Facilitate lawful access and reuse",
+          "item": "1C",
+          "item_name": "Preferred waivers or low-restriction licenses",
+          "item_question": "Does the manuscript recommend CC0/PDDL waivers or similarly non-restrictive licensing for legal interoperability?",
+          "item_question_background": "Waivers and non-restrictive licenses improve combinability of reused datasets.",
+          "item_extraction_instruction": "Extract references to CC0, PDDL, CC-BY 4.0, or equivalent approaches and rationale for preference.",
+          "item_expected_location": "Licensing recommendations / Implementation guidance",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 1C. The CC0 or PDDL waivers of rights are the preferred... approaches... The non-restrictive ... CC-BY 4.0 license may also be considered...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Principle One: Facilitate lawful access and reuse",
+          "item": "1D",
+          "item_name": "Equitable availability",
+          "item_question": "Does the manuscript require data access and reuse terms to be applied equitably across users, including disadvantaged groups?",
+          "item_question_background": "Equity constraints affect practical and legal interoperability at scale.",
+          "item_extraction_instruction": "Extract statements on equitable access obligations and non-discriminatory availability conditions.",
+          "item_expected_location": "Policy principles / Access conditions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 1D. ... data should [be] available equitably to all users, including the most disadvantaged ones.",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Principle Two: Determine rights and responsibilities",
+      "items": [
+        {
+          "section": "Principle Two: Determine rights and responsibilities",
+          "item": "2A",
+          "item_name": "Establish rights ownership before dissemination",
+          "item_question": "Does the manuscript require determining rights holders for datasets before dissemination?",
+          "item_question_background": "Rights uncertainty creates legal incompatibility during sharing and reuse.",
+          "item_extraction_instruction": "Extract procedures for rights-holder identification and pre-dissemination legal checks.",
+          "item_expected_location": "Rights determination guidance",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 2A. Research data disseminators need to establish who or what entity has the rights... before the data are disseminated...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Two: Determine rights and responsibilities",
+          "item": "2B",
+          "item_name": "User responsibility to comply",
+          "item_question": "Does the manuscript state that users must comply with applicable data rights and jurisdiction-specific user rights?",
+          "item_question_background": "Interoperable reuse depends on reciprocal responsibilities, not only provider-side terms.",
+          "item_extraction_instruction": "Extract user-side compliance obligations and jurisdiction-aware usage constraints.",
+          "item_expected_location": "User obligations / Legal responsibilities",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 2B. It is also the responsibility of research data users to abide by the rights applicable...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Two: Determine rights and responsibilities",
+          "item": "2C",
+          "item_name": "Expert participation in policy fora",
+          "item_question": "Does the manuscript encourage policy and legal experts in research communities to participate in rule-making fora?",
+          "item_question_background": "Practical legal interoperability improves when domain experts shape governing norms.",
+          "item_extraction_instruction": "Extract recommendations for legal/policy stakeholder participation in governance processes.",
+          "item_expected_location": "Governance recommendations",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 2C. Representatives of research communities... are encouraged to participate in fora that develop and implement laws...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Two: Determine rights and responsibilities",
+          "item": "2D",
+          "item_name": "Education on rights and responsibilities",
+          "item_question": "Does the manuscript recommend structured education for researchers on legal rights and responsibilities in data sharing and reuse?",
+          "item_question_background": "Training reduces accidental non-compliance and improves reuse confidence.",
+          "item_extraction_instruction": "Extract institutional training or capacity-building requirements tied to data rights literacy.",
+          "item_expected_location": "Capacity building / Implementation actions",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Guideline 2D. A well-conceived educational process for researchers regarding rights and responsibilities... should be developed...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Principle Three: Balance legal interests",
+      "items": [
+        {
+          "section": "Principle Three: Balance legal interests",
+          "item": "3A",
+          "item_name": "Waive public-sector IP rights as far as possible",
+          "item_question": "Does the manuscript recommend waiving intellectual property rights in publicly funded research data collections as far as possible?",
+          "item_question_background": "Default waiver in public-sector contexts lowers legal barriers for integrative reuse.",
+          "item_extraction_instruction": "Extract default-position language on waiving IP and distributing data under least restrictive terms.",
+          "item_expected_location": "Balancing interests / IP policy",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 3A. As a default rule, intellectual property rights in government or publicly-funded collections of research data should be waived...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Three: Balance legal interests",
+          "item": "3B",
+          "item_name": "Justify added restrictions",
+          "item_question": "Does the manuscript require governments or public institutions to justify restrictions beyond those in existing legislation?",
+          "item_question_background": "Unjustified extra restrictions undermine lawful interoperability objectives.",
+          "item_extraction_instruction": "Extract conditions requiring formal justification for additional access/reuse restrictions.",
+          "item_expected_location": "Restriction policy / Exceptions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 3B. Governments and public research institutions need to justify any restrictions... over and above ... existing legislation.",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Three: Balance legal interests",
+          "item": "3C",
+          "item_name": "Public-interest orientation in rulemaking",
+          "item_question": "Does the manuscript emphasize public interests when developing rules for access and reuse of publicly generated research data?",
+          "item_question_background": "Public-interest framing is central to balancing openness with legitimate constraints.",
+          "item_extraction_instruction": "Extract policy language that prioritizes or explicitly weighs public-interest factors.",
+          "item_expected_location": "Policy design / Legal balancing",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 3C. Policymakers should consider public interests in developing rules for access to and use of publicly generated research data.",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Three: Balance legal interests",
+          "item": "3D",
+          "item_name": "Minimize embargo periods",
+          "item_question": "Does the manuscript advise reducing exclusive-use embargo periods to the minimum necessary?",
+          "item_question_background": "Long embargoes delay legal interoperability and downstream reuse value.",
+          "item_extraction_instruction": "Extract recommendations on duration and justification of exclusive-use or embargo periods.",
+          "item_expected_location": "Access timing / Embargo policy",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 3D. ... should reduce time embargoes for exclusive personal periods of research use to the minimum necessary.",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Three: Balance legal interests",
+          "item": "3E",
+          "item_name": "Avoid restrictive individual contracts",
+          "item_question": "Does the manuscript advise against individual contracts or agreements that unduly restrict access and reuse of publicly funded research data?",
+          "item_question_background": "Contract-level restrictions can override interoperability-friendly default policies.",
+          "item_extraction_instruction": "Extract statements discouraging EULA-like or one-off contract restrictions for public-sector data.",
+          "item_expected_location": "Contracting and licensing guidance",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 3E. ... rights holders ... need to avoid the use of individual contracts or agreements that restrict access to and reuse of the data.",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Principle Four: State rights transparently and clearly",
+      "items": [
+        {
+          "section": "Principle Four: State rights transparently and clearly",
+          "item": "4A",
+          "item_name": "Standardized electronic rights statements",
+          "item_question": "Does the manuscript recommend standardized, machine-readable statements of retained legal rights for research data?",
+          "item_question_background": "Machine-readable rights metadata enables scalable legal determination during data integration.",
+          "item_extraction_instruction": "Extract requirements for standardized rights statements and machine comprehensibility of legal terms.",
+          "item_expected_location": "Metadata and rights statement guidance",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 4A. The use of standardized electronic statements regarding the legal rights retained... can greatly assist ... including by machines.",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Four: State rights transparently and clearly",
+          "item": "4B",
+          "item_name": "Use competent legal counsel for jurisdictional clarity",
+          "item_question": "Does the manuscript advise rights holders to seek competent legal counsel when needed to determine applicable law and cross-jurisdiction differences?",
+          "item_question_background": "Cross-border reuse depends on accurately interpreted legal context.",
+          "item_extraction_instruction": "Extract recommendations about legal-counsel involvement for jurisdictional interpretation and conflict resolution.",
+          "item_expected_location": "Jurisdiction / Compliance guidance",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 4B. The rights holder(s) ... should engage competent legal counsel ... to determine the applicable law(s)...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Four: State rights transparently and clearly",
+          "item": "4C",
+          "item_name": "Inform users of special terms",
+          "item_question": "Does the manuscript require rights holders to clearly inform users of any special terms and conditions of use?",
+          "item_question_background": "Opaque conditions are a major failure mode for legal interoperability.",
+          "item_extraction_instruction": "Extract explicit obligations to disclose special terms, exceptions, and conditions to users.",
+          "item_expected_location": "Rights statement / Terms of use",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Guideline 4C. Rights holders should inform users about any special terms and conditions of use.",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Principle Five: Promote harmonization of rights",
+      "items": [
+        {
+          "section": "Principle Five: Promote harmonization of rights",
+          "item": "5A",
+          "item_name": "Use top-down and bottom-up harmonization",
+          "item_question": "Does the manuscript recommend using top-down, bottom-up, or mixed approaches to harmonize rights in research data?",
+          "item_question_background": "Hybrid governance approaches can improve adoption and legal consistency.",
+          "item_extraction_instruction": "Extract recommended harmonization approaches and when each is appropriate.",
+          "item_expected_location": "Harmonization strategy / Governance",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Guideline 5A. Research policymakers and practitioners can use both top-down and bottom-up approaches... to harmonize rights...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Five: Promote harmonization of rights",
+          "item": "5B",
+          "item_name": "Bottom-up voluntary mechanisms",
+          "item_question": "Does the manuscript describe voluntary private-law bottom-up actions as useful but potentially fragmented harmonization approaches?",
+          "item_question_background": "Recognizing fragmentation risk helps calibrate expectations for voluntary mechanisms.",
+          "item_extraction_instruction": "Extract discussion of voluntary/private-law mechanisms and their strengths/limitations for harmonization.",
+          "item_expected_location": "Harmonization approaches / Comparative analysis",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Guideline 5B. Bottom-up actions based on voluntary, private law mechanisms... can be an effective approach... but are relatively fragmented...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Five: Promote harmonization of rights",
+          "item": "5C",
+          "item_name": "Top-down legal harmonization",
+          "item_question": "Does the manuscript describe top-down harmonization through treaties, agreements, legislation, or regulation?",
+          "item_question_background": "Formal legal harmonization can substantially reduce cross-jurisdiction incompatibilities.",
+          "item_extraction_instruction": "Extract references to hard-law pathways and contexts where they are useful.",
+          "item_expected_location": "Legal framework / Regulatory strategy",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Guideline 5C. Top-down harmonization through 'hard' law ... can work in some contexts...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Principle Five: Promote harmonization of rights",
+          "item": "5D",
+          "item_name": "Process tools for harmonization",
+          "item_question": "Does the manuscript recommend process tools (workflows, decision charts/apps, scoreboards) to operationalize harmonization?",
+          "item_question_background": "Practical tooling helps organizations apply harmonization rules consistently.",
+          "item_extraction_instruction": "Extract any procedural decision-support tools proposed to implement harmonized rights handling.",
+          "item_expected_location": "Implementation tools / Workflow guidance",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Guideline 5D. Process-based approaches such as workflows decision-making charts, decision making apps and tools, or scoreboards...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Principle Six: Attribution and credit",
+      "items": [
+        {
+          "section": "Principle Six: Attribution and credit",
+          "item": "6A",
+          "item_name": "Normative attribution and credit",
+          "item_question": "Does the manuscript recommend attribution of reused research data as a normative research practice, preferably not as a strict legal or licensing mandate?",
+          "item_question_background": "Attribution norms preserve credit while avoiding unnecessary legal friction in data reuse.",
+          "item_extraction_instruction": "Extract attribution and credit guidance, including whether positioned as community norm versus legal mandate.",
+          "item_expected_location": "Attribution and citation policy",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Guideline 6A. Attribution of research data ... should be a normative convention ... and preferably not by a legal mandate...",
+              "locator": "Executive Summary"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary",
+      "Social sciences",
+      "Natural sciences"
+    ],
+    "Aliases": [
+      "Legal Interoperability of Research Data",
+      "RDA-CODATA Legal Interoperability",
+      "Legal Interoperability Principles and Implementation Guidelines",
+      "RDA CODATA legal interoperability guidelines"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\blegal\\s+interoperability\\b",
+          "\\blegal\\s+interoperability\\s+of\\s+research\\s+data\\b",
+          "\\bRDA[-\\s]?CODATA\\b",
+          "\\brights\\s+statement(s)?\\b",
+          "\\bresearch\\s+data\\s+rights\\b",
+          "\\bharmonization\\s+of\\s+rights\\b",
+          "\\baccess\\s+and\\s+reuse\\s+of\\s+research\\s+data\\b",
+          "\\bsui\\s+generis\\s+database\\s+rights\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bFHIR\\b",
+          "\\bHL7\\b",
+          "\\bAPI\\s+interoperability\\b",
+          "\\bsemantic\\s+web\\s+ontology\\s+alignment\\b",
+          "\\bnetwork\\s+interoperability\\b",
+          "\\bEHR\\s+interoperability\\b",
+          "\\bclinical\\s+interoperability\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bCC0\\b",
+          "\\bPDDL\\b",
+          "\\bCC[-\\s]?BY\\s*4\\.0\\b",
+          "\\bpublic\\s+domain\\s+waiver\\b",
+          "\\brights\\s+holder(s)?\\b",
+          "\\blegal\\s+use\\s+conditions\\b",
+          "\\bwithout\\s+seeking\\s+authorization\\s+on\\s+a\\s+case[-\\s]?by[-\\s]?case\\s+basis\\b",
+          "\\bmetadata\\s+.*\\s+legal\\s+status\\b",
+          "\\bindividual\\s+contracts?\\b",
+          "\\bend[-\\s]?user\\s+license\\s+agreements?\\b",
+          "\\bperiods?\\s+of\\s+exclusive\\s+use\\b",
+          "\\battribution\\s+and\\s+credit\\b",
+          "\\bopen\\s+and\\s+unrestricted\\s+as\\s+a\\s+default\\s+rule\\b",
+          "\\bstandardized\\s+electronic\\s+statements\\b",
+          "\\bcross[-\\s]?jurisdiction(al)?\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\binteroperability\\b(?![^\\n]{0,120}(legal|rights|license|licensing|policy|reuse|research\\s+data))",
+          "\\bstress\\s+test\\b",
+          "\\blegal\\s+interoperability\\s+testing\\s+framework\\s+for\\s+software\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We adopt the RDA-CODATA legal interoperability framework and specify rights statements, rights holders, and jurisdiction-aware reuse conditions for all datasets.",
+      "Our policy recommends CC0/PDDL public-domain dedication as default for publicly funded research data and limits restrictive contracts that impede downstream integration.",
+      "The guideline defines legal use conditions in machine-readable metadata so combined datasets can be reused without case-by-case authorization.",
+      "This framework balances privacy and national-security constraints with public-interest access while minimizing exclusive-use embargo periods."
+    ],
+    "EvidenceExamplesNegative": [
+      "This paper proposes HL7 FHIR APIs for EHR interoperability and does not discuss research-data legal rights, licensing, or reuse governance.",
+      "The manuscript studies technical schema interoperability only, with no rights statements, legal use conditions, or cross-jurisdiction policy guidance.",
+      "A trial report includes a generic data-availability statement but no legal interoperability framework, rights-holder mapping, or harmonization recommendations."
+    ],
+    "Explain": "Applies as a cross-cutting legal-policy reporting overlay when manuscripts or guidance documents address rights determination, licensing, rights statements, and harmonization needed for lawful interoperability of research data across contexts."
+  }
+}

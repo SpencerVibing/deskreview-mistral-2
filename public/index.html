@@ -460,15 +460,55 @@
       </div>
     </div>
 
-    <div class="modal fade" id="customizeChecksModal" tabindex="-1" aria-labelledby="customizeChecksTitle" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal fade" id="customizeChecksModal" tabindex="-1" aria-label="Select guideline" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-          <div class="modal-header">
-            <h2 id="customizeChecksTitle" class="modal-title fs-5">Customize checks</h2>
-            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div id="customizeChecksBody" class="modal-body">
-            <div class="text-secondary small">Loading check configuration...</div>
+          <div id="customizeChecksBody" class="modal-body p-0 guideline-selector-modal-body d-flex overflow-hidden position-relative">
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-1" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="guideline-modal-column d-flex flex-column border-end bg-light-subtle p-3 pt-5 overflow-auto" id="guidelineFacetColumn"></div>
+            <div class="guideline-modal-column d-flex flex-column flex-grow-1 p-5 position-relative">
+              <div class="p-3">
+                <input type="search" id="guidelineSearchInput" class="form-control" placeholder="Find a guideline by name, domain, or study type" aria-label="Find a guideline by name, domain, or study type">
+              </div>
+              <div id="guidelineCardContainer" class="position-relative overflow-auto flex-grow-1"></div>
+              <div id="guidelineDetailSlider" class="guideline-detail-slider bg-body d-flex flex-column p05">
+                <div class="d-flex align-items-start justify-content-between gap-3 px-4 py-3">
+                  <div></div>
+                  <button type="button" id="closeGuidelineDetailSliderBtn" class="btn btn-lg p-3 border-0 bg-transparent d-inline-flex align-items-center justify-content-center text-secondary" aria-label="Close details">
+                    <i class="bi bi-chevron-right"></i>
+                  </button>
+                </div>
+                <div class="p-5 pt-3 overflow-auto flex-grow-1">
+                  <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                    <h3 id="guidelineDetailName" class="mb-0">Select a guideline</h3>
+                  </div>
+                  <div id="guidelineDetailDescription" class="lead text-body-secondary mb-4">Choose a guideline card to inspect its details.</div>
+                  <ul class="nav nav-underline small mb-3" id="guidelineDetailTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="checklist-tab" data-bs-toggle="tab" data-bs-target="#checklist-pane" type="button" role="tab" aria-controls="checklist-pane" aria-selected="true">Checklist</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="scope-tab" data-bs-toggle="tab" data-bs-target="#scope-pane" type="button" role="tab" aria-controls="scope-pane" aria-selected="false">Aims &amp; scope</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="references-tab" data-bs-toggle="tab" data-bs-target="#references-pane" type="button" role="tab" aria-controls="references-pane" aria-selected="false">References</button>
+                    </li>
+                  </ul>
+                  <div class="tab-content border rounded-3 p-5" id="guidelineDetailTabContent">
+                    <div class="tab-pane fade show active" id="checklist-pane" role="tabpanel" aria-labelledby="checklist-tab" tabindex="0">
+                      <div class="small text-body-secondary">Select a guideline to view its checklist.</div>
+                    </div>
+                    <div class="tab-pane fade" id="scope-pane" role="tabpanel" aria-labelledby="scope-tab" tabindex="0">
+                      <div id="guidelineDetailMeta" class="d-flex flex-wrap gap-2 mb-4"></div>
+                      <div class="small text-body-secondary">Select a guideline to view its aims and scope.</div>
+                    </div>
+                    <div class="tab-pane fade" id="references-pane" role="tabpanel" aria-labelledby="references-tab" tabindex="0">
+                      <div class="small text-body-secondary">Select a guideline to view its references.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

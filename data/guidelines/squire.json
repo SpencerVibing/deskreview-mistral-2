@@ -1,0 +1,574 @@
+{
+  "id": "squire",
+  "Name": "SQUIRE",
+  "LongName": "Revised Standards for Quality Improvement Reporting Excellence (SQUIRE 2.0)",
+  "Description": "SQUIRE 2.0 provides a framework for reporting new knowledge about how to improve healthcare. It is intended for reports describing system-level work to improve the quality, safety, and value of healthcare, using methods to establish the association between observed outcomes and intervention(s).",
+  "Category": "Reporting guidance",
+  "Subdomain": "Healthcare improvement and quality improvement",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To assist authors in writing clearly, precisely and completely about systematic efforts to improve the quality, safety and value of healthcare services.",
+  "ManuscriptType": [
+    "Original research article",
+    "Healthcare improvement report",
+    "Quality improvement report"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Quality improvement study"
+  ],
+  "vocab_review_required": true,
+  "Keywords": [
+    "SQUIRE",
+    "SQUIRE 2.0",
+    "healthcare improvement",
+    "quality improvement",
+    "patient safety",
+    "healthcare quality",
+    "implementation",
+    "context",
+    "intervention",
+    "process measures",
+    "outcome measures",
+    "statistical process control",
+    "PDSA",
+    "Plan-Do-Study-Act",
+    "run chart",
+    "control chart",
+    "reporting guideline"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Quality improvement study",
+      "Healthcare improvement evaluation",
+      "Implementation evaluation"
+    ],
+    "Disciplines": [
+      "Medical and health"
+    ],
+    "Coverage": "Reports of systematic, data-driven efforts to improve healthcare quality, safety, effectiveness, patient-centeredness, timeliness, efficiency, cost, equity, or access, including qualitative and quantitative evaluations of interventions and their impact in real-world healthcare systems.",
+    "Focus": "Transparent reporting of the local problem, rationale (including theory), context, intervention details, study methods used to assess impact and attribution, measures and analysis (including variation over time), results (including evolution and unintended consequences), and interpretation, limitations, conclusions, and funding.",
+    "ContrastWith": "Not a study-design-specific guideline like CONSORT (randomized trials) or STROBE (observational epidemiology). SQUIRE focuses on healthcare improvement work and the study of improvement interventions, and may be used alongside intervention-description guidance (e.g., TIDieR) when appropriate."
+  },
+  "references": {
+    "primary": {
+      "description": "Goodman D, Ogrinc G, Davies L, et al. Explanation and elaboration of the SQUIRE (Standards for Quality Improvement Reporting Excellence) Guidelines, V.2.0: examples of SQUIRE elements in the healthcare improvement literature. BMJ Quality & Safety. 2016;25(12):e7.",
+      "url": "[https://pmc.ncbi.nlm.nih.gov/articles/PMC5256235/](https://pmc.ncbi.nlm.nih.gov/articles/PMC5256235/)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title and Abstract",
+      "items": [
+        {
+          "section": "Title and Abstract",
+          "item": "1",
+          "item_name": "Title",
+          "item_question": "Does the title indicate that the manuscript concerns an initiative to improve healthcare (broadly defined to include quality, safety, effectiveness, patient-centeredness, timeliness, cost, efficiency, and equity)?",
+          "item_question_background": "If the title does not clearly signal a healthcare improvement initiative, the work may be misclassified, overlooked in searches, or interpreted as conventional clinical research rather than system-level improvement.",
+          "item_extraction_instruction": "Extract the exact wording in the title that signals healthcare improvement (e.g., quality improvement, safety improvement, reducing errors, improving timeliness). Note whether the improvement domain (quality/safety/value/etc.) is explicitly stated.",
+          "item_expected_location": "Title",
+          "item_optional": false
+        },
+        {
+          "section": "Title and Abstract",
+          "item": "2a",
+          "item_name": "Abstract—searching and indexing",
+          "item_question": "Does the abstract provide adequate information to aid in searching and indexing?",
+          "item_question_background": "Abstracts drive discoverability; missing identifiers and key descriptors can prevent the report from being retrieved, screened, or indexed correctly for evidence use and learning across settings.",
+          "item_extraction_instruction": "Check for key searchable elements in the abstract (e.g., improvement aim/topic, setting, intervention, study approach, key outcomes). Extract the phrases that best support indexing and retrieval.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        },
+        {
+          "section": "Title and Abstract",
+          "item": "2b",
+          "item_name": "Abstract—structured summary",
+          "item_question": "Does the abstract summarize key information using the intended publication format or a structured summary (e.g., background, local problem, methods, interventions, results, conclusions)?",
+          "item_question_background": "If the abstract omits core elements (problem, intervention, methods, results), readers may draw incorrect conclusions or be unable to judge relevance without accessing full text.",
+          "item_extraction_instruction": "Identify whether the abstract includes each of these elements: background, local problem, methods, intervention(s), results, conclusions. Extract one sentence or clause for each element; if absent, record what is missing.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "3",
+          "item_name": "Problem description",
+          "item_question": "Does the report describe the nature and significance of the local problem?",
+          "item_question_background": "Without a clear local problem statement, readers cannot judge the need for the work, understand baseline performance gaps, or interpret whether the intervention addressed the right failure in the system.",
+          "item_extraction_instruction": "Extract the description of the local problem and any evidence of its significance (e.g., baseline rates, harms, costs, stakeholder impact). Note the population/service/process affected.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "4",
+          "item_name": "Available knowledge",
+          "item_question": "Does the report summarize what is currently known about the problem, including relevant previous studies?",
+          "item_question_background": "If prior evidence is not summarized, the report’s rationale and novelty are unclear, and readers cannot assess whether the initiative builds appropriately on existing improvement and implementation knowledge.",
+          "item_extraction_instruction": "Extract the summary of prior knowledge, including citations of relevant studies, prior interventions, or known best practices related to the problem and potential solutions.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "5",
+          "item_name": "Rationale",
+          "item_question": "Does the report describe informal or formal frameworks, models, concepts, and/or theories used to explain the problem, develop the intervention(s), and why the intervention(s) was expected to work?",
+          "item_question_background": "Improvement interventions can fail when mechanisms are implicit; without an explicit rationale/theory, readers cannot understand causal pathways, adapt the intervention, or interpret why outcomes did or did not change.",
+          "item_extraction_instruction": "Extract any stated theory/framework/model and the mechanism linking intervention components to expected outcomes (including key assumptions). If no explicit theory is provided, record that it is not stated.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "6",
+          "item_name": "Specific aims",
+          "item_question": "Does the report state the purpose of the project and of this report?",
+          "item_question_background": "If aims are vague or missing, the reader cannot determine what success means, which outcomes matter most, or whether the reported methods and analyses appropriately address the intended improvement objective.",
+          "item_extraction_instruction": "Extract the project aim(s) (what will be improved, for whom/where, by how much, by when if specified) and the stated purpose of the report (what the paper intends to contribute).",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "7",
+          "item_name": "Context",
+          "item_question": "Does the report describe contextual elements considered important at the outset of introducing the intervention(s)?",
+          "item_question_background": "Context strongly shapes whether improvement work succeeds and whether it can be transferred; without context reporting, apparent effects may be wrongly attributed to the intervention rather than environment or system conditions.",
+          "item_extraction_instruction": "Extract the setting and contextual elements (e.g., organization, resources, staffing, leadership, culture, workflows, policies, baseline performance, concurrent initiatives) identified as important at the start.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8a",
+          "item_name": "Intervention(s)—reproducible description",
+          "item_question": "Does the report describe the intervention(s) in sufficient detail that others could reproduce it?",
+          "item_question_background": "If intervention components and delivery are underspecified, readers cannot replicate, adapt, or synthesize the intervention, and failures/successes cannot be meaningfully compared across sites.",
+          "item_extraction_instruction": "Extract intervention components, who did what, to whom, when, where, how often, for how long, and any materials/tools used. Note any implementation steps or change strategies described.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8b",
+          "item_name": "Intervention(s)—team involved",
+          "item_question": "Does the report describe specifics of the team involved in the work?",
+          "item_question_background": "Improvement outcomes can depend on team expertise, roles, authority, and engagement; without team details, readers cannot judge feasibility, required competencies, or transferability.",
+          "item_extraction_instruction": "Extract the team composition (disciplines/roles), responsibilities, leadership structure, relevant training/experience, and stakeholder involvement if described.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9a",
+          "item_name": "Study of the intervention(s)—impact assessment approach",
+          "item_question": "Does the report describe the approach chosen for assessing the impact of the intervention(s)?",
+          "item_question_background": "Without a clear impact assessment approach, readers cannot evaluate whether observed changes are measurable, appropriately captured, and aligned with the intervention timeline and intended outcomes.",
+          "item_extraction_instruction": "Extract the study design/approach used to assess impact (e.g., time series, before-after, controlled comparison, qualitative evaluation), including timing and data sources.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9b",
+          "item_name": "Study of the intervention(s)—attribution approach",
+          "item_question": "Does the report describe the approach used to establish whether observed outcomes were due to the intervention(s)?",
+          "item_question_background": "Improvement settings have many simultaneous influences; if attribution methods are not described, changes may be incorrectly credited to the intervention, misleading future implementation decisions.",
+          "item_extraction_instruction": "Extract methods used to support attribution (e.g., analytic controls, comparison groups, balancing measures, qualitative triangulation, process evaluation, logic model, sensitivity checks).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "10a",
+          "item_name": "Measures—processes and outcomes",
+          "item_question": "Does the report describe measures chosen for studying processes and outcomes of the intervention(s), including rationale, operational definitions, and validity/reliability?",
+          "item_question_background": "Poorly defined or unjustified measures can create spurious improvement signals, prevent replication, and undermine confidence that changes reflect true performance rather than measurement artifact.",
+          "item_extraction_instruction": "For each key measure, extract: what it measures (process/outcome), rationale for inclusion, operational definition (numerator/denominator or qualitative construct definition), and any validity/reliability information provided.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "10b",
+          "item_name": "Measures—ongoing context assessment",
+          "item_question": "Does the report describe the approach to ongoing assessment of contextual elements contributing to success, failure, efficiency, and cost?",
+          "item_question_background": "Context can change during implementation; without ongoing context assessment, readers cannot interpret whether outcomes reflect intervention effects, contextual shifts, or both.",
+          "item_extraction_instruction": "Extract how context was monitored over time (what was assessed, how, by whom, and when), including efficiency and cost-related contextual factors if described.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "10c",
+          "item_name": "Measures—data completeness and accuracy",
+          "item_question": "Does the report describe methods employed for assessing completeness and accuracy of data?",
+          "item_question_background": "Incomplete or inaccurate data can falsely suggest improvement or obscure harm; without data quality checks, reported effects may not be trustworthy.",
+          "item_extraction_instruction": "Extract any described data quality procedures (missingness checks, audits, validation, inter-rater reliability, automated checks, data cleaning rules).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "11a",
+          "item_name": "Analysis—inference methods",
+          "item_question": "Does the report describe qualitative and quantitative methods used to draw inferences from the data?",
+          "item_question_background": "If analytic methods are not specified, readers cannot reproduce results or judge whether conclusions follow from the data, particularly when mixed methods are used in improvement work.",
+          "item_extraction_instruction": "Extract the qualitative analysis methods (e.g., thematic analysis, coding approach) and quantitative methods (e.g., SPC, regression, tests), including software/tools if stated.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "11b",
+          "item_name": "Analysis—variation and time",
+          "item_question": "Does the report describe methods for understanding variation within the data, including effects of time as a variable?",
+          "item_question_background": "Improvement data are often time-dependent; without methods addressing variation over time, normal fluctuation may be mistaken for improvement (or real change may be missed).",
+          "item_extraction_instruction": "Extract methods used to examine variation and time effects (e.g., run/control charts, time-series models, segmentation, seasonality considerations).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12",
+          "item_name": "Ethical considerations",
+          "item_question": "Does the report describe ethical aspects of implementing and studying the intervention(s) and how they were addressed, including formal ethics review and potential conflicts of interest?",
+          "item_question_background": "Improvement initiatives can carry risks (privacy, burden, opportunity costs); without ethical transparency and conflict disclosure, readers cannot assess safeguards or potential bias in reporting outcomes.",
+          "item_extraction_instruction": "Extract statements about ethics review/IRB determination (or rationale if not required), consent/privacy considerations if described, and conflict(s) of interest disclosures related to the intervention and evaluation.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "13a",
+          "item_name": "Results—initial steps and evolution",
+          "item_question": "Does the report describe initial steps of the intervention(s) and their evolution over time, including modifications made during the project?",
+          "item_question_background": "Improvement work commonly adapts during implementation; without reporting evolution and changes, readers cannot understand what was actually implemented or why outcomes occurred.",
+          "item_extraction_instruction": "Extract the timeline/evolution narrative (or referenced timeline diagram/flow chart/table) and any stated modifications with reasons and timing.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "13b",
+          "item_name": "Results—process and outcome details",
+          "item_question": "Does the report provide details of the process measures and outcome(s)?",
+          "item_question_background": "If process and outcome results are not clearly presented, readers cannot assess whether the intervention changed key processes and whether those changes translated into meaningful outcomes.",
+          "item_extraction_instruction": "Extract reported values for process measures and outcomes (including time trends where shown) and identify where they appear (table/figure/text).",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "13c",
+          "item_name": "Results—context-intervention interaction",
+          "item_question": "Does the report describe contextual elements that interacted with the intervention(s)?",
+          "item_question_background": "Context can enable or block change; without reporting interactions between context and intervention, replication attempts may fail because key enabling conditions are unknown.",
+          "item_extraction_instruction": "Extract described contextual factors that influenced implementation or outcomes (facilitators/barriers), including how they interacted with intervention components.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "13d",
+          "item_name": "Results—observed associations",
+          "item_question": "Does the report present observed associations between outcomes, interventions, and relevant contextual elements?",
+          "item_question_background": "Improvement reports need to connect interventions to outcomes; without explicit association reporting, conclusions may rely on narrative linkage rather than evidence.",
+          "item_extraction_instruction": "Extract statements, analyses, or figures that link intervention exposure/implementation to outcome changes, including any contextual modifiers discussed.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "13e",
+          "item_name": "Results—unintended consequences",
+          "item_question": "Does the report describe unintended consequences such as unexpected benefits, problems, failures, or costs associated with the intervention(s)?",
+          "item_question_background": "Unintended effects are common in complex systems; failing to report them can mislead adopters about risks, burdens, or hidden trade-offs of the improvement approach.",
+          "item_extraction_instruction": "Extract any reported unintended benefits, harms, operational problems, failures, or cost consequences, including how they were identified or measured.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "13f",
+          "item_name": "Results—missing data",
+          "item_question": "Does the report provide details about missing data?",
+          "item_question_background": "Missing data can bias improvement conclusions (especially when missingness changes over time); without missingness details, the credibility of trends and effect estimates is uncertain.",
+          "item_extraction_instruction": "Extract missing-data descriptions (amount, where missingness occurred, handling methods if reported in Results) and any impact statements on interpretation.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "14a",
+          "item_name": "Summary—key findings",
+          "item_question": "Does the discussion summarize key findings, including relevance to the rationale and specific aims?",
+          "item_question_background": "Without an aim-linked summary, readers cannot determine whether the intervention achieved its intended improvement or whether conclusions drift beyond what was planned and studied.",
+          "item_extraction_instruction": "Extract the discussion summary of main findings and note explicit links to the stated rationale and aims.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "14b",
+          "item_name": "Summary—strengths",
+          "item_question": "Does the discussion describe particular strengths of the project?",
+          "item_question_background": "Improvement evidence varies in rigor; stating strengths helps readers judge credibility (e.g., strong measurement, robust design, sustained implementation) and informs what aspects are most reliable.",
+          "item_extraction_instruction": "Extract the stated strengths (design strengths, measurement strengths, implementation strengths, stakeholder engagement, etc.).",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "15a",
+          "item_name": "Interpretation—association between intervention and outcomes",
+          "item_question": "Does the discussion interpret the nature of the association between the intervention(s) and the outcomes?",
+          "item_question_background": "If the intervention–outcome linkage is not interpreted carefully, readers may over-infer causality or misunderstand mechanisms, leading to inappropriate adoption or skepticism.",
+          "item_extraction_instruction": "Extract the interpretation of how and why the intervention(s) related to outcome changes, including any causal language qualifiers used.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "15b",
+          "item_name": "Interpretation—comparison with other publications",
+          "item_question": "Does the discussion compare results with findings from other publications?",
+          "item_question_background": "Without comparison to prior work, it is hard to place results in the broader improvement literature or understand consistency and reasons for differences across settings.",
+          "item_extraction_instruction": "Extract comparisons to other studies/reports and any explanations offered for similarities or differences.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "15c",
+          "item_name": "Interpretation—impact on people and systems",
+          "item_question": "Does the discussion describe the impact of the project on people and systems?",
+          "item_question_background": "Improvement initiatives can affect workload, culture, workflows, and patient experience; without reporting system and human impacts, adopters cannot anticipate feasibility and sustainability issues.",
+          "item_extraction_instruction": "Extract described impacts on patients, staff, teams, workflows, organizational processes, or system performance beyond the primary outcomes.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "15d",
+          "item_name": "Interpretation—differences between observed and anticipated outcomes",
+          "item_question": "Does the discussion explain reasons for differences between observed and anticipated outcomes, including the influence of context?",
+          "item_question_background": "When outcomes differ from expectations, lack of explanation prevents learning and may hide important contextual barriers or incorrect assumptions in the intervention rationale.",
+          "item_extraction_instruction": "Extract any discussion of why results differed from expectations and identify contextual influences cited as explanations.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "15e",
+          "item_name": "Interpretation—costs and strategic trade-offs",
+          "item_question": "Does the discussion describe costs and strategic trade-offs, including opportunity costs?",
+          "item_question_background": "Improvement work consumes resources and can displace other priorities; without trade-off and cost discussion, decision-makers may misjudge value and scalability.",
+          "item_extraction_instruction": "Extract any reported costs, resource requirements, trade-offs, or opportunity cost considerations and how they influenced decisions or outcomes.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "16a",
+          "item_name": "Limitations—generalizability",
+          "item_question": "Does the discussion describe limits to the generalizability of the work?",
+          "item_question_background": "Because improvement is context-dependent, failing to discuss generalizability can lead to inappropriate spread or unrealistic expectations when the same intervention is tried elsewhere.",
+          "item_extraction_instruction": "Extract stated limitations to generalizability/external validity and the contextual features that constrain transferability.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "16b",
+          "item_name": "Limitations—internal validity threats",
+          "item_question": "Does the discussion identify factors that might have limited internal validity (e.g., confounding, bias, imprecision) in design, methods, measurement, or analysis?",
+          "item_question_background": "If threats to internal validity are not acknowledged, readers cannot judge whether observed changes reflect true effects or artifacts of bias, confounding, or measurement/analytic limitations.",
+          "item_extraction_instruction": "Extract discussed internal validity threats (confounding, selection bias, measurement bias, secular trends, regression to the mean, imprecision) and where they arise (design/methods/measurement/analysis).",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "16c",
+          "item_name": "Limitations—mitigation efforts",
+          "item_question": "Does the discussion describe efforts made to minimize and adjust for limitations?",
+          "item_question_background": "Without mitigation strategies, limitations may seem fatal or unaddressed; describing adjustments and safeguards helps readers understand how the team protected credibility and what remains uncertain.",
+          "item_extraction_instruction": "Extract efforts to minimize/adjust for limitations (design choices, analytic adjustments, sensitivity analyses, triangulation, improved measurement) and any residual concerns.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "17a",
+          "item_name": "Conclusions—usefulness",
+          "item_question": "Do the conclusions describe the usefulness of the work?",
+          "item_question_background": "If usefulness is not clearly stated, readers may not understand what practical or scientific contribution the initiative offers, limiting uptake and learning from the report.",
+          "item_extraction_instruction": "Extract statements summarizing what was learned and why it matters for healthcare improvement practice or evidence.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "17b",
+          "item_name": "Conclusions—sustainability",
+          "item_question": "Do the conclusions address sustainability?",
+          "item_question_background": "Short-lived gains are common; without sustainability discussion, readers cannot judge whether improvements persisted or what would be required to maintain them.",
+          "item_extraction_instruction": "Extract any statements about sustainability (maintenance plans, follow-up duration, institutionalization of changes, ongoing monitoring).",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "17c",
+          "item_name": "Conclusions—potential for spread",
+          "item_question": "Do the conclusions address the potential for spread to other contexts?",
+          "item_question_background": "Spread requires understanding which components are core versus adaptable; without addressing spread, the report may not support responsible scaling or adaptation.",
+          "item_extraction_instruction": "Extract statements about transferability/spread, including prerequisites, adaptations, or contextual conditions needed for success elsewhere.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "17d",
+          "item_name": "Conclusions—implications for practice and further study",
+          "item_question": "Do the conclusions describe implications for practice and for further study in the field?",
+          "item_question_background": "Without implications, it is unclear how the work should change practice now or what evidence gaps remain, weakening the report’s contribution to cumulative improvement science.",
+          "item_extraction_instruction": "Extract explicit implications for practice and any recommended areas for further study or evaluation.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "17e",
+          "item_name": "Conclusions—next steps",
+          "item_question": "Do the conclusions suggest next steps?",
+          "item_question_background": "Improvement is iterative; without next steps, readers cannot see the continuation plan (e.g., further cycles, broader implementation, deeper evaluation) needed for sustained and generalizable learning.",
+          "item_extraction_instruction": "Extract the stated next steps (additional interventions, scale-up, monitoring, evaluation refinements, dissemination plans).",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Other information",
+      "items": [
+        {
+          "section": "Other information",
+          "item": "18",
+          "item_name": "Funding",
+          "item_question": "Does the report disclose sources of funding that supported this work and the role (if any) of the funding organization in design, implementation, interpretation, and reporting?",
+          "item_question_background": "Funding sources can influence priorities and reporting; without transparent disclosure of funder role, readers cannot assess potential bias or external influence on how results are presented.",
+          "item_extraction_instruction": "Extract the funding source(s) and any statements describing the funder’s role (or stating no role) in the design, implementation, interpretation, and reporting.",
+          "item_expected_location": "Funding statement / Acknowledgements / End matter",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "SQUIRE",
+      "SQUIRE 2.0",
+      "Standards for Quality Improvement Reporting Excellence"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bSQUIRE\\b",
+          "\\bSQUIRE\\s*2\\.0\\b",
+          "\\bStandards\\s+for\\s+QUality\\s+Improvement\\s+Reporting\\s+Excellence\\b",
+          "\\bquality\\s+improvement\\b",
+          "\\bhealthcare\\s+improvement\\b",
+          "\\bpatient\\s+safety\\b.*\\bimprov",
+          "\\bprocess\\s+improvement\\b",
+          "\\bPDSA\\b",
+          "\\bPlan[-\\s]?Do[-\\s]?Study[-\\s]?Act\\b",
+          "\\bstatistical\\s+process\\s+control\\b",
+          "\\brun\\s+chart\\b",
+          "\\bcontrol\\s+chart\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bCONSORT\\b",
+          "\\bSPIRIT\\b",
+          "\\bPRISMA\\b",
+          "\\bSTROBE\\b",
+          "\\bCARE\\b",
+          "\\brandomi[sz](ed|ation)\\b",
+          "\\brandomized\\s+controlled\\s+trial\\b",
+          "\\bclinical\\s+trial\\b",
+          "\\btrial\\s+protocol\\b",
+          "\\bsystematic\\s+review\\b",
+          "\\bmeta[-\\s]?analysis\\b",
+          "\\bcase\\s+report\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bquality\\s+improvement\\s+initiative\\b",
+          "\\bimprovement\\s+project\\b",
+          "\\bhealth\\s+care\\s+quality\\b",
+          "\\bQI\\s+project\\b",
+          "\\bimplementation\\s+of\\b.*\\bintervention\\b.*\\bworkflow\\b",
+          "\\bprocess\\s+measure(s)?\\b",
+          "\\bbalancing\\s+measure(s)?\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract",
+        "Patterns": [
+          "\\bprotocol\\b.*\\btrial\\b",
+          "\\bwe\\s+will\\s+(conduct|randomi[sz]e|assign|recruit|enrol|enroll)\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We conducted a quality improvement initiative using PDSA cycles to reduce catheter-associated infections and evaluated outcomes over time using statistical process control.",
+      "This healthcare improvement project reports context, intervention details, process and outcome measures, and analysis of variation over time."
+    ],
+    "EvidenceExamplesNegative": [
+      "We performed a randomized controlled trial and report according to CONSORT.",
+      "This protocol describes a planned trial and will be reported using SPIRIT."
+    ],
+    "Explain": "Maps healthcare improvement / quality improvement reports (including evaluations of improvement interventions) to SQUIRE 2.0, while excluding randomized trial reporting, observational epidemiology guidelines, evidence syntheses, and case reports."
+  }
+}

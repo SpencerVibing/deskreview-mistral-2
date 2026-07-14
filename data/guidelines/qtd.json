@@ -1,0 +1,369 @@
+{
+  "id": "qtd",
+  "Name": "QTD",
+  "LongName": "Qualitative Transparency Deliberations",
+  "Description": "QTD is a qualitative political-science transparency overlay distilled from the Qualitative Transparency Deliberations. It emphasizes context-sensitive research explicitness over one-size-fits-all transparency rules, focusing on how evidence was generated, how analysis proceeded, how human participants were protected, and how data-sharing choices should be justified in relation to methodology, ethics, and research context.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Qualitative political science transparency",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To guide qualitative political-science scholarship toward forms of openness and explicitness that improve interpretability and evaluability while respecting methodological diversity, ethical obligations, and the risks faced by human participants and their communities.",
+  "ManuscriptType": [
+    "Original research article",
+    "Qualitative political science study",
+    "Fieldwork study",
+    "Ethnography",
+    "Interpretive study",
+    "Comparative qualitative study"
+  ],
+  "ManuscriptSubType": [
+    "Process tracing study",
+    "Interview-based study",
+    "Ethnographic study",
+    "Interpretive study",
+    "Research in authoritarian or violent contexts"
+  ],
+  "StudyType": [
+    "Qualitative study",
+    "Fieldwork study",
+    "Interview study",
+    "Ethnography",
+    "Interpretive study",
+    "Policy and standards statement"
+  ],
+  "Keywords": [
+    "QTD",
+    "qualitative transparency deliberations",
+    "qualitative transparency",
+    "political science transparency",
+    "research explicitness",
+    "fieldwork ethics",
+    "human participants",
+    "data sharing",
+    "analytic process",
+    "evidence generation"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Qualitative study",
+      "Fieldwork study",
+      "Interview study",
+      "Ethnography",
+      "Interpretive study",
+      "Policy and standards statement"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Political science"
+    ],
+    "Coverage": "Qualitative political-science and adjacent social-science manuscripts, especially work using interviews, ethnography, textual evidence, process tracing, interpretive methods, or research in sensitive political settings.",
+    "Focus": "Context-sensitive transparency about evidence generation, analytic process, positionality, human-subjects risks, and selective or restricted sharing of source materials.",
+    "ContrastWith": "QTD is not a maximalist data-sharing checklist and not a universal meta-standard for all research. It complements broader transparency overlays such as DA-RT by foregrounding methodological pluralism and the priority of participant protection in qualitative inquiry."
+  },
+  "references": {
+    "primary": {
+      "description": "Jacobs AM, Büthe T, et al. The Qualitative Transparency Deliberations: Insights and Implications. Perspectives on Politics. 2021;19(1):171-208.",
+      "url": "https://dspace.library.uu.nl/bitstream/handle/1874/412291/the_qualitative_transparency_deliberations_insights_and_implications.pdf?sequence=1&isAllowed=y"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Framing Transparency",
+      "items": [
+        {
+          "section": "Framing Transparency",
+          "item": "1",
+          "item_name": "Align transparency practices with the study's logic of inquiry and context",
+          "item_question": "Does the manuscript explain transparency or explicitness practices in a way that is appropriate to its specific qualitative methodology, form of evidence, and research context rather than assuming a universal transparency standard?",
+          "item_question_background": "A central conclusion of the QTD process is that qualitative research is too methodologically diverse for a single meta-standard of transparency to operate coherently across all logics of inquiry. The paper repeatedly emphasizes that expectations should be adapted to the kind of qualitative work being done.",
+          "item_extraction_instruction": "Extract any explanation of how the manuscript's transparency or explicitness choices fit its methodological tradition, evidence type, epistemological stance, or research setting.",
+          "item_expected_location": "Introduction / Methods / Methodological appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "there exists no single “meta-standard” of research transparency that can operate coherently across all logics of qualitative inquiry;",
+              "locator": "Overview of key findings"
+            },
+            {
+              "page": 3,
+              "quote": "The meaning, value, costs, and operationalization of research transparency ... are likely to depend heavily on the particular form of qualitative scholarship in question.",
+              "locator": "QTD process overview"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Research Explicitness",
+      "items": [
+        {
+          "section": "Research Explicitness",
+          "item": "2",
+          "item_name": "Describe how evidence was generated",
+          "item_question": "Does the manuscript provide a detailed and explicit account of the process through which the evidence used in the study was generated?",
+          "item_question_background": "Across the deliberations, one of the broadest areas of consensus was that readers should understand how the evidence behind empirical claims came into being. This includes source selection, recruitment, access, and other evidence-generation choices that shape what the study can show.",
+          "item_extraction_instruction": "Extract descriptions of source selection, site access, participant recruitment, document collection, case selection, coding or data-generation procedures, and any important mid-course changes in evidence-gathering.",
+          "item_expected_location": "Methods / Data / Fieldwork / Sources",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "the process through which the evidence used in a study was generated;",
+              "locator": "Broad consensus list"
+            },
+            {
+              "page": 3,
+              "quote": "When and why is it beneficial for scholars to provide a detailed account of the methods by which they gathered and analyzed their evidence",
+              "locator": "Questions discussed in QTD"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Research Explicitness",
+          "item": "3",
+          "item_name": "Describe the analytic process linking evidence to conclusions",
+          "item_question": "Does the manuscript explain the analytic process through which the researcher moved from observations or source materials to the study's conclusions?",
+          "item_question_background": "Another widely shared conclusion of the QTD was that published qualitative research should make the analytic path to its claims visible. Readers need this information to understand how conclusions were drawn and to assess possible sources of bias or alternative interpretations.",
+          "item_extraction_instruction": "Extract discussion of coding, interpretation, process tracing, case comparison, iteration between evidence and hypotheses, inferential logic, and any formal or informal analytic steps used to derive findings.",
+          "item_expected_location": "Methods / Analysis / Analytic strategy / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "the analytic process through which the scholar arrived at conclusions; and",
+              "locator": "Broad consensus list"
+            },
+            {
+              "page": 7,
+              "quote": "providing clear and detailed information about research goals, the process of generating evidence, and the analytic process can help readers make sense of published research and its conclusions.",
+              "locator": "Potential benefits of transparency"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Research Explicitness",
+          "item": "4",
+          "item_name": "Discuss positionality or reflexive influences when relevant",
+          "item_question": "Where relevant to the methodology, does the manuscript reflect on how the researcher's position, subjectivity, or relationship to participants may have shaped evidence generation or interpretation?",
+          "item_question_background": "The QTD expands transparency beyond raw-data access to include forms of research explicitness such as positionality and subjectivity. For many qualitative traditions, reflecting on these influences is important for understanding how evidence was gathered and interpreted.",
+          "item_extraction_instruction": "Extract any discussion of researcher positionality, reflexivity, power relations in the field, or how personal or social location influenced access, interaction, observation, or interpretation.",
+          "item_expected_location": "Methods / Reflexivity statement / Positionality note / Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "researcher positionality by explicitly reflecting on how the researcher’s position within power structures",
+              "locator": "Forms of transparency"
+            },
+            {
+              "page": 6,
+              "quote": "researcher subjectivity by explicitly reflecting on how the researcher’s life experiences and individual characteristics might have influenced",
+              "locator": "Forms of transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Ethics and Data Sharing",
+      "items": [
+        {
+          "section": "Ethics and Data Sharing",
+          "item": "5",
+          "item_name": "Explain risks to human participants and protective steps",
+          "item_question": "Does the manuscript discuss the risks faced by human participants or their communities and the steps taken to protect them?",
+          "item_question_background": "The article identifies this as one of the clearest cross-community expectations to emerge from the deliberations. It also stresses that participant protection is not a side issue but a central part of evaluating qualitative transparency choices.",
+          "item_extraction_instruction": "Extract discussion of participant or community risks, confidentiality concerns, anonymization, consent practices, fieldwork protections, and any tradeoffs between openness and participant safety.",
+          "item_expected_location": "Methods / Ethics / Human subjects / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "the risks faced by human participants in a study and the steps taken to protect them and their communities.",
+              "locator": "Broad consensus list"
+            },
+            {
+              "page": 3,
+              "quote": "researchers’ ethical obligations to protect human participants and their communities ought to take priority over the sharing of information with research consumers.",
+              "locator": "Overview of key findings"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Ethics and Data Sharing",
+          "item": "6",
+          "item_name": "Justify source-material sharing choices and restrictions",
+          "item_question": "If source materials are shared, limited, or withheld, does the manuscript explain those choices in light of intellectual value, ethical obligations, practical constraints, and methodological fit?",
+          "item_question_background": "QTD does not reject source sharing outright; instead, it argues that sharing can be valuable in many traditions while warning that uniform or maximalist data-sharing requirements are often inappropriate. The key expectation is a reasoned account of what is or is not being shared and why.",
+          "item_extraction_instruction": "Extract any statement about sharing interview transcripts, text excerpts, fieldnotes, archives, appendices, annotations, repositories, or deliberate non-sharing, including the reasons for those choices.",
+          "item_expected_location": "Data availability / Appendix / Ethics / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "sharing some source materials is seen as an intellectually valuable practice within many qualitative research traditions; however, uniform and maximalist data-sharing requirements would be highly problematic",
+              "locator": "Overview of key findings"
+            },
+            {
+              "page": 6,
+              "quote": "scholars might also choose to engage in: data sharing",
+              "locator": "Forms of transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Ethics and Data Sharing",
+          "item": "7",
+          "item_name": "Prioritize participant protection over transparency mandates",
+          "item_question": "Where openness would increase risk, does the manuscript make clear that participant protection limits what can be disclosed or shared?",
+          "item_question_background": "One of the article's strongest conclusions is that ethical obligations to participants and their communities override external demands for maximal openness. This means transparency expectations must visibly stop short where they would create harm.",
+          "item_extraction_instruction": "Extract any explicit statement that confidentiality, safety, repression, violence, vulnerability, or other ethical considerations restrict disclosure, archiving, or data sharing.",
+          "item_expected_location": "Ethics / Data availability / Methodological note",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "researchers’ ethical obligations to protect human participants and their communities ought to take priority over the sharing of information with research consumers.",
+              "locator": "Overview of key findings"
+            },
+            {
+              "page": 3,
+              "quote": "What are the implications for transparency of researchers’ ethical obligations toward human participants?",
+              "locator": "Questions discussed in QTD"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Evaluation and Disclosure",
+      "items": [
+        {
+          "section": "Evaluation and Disclosure",
+          "item": "8",
+          "item_name": "Make the study evaluable for appropriate research communities",
+          "item_question": "Does the manuscript provide enough information for readers, reviewers, and editors to evaluate the work using standards appropriate to the study's own logic of inquiry?",
+          "item_question_background": "A major function of transparency in the QTD account is not simple replication but better understanding and evaluation. The article repeatedly argues that explicitness should help relevant research communities assess credibility and interpretability on terms suited to the methodology being used.",
+          "item_extraction_instruction": "Extract any statements about how the manuscript enables interpretation, evaluation, or scrutiny by readers and reviewers, especially where the standards are tailored to a specific qualitative tradition.",
+          "item_expected_location": "Methods / Appendix / Methodological note / Conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "criteria of evaluation that are appropriate—as understood by relevant research communities—to the forms of inquiry being assessed.",
+              "locator": "Purpose of the reports"
+            },
+            {
+              "page": 7,
+              "quote": "providing clear and detailed information about research goals, the process of generating evidence, and the analytic process can help readers make sense of published research",
+              "locator": "Potential benefits of transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Evaluation and Disclosure",
+          "item": "9",
+          "item_name": "Disclose relevant goals, interests, or conflicts affecting the research",
+          "item_question": "Does the manuscript disclose relevant research goals, funding sources, affiliations, or conflicts of interest that may shape how the study was conducted or understood?",
+          "item_question_background": "Among the forms of transparency synthesized by the QTD are explicitness about a study's intellectual, political, or social goals and about potential conflicts of interest. These disclosures help readers assess the conditions under which the research was produced.",
+          "item_extraction_instruction": "Extract statements about project goals, funding, affiliations, conflicts of interest, or vested interests that may bear on the research process or interpretation.",
+          "item_expected_location": "Introduction / Funding / Conflict of interest / Acknowledgments",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "research goals, including a project's intellectual, political or social objectives;",
+              "locator": "Forms of transparency"
+            },
+            {
+              "page": 6,
+              "quote": "conflicts of interest that the researcher(s) might have, or appear to have, including any vested interest in project outcomes, the sources of project funding, and relevant personal affiliations.",
+              "locator": "Forms of transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "QTD",
+      "Qualitative Transparency Deliberations",
+      "qualitative transparency in political science"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative\\b",
+          "\\bfieldwork\\b",
+          "\\bethnograph(?:y|ic)\\b",
+          "\\binterviews?\\b",
+          "\\bprocess tracing\\b",
+          "\\binterpretive\\b",
+          "\\btransparency\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bhuman participants\\b",
+          "\\bparticipant protection\\b",
+          "\\bdata sharing\\b",
+          "\\bqualitative transparency\\b",
+          "\\bresearch explicitness\\b",
+          "\\bauthoritarian\\b",
+          "\\bpolitical violence\\b",
+          "\\bvulnerable\\s+and\\s+marginalized\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bpurely formal theory\\b",
+          "\\bno empirical evidence\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A qualitative political-science study based on interviews explains participant risks, field access, source selection, and how evidence was interpreted without fully sharing raw transcripts.",
+      "An ethnographic manuscript in a repressive setting justifies limited data sharing, provides a detailed analytic narrative, and reflects on positionality and participant protection."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely quantitative article with open data and code but no qualitative evidence-generation or participant-protection issues is better matched to a different transparency overlay.",
+      "A non-empirical political-theory essay with no fieldwork, interviews, sources, or empirical claims should not map strongly to QTD."
+    ],
+    "Explain": "Use QTD for qualitative political-science manuscripts that need context-sensitive transparency about evidence generation, analytic process, source sharing, and ethical protection of human participants."
+  }
+}

@@ -1,0 +1,334 @@
+{
+  "id": "cee",
+  "Name": "CEE",
+  "LongName": "CEE-ENEV Checklist for Editors Assessing Validity of Systematic Reviews in the Environmental Sector",
+  "Description": "A practical editor/reviewer checklist from the Collaboration for Environmental Evidence (CEE) and Environmental Evidence for quickly assessing whether manuscripts claiming to be systematic reviews meet core conduct and reporting expectations.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Environmental systematic review reporting",
+  "StandardizedTopDomain": "Natural sciences",
+  "Aim": "To support editors and peer reviewers in identifying manuscripts that do or do not qualify as systematic reviews in the environmental sector, based on transparent and replicable methods.",
+  "ManuscriptType": [
+    "Systematic review",
+    "Evidence synthesis",
+    "Review protocol"
+  ],
+  "ManuscriptSubType": [
+    "Environmental systematic review",
+    "Conservation evidence synthesis",
+    "Policy-relevant environmental review"
+  ],
+  "StudyType": [
+    "Systematic review",
+    "Evidence synthesis methodology"
+  ],
+  "Keywords": [
+    "CEE",
+    "Environmental Evidence",
+    "systematic review checklist",
+    "editor checklist",
+    "peer review checklist",
+    "protocol preregistration",
+    "replicable search strategy",
+    "eligibility criteria",
+    "critical appraisal",
+    "data extraction transparency",
+    "synthesis method justification",
+    "review limitations",
+    "CEESAT"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Systematic review",
+      "Evidence synthesis methodology"
+    ],
+    "Disciplines": [
+      "Natural sciences",
+      "Agricultural sciences",
+      "Cross-disciplinary"
+    ],
+    "Coverage": "Reviews in the environmental sector that claim systematic-review status and need rapid validity checks for core conduct and reporting requirements.",
+    "Focus": "Protocol availability, full methodological transparency, reproducible searching and screening, explicit critical appraisal, transparent extraction and synthesis, and clear discussion of review and evidence-base limitations.",
+    "ContrastWith": "This is a discipline-specific editorial validity checklist for environmental systematic reviews. It complements broad systematic-review reporting guidance by providing rapid screening criteria for environmental evidence journals and reviewers."
+  },
+  "references": {
+    "primary": {
+      "description": "Collaboration for Environmental Evidence and Environmental Evidence. A checklist for Editors for assessing validity of Systematic Reviews in the Environmental sector.",
+      "url": "https://environmentalevidence.org/wp-content/uploads/2025/06/CEE-ENEV-SR-checklist.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "General methods",
+      "items": [
+        {
+          "section": "General methods",
+          "item": "1.1",
+          "item_name": "Protocol preregistration/publication",
+          "item_question": "Have the authors pre-registered and/or published a protocol with sufficient methodological detail?",
+          "item_question_background": "An a-priori protocol reduces post-hoc methodological decisions that can increase bias.",
+          "item_extraction_instruction": "Extract protocol citation/link, access location, and whether it contains methodological detail for review stages.",
+          "item_expected_location": "Methods / Protocol statement / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Have the authors pre-registered and/or published a protocol for the review?",
+              "locator": "Checklist question 1"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "General methods",
+          "item": "1.2",
+          "item_name": "Replicable methods section",
+          "item_question": "Does the review include a defined methods section covering all key review stages in replicable detail?",
+          "item_question_background": "Transparent methods are required for reproducibility and validity assessment.",
+          "item_extraction_instruction": "Extract whether methods describe review question, search, screening, appraisal, extraction, and synthesis stages in replicable detail.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Does the review include a defined methods section providing a description of all the review stages conducted...",
+              "locator": "Checklist question 1"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Searching for articles",
+      "items": [
+        {
+          "section": "Searching for articles",
+          "item": "2",
+          "item_name": "Replicable search strings",
+          "item_question": "Are all search terms/strings and operators reported so the exact search is replicable?",
+          "item_question_background": "Incomplete search reporting prevents verification and reproducibility.",
+          "item_extraction_instruction": "Extract full search strings, Boolean operators, wildcards, and source-specific queries.",
+          "item_expected_location": "Methods / Supplementary search materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Are all search terms and search strings, with Boolean operators... clearly stated... so that the exact search is replicable...",
+              "locator": "Checklist question 2"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Screening and study inclusion",
+      "items": [
+        {
+          "section": "Screening and study inclusion",
+          "item": "3.1",
+          "item_name": "Precisely defined eligibility criteria",
+          "item_question": "Are study eligibility criteria precisely defined and explicitly linked to question elements?",
+          "item_question_background": "Ambiguous eligibility criteria can introduce subjectivity and selection bias.",
+          "item_extraction_instruction": "Extract eligibility criteria details, including question-element mapping and additional limits (design/language/date where applicable).",
+          "item_expected_location": "Methods (eligibility criteria)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Are study eligibility criteria precisely defined so as to be replicable... and expressly related to each key element of the question?",
+              "locator": "Checklist question 3"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Screening and study inclusion",
+          "item": "3.2",
+          "item_name": "Transparent screening flow counts",
+          "item_question": "Are record counts reported for search retrieval and exclusions at each screening stage?",
+          "item_question_background": "Screening-flow transparency is essential for auditability of inclusion decisions.",
+          "item_extraction_instruction": "Extract counts at each screening stage and any flow diagram or equivalent record trail.",
+          "item_expected_location": "Results / PRISMA-style flow / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Is the number of records ... excluded at each stage of the screening process provided?",
+              "locator": "Checklist question 3"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Critical appraisal",
+      "items": [
+        {
+          "section": "Critical appraisal",
+          "item": "4",
+          "item_name": "Study-level risk-of-bias appraisal",
+          "item_question": "Is effort made to identify all relevant sources of bias for each included study (ideally using a recognized tool)?",
+          "item_question_background": "Without study-level appraisal, synthesis findings may be driven by unreliable primary studies.",
+          "item_extraction_instruction": "Extract appraisal framework/tool, criteria, and evidence that each study was appraised.",
+          "item_expected_location": "Methods / Results (critical appraisal)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Is an effort made to identify all sources of bias ... relevant to each of the individual studies?",
+              "locator": "Checklist question 4"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data extraction",
+      "items": [
+        {
+          "section": "Data extraction",
+          "item": "5",
+          "item_name": "Transparent extracted dataset",
+          "item_question": "Are all extracted data reported so synthesis can be replicated?",
+          "item_question_background": "Replicable synthesis requires visibility of extracted outcome data and metadata.",
+          "item_extraction_instruction": "Extract whether raw outcome metrics and study metadata are reported in tables/spreadsheets.",
+          "item_expected_location": "Supplementary tables / Data files",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Are all extracted data reported in a table or spreadsheet so that the synthesis can be replicated?",
+              "locator": "Checklist question 5"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data synthesis",
+      "items": [
+        {
+          "section": "Data synthesis",
+          "item": "6",
+          "item_name": "Replicable and justified synthesis method",
+          "item_question": "Is the synthesis method described in replicable detail and justified against characteristics of included studies?",
+          "item_question_background": "Choice and justification of synthesis method strongly influence review conclusions.",
+          "item_extraction_instruction": "Extract synthesis type, procedural detail, and justification linked to heterogeneity/study characteristics.",
+          "item_expected_location": "Methods (synthesis)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Is the choice of synthesis method ... described in sufficient detail to be replicable? ... justified on the basis of characteristics of included studies...",
+              "locator": "Checklist question 6"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Review limitations",
+      "items": [
+        {
+          "section": "Review limitations",
+          "item": "7",
+          "item_name": "Explicit risk-of-bias limitations discussion",
+          "item_question": "Is there an explicit discussion of risk of bias in the synthesized evidence due to review-process and primary-study limitations?",
+          "item_question_background": "Explicit limitations reporting is critical for responsible interpretation and use.",
+          "item_extraction_instruction": "Extract text discussing limitations from both review conduct and primary evidence quality perspectives.",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Is an explicit section ... devoted to the authors’ consideration of risk of bias in the synthesized evidence base...",
+              "locator": "Checklist question 7"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "discipline_overlay",
+    "Domains": [
+      "Natural sciences",
+      "Agricultural sciences"
+    ],
+    "Aliases": [
+      "CEE ENEV SR checklist",
+      "CEE environmental systematic review checklist",
+      "CEE systematic review editor checklist",
+      "CEESAT checklist context"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\benvironmental\\s+systematic\\s+review\\b",
+          "\\bCollaboration\\s+for\\s+Environmental\\s+Evidence\\b",
+          "\\bEnvironmental\\s+Evidence\\b",
+          "\\bCEESAT\\b",
+          "\\bevidence\\s+synthesis\\s+in\\s+environmental\\s+sector\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bclinical\\s+systematic\\s+review\\b",
+          "\\bmedical\\s+meta-analysis\\b",
+          "\\bRCT\\s+trial\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bpre-registered\\s+protocol\\b",
+          "\\breplicable\\s+search\\s+string\\b",
+          "\\beligibility\\s+criteria\\b",
+          "\\bflow\\s+diagram\\b",
+          "\\bcritical\\s+appraisal\\b",
+          "\\bdata\\s+extraction\\s+table\\b",
+          "\\bquantitative\\s+meta-analysis\\b",
+          "\\bnarrative\\s+synthesis\\b",
+          "\\brisk\\s+of\\s+bias\\s+in\\s+evidence\\s+base\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "This environmental evidence synthesis provides protocol registration, full replicable search strings, explicit eligibility criteria, and transparent screening counts.",
+      "The review reports study-level critical appraisal and provides extracted data tables enabling replication of synthesis.",
+      "Authors justify the synthesis approach and explicitly discuss limitations and risk of bias in the evidence base."
+    ],
+    "EvidenceExamplesNegative": [
+      "The manuscript is a narrative environmental review with no protocol, no replicable search strings, and no transparent screening workflow.",
+      "This paper labels itself a systematic review but omits critical appraisal and extracted data needed for synthesis replication.",
+      "A biomedical SR paper with no environmental evidence context is out of scope for this checklist."
+    ],
+    "Explain": "Adds a discipline-specific environmental systematic-review validity checklist for editorial/reviewer triage of manuscripts that claim SR status in environmental evidence contexts."
+  }
+}

@@ -1,0 +1,316 @@
+{
+  "id": "metabolomics",
+  "Name": "Clinical Metabolomics Computational Reproducibility Checklist",
+  "LongName": "A Checklist for Reproducible Computational Analysis in Clinical Metabolomics Research",
+  "Description": "This checklist provides eight practical actions for making the computational aspects of clinical metabolomics studies more reproducible. It extends beyond metadata reporting alone to cover reusable data sharing, workflow versioning, software availability, containerization, hardware documentation, semantic annotation, and executable workflow delivery.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical metabolomics computational reproducibility",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve reproducibility of clinical metabolomics studies by specifying concrete actions that make data reusable, computational workflows inspectable, and analyses easier for other researchers to rerun, understand, and preserve over time.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical metabolomics study",
+    "Biomarker discovery study",
+    "Omics data analysis study"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Clinical metabolomics study",
+    "Secondary data analysis",
+    "Biomarker discovery study",
+    "Computational workflow study"
+  ],
+  "Keywords": [
+    "clinical metabolomics",
+    "reproducibility",
+    "computational workflow",
+    "data repository",
+    "version control",
+    "open source",
+    "software container",
+    "virtual machine",
+    "semantic annotation",
+    "literate programming"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical metabolomics study",
+      "Secondary data analysis",
+      "Biomarker discovery study",
+      "Computational workflow study"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Clinical pharmacology",
+      "Biomedical informatics",
+      "Metabolomics"
+    ],
+    "Coverage": "Clinical metabolomics studies that involve computational data processing and analysis, especially studies using NMR or mass-spectrometry pipelines for biomarker discovery or translational research.",
+    "Focus": "Reusable data sharing, clear metadata presentation, version-controlled workflow sharing, use of open-source downloadable tools, containerization or virtual machines, runtime hardware documentation, semantic annotation for workflow preservation, and executable or narrative workflow delivery.",
+    "ContrastWith": "This checklist targets reproducible computational analysis in clinical metabolomics rather than general study design or wet-lab reporting. It complements metabolomics metadata standards and minimum reporting checklists by focusing on computational reproducibility actions."
+  },
+  "references": {
+    "primary": {
+      "description": "Du X, Aristizabal-Henao JJ, Garrett TJ, Brochhausen M, Hogan WR, Lemas DJ. A Checklist for Reproducible Computational Analysis in Clinical Metabolomics Research. Metabolites. 2022;12(1):87.",
+      "url": "https://doi.org/10.3390/metabo12010087"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Reusable Data Sharing",
+      "items": [
+        {
+          "section": "Reusable Data Sharing",
+          "item": "1",
+          "item_name": "Deposit data to a public metabolomics repository",
+          "item_question": "Does the study deposit metabolomics data in a public repository designed for metabolomics data sharing?",
+          "item_question_background": "The authors frame public data deposition as the first step toward reproducible metabolomics research because only a small portion of metabolomics outputs had historically been made public, while dedicated repositories can support both sharing and adherence to reporting standards.",
+          "item_extraction_instruction": "Extract whether data were deposited in a public metabolomics repository, the repository name, accession or identifier, and any statement about public availability.",
+          "item_expected_location": "Data availability / Methods / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Making metabolomics data files publicly available is the first step towards reproducible research.",
+              "locator": "Section 3.1"
+            },
+            {
+              "page": 8,
+              "quote": "Many data repositories specifically designed for metabolomics data were developed to facilitate data sharing",
+              "locator": "Section 3.1"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reusable Data Sharing",
+          "item": "2",
+          "item_name": "Present metadata clearly",
+          "item_question": "Does the manuscript present metadata and detailed methods clearly enough for readers to understand and apply the workflow immediately, for example through a structured protocol format?",
+          "item_question_background": "The paper argues that reproducibility depends not only on depositing metadata somewhere but on presenting it in a form that readers can absorb and use efficiently. It highlights STAR Methods and STAR Protocols as models for making methods and metadata transparent and collaborative.",
+          "item_extraction_instruction": "Extract how metadata and methods are presented, including use of structured protocol formats, supplementary protocols, STAR Methods, or similarly clear reporting templates.",
+          "item_expected_location": "Methods / Supplementary methods / Protocol appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Presenting metadata clearly in the manuscript is another step towards reproducible research.",
+              "locator": "Section 3.2"
+            },
+            {
+              "page": 8,
+              "quote": "It is recommended to format the metadata and detailed method following STAR Methods and submit the protocol to STAR Protocols.",
+              "locator": "Section 3.2"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Reproducible Computational Workflow Development",
+      "items": [
+        {
+          "section": "Reproducible Computational Workflow Development",
+          "item": "3",
+          "item_name": "Share workflow information with a version control system",
+          "item_question": "Does the study share computational workflow information, including the order of workflow components, through a version control system?",
+          "item_question_background": "The checklist treats version control as the backbone of workflow reproducibility because it preserves code and workflow structure over time and makes the order of computational steps inspectable rather than implicit.",
+          "item_extraction_instruction": "Extract whether workflow code or documentation is shared via GitHub, GitLab, Bitbucket, or another version control system, and whether the order of workflow components is documented.",
+          "item_expected_location": "Code availability / Methods / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "It is recommended to share information of the computational workflow with version control systems",
+              "locator": "Section 4.1"
+            },
+            {
+              "page": 9,
+              "quote": "the order of using or executing the computational workflow components should also be documented.",
+              "locator": "Section 4.1"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reproducible Computational Workflow Development",
+          "item": "4",
+          "item_name": "Use open-source and downloadable software",
+          "item_question": "Does the study use open-source, downloadable software where possible and make any self-written code openly available?",
+          "item_question_background": "The authors argue that nonavailable or purely web-based software can block reproduction because older versions may disappear and code cannot be inspected. Open-source downloadable tools reduce these barriers and let others diagnose why results do or do not reproduce.",
+          "item_extraction_instruction": "Extract the software used, whether it is open source and downloadable, and whether any self-written code is made openly available.",
+          "item_expected_location": "Methods / Software statement / Code availability",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "To promote reproducible research, using open-source and downloadable software is recommended.",
+              "locator": "Section 4.2"
+            },
+            {
+              "page": 9,
+              "quote": "A web-based (non-downloadable) software may hurt reproducibility by precluding users from accessing older versions.",
+              "locator": "Section 4.2"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reproducible Computational Workflow Development",
+          "item": "5",
+          "item_name": "Use a virtual machine or software container",
+          "item_question": "Does the study provide or specify a virtual machine or software container when needed to preserve the computational environment used for analysis?",
+          "item_question_background": "The paper highlights that differences in software, code, operating system, and hardware can change results even when methods are reported. Containers and virtual machines help other researchers rerun the same tools in a controlled environment instead of reconstructing the setup manually.",
+          "item_extraction_instruction": "Extract whether Docker, Singularity, a virtual machine, or another environment-preservation approach is provided or described, including rationale where relevant.",
+          "item_expected_location": "Methods / Code availability / Reproducibility statement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "software containerization and virtual machine (VM) enable researchers in the different labs to run software tools and code with the same computational environment.",
+              "locator": "Section 4.3"
+            },
+            {
+              "page": 9,
+              "quote": "A VM is preferred over a software container when a software whose running environment is different from the host OS",
+              "locator": "Section 4.3"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Reproducible Computational Workflow Development",
+          "item": "6",
+          "item_name": "Document runtime hardware information",
+          "item_question": "Does the study document the runtime hardware needed for the workflow, including relevant CPU, GPU, and memory information?",
+          "item_question_background": "The authors note that hardware differences can still change results even when the same data and code are used, especially for GUI-accelerated or resource-intensive workflows. Hardware reporting therefore closes a remaining reproducibility gap after software environment capture.",
+          "item_extraction_instruction": "Extract any reported CPU, GPU, RAM, or other runtime hardware requirements or specifications used for the analysis.",
+          "item_expected_location": "Methods / Computational environment / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Hardware differences can still produce different results when running the same code to process the same data",
+              "locator": "Section 4.4"
+            },
+            {
+              "page": 10,
+              "quote": "it is also recommended to record hardware information including but not limited to the model and number of central processing units",
+              "locator": "Section 4.4"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reproducible Computational Workflow Development",
+          "item": "7",
+          "item_name": "Use semantic annotation for workflow components",
+          "item_question": "Does the study use or describe semantic annotation of workflow components to support workflow preservation and reduce workflow decay?",
+          "item_question_background": "The paper introduces workflow decay as a reproducibility threat that metadata alone cannot solve. Semantic annotation with controlled vocabularies and ontologies is proposed as a way to preserve enough meaning about a workflow that similar workflows can be rebuilt even if the original tooling becomes obsolete.",
+          "item_extraction_instruction": "Extract whether workflow components are semantically annotated, which ontologies or controlled vocabularies are used, and whether the annotation is intended to support preservation or automated workflow composition.",
+          "item_expected_location": "Methods / Workflow documentation / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "semantic annotation of workflow components with controlled vocabulary underlying an ontology can benefit workflow preservation and protect the workflow from decay.",
+              "locator": "Section 4.5"
+            },
+            {
+              "page": 10,
+              "quote": "such annotations may enable other researchers to create a similar workflow that may regenerate the original results",
+              "locator": "Section 4.5"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Reproducible Computational Workflow Development",
+          "item": "8",
+          "item_name": "Use workflow automation or literate programming",
+          "item_question": "Does the study provide an executable workflow or literate programming artifact that makes it easier and faster for another researcher to regenerate the reported results?",
+          "item_question_background": "The checklist expands reproducibility beyond bare possibility to practical ease: results that require intensive consultation with the original authors are less reproducible than results that can be rerun directly from an executable notebook or automated workflow.",
+          "item_extraction_instruction": "Extract whether the study provides Jupyter, knitr, Galaxy, Nextflow, or another literate programming or workflow automation artifact, and whether it links narrative, code, and outputs in an executable way.",
+          "item_expected_location": "Code availability / Methods / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "reproducibility is not only about enabling a second researcher to regenerate the results but also related to how fast or easy a second researcher can get the result",
+              "locator": "Section 4.6"
+            },
+            {
+              "page": 11,
+              "quote": "literate programming and workflow automation are two feasible techniques.",
+              "locator": "Section 4.6"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "clinical metabolomics reproducibility checklist",
+      "metabolomics computational reproducibility checklist",
+      "reproducible computational analysis in clinical metabolomics"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bclinical metabolomics\\b",
+          "\\bmetabolomics\\b.*\\breproducib",
+          "\\bworkflow\\b",
+          "\\bdata repository\\b",
+          "\\bsoftware container\\b",
+          "\\bliterate programming\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bMetaboLights\\b",
+          "\\bMetabolomics Workbench\\b",
+          "\\bGitHub\\b",
+          "\\bDocker\\b",
+          "\\bSingularity\\b",
+          "\\bSTAR Methods\\b",
+          "\\bJupyter\\b",
+          "\\bNextflow\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A clinical metabolomics study deposits raw data in MetaboLights, shares code on GitHub, documents its containerized workflow, and provides a notebook linking code, narrative, and outputs.",
+      "A biomarker discovery paper using LC-MS explains software versions, hardware requirements, and semantic workflow annotations in addition to depositing reusable metabolomics data."
+    ],
+    "EvidenceExamplesNegative": [
+      "A metabolomics paper that reports biological findings but provides no public data, no workflow information, and no computational reproducibility details is not a strong match for this checklist.",
+      "A non-metabolomics wet-lab study with no substantial computational workflow does not primarily map to this clinical metabolomics reproducibility guidance."
+    ],
+    "Explain": "Use this checklist for clinical metabolomics studies that need explicit reporting of reusable data sharing and computational workflow reproducibility actions."
+  }
+}

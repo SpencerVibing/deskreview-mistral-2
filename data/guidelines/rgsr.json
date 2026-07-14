@@ -1,0 +1,814 @@
+{
+  "id": "rgsr",
+  "Name": "RGSR",
+  "LongName": "Reporting Guidelines for Simulation-Based Research in Social Sciences",
+  "Description": "A reporting framework for simulation-based research in the social sciences, introduced with a focus on system dynamics research. The guideline separates minimum and preferred requirements for reporting models, simulation experiments, optimization experiments, and key visualization practices needed to support reproducibility and efficient communication.",
+  "Category": "reporting_guideline",
+  "Subdomain": "Simulation-based social science research",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "Improve reproducibility, transparency, and efficient communication in simulation-based social science manuscripts by requiring enough information to recreate models, repeat simulation experiments, and reproduce optimization analyses.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Simulation-based research article"
+  ],
+  "StudyType": [
+    "Simulation study",
+    "System dynamics study",
+    "Agent-based simulation study",
+    "Discrete-event simulation study",
+    "Optimization study",
+    "Computational social science study"
+  ],
+  "Keywords": [
+    "RGSR",
+    "simulation-based research",
+    "system dynamics",
+    "computational social science",
+    "reproducibility",
+    "model reporting",
+    "simulation experiments",
+    "optimization experiments",
+    "visualization"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Simulation study",
+      "System dynamics study",
+      "Agent-based simulation study",
+      "Discrete-event simulation study",
+      "Optimization study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "System dynamics",
+      "Computational social science",
+      "Operations research",
+      "Policy modeling"
+    ],
+    "Coverage": "Simulation-based research manuscripts in the social sciences, especially those using system dynamics and related computational modeling approaches to generate numerical results.",
+    "Focus": "Model structure and equations, base-case reproduction, units, data sources, source code access, simulation platform and algorithm details, scenario specifications, uncertainty and stochastic reporting, optimization objective and search procedures, and visualization choices that reduce the cost of independent reproduction.",
+    "ContrastWith": "RGSR is broader than a single modeling-platform checklist and is focused on manuscript reporting for reproducibility. It does not prescribe how a system should be modeled or analyzed, and it is not limited to one simulation paradigm."
+  },
+  "references": {
+    "primary": {
+      "description": "Rahmandad H, Sterman JD. Reporting guidelines for simulation-based research in social sciences. System Dynamics Review. 2012;28(4):396-411.",
+      "url": "https://onlinelibrary.wiley.com/doi/epdf/10.1002/sdr.1481"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Visualization",
+      "items": [
+        {
+          "section": "Visualization",
+          "item": "1",
+          "item_name": "Avoid non-informative full-model diagrams",
+          "item_question": "Does the manuscript avoid including large, cluttered diagrams whose main effect is to signal complexity rather than explain the model or its insights?",
+          "item_question_background": "The paper argues that poor visuals raise the cost of reproduction and can actively confuse readers. Its first visualization warning is aimed at so-called gazinta diagrams that display a tangle of structure without helping readers understand the model.",
+          "item_extraction_instruction": "Extract whether the manuscript uses large all-in-one causal or structure diagrams, and note whether those figures clarify the model or function mainly as cluttered complexity displays.",
+          "item_expected_location": "Main figures / Model overview figures",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "avoid “gazinta diagrams” whose only function is to show readers",
+              "locator": "General visualization guidelines"
+            },
+            {
+              "page": 5,
+              "quote": "Such diagrams contribute nothing to the presentation of your model",
+              "locator": "General visualization guidelines"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Visualization",
+          "item": "2",
+          "item_name": "Present causal relationships without visual clutter",
+          "item_question": "Are causal relationships shown clearly, with unnecessary crossings, overlaps, and ambiguous polarity signs avoided?",
+          "item_question_background": "The authors treat clarity of causal presentation as part of reproducibility because visual confusion slows or distorts reconstruction of the model. Their examples focus on avoiding crossing links, overlapping names, and invisible polarity markings.",
+          "item_extraction_instruction": "Extract whether causal diagrams use multiple views when needed, avoid overlapping labels and crossing links, and keep polarity signs legible.",
+          "item_expected_location": "Model figures / Causal loop diagrams / Stock-flow diagrams",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Avoid clutter in presenting causal relationships of a model",
+              "locator": "General visualization guidelines"
+            },
+            {
+              "page": 5,
+              "quote": "Make sure polarity signs are visible",
+              "locator": "General visualization guidelines"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Visualization",
+          "item": "3",
+          "item_name": "Use summary visuals when full causal diagrams are infeasible",
+          "item_question": "When the full model is too large for the main text, does the manuscript use summary visuals such as subsystem diagrams, model-boundary charts, causal loop diagrams, or simplified stock-flow maps?",
+          "item_question_background": "Rather than either omitting structure or dumping the entire model into the paper, the guideline recommends summary visuals that preserve interpretability under space constraints. This is about making the model communicable even when full documentation lives elsewhere.",
+          "item_extraction_instruction": "Extract any use of subsystem diagrams, model boundary charts, simplified stock-flow maps, or other summary visuals when the full model is documented outside the main text.",
+          "item_expected_location": "Main figures / Methods / Appendix cross-references",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Use subsystem diagrams, model boundary charts, causal loop diagrams",
+              "locator": "General visualization guidelines"
+            },
+            {
+              "page": 5,
+              "quote": "when, due to space limitations, presenting the causal diagrams for the full model is infeasible",
+              "locator": "General visualization guidelines"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Visualization",
+          "item": "4",
+          "item_name": "Keep graph content focused and readable",
+          "item_question": "Do graphs focus on the key quantities being discussed and avoid unnecessary chart junk such as default gridlines or indistinguishable line encodings?",
+          "item_question_background": "The visualization guidance is not just about diagrams of structure; it also addresses output graphs. The paper emphasizes that overloaded graphs and weak line differentiation make reported results harder to assess and reproduce.",
+          "item_extraction_instruction": "Extract whether graphs limit displayed information to key outputs, remove unnecessary gridlines or decorative elements, and use line styles or colors that remain distinguishable in print and grayscale.",
+          "item_expected_location": "Results figures / Supplementary figures",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Limit the amount of information reported in graphs to the key items",
+              "locator": "General visualization guidelines"
+            },
+            {
+              "page": 5,
+              "quote": "Make sure different lines portraying variables in graphs of simulation output are distinguishable",
+              "locator": "General visualization guidelines"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Model Reporting",
+      "items": [
+        {
+          "section": "Model Reporting",
+          "item": "5",
+          "item_name": "Explain model operations in plain text",
+          "item_question": "Does the manuscript explain in plain language what computational operations the model is designed to perform?",
+          "item_question_background": "The minimum model reporting requirement starts with intelligibility. Before equations can be implemented, readers need a plain-text account of what the model does so they can understand the logic of the computational structure they are trying to recreate.",
+          "item_extraction_instruction": "Extract the prose explanation of the model's computational operations, process logic, and intended behavior.",
+          "item_expected_location": "Methods / Model description / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "computational operations the model is designed to perform shall be explained in plain text",
+              "locator": "MMRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Model Reporting",
+          "item": "6",
+          "item_name": "Report equations and algorithmic rules",
+          "item_question": "Does the manuscript provide the equations and algorithmic rules needed to implement the model independently?",
+          "item_question_background": "Plain-language explanation alone is not enough for reproduction. The guideline treats formal model specification as indispensable because independent researchers must be able to reconstruct the computational machinery, not just the narrative description.",
+          "item_extraction_instruction": "Extract all reported equations, update rules, decision rules, and algorithmic procedures needed to implement the model.",
+          "item_expected_location": "Methods / Appendix / Online supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "documentation includes equations and algorithmic rules",
+              "locator": "MMRR"
+            },
+            {
+              "page": 5,
+              "quote": "sufficient to allow an independent party to implement and simulate the model",
+              "locator": "MMRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Model Reporting",
+          "item": "7",
+          "item_name": "Report model parameters and initial values",
+          "item_question": "Does the manuscript provide all model parameters and initial values needed to recreate the base-case model?",
+          "item_question_background": "Even when equations are available, reproduction fails if the numerical values used to initialize and parameterize the model are absent. The paper highlights this as one of the most common reasons published models cannot be rebuilt.",
+          "item_extraction_instruction": "Extract all parameter values, initial conditions, baseline exogenous inputs, and any table or appendix that defines the base-case model numerically.",
+          "item_expected_location": "Methods / Parameter tables / Appendix / Online supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "all model parameters and initial values",
+              "locator": "MMRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Model Reporting",
+          "item": "8",
+          "item_name": "Report units for variables and parameters",
+          "item_question": "Are units of measurement reported for all variables and parameters?",
+          "item_question_background": "The authors explicitly elevate units into the minimum requirement because they see units as indispensable for building and understanding system dynamics models. Units help catch specification errors and make numerical relationships interpretable across implementations.",
+          "item_extraction_instruction": "Extract the units reported for each model variable and parameter, or note where units are missing.",
+          "item_expected_location": "Equation tables / Appendix / Model documentation tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Units of measurement shall be reported for all variables and parameters",
+              "locator": "MMRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Model Reporting",
+          "item": "9",
+          "item_name": "Report only changes when extending a previously compliant model",
+          "item_question": "If the model extends a previously published publicly accessible compliant model, does the manuscript clearly describe the changes from that earlier model?",
+          "item_question_background": "The guideline allows efficient reporting when work builds directly on an already documented model. In that case, reproducibility hinges on clearly isolating the modifications rather than redundantly restating the entire prior model.",
+          "item_extraction_instruction": "Extract the citation to the prior compliant model and the specific structural, parametric, or algorithmic changes introduced in the current study.",
+          "item_expected_location": "Methods / Relation to prior model / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "only the changes from the previously reported model need to be described",
+              "locator": "MMRR extension rule"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Model Reporting",
+          "item": "10",
+          "item_name": "Provide sources of data for equations and algorithmic rules",
+          "item_question": "Does the manuscript provide the qualitative or quantitative data sources underlying equations and algorithmic rules?",
+          "item_question_background": "The preferred model requirement goes beyond structural reproducibility and aims to support assessment of whether the model is grounded appropriately. Knowing where equations and rules came from helps reviewers evaluate plausibility, calibration, and transferability.",
+          "item_extraction_instruction": "Extract citations, datasets, elicitation sources, or qualitative evidence used to justify equations, parameterizations, and algorithmic rules.",
+          "item_expected_location": "Methods / Data sources / Appendix / References",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Sources of data (qualitative or quantitative) for different equations and algorithmic rules",
+              "locator": "PMRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Model Reporting",
+          "item": "11",
+          "item_name": "Define variables and explain formulation logic",
+          "item_question": "Does the manuscript define all model variables and explain the logic behind their formulation?",
+          "item_question_background": "The paper distinguishes raw equation listing from intelligible documentation. Variable definitions and formulation logic matter because they let readers understand why the formal specification takes the shape it does rather than treating equations as opaque symbols.",
+          "item_extraction_instruction": "Extract variable definitions, conceptual meanings, and explanations of why each major formulation or functional form was chosen.",
+          "item_expected_location": "Methods / Model documentation tables / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Definition of all the variables used in the model and the logic behind their formulation",
+              "locator": "PMRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Model Reporting",
+          "item": "12",
+          "item_name": "Provide source code in the original implementation platform",
+          "item_question": "Does the manuscript make the model source code available in the original implementation platform, preferably in a freely accessible and executable format?",
+          "item_question_background": "The preferred model requirement treats original-platform code as a practical accelerator for assessment and reproduction. The authors specifically emphasize accessible formats because reproduction is hindered when code exists but cannot be opened or run by others.",
+          "item_extraction_instruction": "Extract whether source code is shared, the implementation platform, file formats provided, and whether the files can be accessed and executed freely.",
+          "item_expected_location": "Code availability / Supplementary materials / e-companion / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Source code in the original implementation platform",
+              "locator": "PMRR"
+            },
+            {
+              "page": 8,
+              "quote": "preferably in a format that can be freely accessed and simulated",
+              "locator": "PMRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Simulation Experiment Reporting",
+      "items": [
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "13",
+          "item_name": "Report the simulation software and hardware platform",
+          "item_question": "Does the manuscript report the software and hardware platform used for the simulation experiments?",
+          "item_question_background": "The minimum simulation requirements begin with platform disclosure because reproducibility in computational research can depend on software environment and hardware details, especially when implementations differ across systems.",
+          "item_extraction_instruction": "Extract the simulation software, version, operating system, hardware description, and processor information reported for the experiments.",
+          "item_expected_location": "Methods / Footnotes to results tables / Appendix / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "The software and hardware platform(s) used for the simulation",
+              "locator": "MSRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "14",
+          "item_name": "Report the simulation algorithm",
+          "item_question": "Does the manuscript specify the simulation algorithm used, such as the integration method, time step, meshing method, or event-prioritization scheme relevant to the model type?",
+          "item_question_background": "The paper highlights algorithmic settings as a major source of hidden variation across implementations. Reporting them is necessary because two researchers can start from the same model equations yet generate different results if numerical solution methods differ.",
+          "item_extraction_instruction": "Extract the simulation algorithm, numerical integration method, time step, meshing method, event-priority scheme, or equivalent implementation choices relevant to the model.",
+          "item_expected_location": "Methods / Simulation setup / Table footnotes / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "The simulation algorithm used, such as integration method and time step",
+              "locator": "MSRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "15",
+          "item_name": "Report preprocessing needed before simulation",
+          "item_question": "Does the manuscript report any preprocessing needed on the base-case model before the reported simulation experiments can be reproduced?",
+          "item_question_background": "The guideline explicitly mentions preprocessing because published results may depend on steps performed before the main simulation run, such as generating exogenous inputs. If these are omitted, nominally complete model documentation can still be unreproducible.",
+          "item_extraction_instruction": "Extract any preprocessing steps, scripts, transformations, or generated exogenous inputs required before running the reported experiments.",
+          "item_expected_location": "Methods / Data preparation / Appendix / Supplementary methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Any pre-processing ... needed on the base-case model",
+              "locator": "MSRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "16",
+          "item_name": "Report scenario parameter settings",
+          "item_question": "Does the manuscript report the parameter settings required to reproduce each reported scenario?",
+          "item_question_background": "Simulation studies often hinge on scenario variation rather than a single base case. The paper therefore requires scenario-specific parameter settings so readers can recreate the exact experimental design used to generate reported comparisons.",
+          "item_extraction_instruction": "Extract parameter values for each reported scenario, including any scenario tables or appendices that define the experimental conditions.",
+          "item_expected_location": "Methods / Scenario tables / Results table footnotes / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Parameter settings required to reproduce any reported scenario",
+              "locator": "MSRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "17",
+          "item_name": "Report Monte Carlo parameter distributions and sampling procedures",
+          "item_question": "When Monte Carlo simulation is used, does the manuscript report the joint parameter distributions, generating equations or correlation structure, and the sampling procedure?",
+          "item_question_background": "The article singles out Monte Carlo work because stochastic scenario generation introduces extra layers of hidden design. Reproducibility depends not only on which parameters vary, but on how they are jointly distributed and sampled.",
+          "item_extraction_instruction": "Extract distributional forms, generating equations, correlation matrices, and the sampling procedure used for Monte Carlo or other stochastic parameter draws.",
+          "item_expected_location": "Methods / Uncertainty analysis / Monte Carlo setup / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "for Monte Carlo simulations, the joint distributions for the selection of parameters",
+              "locator": "MSRR"
+            },
+            {
+              "page": 9,
+              "quote": "along with the sampling procedure used",
+              "locator": "MSRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "18",
+          "item_name": "Report the number of iterations per scenario",
+          "item_question": "Does the manuscript report the number of iterations run for each scenario?",
+          "item_question_background": "Iteration count matters because stochastic stability, uncertainty measures, and computational cost all depend on how many runs were performed. The paper therefore treats iteration count as a separate minimum reporting element rather than something readers should infer.",
+          "item_extraction_instruction": "Extract the number of iterations for each scenario or experimental condition, including any ensemble size or repetition count.",
+          "item_expected_location": "Methods / Results table footnotes / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "The number of iterations per scenario",
+              "locator": "MSRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "19",
+          "item_name": "Report post-processing steps applied to simulation output",
+          "item_question": "Does the manuscript report all post-processing steps used to turn raw simulation output into the reported results?",
+          "item_question_background": "The paper recognizes that reported tables and figures often depend on transformations after simulation ends. Without those reductions, aggregations, or regressions, an independent researcher may reproduce the raw runs but still fail to reproduce the published findings.",
+          "item_extraction_instruction": "Extract all data reduction, aggregation, summary-statistic, regression, or other post-processing steps applied to simulation outputs before reporting results.",
+          "item_expected_location": "Methods / Data analysis / Appendix / Supplementary methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "All post-processing steps ... used to transform simulation outputs to reported results",
+              "locator": "MSRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "20",
+          "item_name": "Report sensitivity analysis on algorithmic parameters",
+          "item_question": "Does the manuscript report whether sensitivity analysis was conducted on algorithmic parameters such as time step or simulation method?",
+          "item_question_background": "The preferred simulation requirements are partly about helping readers assess robustness rather than just rerun code. Sensitivity analysis on numerical settings is important because substantive results can be artifacts of the algorithm rather than of the modeled system.",
+          "item_extraction_instruction": "Extract any sensitivity analysis on time step, simulation method, meshing choices, or other algorithmic parameters, including what settings were tested.",
+          "item_expected_location": "Methods / Robustness checks / Table footnotes / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "If any sensitivity analysis was conducted on robustness of the algorithmic parameters",
+              "locator": "PSRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "21",
+          "item_name": "Report computational costs for simulation experiments",
+          "item_question": "Does the manuscript report computational costs such as simulation time and processor information when those costs are meaningful?",
+          "item_question_background": "The authors include computational cost as a preferred element because it helps readers judge feasibility and scale. This matters especially when experiments are large enough that replication effort or resource requirements could otherwise be underestimated.",
+          "item_extraction_instruction": "Extract simulation runtime, processor information, and any other reported computational-cost details for the experiments.",
+          "item_expected_location": "Methods / Table footnotes / Appendix / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Information on computational costs, including simulation time and processor information",
+              "locator": "PSRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "22",
+          "item_name": "Report random number generation details for stochastic models",
+          "item_question": "For stochastic models, does the manuscript report the random number generation algorithm and the noise seed or equivalent stream specification?",
+          "item_question_background": "Stochastic simulation cannot be understood fully without knowing how pseudo-random variation was generated. The guideline therefore asks for both the generator and the seed or stream specification so readers can evaluate or approximate the realized randomness.",
+          "item_extraction_instruction": "Extract the random number generation algorithm, seed, stream identifiers, or other parameters that determine pseudo-random draws in stochastic models.",
+          "item_expected_location": "Methods / Stochastic model setup / Table footnotes / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "The random number generation algorithm used and the noise seed",
+              "locator": "PSRR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Simulation Experiment Reporting",
+          "item": "23",
+          "item_name": "Report uncertainty measures and how they were calculated",
+          "item_question": "Does the manuscript report uncertainty measures for stochastic or Monte Carlo results and specify how those measures were calculated?",
+          "item_question_background": "The guideline does not treat uncertainty summaries as self-explanatory. It explicitly asks authors to state both the uncertainty metric and the method used to compute it, because identical-looking intervals can come from different assumptions and procedures.",
+          "item_extraction_instruction": "Extract reported standard deviations, confidence intervals, or other uncertainty measures, along with the method used to compute them.",
+          "item_expected_location": "Results tables / Methods / Table footnotes / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "A measure of uncertainty ... in reported statistics in stochastic models and Monte Carlo analysis",
+              "locator": "PSRR"
+            },
+            {
+              "page": 9,
+              "quote": "The method used to calculate confidence intervals and other measures of uncertainty should be fully specified",
+              "locator": "PSRR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Optimization Experiment Reporting",
+      "items": [
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "24",
+          "item_name": "Report the optimization software environment",
+          "item_question": "Does the manuscript report the software environment in which the optimization was implemented?",
+          "item_question_background": "The optimization section extends the simulation requirements because optimization procedures add another layer of platform dependence. Knowing the software environment is necessary to reconstruct how the search was actually executed.",
+          "item_extraction_instruction": "Extract the optimization software, module, package, or platform used to implement the optimization procedure.",
+          "item_expected_location": "Methods / Optimization setup / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "The software environment in which the optimization has been implemented",
+              "locator": "MORR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "25",
+          "item_name": "Report the optimization objective or payoff function",
+          "item_question": "Does the manuscript report the payoff or objective function being maximized or minimized as a function of model variables?",
+          "item_question_background": "Optimization results are uninterpretable without the target being optimized. The paper treats the objective function as a core reproducibility element because it defines what counts as a better solution and how search results should be evaluated.",
+          "item_extraction_instruction": "Extract the optimization objective function, payoff function, loss function, or calibration target, including how it is defined from model variables.",
+          "item_expected_location": "Methods / Optimization problem definition / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "The payoff function to be maximized (minimized)",
+              "locator": "MORR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "26",
+          "item_name": "Report the optimization search space",
+          "item_question": "Does the manuscript report the parameter space over which the optimization search is conducted and, when needed, how search parameters map into model variables?",
+          "item_question_background": "The guideline separates the search target from the region being searched. Reproducibility requires the bounds and mapping of the search space because an algorithm can only be evaluated properly if readers know what alternatives it was allowed to consider.",
+          "item_extraction_instruction": "Extract search bounds, admissible parameter ranges, constraint definitions, and any mapping from search parameters to model variables.",
+          "item_expected_location": "Methods / Optimization setup / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "The parameter space over which search for the best payoff value is conducted",
+              "locator": "MORR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "27",
+          "item_name": "Report the search algorithm and any modifications",
+          "item_question": "Does the manuscript identify the optimization search algorithm by reference and explain any modifications or new search methods used?",
+          "item_question_background": "The authors recognize that optimization procedures are often adapted in practice. They therefore require both a citation to the underlying algorithm and a clear explanation of any deviations that would matter for reproduction.",
+          "item_extraction_instruction": "Extract the search algorithm used, the citation to its original source, and any modifications, constraints, or novel search procedures applied in the study.",
+          "item_expected_location": "Methods / Optimization setup / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "The search algorithm used shall be specified by reference to the original article",
+              "locator": "MORR"
+            },
+            {
+              "page": 11,
+              "quote": "fully explaining any modifications or new search methods",
+              "locator": "MORR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "28",
+          "item_name": "Report convergence iterations for iterative optimization methods",
+          "item_question": "If iterative optimization methods are used, does the manuscript report the number of iterations needed for convergence?",
+          "item_question_background": "For iterative search methods, the path to the reported solution matters as well as the endpoint. The guideline asks for convergence counts because they help readers assess computational effort and whether the reported solution was obtained under stable stopping behavior.",
+          "item_extraction_instruction": "Extract the number of iterations to convergence for iterative optimization or equilibrium-finding procedures.",
+          "item_expected_location": "Methods / Optimization results / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "the number of iterations needed for convergence shall be reported",
+              "locator": "MORR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "29",
+          "item_name": "Report the realized search effort behind the optimization result",
+          "item_question": "Does the manuscript report the actual search effort that produced the optimization result, such as restarts, simulated scenarios, and iterations per scenario?",
+          "item_question_background": "The paper does not stop at specifying the algorithm in principle; it also asks for the actual search performed. This matters because optimization results can depend heavily on how extensively the parameter space was explored in practice.",
+          "item_extraction_instruction": "Extract the number of search restarts, total scenarios simulated, iterations per scenario, and any other details describing the realized search effort.",
+          "item_expected_location": "Methods / Optimization results / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "The actual search that has led to the reported optimization results",
+              "locator": "MORR"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "30",
+          "item_name": "Provide optimization implementation code",
+          "item_question": "Does the manuscript provide the implementation code or control files needed to reproduce the optimization procedure quickly?",
+          "item_question_background": "The preferred optimization requirements focus on reducing friction in reproduction. Implementation code and control files matter because optimization workflows can be much harder to recreate from prose alone than ordinary simulation runs.",
+          "item_extraction_instruction": "Extract whether optimization implementation files, control files, or platform-specific setup code are shared and where they can be accessed.",
+          "item_expected_location": "Code availability / Appendix / e-companion / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "Optimization implementation codes",
+              "locator": "PORR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "31",
+          "item_name": "Report computational costs for optimization experiments",
+          "item_question": "Does the manuscript report optimization time and processor information for each optimization experiment?",
+          "item_question_background": "Optimization can be substantially more resource-intensive than ordinary simulation. The guideline therefore recommends reporting optimization runtime and processor details so others can judge replication effort and performance realistically.",
+          "item_extraction_instruction": "Extract optimization runtime, processor information, and any computational-cost details associated with each optimization experiment.",
+          "item_expected_location": "Methods / Appendix / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "Information on computational costs, including optimization time and processor information",
+              "locator": "PORR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "32",
+          "item_name": "Report uncertainty in estimated parameters for calibration studies",
+          "item_question": "For calibration or estimation results, does the manuscript report uncertainty in the estimated parameters?",
+          "item_question_background": "The preferred optimization section recognizes that point estimates from calibration can be misleading without uncertainty. Reporting confidence or uncertainty intervals helps readers assess how tightly the data constrain the fitted parameters.",
+          "item_extraction_instruction": "Extract any confidence intervals, standard errors, or other uncertainty measures reported for estimated or calibrated parameters.",
+          "item_expected_location": "Results / Calibration results / Appendix",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "For calibration/estimation results, a measure of uncertainty in the estimated parameters",
+              "locator": "PORR"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Optimization Experiment Reporting",
+          "item": "33",
+          "item_name": "Report confidence in the generality of the optimization result",
+          "item_question": "Does the manuscript report some measure of confidence that the reported optimization result is not a fragile or narrowly local finding?",
+          "item_question_background": "The paper notes that global optima often cannot be guaranteed in simulation optimization. It therefore asks for indicators of how general or reliable the reported optimum is, such as consistency across restarts or robustness under different random streams.",
+          "item_extraction_instruction": "Extract any measure of confidence in the generality of the optimization result, such as unique local optima discovered, restart outcomes, or evidence that additional search is unlikely to find substantially better solutions.",
+          "item_expected_location": "Optimization results / Appendix / Supplementary materials",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "A measure of confidence in the generality of optimization results",
+              "locator": "PORR"
+            },
+            {
+              "page": 13,
+              "quote": "A global optimum cannot usually be guaranteed in simulation optimization",
+              "locator": "Note 5"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "RGSR",
+      "reporting guidelines for simulation-based research",
+      "simulation-based research in social sciences",
+      "system dynamics reporting guidelines"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsimulation[- ]based research\\b",
+          "\\bsystem dynamics\\b",
+          "\\bagent[- ]based\\b",
+          "\\bcomputational social science\\b",
+          "\\bRGSR\\b",
+          "\\bsimulation experiment\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\breproducib(le|ility)\\b",
+          "\\bmodel equations\\b",
+          "\\bintegration method\\b",
+          "\\btime step\\b",
+          "\\boptimization\\b",
+          "\\bnoise seed\\b",
+          "\\bscenario(s)?\\b",
+          "\\bpost-processing\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A system dynamics paper reports model equations, parameter values, units, simulation platform, scenario settings, stochastic iterations, and optimization procedures and needs a reproducibility-focused reporting framework.",
+      "A computational social science manuscript presents simulation experiments with sensitivity analysis, uncertainty summaries, and platform-specific details needed for independent reproduction."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely theoretical social-science manuscript with no computational model, simulation runs, or optimization experiments is not an RGSR manuscript.",
+      "An empirical observational study that only uses standard statistical regression without a simulation model or scenario-based computational experiments should not map to RGSR."
+    ],
+    "Explain": "Use RGSR for social-science manuscripts in which simulation models generate reported results and readers need enough detail to reproduce the model, rerun experiments, and assess optimization procedures."
+  }
+}

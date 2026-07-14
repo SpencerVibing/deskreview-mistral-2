@@ -1,0 +1,301 @@
+{
+  "id": "sampl",
+  "Name": "SAMPL",
+  "LongName": "Statistical Analyses and Methods in the Published Literature (SAMPL)",
+  "Description": "SAMPL provides practical reporting guidance for statistical methods and statistical results so readers can understand, verify, and interpret quantitative findings clearly.",
+  "Category": "Statistical reporting",
+  "Subdomain": "Cross-disciplinary quantitative reporting",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To improve clarity, transparency, and completeness in reporting statistical analyses and results in manuscripts that use quantitative methods.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical trial report",
+    "Observational study",
+    "Systematic review",
+    "Meta-analysis",
+    "Methods paper"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Quantitative study"
+  ],
+  "Keywords": [
+    "SAMPL",
+    "statistical reporting",
+    "p-values",
+    "confidence intervals",
+    "effect size",
+    "descriptive statistics",
+    "inferential statistics",
+    "multiple comparisons",
+    "missing data",
+    "subgroup analysis",
+    "statistical assumptions",
+    "quantitative reporting",
+    "t-test",
+    "ANOVA",
+    "MANOVA",
+    "ANCOVA",
+    "regression analysis",
+    "between-group comparison",
+    "within-group comparison",
+    "significant difference",
+    "odds ratio",
+    "hazard ratio"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Quantitative study",
+      "Original research article",
+      "Clinical trial report",
+      "Observational study",
+      "Systematic review",
+      "Meta-analysis",
+      "Methods paper"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary"
+    ],
+    "Coverage": "Manuscripts that report quantitative analyses or statistical results, especially where readers need enough detail to understand what was done, what was estimated, and how uncertainty was expressed.",
+    "Focus": "Clear reporting of statistical methods, descriptive summaries, effect estimates, precision, exact p-values, multiple-comparison handling, missing data handling, subgroup analyses, and key analysis assumptions.",
+    "ContrastWith": "SAMPL complements study-design-specific reporting guidelines such as CONSORT, STROBE, PRISMA, and STARD. It focuses specifically on the statistical reporting layer rather than the full design-specific reporting structure."
+  },
+  "references": {
+    "primary": {
+      "description": "Lang TA, Altman DG. Basic statistical reporting for articles published in biomedical journals: The SAMPL Guidelines. In: Smart P, Maisonneuve H, Polderman A, editors. Science Editors' Handbook. European Association of Science Editors; 2013.",
+      "url": "https://www.equator-network.org/wp-content/uploads/2013/07/SAMPL-Guidelines-6-27-13.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "General principles",
+      "items": [
+        {
+          "section": "General principles",
+          "item": "1",
+          "item_name": "Describe statistical methods clearly",
+          "item_question": "Are the statistical methods described in enough detail for a knowledgeable reader to understand and verify the analysis?",
+          "item_question_background": "Vague statistical methods prevent readers and reviewers from judging whether the analyses were appropriate, reproducible, and consistent with the manuscript's conclusions.",
+          "item_extraction_instruction": "Extract the named statistical tests, models, software, variable handling, and any stated analysis decisions or thresholds.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Descriptive statistics",
+      "items": [
+        {
+          "section": "Descriptive statistics",
+          "item": "2a",
+          "item_name": "Use appropriate summary measures",
+          "item_question": "Are descriptive statistics reported with measures appropriate to the data and distribution (for example mean and SD, or median and IQR)?",
+          "item_question_background": "Misaligned summary measures can misrepresent the data and make comparisons difficult or misleading.",
+          "item_extraction_instruction": "Extract the summary measures used for key variables and note whether the manuscript indicates why those summaries were chosen.",
+          "item_expected_location": "Methods / Results / Tables",
+          "item_optional": false
+        },
+        {
+          "section": "Descriptive statistics",
+          "item": "2b",
+          "item_name": "Report precision with estimates",
+          "item_question": "Are key estimates accompanied by measures of precision such as confidence intervals?",
+          "item_question_background": "Point estimates without precision measures make it difficult to judge uncertainty and practical interpretability.",
+          "item_extraction_instruction": "Extract confidence intervals, standard errors, bootstrap intervals, credible intervals, or other stated precision measures reported alongside primary estimates in the Results, tables, or figure captions. Return Present when the main quantitative estimates or model results are accompanied by precision measures in tables or text, even if not every descriptive statistic has a confidence interval. Return Warning when only some primary estimates have precision measures or the precision reporting is hard to interpret. Return Absent only when key inferential estimates are reported without any confidence intervals, standard errors, or comparable uncertainty measures.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Inferential statistics",
+      "items": [
+        {
+          "section": "Inferential statistics",
+          "item": "3a",
+          "item_name": "Identify tests and report exact p-values",
+          "item_question": "Are statistical tests identified and are exact p-values or equivalent inferential outputs reported where appropriate?",
+          "item_question_background": "Generic statements such as 'significant' without the underlying test output reduce transparency and can obscure weak or overstated evidence.",
+          "item_extraction_instruction": "Extract named tests or models and the reported p-values, test statistics, degrees of freedom, or equivalent inferential outputs.",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false
+        },
+        {
+          "section": "Inferential statistics",
+          "item": "3b",
+          "item_name": "Explain multiple-comparison handling",
+          "item_question": "If multiple comparisons were made, does the manuscript describe any correction, adjustment, or rationale for not adjusting?",
+          "item_question_background": "Unreported multiplicity handling can inflate false-positive risk and mislead interpretation of secondary or exploratory findings.",
+          "item_extraction_instruction": "Extract any multiple-testing correction, multiplicity adjustment, hierarchical testing plan, or explicit statement that no adjustment was used.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Results reporting",
+      "items": [
+        {
+          "section": "Results reporting",
+          "item": "4a",
+          "item_name": "Report effect sizes with context",
+          "item_question": "Are effect sizes or main estimates reported in addition to thresholded significance language?",
+          "item_question_background": "Reporting only whether a result crossed a significance threshold obscures magnitude and practical importance.",
+          "item_extraction_instruction": "Extract effect estimates such as mean differences, odds ratios, risk ratios, hazard ratios, or other primary quantitative outputs.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false
+        },
+        {
+          "section": "Results reporting",
+          "item": "4b",
+          "item_name": "Avoid p-value-only conclusions",
+          "item_question": "Does the manuscript interpret results using estimates and uncertainty, rather than relying only on p-value thresholds?",
+          "item_question_background": "Overreliance on binary significance language can overstate certainty and understate nuance in the data.",
+          "item_extraction_instruction": "Extract result statements that pair quantitative estimates with uncertainty or discuss interpretation beyond simple significance thresholds.",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Special issues",
+      "items": [
+        {
+          "section": "Special issues",
+          "item": "5a",
+          "item_name": "Describe missing-data handling",
+          "item_question": "Is missing-data handling described, including imputation or exclusion rules if used?",
+          "item_question_background": "Missing-data decisions can materially change results, so readers need to know what was done and why.",
+          "item_extraction_instruction": "Extract any description of missing-data handling, imputation, complete-case analysis, or sensitivity checks related to missingness.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Special issues",
+          "item": "5b",
+          "item_name": "Label subgroup or exploratory analyses clearly",
+          "item_question": "Are subgroup, post hoc, or exploratory analyses clearly identified as such?",
+          "item_question_background": "Readers can misinterpret exploratory analyses as confirmatory if they are not explicitly labeled.",
+          "item_extraction_instruction": "Extract any subgroup, restricted-sample, sensitivity, supplementary, post hoc, or exploratory analysis statements and note whether the manuscript distinguishes prespecified from post hoc analyses. Wording such as 'will be explored', 'we explored', 'exploratory', 'subgroup', 'subsample', 'restricted sample', 'reduced subsample', or analyses stratified by sex/gender/age/experience counts as evidence that subgroup or exploratory analyses are present. Return Warning, not Absent, when such analyses are described but not clearly labeled as prespecified versus post hoc. Return Absent only when subgroup, post hoc, restricted-sample, sensitivity, supplementary, or exploratory analyses are present but the manuscript gives no language that identifies them as such.",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false
+        },
+        {
+          "section": "Special issues",
+          "item": "5c",
+          "item_name": "Report statistical assumptions and checks",
+          "item_question": "Are relevant statistical assumptions and any checks or diagnostics reported?",
+          "item_question_background": "Without assumption checks or diagnostics, readers cannot judge whether the reported analyses were valid for the data structure.",
+          "item_extraction_instruction": "Extract stated assumptions, diagnostics, model checks, or any description of what was done when assumptions were not met.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "SAMPL",
+      "SAMPL guidelines",
+      "Statistical Analyses and Methods in the Published Literature"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bSAMPL\\b",
+          "\\bstatistical\\s+analysis\\b",
+          "\\bconfidence\\s+interval(s)?\\b",
+          "\\b\\d{1,3}\\s*%\\s*(?:confidence\\s+)?interval(s)?\\b",
+          "\\b\\d{1,3}\\s*%\\s*ci\\b",
+          "\\bp[-\\s]?value(s)?\\b",
+          "\\bp\\s*(?:=|<|>|<=|>=)\\s*0?\\.\\d+\\b",
+          "\\bstatistically\\s+significant\\b",
+          "\\bsignificant(?:ly)?\\b",
+          "\\bstandard\\s+deviation\\b",
+          "\\bstandard\\s+error\\b",
+          "\\bmean\\s*\\(\\s*sd\\s*\\)\\b",
+          "\\bmedian\\s*\\(\\s*iqr\\s*\\)\\b",
+          "\\binterquartile\\s+range\\b",
+          "\\beffect\\s+size\\b",
+          "\\bbetween[-\\s]?group\\b",
+          "\\bwithin[-\\s]?group\\b",
+          "\\bt[-\\s]?test\\b",
+          "\\banova\\b",
+          "\\brepeated[-\\s]?measures\\s+anova\\b",
+          "\\bancova\\b",
+          "\\bmanova\\b",
+          "\\bchi[-\\s]?square\\b",
+          "\\bfisher(?:'s)?\\s+exact\\b",
+          "\\bmann[-\\s]?whitney\\b",
+          "\\bwilcoxon\\b",
+          "\\bkruskal[-\\s]?wallis\\b",
+          "\\bpearson(?:'s)?\\b",
+          "\\bspearman(?:'s)?\\b",
+          "\\bcorrelation\\s+coefficient\\b",
+          "\\bestimated\\s+marginal\\s+means?\\b",
+          "\\bleast[-\\s]?squares?\\s+means?\\b",
+          "\\bpost\\s+hoc\\b",
+          "\\bbonferroni\\b",
+          "\\btukey\\b",
+          "\\bdunnett\\b",
+          "\\bintention[-\\s]?to[-\\s]?treat\\b",
+          "\\bper[-\\s]?protocol\\b",
+          "\\bmultiple\\s+imputation\\b",
+          "\\bcomplete[-\\s]?case\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmultivaria(?:ble|te)\\b",
+          "\\bunivaria(?:te|ble)\\b",
+          "\\blogistic\\s+regression\\b",
+          "\\blinear\\s+regression\\b",
+          "\\bmultiple\\s+regression\\b",
+          "\\bmixed[-\\s]?effects?\\b",
+          "\\bgeneral(?:ized|ised)\\s+linear\\s+model\\b",
+          "\\brepeated[-\\s]?measures\\b",
+          "\\bcox\\s+proportional\\s+hazards\\b",
+          "\\bkaplan[-\\s]?meier\\b",
+          "\\bsurvival\\s+analysis\\b",
+          "\\banova\\b",
+          "\\bmean\\s*(?:\\+/-|±)\\s*sd\\b",
+          "\\bmedian\\s*(?:\\(|with)?\\s*(?:iqr|interquartile\\s+range)\\b",
+          "\\b95%\\s+confidence\\s+interval\\b",
+          "\\bodds\\s+ratio\\b",
+          "\\badjusted\\s+odds\\s+ratio\\b",
+          "\\bhazard\\s+ratio\\b",
+          "\\badjusted\\s+hazard\\s+ratio\\b",
+          "\\brisk\\s+ratio\\b",
+          "\\brelative\\s+risk\\b",
+          "\\bmean\\s+difference\\b",
+          "\\bstandardized\\s+mean\\s+difference\\b",
+          "\\badjusted\\s+(?:odds\\s+ratio|hazard\\s+ratio|mean\\s+difference|estimate)\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "The manuscript reports effect estimates, confidence intervals, and exact p-values for the primary and secondary analyses.",
+      "We used multivariable logistic regression and report adjusted odds ratios with 95% confidence intervals.",
+      "Between-group comparisons were assessed with t-tests and repeated-measures ANOVA, with p-values reported for the main outcomes."
+    ],
+    "EvidenceExamplesNegative": [
+      "The paper is qualitative and does not report any quantitative statistical analyses.",
+      "This manuscript is a narrative commentary without statistical methods or statistical results."
+    ],
+    "Explain": "Adds a supporting statistical-reporting guide when the manuscript clearly contains quantitative statistical analyses."
+  }
+}

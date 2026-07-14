@@ -1,0 +1,581 @@
+{
+  "id": "gmd",
+  "Name": "Geoscientific model development",
+  "LongName": "The publication of geoscientific model developments (GMD editorial framework, code/data policy, and review criteria)",
+  "Description": "A geoscientific-model reporting framework derived from GMD editorial policy, manuscript-type framework, code/data policy, publication guide, and review criteria. It emphasizes model traceability, reproducibility, code/data accessibility, and rigorous evaluation.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Geoscientific model publication standards",
+  "StandardizedTopDomain": "Natural sciences",
+  "Aim": "To ensure manuscripts describing geoscientific model developments are reproducible, traceable, technically rigorous, and review-ready, with explicit code/data availability and transparent model-version reporting.",
+  "ManuscriptType": [
+    "Model description paper",
+    "Development and technical paper",
+    "Methods for assessment of models",
+    "Model experiment description paper",
+    "Model evaluation paper"
+  ],
+  "ManuscriptSubType": [
+    "Data assimilation development",
+    "Benchmarking protocol",
+    "MIP protocol and boundary-condition dataset",
+    "Model update and corrigendum"
+  ],
+  "StudyType": [
+    "Geoscientific numerical modeling study",
+    "Model development study",
+    "Model evaluation and benchmarking study"
+  ],
+  "Keywords": [
+    "Geoscientific Model Development",
+    "GMD",
+    "model description paper",
+    "model development",
+    "technical paper",
+    "model assessment methods",
+    "model experiment description",
+    "model evaluation",
+    "code availability",
+    "data availability",
+    "traceability of results",
+    "reproducibility",
+    "model name and version in title",
+    "benchmark evaluation",
+    "verification vs evaluation",
+    "data assimilation",
+    "MIP protocol",
+    "boundary conditions dataset",
+    "code and data policy",
+    "plagiarism similarity report"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Geoscientific numerical modeling study",
+      "Model development study",
+      "Model evaluation and benchmarking study"
+    ],
+    "Disciplines": [
+      "Natural sciences",
+      "Engineering & Technology"
+    ],
+    "Coverage": "Manuscripts in geoscientific numerical modeling that describe models, model developments, assessment methods, experiment protocols, and model-evaluation studies under GMD-style editorial requirements.",
+    "Focus": "Model/version traceability, code/data availability, reproducible model and method description, benchmark/observation evaluation, clear manuscript classification, and editorial-quality checks at submission and review stages.",
+    "ContrastWith": "Not intended for general geoscience result papers that do not primarily describe modelling methodology, model development, experiment protocols, or reproducibility-relevant computational details."
+  },
+  "references": {
+    "primary": {
+      "description": "GMD Executive Editors. Editorial: The publication of geoscientific model developments v1.1. Geosci. Model Dev. 2015;8:3487-3495.",
+      "url": "https://doi.org/10.5194/gmd-8-3487-2015"
+    },
+    "secondary": [
+      {
+        "description": "Geoscientific Model Development review criteria (peer-review checklist and principal criteria).",
+        "url": "https://www.geoscientific-model-development.net/peer_review/review_criteria.html"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "Principal Review Criteria",
+      "items": [
+        {
+          "section": "Principal Review Criteria",
+          "item": "1",
+          "item_name": "Scientific significance",
+          "item_question": "Does the manuscript provide a substantial contribution to modelling science within scope?",
+          "item_question_background": "Papers should contribute tangible advances in concepts, methods, tools, or modelling protocols.",
+          "item_extraction_instruction": "Extract explicit statements of modelling novelty and substantive contribution relative to existing methods.",
+          "item_expected_location": "Abstract / Introduction / Contributions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "The review itself should focus on the clarity and rigour of the model description or development...",
+              "locator": "Appendix C peer-review guidance"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Principal Review Criteria",
+          "item": "2",
+          "item_name": "Scientific quality",
+          "item_question": "Are methods and assumptions valid, and are results discussed in a balanced way with appropriate references?",
+          "item_question_background": "Technical validity and balanced interpretation are required for reliable model publications.",
+          "item_extraction_instruction": "Extract method validity statements, assumption disclosures, and discussion of related work and references.",
+          "item_expected_location": "Methods / Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Papers should... present a significant advance, and be clearly focussed.",
+              "locator": "Section 2.3"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        },
+        {
+          "section": "Principal Review Criteria",
+          "item": "3",
+          "item_name": "Scientific reproducibility",
+          "item_question": "Is the modelling description complete and precise enough for traceable reproduction?",
+          "item_question_background": "Traceability and reproducibility are core goals of the framework.",
+          "item_extraction_instruction": "Extract passages about reproducibility, traceability, and whether independent reconstruction is feasible in principle.",
+          "item_expected_location": "Methods / Model description / Code and data availability",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "...models to be published such that they are scientifically reproducible...",
+              "locator": "Introduction"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Principal Review Criteria",
+          "item": "4",
+          "item_name": "Presentation quality",
+          "item_question": "Is the manuscript clearly structured, concise, and technically readable?",
+          "item_question_background": "Clear structure and language are part of formal review quality.",
+          "item_extraction_instruction": "Extract evidence of manuscript structure quality, figure/table clarity, and language precision considerations.",
+          "item_expected_location": "Whole manuscript",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "...methods, results, and conclusions presented in a clear, concise, and well-structured way...",
+              "locator": "Companion review criteria"
+            }
+          ],
+          "extraction_confidence": 0.82,
+          "needs_review": true,
+          "review_reason": "This item is partly sourced from companion webpage criteria; verify exact wording alignment."
+        }
+      ]
+    },
+    {
+      "section": "Model Description Requirements",
+      "items": [
+        {
+          "section": "Model Description Requirements",
+          "item": "5",
+          "item_name": "Model name and version in title",
+          "item_question": "Does the title include model name and version (or unique identifier) when applicable?",
+          "item_question_background": "Versioned titles are essential for traceability across developments.",
+          "item_extraction_instruction": "Extract model/experiment identifiers from title and confirm explicit versioning.",
+          "item_expected_location": "Title",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "The main paper must give the model name and version number... in the title.",
+              "locator": "Appendix A2"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Model Description Requirements",
+          "item": "6",
+          "item_name": "Complete publication package",
+          "item_question": "Does the submission include main paper, user manual, and source code (with test outputs ideally)?",
+          "item_question_background": "Reproducibility depends on documentation and executable artifacts.",
+          "item_extraction_instruction": "Extract whether manuscript, user manual, source code, and representative test outputs are provided or linked.",
+          "item_expected_location": "Main text / Supplementary materials",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "The publication should consist of three parts: the main paper, a user manual, and the source code...",
+              "locator": "Appendix A2"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Model Description Requirements",
+          "item": "7",
+          "item_name": "Detailed scientific and numerical description",
+          "item_question": "Is the scientific basis and numerical solution approach described in enough detail for reimplementation in principle?",
+          "item_question_background": "Insufficient detail blocks independent reconstruction and validation.",
+          "item_extraction_instruction": "Extract scientific rationale, equations/algorithms, and technical details that materially affect numerical output.",
+          "item_expected_location": "Methods / Model description / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "...description should be sufficiently detailed to in principle allow for the re-implementation of the model...",
+              "locator": "Appendix A2"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Model Description Requirements",
+          "item": "8",
+          "item_name": "Runtime context and licensing metadata",
+          "item_question": "Are model URL, hardware/software requirements, and license details provided?",
+          "item_question_background": "Operational context is needed to run and assess computational reproducibility.",
+          "item_extraction_instruction": "Extract model homepage/repository URL, platform/dependency requirements, and licensing information.",
+          "item_expected_location": "Methods / Code availability / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "The model webpage URL, the hardware and software requirements and the license information should be given...",
+              "locator": "Appendix A2"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Model Description Requirements",
+          "item": "9",
+          "item_name": "Scope and limitations",
+          "item_question": "Is model applicability and limitation context discussed appropriately?",
+          "item_question_background": "Users must understand valid application boundaries.",
+          "item_extraction_instruction": "Extract statements on scope, assumptions, intended use, and known limitations.",
+          "item_expected_location": "Introduction / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "The model description should be contextualised appropriately... scope of applicability and limitations...",
+              "locator": "Appendix A2"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Model Description Requirements",
+          "item": "10",
+          "item_name": "Evaluation with verification distinction",
+          "item_question": "Are outputs evaluated against benchmarks/data/models, with verification and evaluation distinguished?",
+          "item_question_background": "Both numerical correctness and real-system representativeness should be addressed.",
+          "item_extraction_instruction": "Extract benchmark and observational evaluation evidence and explicit distinction between verification and evaluation.",
+          "item_expected_location": "Results / Evaluation section",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "...distinguish between verification... and evaluation...",
+              "locator": "Appendix A2"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Model Description Requirements",
+          "item": "11",
+          "item_name": "Code/data availability paragraph",
+          "item_question": "Is a mandatory code and/or data availability section included in the required position?",
+          "item_question_background": "Availability statements are mandatory gate criteria in this framework.",
+          "item_extraction_instruction": "Extract the availability paragraph and verify placement after conclusions and before appendices/acknowledgments.",
+          "item_expected_location": "End of manuscript",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Inclusion of Code and/or data availability sections is mandatory for all papers...",
+              "locator": "Appendix A1"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Model Description Requirements",
+          "item": "12",
+          "item_name": "Restricted-code access protocol",
+          "item_question": "If public release is restricted, are reasons stated and editor/reviewer access pathways documented?",
+          "item_question_background": "Restricted public release does not remove peer-review access obligations.",
+          "item_extraction_instruction": "Extract legal/licensing restrictions, stated reasons, and commitments for editor/reviewer access under anonymity constraints.",
+          "item_expected_location": "Code/data availability / Cover letter context",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "...code and/or data must still be made available to the editor. Access must also be granted to the reviewers...",
+              "locator": "Appendix B"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Manuscript-Type Specific Requirements",
+      "items": [
+        {
+          "section": "Manuscript-Type Specific Requirements",
+          "item": "13",
+          "item_name": "Development and technical paper evaluation depth",
+          "item_question": "Do development/technical papers include substantial evaluation against benchmarks, observations, or model output?",
+          "item_question_background": "Technical advances require evidence of practical modelling value.",
+          "item_extraction_instruction": "Extract evaluation setup and outcomes showing the impact of the technical development.",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Development and technical papers usually include a significant amount of evaluation...",
+              "locator": "Appendix A3"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Manuscript-Type Specific Requirements",
+          "item": "14",
+          "item_name": "Model-specific development title rule",
+          "item_question": "For single-model development papers, are model name and version included in title?",
+          "item_question_background": "Version-level identification remains mandatory beyond pure model-description papers.",
+          "item_extraction_instruction": "Check title for explicit model/version naming in model-specific development case studies.",
+          "item_expected_location": "Title",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "If the model development relates to a single model then the model name and the version number must be included in the title...",
+              "locator": "Appendix A3"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Manuscript-Type Specific Requirements",
+          "item": "15",
+          "item_name": "Methods/software tool reproducibility criteria",
+          "item_question": "For assessment tools/method software, are model-description-like criteria and code availability satisfied?",
+          "item_question_background": "Assessment pipelines can be model-like and need equivalent reproducibility controls.",
+          "item_extraction_instruction": "Extract tool name/version, code access, and documentation elements required for replication.",
+          "item_expected_location": "Methods / Code availability",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Descriptions of software tools are subject to the same criteria as model descriptions...",
+              "locator": "Appendix A4"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Manuscript-Type Specific Requirements",
+          "item": "16",
+          "item_name": "Experiment protocol and boundary-condition versioning",
+          "item_question": "For model-experiment papers, are protocol and boundary conditions versioned with data/code accessibility?",
+          "item_question_background": "Experiment reproducibility requires versioned protocols and accessible inputs.",
+          "item_extraction_instruction": "Extract experiment protocol version, boundary-condition versions, data availability, and links to supporting websites/papers.",
+          "item_expected_location": "Methods / Data availability / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "...experiment protocol should be given a version number; boundary conditions should be given a version number...",
+              "locator": "Appendix A5"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Manuscript-Type Specific Requirements",
+          "item": "17",
+          "item_name": "Stand-alone evaluation paper eligibility",
+          "item_question": "For pure evaluation papers, is there a published/in-review model description and proper citation linkage?",
+          "item_question_background": "Evaluation-only papers are in-scope only under defined dependency conditions.",
+          "item_extraction_instruction": "Extract citations and statements confirming prior or concurrent model/model-development description availability.",
+          "item_expected_location": "Introduction / Cover letter references",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "...required that the model... has already been described in another paper (or that the description is also under review).",
+              "locator": "Appendix A6"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Editorial and Integrity Checks",
+      "items": [
+        {
+          "section": "Editorial and Integrity Checks",
+          "item": "18",
+          "item_name": "Initial-stage quality and scope screening",
+          "item_question": "Does the manuscript clearly demonstrate a tangible advance and sufficient quality for full review?",
+          "item_question_background": "Initial access review rejects out-of-scope or clearly deficient submissions early.",
+          "item_extraction_instruction": "Extract editor-facing criteria evidence: tangible modelling advance, scope fit, and minimum quality threshold.",
+          "item_expected_location": "Introduction / Contributions / Initial editorial checks",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Manuscripts must contain a tangible advance in the field of geoscientific modelling...",
+              "locator": "Appendix C1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Editorial and Integrity Checks",
+          "item": "19",
+          "item_name": "Similarity/plagiarism handling",
+          "item_question": "Are similarity-report concerns addressed transparently, including grey literature and potential text overlap?",
+          "item_question_background": "Similarity handling is a formal component of editorial decision quality.",
+          "item_extraction_instruction": "Extract mention of prior internal reports, text overlap disclosures, and remediation/citation actions.",
+          "item_expected_location": "Cover letter / Editorial correspondence context",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "At the initial stage the editor must also study the similarity report...",
+              "locator": "Appendix C1"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Editorial and Integrity Checks",
+          "item": "20",
+          "item_name": "Code/supplement operability checks",
+          "item_question": "Has code and supplementary material been accessed and, where feasible, compiled/run or inspected?",
+          "item_question_background": "Operational checks strengthen reproducibility claims before acceptance.",
+          "item_extraction_instruction": "Extract evidence that code/download access, compilation/execution checks, or supplementary-file inspections were performed.",
+          "item_expected_location": "Review process documentation / Supplementary checks",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Editors should make sure that someone... has obtained the model or tool code. They may also attempt to compile the model...",
+              "locator": "Appendix C3"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "discipline_overlay",
+    "Domains": [
+      "Natural sciences",
+      "Engineering & Technology"
+    ],
+    "Aliases": [
+      "GMD publication framework",
+      "Geoscientific Model Development editorial policy",
+      "GMD manuscript types",
+      "GMD code and data policy",
+      "GMD review criteria"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bGeoscientific\\s+Model\\s+Development\\b",
+          "\\bGMD\\b",
+          "\\bgeoscientific\\s+model\\s+development\\b",
+          "\\bmodel\\s+description\\s+paper\\b",
+          "\\bdevelopment\\s+and\\s+technical\\s+paper\\b",
+          "\\bmodel\\s+experiment\\s+description\\b",
+          "\\bmodel\\s+evaluation\\s+paper\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmodel\\s+name\\s+and\\s+version\\s+number\\b",
+          "\\bcode\\s+availability\\b",
+          "\\bdata\\s+availability\\b",
+          "\\btraceability\\s+of\\s+results\\b",
+          "\\bbenchmark\\b",
+          "\\bverification\\b",
+          "\\bdata\\s+assimilation\\b",
+          "\\bMIP\\b",
+          "\\bsimilarity\\s+report\\b",
+          "\\bplagiarism\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmodel\\b",
+          "\\b(code|data|version|evaluation|reproducibility|traceability)\\b"
+        ]
+      }
+    ],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bgranulocyte[-\\s]?macrophage\\b",
+          "\\bgenetic\\s+muscular\\s+dystrophy\\b",
+          "\\bmedical\\s+case\\s+report\\b",
+          "\\bclinical\\s+trial\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmodel\\s+code\\s+must\\s+be\\s+made\\s+available\\b",
+          "\\bcode\\s+and\\/or\\s+data\\s+availability\\s+sections?\\s+is\\s+mandatory\\b",
+          "\\bin\\s+the\\s+title\\s+of\\s+the\\s+paper\\b",
+          "\\bmodel\\s+description\\s+should\\s+be\\s+contextualised\\b",
+          "\\bverif(ication|y)\\s+and\\s+evaluation\\b",
+          "\\bboundary\\s+conditions\\s+should\\s+be\\s+given\\s+a\\s+version\\s+number\\b",
+          "\\bmodel\\s+experiment\\s+description\\b",
+          "\\bgeoscientific\\s+modelling\\s+community\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bGMD\\s+gene\\b",
+          "\\bmedical\\s+diagnosis\\b",
+          "\\bodds\\s+ratio\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "This model description paper includes model name/version in the title, a mandatory code-availability section, repository DOI for the release, benchmark and observational evaluation, and explicit discussion of scope and limitations.",
+      "Our GMD technical-development manuscript documents data assimilation code changes, provides reproducible test cases, and reports verification-versus-evaluation evidence for model updates.",
+      "The submitted MIP protocol paper provides experiment and boundary-condition versioning, data/code availability statements, and reproducible protocol details for independent models."
+    ],
+    "EvidenceExamplesNegative": [
+      "A geophysics paper reports observational findings only, without model description, versioning, or code/data availability requirements.",
+      "A medical manuscript containing the acronym GMD discusses clinical outcomes and has no geoscientific modelling workflow.",
+      "A narrative climate-policy commentary references models broadly but provides no computational methods, reproducibility details, or model-version traceability."
+    ],
+    "Explain": "Use as a geoscience discipline overlay when a manuscript presents geoscientific model development or model-related methods/protocol work and should satisfy explicit GMD-style traceability, reproducibility, and code/data-access publication requirements."
+  }
+}

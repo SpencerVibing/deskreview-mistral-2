@@ -1,0 +1,215 @@
+{
+  "id": "jars-advanced-quantitative",
+  "Name": "JARS-Advanced Quantitative Methods",
+  "LongName": "JARS-Quant Tables 7 and 8: Reporting Standards for Structural Equation Modeling and Bayesian Techniques",
+  "Description": "This JARS-Quant add-on captures reporting expectations for two complex quantitative-analysis families in psychology: structural equation modeling and Bayesian techniques. It extends the base quantitative table with method-specific reporting detail.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology advanced quantitative reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve interpretability and reproducibility of complex psychological analyses by requiring explicit reporting of SEM specification, estimation, fit, and respecification as well as Bayesian model, prior, posterior, computation, and decision details.",
+  "ManuscriptType": [
+    "Original research article",
+    "Methods-focused quantitative report",
+    "SEM study report",
+    "Bayesian analysis report"
+  ],
+  "ManuscriptSubType": [
+    "Structural equation modeling study",
+    "Bayesian analysis study"
+  ],
+  "StudyType": [
+    "Quantitative analysis study",
+    "Structural equation modeling study",
+    "Bayesian statistical study"
+  ],
+  "Keywords": [
+    "JARS SEM",
+    "JARS Bayesian",
+    "structural equation modeling",
+    "Bayesian analysis",
+    "model fit",
+    "Bayes factors",
+    "posterior distribution"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Quantitative analysis study",
+      "Structural equation modeling study",
+      "Bayesian statistical study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science"
+    ],
+    "Coverage": "Psychology and behavioral-science manuscripts that rely on structural equation modeling or Bayesian techniques and therefore need more detailed reporting than standard inferential summaries alone provide.",
+    "Focus": "SEM model description, sample-size rationale, missing-data and distribution diagnostics, model identification, estimation and fit, respecification, parameter estimates, and Bayesian model specification, priors, posteriors, computations, fit checks, Bayes factors, and model averaging.",
+    "ContrastWith": "Not a stand-alone design guide for all studies; these methods-specific add-ons are used with the JARS-Quant base table and relevant design modules when SEM or Bayesian approaches are central to the analysis."
+  },
+  "references": {
+    "primary": {
+      "description": "Appelbaum M, Cooper H, Kline RB, Mayo-Wilson E, Nezu AM, Rao SM. Journal Article Reporting Standards for Quantitative Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018. PMID: 29345484.",
+      "url": "https://psycnet.apa.org/fulltext/2018-00750-002.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Structural Equation Modeling",
+      "items": [
+        {
+          "section": "Structural Equation Modeling",
+          "item": "1",
+          "item_name": "Report SEM model rationale, abstract fit, and planned respecification",
+          "item_question": "Does the manuscript describe the primary SEM model, justify important paths and directionality, report at least two classes of global fit statistics plus local fit in the abstract, and state whether respecification was planned?",
+          "item_question_background": "SEM manuscripts are difficult to evaluate unless readers know the intended model, the core directional assumptions, and whether the interpreted model was planned or emergent.",
+          "item_extraction_instruction": "Extract the primary model description, key path justifications, abstract fit reporting, and any statement about planned respecification.",
+          "item_expected_location": "Title / Abstract / Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Report values for at least two global fit statistics ... include a brief statement about local fit ... Describe the primary model to be fitted ... State whether respecification is planned.",
+              "locator": "Table 7 title, abstract, and introduction rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Structural Equation Modeling",
+          "item": "2",
+          "item_name": "Report SEM data, specification, estimation, and fit decisions",
+          "item_question": "Does the manuscript report sample-size planning, missing-data and distribution diagnostics, model identification and specification, estimation settings, inadmissible solutions, and global and local model fit?",
+          "item_question_background": "The credibility of SEM results depends heavily on specification, identification, estimation, missing-data handling, and fit diagnostics rather than on path estimates alone.",
+          "item_extraction_instruction": "Extract sample-size rationale, missing-data handling, distribution checks, model diagram or textual specification, identification basis, estimation method and settings, fit statistics, and any inadmissible solutions.",
+          "item_expected_location": "Method / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Report how the target sample size was determined ... Report data diagnostics ... Give a full account of the specification for all models ... Verify that models to be analyzed are actually identified.",
+              "locator": "Table 7 method and results rows"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Structural Equation Modeling",
+          "item": "3",
+          "item_name": "Report SEM respecification and parameter estimates transparently",
+          "item_question": "If SEM models were modified, does the manuscript explain the respecification search, identify changed parameters, and report both standardized and unstandardized estimates with standard errors and indirect or interaction effects where relevant?",
+          "item_question_background": "Respecification can materially change substantive conclusions, so authors must disclose both the process and the final parameter reporting in full.",
+          "item_extraction_instruction": "Extract any respecification process, changed parameters, rationale for changes, and the reporting of standardized and unstandardized estimates, standard errors, and indirect or interaction effects.",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "Indicate whether one or more interpreted models was a product of respecification ... Report both unstandardized and standardized estimates for all estimated parameters.",
+              "locator": "Table 7 respecification and estimates rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Bayesian Techniques",
+      "items": [
+        {
+          "section": "Bayesian Techniques",
+          "item": "4",
+          "item_name": "Specify Bayesian model, priors, posteriors, and likelihood clearly",
+          "item_question": "Does the manuscript completely specify the systematic and stochastic model parts, prior distributions and their rationale, posterior distributions, and the likelihood when informative priors are used?",
+          "item_question_background": "Bayesian analyses cannot be understood or reproduced without explicit reporting of model structure and the prior-to-posterior workflow.",
+          "item_extraction_instruction": "Extract the model specification, prior distributions and rationale, posterior summaries or intervals, and any likelihood information reported.",
+          "item_expected_location": "Method / Analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Completely specify both the systematic and the stochastic parts of the analyzed model ... Describe the prior distribution(s) ... Describe the posterior distribution(s).",
+              "locator": "Table 8 model and distributions rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Bayesian Techniques",
+          "item": "5",
+          "item_name": "Report Bayesian computation, fit checks, and evidence metrics",
+          "item_question": "Does the manuscript report computational details, convergence checks, model-fit procedures, Bayes factors where used, and any decision-analytic assumptions or model-averaging choices?",
+          "item_question_background": "Bayesian reporting needs to cover not only priors and posteriors but also how the posterior was obtained, checked, and interpreted in terms of evidence or decisions.",
+          "item_extraction_instruction": "Extract computation details such as chains and burn-in, convergence checks, model-fit procedures, Bayes factors, sensitivity analyses, utilities or decision rules, and model-averaging details if used.",
+          "item_expected_location": "Method / Results / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Describe in detail, including the number of chains, the number of burn-in iterations ... Describe the procedures used to check the fit of the model ... Report the Bayes Factors and how they were interpreted.",
+              "locator": "Table 8 computations, model fit, and Bayes factors rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS advanced quantitative methods",
+      "JARS-Quant Table 7",
+      "JARS-Quant Table 8",
+      "SEM reporting standards",
+      "Bayesian reporting standards"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bstructural equation modeling\\b",
+          "\\bSEM\\b",
+          "\\bBayesian\\b",
+          "\\bBayes factor\\b",
+          "\\bposterior distribution\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bglobal fit statistics\\b",
+          "\\blocal fit\\b",
+          "\\bmodel respecification\\b",
+          "\\bprior distribution\\b",
+          "\\bMCMC\\b",
+          "\\bmodel averaging\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A psychology manuscript reports SEM fit statistics, identification, respecification, and standardized and unstandardized estimates.",
+      "A Bayesian paper describes priors, posterior HPD intervals, MCMC settings, fit checks, and Bayes factors."
+    ],
+    "EvidenceExamplesNegative": [
+      "A simple t-test paper with no SEM or Bayesian methods should not map to this module.",
+      "A meta-analysis without Bayesian modeling belongs with MARS or another synthesis standard instead."
+    ],
+    "Explain": "Use this add-on when SEM or Bayesian techniques are central enough that method-specific reporting detail is required."
+  }
+}

@@ -91,6 +91,7 @@ async function main() {
     await assertCountTile(page, 'figures', /1\s+figures/i);
     await assertReaderUiRegressionFixes(page);
     await assertChecksAccordion(page);
+    await assertGuidelineSelectorModal(page);
     await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
     await page.waitForFunction(() => {
       return document.querySelectorAll('#htmlDocument [data-pdf-page-preview] canvas').length >= 4;
@@ -238,6 +239,47 @@ async function assertReaderUiRegressionFixes(page) {
   assert.equal(await page.locator('#htmlDocument [data-block-type="table"]').count(), 3, 'HTML manuscript should render three table blocks.');
   assert.equal(await page.locator('#htmlDocument [data-block-type="figure"]').count(), 1, 'HTML manuscript should render one figure block.');
   assert.ok(await page.locator('#htmlDocument [data-pdf-page-preview]').count() >= 4, 'Display-item source page previews should render.');
+}
+
+async function assertGuidelineSelectorModal(page) {
+  await page.click('#customizeChecksButton');
+  await page.waitForSelector('#customizeChecksModal.show', { timeout: 10000 });
+  await page.waitForSelector('#guidelineCardContainer .guideline-select-card', { timeout: 15000 });
+  await assertText(page, '#guidelineFacetColumn', /All guides/i);
+  await assertText(page, '#guidelineFacetColumn', /Scientific Domain/i);
+  await page.fill('#guidelineSearchInput', 'CONSORT');
+  await page.waitForFunction(() => {
+    return [...document.querySelectorAll('#guidelineCardContainer .guideline-select-card')]
+      .some((node) => /CONSORT/i.test(node.innerText || ''));
+  }, null, { timeout: 10000 });
+  await page.click('#guidelineCardContainer [data-guideline-id="consort"] .card-title');
+  await page.waitForSelector('#guidelineDetailSlider.active', { timeout: 10000 });
+  await assertText(page, '#guidelineDetailName', /CONSORT/i);
+  await assertText(page, '#guidelineDetailDescription', /random/i);
+  await assertText(page, '#checklist-pane', /Title and abstract/i);
+  await assertText(page, '#checklist-pane', /Randomisation|Randomization|Eligibility/i);
+  await page.click('#checklist-pane [data-bs-toggle="collapse"]');
+  await page.waitForFunction(() => {
+    return [...document.querySelectorAll('#checklist-pane .collapse.show')]
+      .some((node) => (node.innerText || '').trim().length > 0);
+  }, null, { timeout: 10000 });
+  await page.click('#scope-tab');
+  await assertText(page, '#scope-pane', /Aim/i);
+  await assertText(page, '#scope-pane', /Coverage/i);
+  await page.click('#references-tab');
+  await assertText(page, '#references-pane', /Official guideline/i);
+  await assertText(page, '#references-pane', /BMJ|doi/i);
+  const referenceHref = await page.locator('#references-pane a[href]').first().getAttribute('href');
+  assert.match(referenceHref || '', /^https:\/\//);
+  await page.click('#closeGuidelineDetailSliderBtn');
+  await page.waitForSelector('#guidelineDetailSlider.active', { state: 'detached', timeout: 1000 }).catch(async () => {
+    assert.equal(await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')), false);
+  });
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+    await page.locator('#customizeChecksModal .btn-close').click();
+    await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 });
+  });
 }
 
 async function assertPanelState(page, selector, expectedOpen) {

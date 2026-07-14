@@ -1,0 +1,535 @@
+{
+  "id": "jars-rec",
+  "Name": "JARS-REC",
+  "LongName": "Journal Article Reporting Standards for Race, Ethnicity, and Culture",
+  "Description": "JARS-REC is APA's cross-cutting reporting standard for describing race, ethnicity, and culture responsibly and transparently in psychology research. It supplements existing APA JARS modules by adding expectations for conceptual framing, sampling, measurement, analysis, interpretation, generalizability, and citation practice related to race, ethnicity, and culture.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology race, ethnicity, and culture reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the reporting of race, ethnicity, and culture in psychology manuscripts by requiring authors to define these constructs clearly, situate them in local sociocultural context, avoid deficit framing and racial essentialism, report sample and measurement decisions transparently, and discuss interpretation, generalizability, and citation practice in equity-aware ways.",
+  "ManuscriptType": [
+    "Original research article",
+    "Quantitative research report",
+    "Qualitative research report",
+    "Mixed methods research report"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Human-participant study",
+    "Secondary data analysis"
+  ],
+  "Keywords": [
+    "JARS-REC",
+    "race",
+    "ethnicity",
+    "culture",
+    "bias-free language",
+    "racial essentialism",
+    "sampling",
+    "measurement invariance",
+    "generalizability",
+    "citation praxis"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Human-participant study",
+      "Secondary data analysis"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science",
+      "Education",
+      "Health research"
+    ],
+    "Coverage": "Psychology and related manuscripts that report research involving race, ethnicity, and culture, including studies where these constructs are focal research topics, moderators, sample descriptors, analytic covariates, or important contextual features.",
+    "Focus": "Clear construct definition, local context, theory selection, sample description, measurement validity across groups, recruitment and representation, analysis choices involving race and ethnicity, contextualized interpretation, constraints on generality, implications for equity, and equitable citation practice.",
+    "ContrastWith": "This is a cross-cutting reporting overlay rather than a design-specific methods checklist. It complements APA's quantitative, qualitative, and mixed-methods JARS standards when race, ethnicity, and culture are relevant to the manuscript."
+  },
+  "references": {
+    "primary": {
+      "description": "American Psychological Association. JARS-Race, Ethnicity, and Culture, Table 1.",
+      "url": "https://apastyle.apa.org/jars/rec-table-1.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "General Guidance and Front Matter",
+      "items": [
+        {
+          "section": "General Guidance and Front Matter",
+          "item": "1",
+          "item_name": "Define race, ethnicity, and culture in the relevant context",
+          "item_question": "Does the manuscript clarify the relevant national and cultural context, define race and ethnicity clearly, and treat culture as distinct from race and ethnicity?",
+          "item_question_background": "JARS-REC opens by stressing that racial and ethnic categories are not universal and that local usage, historical context, and evolving community language should guide how these constructs are described.",
+          "item_extraction_instruction": "Extract how the manuscript defines race, ethnicity, and culture, the local or national context for those definitions, and any explanation of why the chosen labels fit the sampled community.",
+          "item_expected_location": "Introduction / Method / Front matter",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Authors should clarify the relevant national and cultural context for the research study. Definitions of race and ethnicity should be articulated clearly. Authors should treat the concept of culture as distinct from race and ethnicity.",
+              "locator": "General Guidance"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "General Guidance and Front Matter",
+          "item": "2",
+          "item_name": "Use title and author note to name focal constructs and author positioning precisely",
+          "item_question": "Do the title and author note identify relevant race, ethnicity, and culture constructs precisely, explain terminology choices, and disclose author positionality or community partnership when relevant?",
+          "item_question_background": "The table pairs front-matter guidance with concerns about normative framing, urging precise terms, transparent terminology choices, acknowledgment of community collaboration, and positionality statements that surface potential bias.",
+          "item_extraction_instruction": "Extract whether the title names focal race, ethnicity, or culture constructs, how the author note explains terminology choices, any acknowledgment of community partners, and any positionality statement tied to the study.",
+          "item_expected_location": "Title / Title page / Author note",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Identify the study focus and highlight relevant constructs regarding race, ethnicity, and culture when they are the focus of the research questions under investigation.",
+              "locator": "Title"
+            },
+            {
+              "page": 1,
+              "quote": "Use precise terminology and describe how and why you are using certain racial and ethnic terms ... Include the author's positionality statement that is relevant to the present study.",
+              "locator": "Author Note"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "General Guidance and Front Matter",
+          "item": "3",
+          "item_name": "State race, ethnicity, and culture explicitly in the abstract and keywords",
+          "item_question": "Does the abstract state when race, ethnicity, and culture are focal issues and describe sample heterogeneity, and do the keywords improve discoverability of relevant populations?",
+          "item_question_background": "APA flags abstract word-count pressure but still expects authors to signal when race, ethnicity, and culture are central and to make sample heterogeneity searchable rather than invisible.",
+          "item_extraction_instruction": "Extract whether the abstract identifies race, ethnicity, or culture as focal issues, describes the racial or ethnic composition of the sample, and includes keywords naming relevant populations.",
+          "item_expected_location": "Abstract / Keywords",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "State explicitly when race, ethnicity, and culture are focal issues under investigation.",
+              "locator": "Abstract objectives"
+            },
+            {
+              "page": 2,
+              "quote": "Acknowledge the racial and ethnic heterogeneity of the sample in the abstract.",
+              "locator": "Abstract participants"
+            },
+            {
+              "page": 2,
+              "quote": "Identify five keywords that signal relevant populations to help promote searchability.",
+              "locator": "Keywords"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Conceptual Framing",
+      "items": [
+        {
+          "section": "Conceptual Framing",
+          "item": "4",
+          "item_name": "Choose and justify theoretical framing appropriate to the studied group",
+          "item_question": "Does the introduction explain the theoretical approach, justify applying it to the studied group, and consider strengths-based or culturally grounded alternatives where appropriate?",
+          "item_question_background": "JARS-REC responds to a history of deficit models and inappropriate default comparisons by asking authors to justify theoretical framing rather than assume mainstream frameworks transfer cleanly to marginalized populations.",
+          "item_extraction_instruction": "Extract the theoretical or conceptual framework, any statement about its fit or limitations for the studied group, and whether resilience-based, strengths-based, or culturally grounded alternatives are used or discussed.",
+          "item_expected_location": "Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "When applying a theoretical framework to a group that is not consistent with the group that the framework was developed in/for, explicitly state this and detail the strengths and limitations of applying the framework to this group.",
+              "locator": "Description of Research Problem or Question"
+            },
+            {
+              "page": 2,
+              "quote": "Consider using resilience- and strengths-based theoretical frameworks to conceptualize research questions.",
+              "locator": "Description of Research Problem or Question"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Conceptual Framing",
+          "item": "5",
+          "item_name": "Review prior scholarship for applicability to marginalized populations",
+          "item_question": "Does the literature review critique the generalizability or transferability of prior theories and evidence for populations marginalized by race, ethnicity, or culture, or acknowledge the absence of such research?",
+          "item_question_background": "The guideline asks authors not to inherit unexamined literatures but to show where existing theories or findings may have been developed without meaningful consideration of the populations now under study.",
+          "item_extraction_instruction": "Extract any review of the prior literature's applicability to the focal populations, discussion of gaps concerning marginalized groups, and any described adaptations to prior theory or evidence.",
+          "item_expected_location": "Introduction / Literature review",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Review and critique existing evidence on the generalizability and transferability of theories and empirical data for populations that have been marginalized by race, ethnicity, and culture. Alternatively, acknowledge the lack of research on marginalized groups.",
+              "locator": "Review of Relevant Scholarship"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Design, Sampling, and Participants",
+      "items": [
+        {
+          "section": "Design, Sampling, and Participants",
+          "item": "6",
+          "item_name": "Explain how race, ethnicity, and culture shaped the research design",
+          "item_question": "Does the method section describe how race, ethnicity, and culture were considered in the research design, who shaped the design, and how the study addressed cultural mistrust, cultural congruence, transparency, or group-specific intervention fidelity when relevant?",
+          "item_question_background": "JARS-REC treats design choices themselves as culturally situated, emphasizing positional input, transparency, and attention to how historical mistrust or culturally incongruent procedures can distort participation and intervention effects.",
+          "item_extraction_instruction": "Extract how race, ethnicity, and culture informed the research design, who contributed to the design, any cultural-congruence practices, any transparency and openness subsection, and any group-specific treatment or manipulation fidelity considerations.",
+          "item_expected_location": "Method / Research design overview / Transparency and openness",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "When relevant, clearly state how race, ethnicity, and culture were considered within the research design.",
+              "locator": "Research Design Overview"
+            },
+            {
+              "page": 2,
+              "quote": "Recognize that cultural mistrust can affect participation and the potential impact of experimental interventions.",
+              "locator": "Research Design Overview"
+            },
+            {
+              "page": 2,
+              "quote": "Include a subsection in the Method section titled \"Transparency and Openness\" ... describe in detail the efforts made to comply with the Transparency and Openness Promotion (TOP) Guidelines.",
+              "locator": "Research Design Overview"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design, Sampling, and Participants",
+          "item": "7",
+          "item_name": "Describe the source population and justify inclusion, exclusion, and representation decisions",
+          "item_question": "Does the manuscript describe the source population, explain sample selection criteria, justify any limited diversity or homogeneous sampling, and report whether the design prioritized representativeness, representation, or oversampling?",
+          "item_question_background": "The guideline wants readers to understand not just who ended up in the sample but how sampling decisions bound the claims the study can make, especially when expected diversity is absent or when some groups may have been excluded by design.",
+          "item_extraction_instruction": "Extract the source population, inclusion and exclusion criteria, rationale for sample composition, discussion of representativeness versus representation, oversampling procedures, and any explanation of threats created by the sampling strategy.",
+          "item_expected_location": "Method / Inclusion and exclusion criteria / Sampling procedures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe the population(s) from which the sample was drawn. Explain the sample selection criteria. If the sample lacks expected racial and ethnic diversity or representation within the study parameters, provide clear justifications.",
+              "locator": "Inclusion and Exclusion Criteria/Sampling Procedures"
+            },
+            {
+              "page": 2,
+              "quote": "Describe the extent to which the research design emphasized representativeness ... or representation.",
+              "locator": "Inclusion and Exclusion Criteria/Sampling Procedures"
+            },
+            {
+              "page": 2,
+              "quote": "Describe any oversampling procedures and rationale where applicable.",
+              "locator": "Inclusion and Exclusion Criteria/Sampling Procedures"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Design, Sampling, and Participants",
+          "item": "8",
+          "item_name": "Report participant race, ethnicity, language, and category handling in detail",
+          "item_question": "Does the manuscript describe participant race and ethnicity in sufficient cultural detail, including country of origin, language use, self-description options, multiracial or multiethnic heterogeneity, recruitment language, and any aggregation or reclassification decisions?",
+          "item_question_background": "JARS-REC is especially detailed about participant description because collapsing categories, omitting language context, or treating multiracial and multiethnic identities superficially can obscure who was actually studied and how categories were constructed.",
+          "item_extraction_instruction": "Extract sample racial and ethnic composition, country of origin, language usage, wording and response options used to collect these data, recruitment language, handling of multiple selections, any reclassification method, and any rationale for aggregation.",
+          "item_expected_location": "Method / Participant characteristics",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Describe the racial and ethnic composition of the sample in as detailed a manner as possible ... Include the country of origin and language usage of sample participants in the sample description.",
+              "locator": "Participant Characteristics"
+            },
+            {
+              "page": 3,
+              "quote": "Present or summarize clearly the language used in survey questions designed to elicit information about participants' race, ethnicity, culture, country of origin, and languages spoken at home.",
+              "locator": "Participant Characteristics"
+            },
+            {
+              "page": 3,
+              "quote": "Avoid aggregating across different identities if possible ... If identities are aggregated together, provide the rationale and describe exactly how aggregation happened.",
+              "locator": "Participant Characteristics"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Measures, Data Collection, and Secondary Data",
+      "items": [
+        {
+          "section": "Measures, Data Collection, and Secondary Data",
+          "item": "9",
+          "item_name": "Establish measure validity and cultural appropriateness across groups",
+          "item_question": "Does the manuscript discuss the reliability, validity, measurement invariance, cultural validity, and any adaptation or translation procedures for measures used with the studied populations?",
+          "item_question_background": "The guideline emphasizes that measures validated in one population may not transfer cleanly to another, so authors need to show why their instruments are appropriate for the racial, ethnic, and cultural groups in the study.",
+          "item_extraction_instruction": "Extract evidence about measure reliability and validity in the studied populations, subgroup-specific psychometric evidence where relevant, tests or discussion of measurement invariance, cultural validity arguments, and any adaptation or back-translation procedures.",
+          "item_expected_location": "Method / Measures and covariates",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Discuss the reliability and validity of the measures used in populations or groups that reflect your study sample. When relevant, provide evidence of reliability and validity for each subgroup in the sample.",
+              "locator": "Measures and Covariates"
+            },
+            {
+              "page": 3,
+              "quote": "Describe efforts to evaluate assumptions about measurement invariance across racial and ethnic groups.",
+              "locator": "Measures and Covariates"
+            },
+            {
+              "page": 3,
+              "quote": "Explain in detail procedures for translations of study materials, including steps for back-translation.",
+              "locator": "Measures and Covariates"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Measures, Data Collection, and Secondary Data",
+          "item": "10",
+          "item_name": "Describe equitable recruitment and culturally relevant data collection procedures",
+          "item_question": "Does the manuscript explain recruitment efforts aimed at diversity and representation, whether underrepresented groups were sufficiently included for analysis, and the race, ethnicity, or culture of interviewers or coders when relevant?",
+          "item_question_background": "Data collection choices can shape who participates and how information is produced, so the guideline asks authors to report efforts to recruit diverse samples and to surface interviewer or coder characteristics when they may influence findings.",
+          "item_extraction_instruction": "Extract how participants were recruited, any efforts to recruit diverse or underrepresented groups, whether recruitment was monitored for representativeness, and any description of interviewer or coder race, ethnicity, or culture.",
+          "item_expected_location": "Method / Data collection",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Explain how the sample was recruited, including attempts to recruit a diverse sample, and whether participant demographic characteristics were reviewed during recruitment to ensure a representative sample.",
+              "locator": "Data Collection"
+            },
+            {
+              "page": 3,
+              "quote": "Describe efforts to ensure that participation among underrepresented racial and ethnic groups is sufficient for analyses of race and ethnicity.",
+              "locator": "Data Collection"
+            },
+            {
+              "page": 3,
+              "quote": "If interviewers and coders were used, describe the interviewer and coder's race, ethnicity, and culture in the way collected from participants.",
+              "locator": "Data Collection"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Measures, Data Collection, and Secondary Data",
+          "item": "11",
+          "item_name": "Address limits of secondary data for race, ethnicity, and culture variables",
+          "item_question": "For secondary data analyses, does the manuscript explain the available race, ethnicity, and culture variables, summarize key contextual descriptors such as birthplace or language where possible, and identify measurement limitations in the data set?",
+          "item_question_background": "JARS-REC recognizes that secondary data often inherit outdated or coarse racial and ethnic measures, so authors need to be explicit about what the data can and cannot represent.",
+          "item_extraction_instruction": "Extract the race, ethnicity, and culture variables available in any secondary data set, related contextual variables such as place of birth or language use, and any limitations in those measures or options.",
+          "item_expected_location": "Method / Secondary data description",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Secondary data sets present specific challenges ... Select the best available variables in the data that measure the relevant racial and ethnic constructs to describe the sample.",
+              "locator": "Considerations for Secondary Data Sets"
+            },
+            {
+              "page": 4,
+              "quote": "Identify any limitations to the data set in describing the racial and ethnic composition of the sample and relevant variables that covary with race and ethnicity.",
+              "locator": "Considerations for Secondary Data Sets"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Analysis and Interpretation",
+      "items": [
+        {
+          "section": "Analysis and Interpretation",
+          "item": "12",
+          "item_name": "Report race- and ethnicity-relevant analytic decisions transparently",
+          "item_question": "Does the results section report missingness, coding, subgroup descriptives, weighting or sensitivity analyses, and the rationale for including race or ethnicity as predictors or covariates in a way that avoids rote or essentialist modeling choices?",
+          "item_question_background": "The results guidance focuses on how analytic conventions can quietly encode inequity, such as defaulting White participants to the reference group, treating race as a proxy without explanation, or ignoring group-specific missingness and sampling imbalance.",
+          "item_extraction_instruction": "Extract missing-data reporting by race, ethnicity, or culture, coding details for groups in tables, subgroup descriptives, sensitivity or weighting analyses, whether White participants were used as a default reference group, and any rationale for modeling race or ethnicity as predictors or covariates.",
+          "item_expected_location": "Results / Statistics and data analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Provide information regarding missing data in terms of race, ethnicity, and culture.",
+              "locator": "Statistics and Data Analysis"
+            },
+            {
+              "page": 4,
+              "quote": "In general, avoid rote implementation of White participants as the reference group.",
+              "locator": "Statistics and Data Analysis"
+            },
+            {
+              "page": 4,
+              "quote": "If race and/or ethnicity are included as primary predictors or covariates in your model, explain the reasons for this approach ... Report the variance accounted for by race and/or ethnicity.",
+              "locator": "Statistics and Data Analysis"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Analysis and Interpretation",
+          "item": "13",
+          "item_name": "Interpret findings in sociocultural and structural context",
+          "item_question": "Does the discussion contextualize group similarities or differences within historical, sociocultural, and structural conditions, address systems of oppression, and reflect on how researcher positionality and design choices may have shaped the findings?",
+          "item_question_background": "JARS-REC explicitly rejects decontextualized interpretation of racial and ethnic differences, asking authors to connect findings to structural conditions and to reflect on how research practices and positionality themselves shape evidence.",
+          "item_extraction_instruction": "Extract discussion of historical or structural context, naming of systems of oppression, interpretation of small group differences, reflection on how the design affected participation or diversity, and any discussion of researcher, interviewer, or coder positionality.",
+          "item_expected_location": "Discussion / Interpretation",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Where appropriate, contextualize differences in terms of historical policies and contemporary structural challenges.",
+              "locator": "Interpretation"
+            },
+            {
+              "page": 4,
+              "quote": "Name systems of oppression and address how these systems intersect with the research findings.",
+              "locator": "Interpretation"
+            },
+            {
+              "page": 4,
+              "quote": "Discuss how your positionality may have affected the research idea conceptualization, methods, analysis, and interpretation.",
+              "locator": "Interpretation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Analysis and Interpretation",
+          "item": "14",
+          "item_name": "State constraints on generality for racial, ethnic, and cultural claims",
+          "item_question": "Does the manuscript identify the target populations for its findings, describe limits on generalizability or transferability across racial and ethnic groups, and explain which methods could vary or should remain constant for replication?",
+          "item_question_background": "The guideline treats generalizability as bounded rather than automatic, especially when findings may be shaped by context, socioeconomic conditions, or historically specific policies that differ across groups and settings.",
+          "item_extraction_instruction": "Extract the stated target populations, limits on generality for participants, materials, procedures, and context, any constraints-on-generality subsection, and any description of what aspects should remain constant for replication.",
+          "item_expected_location": "Discussion / Generalizability / Constraints on generality",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Identify and justify the target populations for the study's findings, and address limits on generality for participants, materials, procedures, and context.",
+              "locator": "Generalizability"
+            },
+            {
+              "page": 4,
+              "quote": "Describe the limits of the scope of generalizability and transferability.",
+              "locator": "Generalizability"
+            },
+            {
+              "page": 5,
+              "quote": "Group differences between racial and ethnic groups should be interpreted carefully and via appropriate theoretical lenses.",
+              "locator": "Generalizability continued"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Analysis and Interpretation",
+          "item": "15",
+          "item_name": "Discuss implications for equity, harm reduction, and inclusive scholarship",
+          "item_question": "Does the manuscript describe implications for addressing systemic oppression, consider how findings could be misused, and demonstrate equitable citation praxis that draws on underrepresented scholars and adjacent disciplines where relevant?",
+          "item_question_background": "JARS-REC extends beyond narrow reporting to how scholarship participates in systems of inclusion or exclusion, linking study implications to structural change and asking authors to examine citation practices that can reproduce marginalization.",
+          "item_extraction_instruction": "Extract discussion of how findings address systemic oppression or structural barriers, any concern about misuse or harm to historically excluded groups, and any statements or evidence of equitable citation praxis, including engagement with underrepresented scholars or adjacent disciplines.",
+          "item_expected_location": "Discussion / Implications / References",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Describe how findings can be used to address systemic oppression and challenge various system-justifying beliefs and practices.",
+              "locator": "Implications"
+            },
+            {
+              "page": 5,
+              "quote": "Consider whether the research findings could be misinterpreted or misused to cause harm to members of historically excluded groups.",
+              "locator": "Implications"
+            },
+            {
+              "page": 5,
+              "quote": "Evaluate your citation praxis ... include research contributions from historically marginalized or underrepresented scholars.",
+              "locator": "Evaluate Your Citation Praxis"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS-REC",
+      "APA race ethnicity and culture reporting standards",
+      "Journal Article Reporting Standards for Race, Ethnicity, and Culture"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brace\\b",
+          "\\bethnic(?:ity|ities)?\\b",
+          "\\bculture\\b",
+          "\\bracial\\b",
+          "\\bmultiracial\\b",
+          "\\bmultiethnic\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmeasurement invariance\\b",
+          "\\bpositionality\\b",
+          "\\bcultural validity\\b",
+          "\\bcitation praxis\\b",
+          "\\bstructural racism\\b",
+          "\\bcolonialism\\b",
+          "\\breference group\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A psychology manuscript examines mental health across racial and ethnic groups, explains how categories were measured, justifies the theoretical framework for the studied communities, and discusses structural racism in interpreting results.",
+      "A mixed methods study reports recruitment language, participant country of origin and home language, subgroup measurement validity, and limits on generalizing findings across culturally distinct populations."
+    ],
+    "EvidenceExamplesNegative": [
+      "A manuscript mentions sample demographics briefly but does not analyze or discuss race, ethnicity, culture, or related contextual issues in any substantive way.",
+      "A laboratory methods paper with no human participants and no discussion of race, ethnicity, culture, or equity concerns should not map to JARS-REC."
+    ],
+    "Explain": "Use JARS-REC as a cross-cutting APA overlay when manuscripts need explicit, equity-aware reporting of race, ethnicity, and culture in framing, sampling, measurement, analysis, interpretation, generalizability, or citation practice."
+  }
+}

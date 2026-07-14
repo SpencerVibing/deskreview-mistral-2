@@ -1,0 +1,472 @@
+{
+  "id": "odd",
+  "Name": "ODD",
+  "LongName": "Overview, Design concepts, and Details (ODD) protocol for describing agent-based and other simulation models",
+  "Description": "ODD is a structured protocol for transparent, complete, and replicable documentation of agent-based and related simulation models, covering model purpose, entities, processes, design concepts, and implementation details.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Simulation model reporting",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To standardize simulation-model reporting so readers can understand model logic, assess fitness for purpose, reproduce implementations, and compare models across disciplines.",
+  "ManuscriptType": [
+    "Methods paper",
+    "Simulation study",
+    "Computational modeling study"
+  ],
+  "ManuscriptSubType": [
+    "Agent-based model description",
+    "Individual-based model description",
+    "Hybrid simulation model description"
+  ],
+  "StudyType": [
+    "Agent-based simulation",
+    "Individual-based simulation",
+    "Simulation model development"
+  ],
+  "Keywords": [
+    "ODD protocol",
+    "Overview Design concepts Details",
+    "agent-based model",
+    "individual-based model",
+    "ABM",
+    "IBM",
+    "simulation model reporting",
+    "model documentation",
+    "model replication",
+    "reimplementation",
+    "purpose and patterns",
+    "entities state variables and scales",
+    "process overview and scheduling",
+    "design concepts",
+    "initialization",
+    "input data",
+    "submodels",
+    "model rationale",
+    "model evaluation",
+    "structural realism",
+    "TRACE",
+    "ODD+D",
+    "ODD+2D"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Agent-based simulation",
+      "Individual-based simulation",
+      "Simulation model development"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary",
+      "Engineering & Technology",
+      "Natural sciences",
+      "Social sciences"
+    ],
+    "Coverage": "Simulation-model manuscripts that document model structure, mechanisms, and implementation details, especially agent-based or individual-based models but also other simulation models using ODD-style structure.",
+    "Focus": "Clear reporting of model purpose, represented entities and state variables, process scheduling, key design concepts, initialization, input data dependencies, and submodel formulations sufficient for replication and critical appraisal.",
+    "ContrastWith": "Not intended for purely statistical analyses or non-simulation empirical studies. Complements, rather than replaces, design-specific reporting standards by adding a simulation-model documentation layer."
+  },
+  "references": {
+    "primary": {
+      "description": "Grimm V, Railsback SF, Vincenot CE, et al. The ODD Protocol for Describing Agent-Based and Other Simulation Models: A Second Update to Improve Clarity, Replication, and Structural Realism. Journal of Artificial Societies and Social Simulation. 2020;23(2):7.",
+      "url": "https://doi.org/10.18564/jasss.4259"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Overview",
+      "items": [
+        {
+          "section": "Overview",
+          "item": "1",
+          "item_name": "Purpose and patterns",
+          "item_question": "Does the manuscript state model purpose and key patterns used for model evaluation?",
+          "item_question_background": "Purpose anchors model scope and patterns support fitness-for-purpose evaluation.",
+          "item_extraction_instruction": "Extract the explicit model purpose, intended use, and any empirical or theoretical patterns used to evaluate model behavior.",
+          "item_expected_location": "Introduction / Model overview",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "In its first element '1. Purpose and patterns' the purpose of the model and the patterns that serve as model evaluation criteria are briefly described.",
+              "locator": "ODD element definitions"
+            }
+          ],
+          "extraction_confidence": 0.82,
+          "needs_review": true,
+          "review_reason": "Extracted text includes OCR artifacts; verify exact wording against source PDF."
+        },
+        {
+          "section": "Overview",
+          "item": "2",
+          "item_name": "Entities, state variables, and scales",
+          "item_question": "Are entities, their state variables, and temporal/spatial scales fully specified?",
+          "item_question_background": "Explicit entities and scales are required to interpret model structure and results.",
+          "item_extraction_instruction": "Extract all entity types, associated state variables, spatial resolution/extent, and temporal resolution/extent.",
+          "item_expected_location": "Model description / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Entities, state variables and scales lists the different types of entities represented in the model... The temporal and spatial resolution and extent...",
+              "locator": "ODD element definitions"
+            }
+          ],
+          "extraction_confidence": 0.84,
+          "needs_review": true,
+          "review_reason": "OCR-cleanup needed for exact entity/scale phrasing."
+        },
+        {
+          "section": "Overview",
+          "item": "3",
+          "item_name": "Process overview and scheduling",
+          "item_question": "Is there a clear overview of processes, update order, and scheduling?",
+          "item_question_background": "Execution order and update timing strongly influence simulation outcomes.",
+          "item_extraction_instruction": "Extract process sequence, actor/process ownership, timing/frequency, and state-update schedule details.",
+          "item_expected_location": "Methods / Process description",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Process overview and scheduling provides an overview of the processes in the model: Which entities do what, at what time and in what order...",
+              "locator": "ODD element definitions"
+            }
+          ],
+          "extraction_confidence": 0.84,
+          "needs_review": true,
+          "review_reason": "Verify extracted scheduling terms against clean PDF rendering."
+        }
+      ]
+    },
+    {
+      "section": "Design concepts",
+      "items": [
+        {
+          "section": "Design concepts",
+          "item": "4.1",
+          "item_name": "Basic principles",
+          "item_question": "Are the basic theoretical or conceptual principles underlying the model stated?",
+          "item_question_background": "Conceptual grounding helps evaluate whether model structure matches domain theory.",
+          "item_extraction_instruction": "Extract domain theories, principles, or assumptions that motivated the model’s core structure.",
+          "item_expected_location": "Design concepts / Conceptual framework",
+          "item_optional": false
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.2",
+          "item_name": "Emergence",
+          "item_question": "Are emergent outcomes and how they arise from lower-level processes described?",
+          "item_question_background": "Emergence is a central rationale for many ABMs and should be explicit.",
+          "item_extraction_instruction": "Extract emergent patterns/outcomes and the mechanisms expected to generate them.",
+          "item_expected_location": "Design concepts / Results interpretation",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.3",
+          "item_name": "Adaptation",
+          "item_question": "Is adaptation represented and clearly explained if relevant?",
+          "item_question_background": "Adaptive behavior is often a key design choice affecting predictive behavior.",
+          "item_extraction_instruction": "Extract adaptive rules, triggers, and how agent behavior changes over time or context.",
+          "item_expected_location": "Design concepts / Submodels",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.4",
+          "item_name": "Objectives",
+          "item_question": "Are agent-level objectives or optimization criteria documented where applicable?",
+          "item_question_background": "Explicit objectives clarify decision logic and model behavior.",
+          "item_extraction_instruction": "Extract stated agent goals, utilities, objective functions, or decision criteria.",
+          "item_expected_location": "Design concepts / Decision rules",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.5",
+          "item_name": "Learning",
+          "item_question": "If learning is modeled, are learning mechanisms and memory effects described?",
+          "item_question_background": "Learning can alter trajectories and should be reproducibly defined.",
+          "item_extraction_instruction": "Extract learning update rules, memory structures, and learning parameters.",
+          "item_expected_location": "Design concepts / Submodels",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.6",
+          "item_name": "Prediction",
+          "item_question": "Does the model include anticipatory behavior, and is this mechanism reported?",
+          "item_question_background": "Prediction/anticipation mechanisms can materially affect agent decisions.",
+          "item_extraction_instruction": "Extract how agents form forecasts or anticipatory estimates and how these are used.",
+          "item_expected_location": "Design concepts",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.7",
+          "item_name": "Sensing",
+          "item_question": "Are sensing/perception assumptions and information availability described?",
+          "item_question_background": "Perception constraints define agent information sets and feasible decisions.",
+          "item_extraction_instruction": "Extract what information entities can observe, sensing range, and perception limitations.",
+          "item_expected_location": "Design concepts / Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.8",
+          "item_name": "Interaction",
+          "item_question": "Are interaction mechanisms among entities and environment specified?",
+          "item_question_background": "Interaction structure determines system dynamics and emergent outcomes.",
+          "item_extraction_instruction": "Extract interaction rules, network/spatial interaction constraints, and interaction frequencies.",
+          "item_expected_location": "Design concepts / Process overview",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.9",
+          "item_name": "Stochasticity",
+          "item_question": "Are stochastic components, distributions, and randomization controls reported?",
+          "item_question_background": "Randomness handling is critical for reproducibility and uncertainty characterization.",
+          "item_extraction_instruction": "Extract stochastic elements, random distributions, random seed policies, and replication settings.",
+          "item_expected_location": "Methods / Simulation experiment settings",
+          "item_optional": false
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.10",
+          "item_name": "Collectives",
+          "item_question": "If collectives/groups are represented, are their formation and dynamics described?",
+          "item_question_background": "Collective structures can create important non-linear effects.",
+          "item_extraction_instruction": "Extract rules for group/collective formation, maintenance, and dissolution.",
+          "item_expected_location": "Design concepts / Submodels",
+          "item_optional": true
+        },
+        {
+          "section": "Design concepts",
+          "item": "4.11",
+          "item_name": "Observation",
+          "item_question": "Are virtual observation and output-measurement procedures described?",
+          "item_question_background": "Observation design affects comparability to empirical data and evaluation outcomes.",
+          "item_extraction_instruction": "Extract what outputs are recorded, aggregation procedures, and links to empirical observation equivalents.",
+          "item_expected_location": "Methods / Output metrics / Results",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Details",
+      "items": [
+        {
+          "section": "Details",
+          "item": "5",
+          "item_name": "Initialization",
+          "item_question": "Are initial conditions and starting state assignment procedures fully described?",
+          "item_question_background": "Initialization can strongly influence transients and long-run behavior.",
+          "item_extraction_instruction": "Extract initial state setup, entity initialization values, initial distributions, and any burn-in setup.",
+          "item_expected_location": "Methods / Model initialization",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "The final three elements '5. Initialization', '6. Input data', and '7. Submodels' provide detail sufficient...",
+              "locator": "ODD element definitions"
+            }
+          ],
+          "extraction_confidence": 0.82,
+          "needs_review": true,
+          "review_reason": "Element heading was extracted with OCR artifacts; verify exact formatting."
+        },
+        {
+          "section": "Details",
+          "item": "6",
+          "item_name": "Input data",
+          "item_question": "Are all exogenous inputs and data dependencies specified?",
+          "item_question_background": "External inputs determine scenario behavior and model reproducibility.",
+          "item_extraction_instruction": "Extract all external data sources, update cadence, preprocessing, and how inputs feed model components.",
+          "item_expected_location": "Methods / Data / Inputs",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "The final three elements '5. Initialization', '6. Input data', and '7. Submodels' provide detail sufficient...",
+              "locator": "ODD element definitions"
+            }
+          ],
+          "extraction_confidence": 0.82,
+          "needs_review": true,
+          "review_reason": "OCR noise present; confirm against source PDF."
+        },
+        {
+          "section": "Details",
+          "item": "7",
+          "item_name": "Submodels",
+          "item_question": "Are submodels and process-level formulations documented in enough detail for reimplementation?",
+          "item_question_background": "Reimplementation requires explicit equations, rules, and algorithmic detail.",
+          "item_extraction_instruction": "Extract each submodel with equations/rules, parameters, and execution context links to scheduling.",
+          "item_expected_location": "Methods / Submodels / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "The final three elements ... provide detail sufficient for readers to fully understand the model and ... re-implement it.",
+              "locator": "ODD element definitions"
+            }
+          ],
+          "extraction_confidence": 0.84,
+          "needs_review": true,
+          "review_reason": "Verify reimplementation language due OCR conversion artifacts."
+        },
+        {
+          "section": "Details",
+          "item": "8",
+          "item_name": "Model rationale",
+          "item_question": "Is model rationale documented to explain major structural and design choices?",
+          "item_question_background": "Rationale supports structural realism and interpretability of design decisions.",
+          "item_extraction_instruction": "Extract explicit justification for key design choices, abstraction decisions, and inclusion/exclusion of mechanisms.",
+          "item_expected_location": "Methods / Discussion / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "...lack of provision for sections ... covering model design rationale...",
+              "locator": "Abstract"
+            }
+          ],
+          "extraction_confidence": 0.8,
+          "needs_review": true,
+          "review_reason": "Rationale section is part of update guidance; check exact section naming in source."
+        },
+        {
+          "section": "Details",
+          "item": "9",
+          "item_name": "Model evaluation",
+          "item_question": "Are methods and criteria for evaluating model fitness for purpose clearly described?",
+          "item_question_background": "Evaluation criteria are needed to judge validity and intended use.",
+          "item_extraction_instruction": "Extract evaluation strategy, calibration/validation checks, fit criteria, and interpretation limits.",
+          "item_expected_location": "Methods / Evaluation / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "...means by which the model’s fitness for purpose is evaluated.",
+              "locator": "Abstract"
+            }
+          ],
+          "extraction_confidence": 0.8,
+          "needs_review": true,
+          "review_reason": "Evaluation terminology extracted from abstract; verify exact protocol phrasing."
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary",
+      "Engineering & Technology",
+      "Natural sciences",
+      "Social sciences"
+    ],
+    "Aliases": [
+      "ODD",
+      "ODD protocol",
+      "Overview Design concepts Details",
+      "The ODD Protocol for Describing Agent-Based and Other Simulation Models",
+      "ODD+D",
+      "ODD+2D"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bODD\\s+protocol\\b",
+          "\\bOverview,?\\s+Design\\s+concepts,?\\s+and\\s+Details\\b",
+          "\\bagent[-\\s]?based\\s+model(s)?\\b",
+          "\\bindividual[-\\s]?based\\s+model(s)?\\b",
+          "\\bABM(s)?\\b",
+          "\\bIBM(s)?\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bentities,?\\s+state\\s+variables\\s+and\\s+scales\\b",
+          "\\bprocess\\s+overview\\s+and\\s+scheduling\\b",
+          "\\bdesign\\s+concepts\\b",
+          "\\binitiali[sz]ation\\b",
+          "\\binput\\s+data\\b",
+          "\\bsubmodels?\\b",
+          "\\bre[-\\s]?implement\\w*\\b",
+          "\\bmodel\\s+rationale\\b",
+          "\\bfitness\\s+for\\s+purpose\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsimulation\\s+model\\b",
+          "\\b(model\\s+description|model\\s+documentation|reporting)\\b"
+        ]
+      }
+    ],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bodd\\s+ratio\\b",
+          "\\bodd\\s+numbers?\\b",
+          "\\bodd[-\\s]?even\\b",
+          "\\bodds\\s+ratio\\b",
+          "\\bbookmaker\\s+odds\\b",
+          "\\bbetting\\s+odds\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bstate\\s+variables\\b",
+          "\\bupdate\\s+order\\b",
+          "\\bscheduling\\s+of\\s+processes\\b",
+          "\\bemergence\\b",
+          "\\badaptation\\b",
+          "\\blearning\\b",
+          "\\bsensing\\b",
+          "\\binteraction\\b",
+          "\\bstochasticity\\b",
+          "\\bcollectives\\b",
+          "\\bobservation\\b",
+          "\\breplication\\b",
+          "\\breproducibility\\b",
+          "\\bstructural\\s+realism\\b",
+          "\\bTRACE\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bodd\\s+symptom\\b",
+          "\\bodd\\s+behavior\\b",
+          "\\bodd\\s+event\\b",
+          "\\bodd\\s+man\\s+out\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "The model is documented following ODD with sections for Purpose and patterns, Entities/state variables/scales, Process overview and scheduling, Design concepts, Initialization, Input data, and Submodels.",
+      "We provide an ODD-style ABM description including adaptation, stochasticity, sensing and interaction assumptions, plus submodel equations to support reimplementation.",
+      "This simulation methods paper reports model rationale, process scheduling, and fitness-for-purpose evaluation criteria alongside full submodel details."
+    ],
+    "EvidenceExamplesNegative": [
+      "The study reports odds ratios from logistic regression but contains no simulation model description framework.",
+      "A clinical paper discusses unusual or odd symptoms and has no agent-based or simulation model documentation.",
+      "The manuscript presents a statistical analysis workflow without entities, scheduling, or submodel definitions."
+    ],
+    "Explain": "Apply as a reporting overlay when manuscripts describe or should describe simulation-model structure and implementation in ODD-like form, especially agent-based and individual-based models where full-text method sections contain the strongest cues."
+  }
+}

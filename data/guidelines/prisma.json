@@ -1,0 +1,553 @@
+{
+  "id": "prisma",
+  "Name": "PRISMA 2020",
+  "LongName": "Preferred Reporting Items for Systematic Reviews and Meta-Analyses 2020 Statement",
+  "Description": "PRISMA 2020 provides an updated set of evidence-based reporting items for systematic reviews and meta-analyses. It aims to ensure transparent, complete, and reproducible reporting of the rationale, methods, results, and interpretation of systematic reviews.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Evidence synthesis",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the transparency, completeness, and reproducibility of reporting in systematic reviews and meta-analyses, enabling readers to assess methods, risk of bias, certainty of evidence, and applicability of findings.",
+  "ManuscriptType": [
+    "Systematic review",
+    "Meta-analysis"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Systematic review",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "PRISMA 2020",
+    "systematic review reporting",
+    "meta-analysis reporting",
+    "evidence synthesis",
+    "risk of bias",
+    "study selection",
+    "data extraction",
+    "search strategy",
+    "protocol registration",
+    "certainty of evidence",
+    "GRADE",
+    "forest plot",
+    "study flow diagram",
+    "eligibility criteria",
+    "data synthesis",
+    "publication bias"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Systematic review",
+      "Meta-analysis",
+      "Qualitative evidence synthesis",
+      "Network meta-analysis"
+    ],
+    "Disciplines": [
+      "Medical and health"
+    ],
+    "Coverage": "Completed systematic reviews with or without meta-analysis evaluating health-related interventions, exposures, diagnostics, prognostics, or other clinical and public health questions.",
+    "Focus": "Comprehensive reporting of review rationale, objectives, eligibility criteria, information sources, search strategies, study selection, data collection, risk of bias assessment, synthesis methods, results, certainty of evidence, and funding.",
+    "ContrastWith": "Not for primary studies such as randomized trials (use CONSORT), observational studies (use STROBE), or trial protocols (use SPIRIT). Not for scoping reviews unless adapted PRISMA-ScR is explicitly used."
+  },
+  "references": {
+    "primary": {
+      "description": "Page MJ, McKenzie JE, Bossuyt PM, et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71.",
+      "url": "[https://www.bmj.com/content/372/bmj.n71](https://www.bmj.com/content/372/bmj.n71)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title",
+      "items": [
+        {
+          "section": "Title",
+          "item": "1",
+          "item_name": "Identify the report as a systematic review",
+          "item_question_background": "Clear identification ensures the article is indexed and retrieved appropriately and distinguishes it from narrative reviews or primary studies.",
+          "item_extraction_instruction": "Check whether the title explicitly identifies the report as a systematic review (and/or meta-analysis).",
+          "item_expected_location": "Title",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Abstract",
+      "items": [
+        {
+          "section": "Abstract",
+          "item": "2",
+          "item_name": "Structured summary",
+          "item_question_background": "Abstracts are often the only section read; incomplete summaries can mislead decision-making and evidence synthesis.",
+          "item_extraction_instruction": "Verify that the abstract follows PRISMA 2020 for Abstracts guidance, including objectives, eligibility criteria, information sources, risk of bias methods, synthesis methods, included studies, results, limitations, interpretation, funding, and registration.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "3",
+          "item_name": "Rationale",
+          "item_question_background": "A clearly articulated rationale situates the review within existing knowledge and explains why the review was needed.",
+          "item_extraction_instruction": "Extract statements describing the rationale for the review in the context of existing evidence.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "4",
+          "item_name": "Objectives",
+          "item_question_background": "Explicit objectives define the review question and prevent post hoc framing of findings.",
+          "item_extraction_instruction": "Extract explicit statement(s) of the review objective(s) or research question(s), including components such as participants, interventions/exposures, comparators, and outcomes where applicable.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "5",
+          "item_name": "Eligibility criteria",
+          "item_question_background": "Eligibility criteria determine which studies contribute evidence; unclear criteria can introduce selection bias and reduce reproducibility.",
+          "item_extraction_instruction": "Extract inclusion and exclusion criteria, including study characteristics (design, participants, interventions, comparators, outcomes) and report characteristics (years, language, publication status).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "6",
+          "item_name": "Information sources",
+          "item_question_background": "Transparent reporting of information sources allows assessment of comprehensiveness and risk of missing relevant studies.",
+          "item_extraction_instruction": "Extract all information sources searched (databases, registers, websites, organisations, reference lists) and the date each source was last searched.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7",
+          "item_name": "Search strategy",
+          "item_question_background": "Full search strategies enable replication and appraisal of sensitivity and specificity of the evidence search.",
+          "item_extraction_instruction": "Extract full search strategies for each database and information source, including all search terms, limits, and filters used.",
+          "item_expected_location": "Methods / Supplement",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8",
+          "item_name": "Selection process",
+          "item_question_background": "Selection methods (e.g., number of reviewers, independence) affect risk of selection bias and reproducibility.",
+          "item_extraction_instruction": "Extract details of the study selection process, including how many reviewers screened records and reports, whether independently, and any automation tools used.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9",
+          "item_name": "Data collection process",
+          "item_question_background": "Data extraction methods influence accuracy and completeness; unclear processes increase risk of errors.",
+          "item_extraction_instruction": "Extract details on how data were collected from reports, number of reviewers involved, independence, methods for obtaining or confirming data, and any automation tools used.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "10a",
+          "item_name": "Data items – outcomes",
+          "item_question_background": "Prespecifying outcomes reduces selective reporting and clarifies which results are central to the review question.",
+          "item_extraction_instruction": "List and define all outcomes for which data were sought, including whether all compatible results were collected and any prioritisation rules.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "10b",
+          "item_name": "Data items – other variables",
+          "item_question_background": "Collecting and reporting key study characteristics enables assessment of heterogeneity and applicability.",
+          "item_extraction_instruction": "List and define all other variables for which data were sought (e.g., participant characteristics, intervention details, funding sources) and any assumptions made about missing or unclear information.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "11",
+          "item_name": "Study risk of bias assessment",
+          "item_question_background": "Risk of bias assessments underpin interpretation of findings; without them, readers cannot judge internal validity.",
+          "item_extraction_instruction": "Extract methods used to assess risk of bias in included studies, including tools used, number of reviewers, independence, and any automation.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12",
+          "item_name": "Effect measures",
+          "item_question_background": "Choice of effect measure influences comparability and interpretation across studies.",
+          "item_extraction_instruction": "Specify effect measures used for each outcome (e.g., risk ratio, odds ratio, mean difference).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "13a",
+          "item_name": "Synthesis methods – process for deciding study eligibility for synthesis",
+          "item_question_background": "Transparency about synthesis eligibility avoids post hoc grouping and selective combination of studies.",
+          "item_extraction_instruction": "Describe how studies were deemed eligible for each synthesis and any grouping decisions.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "13b",
+          "item_name": "Synthesis methods – data preparation",
+          "item_question_background": "Data preparation steps (e.g., conversions, handling missing statistics) affect pooled estimates and reproducibility.",
+          "item_extraction_instruction": "Describe methods used to prepare data for presentation or synthesis, including handling of missing summary statistics or data conversions.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "13c",
+          "item_name": "Synthesis methods – tabulation and visual display",
+          "item_question_background": "Clear tabulation and visualization ensure transparent presentation of individual study results.",
+          "item_extraction_instruction": "Describe methods used to tabulate or visually display results of individual studies and syntheses (e.g., forest plots, tables).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "13d",
+          "item_name": "Synthesis methods – model and heterogeneity assessment",
+          "item_question_background": "Model choice and heterogeneity assessment affect pooled estimates and confidence in findings.",
+          "item_extraction_instruction": "Describe synthesis methods, including model(s) used (fixed/random effects), methods to identify statistical heterogeneity, and software used.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "13e",
+          "item_name": "Synthesis methods – exploration of heterogeneity",
+          "item_question_background": "Exploring heterogeneity helps explain variability in results and assess robustness.",
+          "item_extraction_instruction": "Describe methods used to explore possible causes of heterogeneity (e.g., subgroup analysis, meta-regression).",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "13f",
+          "item_name": "Synthesis methods – sensitivity analyses",
+          "item_question_background": "Sensitivity analyses test robustness of findings to analytic decisions or assumptions.",
+          "item_extraction_instruction": "Describe sensitivity analyses conducted to assess robustness of synthesized results.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "14",
+          "item_name": "Reporting bias assessment",
+          "item_question_background": "Assessment of reporting biases (e.g., publication bias) is essential to evaluate completeness of evidence.",
+          "item_extraction_instruction": "Describe methods used to assess risk of bias due to missing results (e.g., publication bias, selective reporting).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "15",
+          "item_name": "Certainty assessment",
+          "item_question_background": "Certainty (or confidence) in the body of evidence determines strength of conclusions and recommendations.",
+          "item_extraction_instruction": "Describe methods used to assess certainty/confidence in the body of evidence (e.g., GRADE).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "16a",
+          "item_name": "Study selection results",
+          "item_question_background": "Transparent reporting of selection results allows readers to understand how many records were screened and included, and why others were excluded.",
+          "item_extraction_instruction": "Extract numbers of records identified, screened, assessed for eligibility, and included, ideally with a flow diagram.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "16b",
+          "item_name": "Excluded studies",
+          "item_question_background": "Listing excluded studies with reasons enhances transparency and reduces suspicion of selective inclusion.",
+          "item_extraction_instruction": "Extract citations of excluded studies that appeared to meet inclusion criteria and reasons for exclusion.",
+          "item_expected_location": "Results / Supplement",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "17",
+          "item_name": "Study characteristics",
+          "item_question_background": "Study characteristics provide context for interpreting heterogeneity and applicability.",
+          "item_extraction_instruction": "Extract characteristics of included studies (e.g., design, participants, interventions, comparators, outcomes, funding).",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "18",
+          "item_name": "Risk of bias in studies",
+          "item_question_background": "Presenting risk of bias judgments enables interpretation of individual study credibility.",
+          "item_extraction_instruction": "Extract risk of bias assessments for each included study.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "19",
+          "item_name": "Results of individual studies",
+          "item_question_background": "Transparent presentation of individual study results supports verification and secondary analyses.",
+          "item_extraction_instruction": "Extract summary statistics and effect estimates for each study and outcome, ideally with structured tables or plots.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "20a",
+          "item_name": "Results of syntheses – characteristics and risk of bias",
+          "item_question_background": "Contextualizing synthesis with study characteristics and risk of bias informs interpretation of pooled results.",
+          "item_extraction_instruction": "Summarize characteristics and risk of bias among studies contributing to each synthesis.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "20b",
+          "item_name": "Results of syntheses – statistical results",
+          "item_question_background": "Providing pooled estimates with measures of precision and heterogeneity is essential for interpretation.",
+          "item_extraction_instruction": "Extract results of all statistical syntheses conducted, including summary estimates, precision (e.g., 95% CI), and heterogeneity measures.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "20c",
+          "item_name": "Results of investigations of heterogeneity",
+          "item_question_background": "Reporting heterogeneity investigations clarifies sources of variability and robustness of conclusions.",
+          "item_extraction_instruction": "Extract results of subgroup analyses or meta-regression exploring heterogeneity.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "20d",
+          "item_name": "Results of sensitivity analyses",
+          "item_question_background": "Sensitivity analyses demonstrate robustness of results to alternative assumptions or methods.",
+          "item_extraction_instruction": "Extract results of sensitivity analyses conducted.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "21",
+          "item_name": "Reporting biases",
+          "item_question_background": "Results of reporting bias assessments inform the likelihood that findings are influenced by missing or selectively reported studies.",
+          "item_extraction_instruction": "Extract results of reporting bias assessments (e.g., funnel plot asymmetry, statistical tests).",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "22",
+          "item_name": "Certainty of evidence",
+          "item_question_background": "Presenting certainty ratings clarifies how much confidence decision-makers should place in the evidence.",
+          "item_extraction_instruction": "Extract certainty/confidence ratings for each key outcome and summary of findings.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "23a",
+          "item_name": "General interpretation",
+          "item_question_background": "Interpreting results in context of other evidence prevents overstatement and clarifies contribution.",
+          "item_extraction_instruction": "Extract interpretation of results in the context of existing evidence.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "23b",
+          "item_name": "Limitations of the evidence",
+          "item_question_background": "Discussing limitations of included studies informs risk of bias and applicability.",
+          "item_extraction_instruction": "Extract discussion of limitations of the evidence included in the review.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "23c",
+          "item_name": "Limitations of the review process",
+          "item_question_background": "Reflecting on review process limitations promotes transparency about potential methodological weaknesses.",
+          "item_extraction_instruction": "Extract discussion of limitations of the review methods used.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "24",
+          "item_name": "Implications",
+          "item_question_background": "Implications guide future research and practice based on the strength of evidence.",
+          "item_extraction_instruction": "Extract implications for practice, policy, and future research.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Other information",
+      "items": [
+        {
+          "section": "Other information",
+          "item": "25",
+          "item_name": "Registration and protocol",
+          "item_question_background": "Registration and protocol availability deter selective reporting and allow verification of prespecified methods.",
+          "item_extraction_instruction": "Extract registration number, registry name, protocol availability, and details of amendments.",
+          "item_expected_location": "Methods / End matter",
+          "item_optional": false
+        },
+        {
+          "section": "Other information",
+          "item": "26",
+          "item_name": "Support",
+          "item_question_background": "Sources of support can influence review conduct and interpretation; transparency allows assessment of conflicts.",
+          "item_extraction_instruction": "Extract sources of financial and non-financial support and role of funders.",
+          "item_expected_location": "Funding / Acknowledgements",
+          "item_optional": false
+        },
+        {
+          "section": "Other information",
+          "item": "27",
+          "item_name": "Competing interests",
+          "item_question_background": "Competing interests may bias conduct or interpretation; disclosure supports trust and appraisal.",
+          "item_extraction_instruction": "Extract declared competing interests for review authors.",
+          "item_expected_location": "Competing interests / Disclosures",
+          "item_optional": false
+        },
+        {
+          "section": "Other information",
+          "item": "28",
+          "item_name": "Availability of data, code, and other materials",
+          "item_question_background": "Availability statements enable verification, replication, and reuse of review data and analytic code.",
+          "item_extraction_instruction": "Extract statements about availability of data, analytic code, and other materials used in the review.",
+          "item_expected_location": "Data availability / Supplement",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "PRISMA",
+      "PRISMA 2020",
+      "Preferred Reporting Items for Systematic Reviews and Meta-Analyses",
+      "PRISMA checklist",
+      "PRISMA statement"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bPRISMA\\b",
+          "\\bsystematic review\\b",
+          "\\bmeta[-\\s]?analysis\\b",
+          "\\bpooled analysis\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|study_type|keywords",
+        "Patterns": [
+          "\\bsystematic review\\b",
+          "\\bmeta[-\\s]?analysis\\b",
+          "\\breview of reviews\\b",
+          "\\bnetwork meta[-\\s]?analysis\\b",
+          "\\bPRISMA\\b"
+        ]
+      }
+    ],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bclinical practice guidelines?\\b",
+          "\\bconsensus guidelines?\\b",
+          "\\bguideline for (?:the )?(?:management|diagnosis|treatment|screening|prevention)\\b",
+          "\\bguideline development\\b",
+          "\\bguideline recommendations?\\b",
+          "\\bguideline (?:panel|committee)\\b",
+          "\\bevidence[- ]based guidelines?\\b",
+          "\\bconsensus[- ]based guidelines?\\b",
+          "\\bAGREE(?:\\s+II)?\\b",
+          "\\brandomi[sz]ed\\b",
+          "\\bclinical trial\\b",
+          "\\bCONSORT\\b",
+          "\\bcohort study\\b",
+          "\\bcase[-\\s]?control\\b",
+          "\\bcross[-\\s]?sectional\\b",
+          "\\bSTROBE\\b",
+          "\\bcase report\\b",
+          "\\bCARE\\b",
+          "\\btrial protocol\\b",
+          "\\bSPIRIT\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\bPRISMA flow diagram\\b",
+          "\\bsearch strategy\\b",
+          "\\beligibility criteria\\b",
+          "\\brisk of bias assessment\\b",
+          "\\bGRADE\\b",
+          "\\bfunnel plot\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bclinical practice guidelines?\\b",
+          "\\bconsensus guidelines?\\b",
+          "\\bguideline development\\b",
+          "\\bAGREE(?:\\s+II)?\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "This systematic review and meta-analysis was conducted in accordance with PRISMA 2020.",
+      "We followed PRISMA guidelines and present a PRISMA flow diagram of study selection."
+    ],
+    "EvidenceExamplesNegative": [
+      "We conducted a randomized controlled trial and report according to CONSORT.",
+      "This observational cohort study is reported according to STROBE.",
+      "This clinical practice guideline was developed and reported with AGREE II."
+    ],
+    "Explain": "Matches primary reports of completed systematic reviews and meta-analyses that explicitly frame review methods or PRISMA reporting; excludes guideline-development manuscripts, protocols, and primary studies."
+  }
+}

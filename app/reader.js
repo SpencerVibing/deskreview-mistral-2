@@ -7,6 +7,22 @@ import {
 import { evaluateEssentialGuides } from '/core/essential-guidelines.js';
 import { buildFeedbackReportModel } from '/core/feedback-report.js';
 import {
+  countChecklistItems,
+  getChecklistGroups,
+  getGuideDomainList,
+  getGuideScopeSummary,
+  getGuideStudyTypes,
+  getManuscriptTypeOptions,
+  getPrimaryReference,
+  getReferenceExamples,
+  guideDescription,
+  guideLabel,
+  guideMatchesFacet,
+  guideMatchesSearch,
+  normalizeExternalUrl,
+  normalizeGuidelineCatalogEntry
+} from '/core/guideline-catalog.js';
+import {
   filterGuideResults,
   summarizeGuideResults
 } from '/core/guideline-detail.js';
@@ -29,7 +45,12 @@ import {
   listStoredReviews,
   putStoredReview
 } from '/services/browser-library.js';
-import { loadEssentialGuides, loadReportingGuidelines } from '/services/guideline-data.js';
+import {
+  loadEssentialGuides,
+  loadGuidelineCatalogIndex,
+  loadGuidelineDetail,
+  loadReportingGuidelines
+} from '/services/guideline-data.js';
 import {
   loadPluginCatalog,
   loadPluginPreferences,
@@ -142,6 +163,16 @@ const state = {
     startedAt: 0
   },
   reportingGuideResults: [],
+  guidelineSelector: {
+    initialized: false,
+    loadingCatalog: false,
+    catalog: [],
+    detailCache: new Map(),
+    selectedFilter: 'All',
+    filterType: 'none',
+    requestToken: 0,
+    detailRevealTimer: 0
+  },
   precomputedExample: {
     active: false,
     id: '',
@@ -2376,57 +2407,529 @@ function persistPluginPreferences(preferences = state.pluginPreferences) {
   renderCustomizeChecks();
 }
 
-function renderCustomizeChecks() {
-  if (!els.customizeChecksBody) return;
-  const catalog = state.pluginCatalog || [];
-  const preferences = state.pluginPreferences || { enabled: {}, customGuides: [] };
-  els.customizeChecksBody.innerHTML = `
-    <div class="vstack gap-3">
-      <section>
-        <div class="small fw-semibold text-body mb-2">Check groups</div>
-        <div class="list-group">
-          ${catalog.map((plugin) => {
-            const checked = pluginIsEnabled(preferences, plugin.id);
-            return `
-              <label class="list-group-item d-flex align-items-start gap-3">
-                <input class="form-check-input mt-1" type="checkbox" data-plugin-toggle="${escapeHtml(plugin.id)}" ${checked ? 'checked' : ''} ${plugin.locked ? 'disabled' : ''}>
-                <span class="min-w-0">
-                  <span class="d-flex align-items-center gap-2">
-                    <span class="fw-medium">${escapeHtml(plugin.label)}</span>
-                    ${plugin.locked ? '<span class="badge text-bg-light">Required</span>' : ''}
-                  </span>
-                  <span class="d-block small text-secondary">${escapeHtml(plugin.description || '')}</span>
-                </span>
-              </label>
-            `;
-          }).join('')}
-        </div>
-      </section>
-      <section>
-        <div class="small fw-semibold text-body mb-2">Custom guides</div>
-        <form class="vstack gap-2" data-custom-guide-form>
-          <input class="form-control form-control-sm" name="name" type="text" placeholder="Guide name" aria-label="Guide name">
-          <textarea class="form-control form-control-sm" name="description" rows="3" placeholder="Short requirement summary" aria-label="Guide summary"></textarea>
-          <div>
-            <button type="submit" class="btn btn-sm btn-dark">Add custom guide</button>
+const FIXED_GUIDELINE_DOMAINS = [
+  'Natural sciences',
+  'Medical and health',
+  'Social sciences',
+  'Engineering & Technology',
+  'Cross-disciplinary'
+];
+
+function guidelineSelectorElements() {
+  return {
+    facetColumn: document.getElementById('guidelineFacetColumn'),
+    searchInput: document.getElementById('guidelineSearchInput'),
+    cardContainer: document.getElementById('guidelineCardContainer'),
+    detailSlider: document.getElementById('guidelineDetailSlider'),
+    detailName: document.getElementById('guidelineDetailName'),
+    detailDescription: document.getElementById('guidelineDetailDescription'),
+    detailMeta: document.getElementById('guidelineDetailMeta'),
+    checklistPane: document.getElementById('checklist-pane'),
+    scopePane: document.getElementById('scope-pane'),
+    referencesPane: document.getElementById('references-pane'),
+    checklistTab: document.getElementById('checklist-tab'),
+    closeDetailButton: document.getElementById('closeGuidelineDetailSliderBtn')
+  };
+}
+
+function selectorEssentialGuides() {
+  return (state.essentialGuides || []).map((guide) => normalizeGuidelineCatalogEntry({
+    id: guide.id,
+    Name: guide.name,
+    Description: guide.description,
+    Category: guide.sourceLabel || 'EASE Essential guidelines',
+    StandardizedTopDomain: 'Cross-disciplinary',
+    ManuscriptType: ['All manuscripts'],
+    Aim: guide.description,
+    Scope: {
+      Coverage: 'Core manuscript-readiness checks that are useful before submission.',
+      Focus: guide.description || '',
+      ContrastWith: 'These are broad DeskReview checks rather than study-design-specific reporting guidelines.'
+    },
+    Checklist: [{
+      section: guide.name || 'Essential guideline',
+      items: (guide.items || []).map((item) => ({
+        item: item.id,
+        item_name: item.label,
+        item_question: item.requirement,
+        item_question_background: item.optional ? 'This item is treated as optional when the manuscript does not provide it.' : ''
+      }))
+    }],
+    isEssential: true
+  }));
+}
+
+function selectorRecommendedGuides() {
+  return (state.recommendedGuides || []).map((guide) => normalizeGuidelineCatalogEntry({
+    id: guide.id,
+    Name: guide.name,
+    Description: guide.description,
+    Category: guide.sourceLabel || 'Open Science',
+    StandardizedTopDomain: 'Cross-disciplinary',
+    ManuscriptType: ['All manuscripts'],
+    Aim: guide.description,
+    Scope: {
+      Coverage: 'Open-science and transparent-reporting checks that can apply to many manuscripts.',
+      Focus: guide.description || '',
+      ContrastWith: 'These checks are recommended overlays, not a replacement for study-design-specific reporting guidelines.'
+    },
+    Checklist: [{
+      section: guide.name || 'Open Science guideline',
+      items: [{
+        item: guide.id,
+        item_name: guide.name,
+        item_question: guide.description,
+        item_question_background: 'DeskReview uses this recommended guideline as a transparent-reporting prompt.'
+      }]
+    }],
+    isStaticRecommended: true
+  }));
+}
+
+function selectorCustomGuides() {
+  return (state.pluginPreferences.customGuides || []).map((guide) => normalizeGuidelineCatalogEntry({
+    id: guide.id,
+    Name: guide.name,
+    Description: guide.description,
+    Category: 'Custom guideline',
+    StandardizedTopDomain: 'Cross-disciplinary',
+    ManuscriptType: ['Custom'],
+    Aim: guide.description,
+    Scope: {
+      Coverage: 'User-defined checks saved in this browser.',
+      Focus: guide.description || '',
+      ContrastWith: 'Custom guidelines are local project-specific checks.'
+    },
+    Checklist: [{
+      section: guide.name || 'Custom guideline',
+      items: [{
+        item: guide.id,
+        item_name: guide.name,
+        item_question: guide.description || 'Custom guideline requirement.',
+        item_question_background: 'This custom guideline was created in the current browser.'
+      }]
+    }],
+    isCustom: true
+  }));
+}
+
+function guidelineSelectorPool() {
+  const byId = new Map();
+  const matchedIds = new Set((state.reportingMatches.result?.matches || []).map((match) => String(match.guidelineId || '')));
+  [
+    state.reportingGuidelineCatalog,
+    state.guidelineSelector.catalog,
+    selectorEssentialGuides(),
+    selectorRecommendedGuides(),
+    selectorCustomGuides()
+  ].forEach((list) => {
+    (Array.isArray(list) ? list : []).forEach((guide) => {
+      const normalized = normalizeGuidelineCatalogEntry(guide);
+      if (!normalized.id) return;
+      const previous = byId.get(normalized.id) || {};
+      byId.set(normalized.id, {
+        ...previous,
+        ...normalized,
+        isMatched: matchedIds.has(normalized.id) || Boolean(previous.isMatched || normalized.isMatched)
+      });
+    });
+  });
+  return Array.from(byId.values()).sort((left, right) => guideLabel(left).localeCompare(guideLabel(right)));
+}
+
+function buildFacetButtonMarkup(label, count, filterType, filterValue, isActive, className = '') {
+  return `<button type="button" class="${className} ${isActive ? 'active' : ''}" data-filter="${escapeHtml(filterValue)}" data-filter-type="${escapeHtml(filterType)}">
+    <span>${escapeHtml(label)}</span>
+    <span class="text-body-tertiary small">(${escapeHtml(count)})</span>
+  </button>`;
+}
+
+function buildFacetAccordionMarkup(id, title, items, getCount, activeFilter, activeType, filterType) {
+  return `<div class="accordion accordion-flush" id="${escapeHtml(id)}">
+    <div class="accordion-item bg-transparent border-0">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed px-3 py-2 bg-transparent shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${escapeHtml(id)}" aria-expanded="false" aria-controls="collapse-${escapeHtml(id)}">
+          <span>${escapeHtml(title)}</span>
+        </button>
+      </h2>
+      <div id="collapse-${escapeHtml(id)}" class="accordion-collapse collapse">
+        <div class="accordion-body p-0">
+          <div class="list-group list-group-flush">
+            ${items.map((item) => buildFacetButtonMarkup(
+              item,
+              getCount(item),
+              filterType,
+              item,
+              activeFilter === item && activeType === filterType,
+              'list-group-item list-group-item-action border-0 px-4 py-2 text-start d-flex align-items-center justify-content-between category-filter-btn'
+            )).join('')}
           </div>
-        </form>
-        <div class="list-group mt-3">
-          ${(preferences.customGuides || []).map((guide) => `
-            <div class="list-group-item d-flex align-items-start justify-content-between gap-3">
-              <div class="min-w-0">
-                <div class="small fw-medium">${escapeHtml(guide.name)}</div>
-                <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
-              </div>
-              <button type="button" class="btn btn-sm btn-light border" data-remove-custom-guide="${escapeHtml(guide.id)}" aria-label="Remove ${escapeHtml(guide.name)}">
-                <i class="bi bi-trash"></i>
-              </button>
-            </div>
-          `).join('') || '<div class="small text-secondary">No custom guides saved.</div>'}
         </div>
-      </section>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderGuidelineSelectorFacets() {
+  const { facetColumn } = guidelineSelectorElements();
+  if (!facetColumn) return;
+  const guides = guidelineSelectorPool();
+  const countFor = (value, type) => guides.filter((guide) => guideMatchesFacet(guide, value, type)).length;
+  const manuscriptTypes = getManuscriptTypeOptions(guides);
+  const { selectedFilter, filterType } = state.guidelineSelector;
+  facetColumn.innerHTML = `
+    <div class="d-flex flex-column h-100">
+      <div class="d-flex flex-column gap-2 pb-3">
+        ${buildFacetButtonMarkup('All guides', guides.length, 'none', 'All', selectedFilter === 'All' && filterType === 'none', 'btn btn-light border-0 rounded-0 px-3 py-2 text-start d-flex align-items-center justify-content-between category-filter-btn')}
+        ${buildFacetAccordionMarkup('guidelineDomainAccordion', 'Scientific Domain', FIXED_GUIDELINE_DOMAINS, (item) => countFor(item, 'domain'), selectedFilter, filterType, 'domain')}
+        ${buildFacetAccordionMarkup('guidelineTypeAccordion', 'Document Type', manuscriptTypes, (item) => countFor(item, 'manuscriptType'), selectedFilter, filterType, 'manuscriptType')}
+        ${buildFacetButtonMarkup('Essential guides', countFor('Essential', 'essential'), 'essential', 'Essential', selectedFilter === 'Essential' && filterType === 'essential', 'btn btn-light border-0 rounded-0 px-3 py-2 text-start d-flex align-items-center justify-content-between category-filter-btn')}
+        ${buildFacetButtonMarkup('Matched guidelines', countFor('Matched', 'matched'), 'matched', 'Matched', selectedFilter === 'Matched' && filterType === 'matched', 'btn btn-light border-0 rounded-0 px-3 py-2 text-start d-flex align-items-center justify-content-between category-filter-btn')}
+        ${buildFacetButtonMarkup('Open Science guides', countFor('Recommended', 'recommended'), 'recommended', 'Recommended', selectedFilter === 'Recommended' && filterType === 'recommended', 'btn btn-light border-0 rounded-0 px-3 py-2 text-start d-flex align-items-center justify-content-between category-filter-btn')}
+        ${buildFacetButtonMarkup('Custom guides', countFor('Custom', 'custom'), 'custom', 'Custom', selectedFilter === 'Custom' && filterType === 'custom', 'btn btn-light border-0 rounded-0 px-3 py-2 text-start d-flex align-items-center justify-content-between category-filter-btn')}
+      </div>
     </div>
   `;
+}
+
+function filteredGuidelineSelectorGuides() {
+  const { searchInput } = guidelineSelectorElements();
+  const term = String(searchInput?.value || '').trim().toLowerCase();
+  const { selectedFilter, filterType } = state.guidelineSelector;
+  return guidelineSelectorPool()
+    .filter((guide) => guideMatchesFacet(guide, selectedFilter, filterType))
+    .filter((guide) => guideMatchesSearch(guide, term));
+}
+
+function buildGuideCardMarkup(guide = {}) {
+  const id = String(guide.id || '');
+  const badges = [
+    guide.isEssential ? 'Essential' : '',
+    guide.isMatched ? 'Matched' : '',
+    guide.isStaticRecommended ? 'Recommended' : '',
+    guide.isCustom ? 'Custom' : ''
+  ].filter(Boolean);
+  return `<div class="card guideline-select-card h-100 position-relative border-0 shadow-sm" data-guideline-id="${escapeHtml(id)}" role="button" tabindex="0">
+    <div class="card-body d-flex flex-column pb-4">
+      <div class="mb-2 d-flex align-items-start justify-content-between gap-2">
+        <h5 class="card-title mb-0">${escapeHtml(guideLabel(guide) || id || 'Guide')}</h5>
+      </div>
+      <p class="card-text guideline-description small text-body-secondary mb-2">${escapeHtml(guideDescription(guide) || 'No description available.')}</p>
+      ${badges.length ? `<div class="mt-auto pt-2 d-flex flex-wrap gap-1">${badges.map((badge) => `<span class="badge bg-light text-secondary border">${escapeHtml(badge)}</span>`).join('')}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+function renderGuidelineSelectorCards() {
+  const { cardContainer } = guidelineSelectorElements();
+  if (!cardContainer) return;
+  if (state.guidelineSelector.loadingCatalog && !state.guidelineSelector.catalog.length) {
+    cardContainer.innerHTML = '<div class="p-4 small text-body-secondary">Loading guideline catalog...</div>';
+    return;
+  }
+  const guides = filteredGuidelineSelectorGuides();
+  cardContainer.innerHTML = guides.length
+    ? guides.map(buildGuideCardMarkup).join('')
+    : '<div class="p-4 small text-body-secondary">No guidelines match the selected criteria.</div>';
+}
+
+function clearGuidelineDetailRevealTimer() {
+  if (!state.guidelineSelector.detailRevealTimer) return;
+  window.clearTimeout(state.guidelineSelector.detailRevealTimer);
+  state.guidelineSelector.detailRevealTimer = 0;
+}
+
+function closeGuidelineDetailSlider() {
+  const { detailSlider } = guidelineSelectorElements();
+  clearGuidelineDetailRevealTimer();
+  detailSlider?.classList.remove('active');
+}
+
+function openGuidelineDetailSlider(delayMs = 0) {
+  const { detailSlider } = guidelineSelectorElements();
+  if (!detailSlider) return;
+  clearGuidelineDetailRevealTimer();
+  if (!delayMs) {
+    detailSlider.classList.add('active');
+    return;
+  }
+  state.guidelineSelector.detailRevealTimer = window.setTimeout(() => {
+    state.guidelineSelector.detailRevealTimer = 0;
+    detailSlider.classList.add('active');
+  }, delayMs);
+}
+
+function activateGuidelineChecklistTab() {
+  const { checklistTab } = guidelineSelectorElements();
+  if (!checklistTab || !window.bootstrap?.Tab) return;
+  window.bootstrap.Tab.getOrCreateInstance(checklistTab).show();
+}
+
+function slugifyChecklistPart(value = '', fallback = 'item') {
+  const slug = String(value || '')
+    .trim()
+    .replace(/[^a-z0-9]+/gi, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase();
+  return slug || fallback;
+}
+
+function buildChecklistDisclaimerMarkup(guide = {}) {
+  if (guide.isCustom || guide.isEssential || guide.isStaticRecommended) return '';
+  const sourceUrl = normalizeExternalUrl(getPrimaryReference(guide)?.url);
+  const disclaimerText = sourceUrl
+    ? `The checklist items below are adapted from the <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" class="text-reset">official guideline</a> to support automated manuscript checks.`
+    : 'The checklist items below are adapted from the official guideline to support automated manuscript checks.';
+  return `<div class="alert alert-warning d-flex align-items-start gap-2 py-2 px-3 mb-5 small">
+    <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+    <span>${disclaimerText}</span>
+  </div>`;
+}
+
+function renderGuidelineChecklist(guide = {}) {
+  const disclaimer = buildChecklistDisclaimerMarkup(guide);
+  const groups = getChecklistGroups(guide);
+  if (!groups.length) return `${disclaimer}<div class="small text-body-secondary">Checklist details are not loaded for this guideline.</div>`;
+  const html = groups.map((group, index) => {
+    const sectionSlug = slugifyChecklistPart(group.section, `section-${index}`);
+    const items = group.items.map((item, itemIndex) => {
+      const name = escapeHtml(item?.item_name || item?.label || item?.item || 'Checklist item');
+      const questionText = escapeHtml(item?.item_question || item?.requirement || item?.item_extraction_instruction || item?.item_question_content || item?.item_question_context || 'No further details.');
+      const backgroundText = String(item?.item_question_background || item?.background || '').trim();
+      const extraContext = String(item?.item_question_context || item?.item_question_content || '').trim();
+      const expectedLocation = String(item?.item_expected_location || item?.item_expected_section || '').trim();
+      let questionHtml = `<span class="small text-body-secondary guideline-item-question-text">${questionText}</span>`;
+      let contextHtml = '';
+      if (backgroundText || extraContext || expectedLocation) {
+        const itemSlug = slugifyChecklistPart(item?.item || item?.item_name || itemIndex, `item-${itemIndex}`);
+        const collapseId = `checklist-item-details-${sectionSlug}-${itemSlug}`;
+        questionHtml = `<a class="d-inline-block text-decoration-none text-secondary" data-bs-toggle="collapse" href="#${collapseId}" role="button" aria-expanded="false" aria-controls="${collapseId}">
+          <span class="small text-body-secondary guideline-item-question-text">${questionText}</span>
+        </a>`;
+        contextHtml = `<div class="collapse mt-1" id="${collapseId}">
+          <div class="small bg-light rounded-2 px-3 py-2">
+            ${backgroundText ? `<p class="mb-1 small text-body-secondary">${escapeHtml(backgroundText)}</p>` : ''}
+            ${expectedLocation ? `<p class="mb-1 small text-body-secondary"><span class="fw-medium text-body">Expected location:</span> ${escapeHtml(expectedLocation)}</p>` : ''}
+            ${extraContext ? `<p class="mb-0 small text-body-secondary">${escapeHtml(extraContext)}</p>` : ''}
+          </div>
+        </div>`;
+      }
+      return `<li class="list-group-item py-2 px-0">
+        <div class="d-flex w-100 justify-content-between align-items-start">
+          <h6 class="mb-1 fw-light">${name}</h6>
+        </div>
+        <p class="mb-2">${questionHtml}</p>
+        ${contextHtml}
+      </li>`;
+    }).join('');
+    return `<section>
+      <h5 class="text-primary-emphasis ${index === 0 ? 'mt-0' : 'mt-4'} mb-2 pb-1 border-bottom">${escapeHtml(group.section)}</h5>
+      <ul class="list-group list-group-flush">${items}</ul>
+    </section>`;
+  }).join('');
+  return `${disclaimer}${html}`;
+}
+
+function renderGuidelineScope(guide = {}) {
+  const parts = [];
+  if (guide.Aim) parts.push(`<section><div class="small text-uppercase text-secondary fw-semibold mb-2">Aim</div><p class="small mb-0">${escapeHtml(guide.Aim)}</p></section>`);
+  const scope = guide.Scope || guide.scope;
+  if (scope && typeof scope === 'object') {
+    if (scope.Coverage) parts.push(`<section><div class="small text-uppercase text-secondary fw-semibold mb-2">Coverage</div><p class="small mb-0">${escapeHtml(scope.Coverage)}</p></section>`);
+    if (scope.Focus) parts.push(`<section><div class="small text-uppercase text-secondary fw-semibold mb-2">Focus</div><p class="small mb-0">${escapeHtml(scope.Focus)}</p></section>`);
+    if (scope.ContrastWith) parts.push(`<section><div class="small text-uppercase text-secondary fw-semibold mb-2">Contrast</div><p class="small mb-0">${escapeHtml(scope.ContrastWith)}</p></section>`);
+  } else if (getGuideScopeSummary(guide)) {
+    parts.push(`<section><div class="small text-uppercase text-secondary fw-semibold mb-2">Scope</div><p class="small mb-0">${escapeHtml(getGuideScopeSummary(guide))}</p></section>`);
+  }
+  return parts.join('') || '<div class="small text-body-secondary">No additional scope notes provided.</div>';
+}
+
+function renderGuidelineReferences(guide = {}) {
+  const primary = getPrimaryReference(guide);
+  const examples = getReferenceExamples(guide);
+  let html = '';
+  if (primary?.description) {
+    const primaryUrl = normalizeExternalUrl(primary.url);
+    const cardTag = primaryUrl ? 'a' : 'div';
+    const hrefAttrs = primaryUrl ? ` href="${escapeHtml(primaryUrl)}" target="_blank" rel="noopener noreferrer"` : '';
+    const iconHtml = primaryUrl ? '<i class="bi bi-box-arrow-up-right text-secondary" aria-hidden="true"></i>' : '';
+    html += `<section>
+      <div class="small text-uppercase text-secondary fw-semibold mb-2">Official guideline</div>
+      <${cardTag}${hrefAttrs} class="card border text-decoration-none text-reset">
+        <div class="card-body p-3">
+          <div class="d-flex align-items-start justify-content-between gap-3 mb-2">
+            <div class="fw-semibold small text-body">Primary reference</div>
+            ${iconHtml}
+          </div>
+          <div class="small text-body-secondary">${escapeHtml(primary.description)}</div>
+        </div>
+      </${cardTag}>
+    </section>`;
+  }
+  if (examples.length) {
+    html += `<section class="${html ? 'mt-4' : ''}"><div class="small text-uppercase text-secondary fw-semibold mb-2">Examples</div>${examples.slice(0, 3).map((entry) => {
+      const title = escapeHtml(entry?.title || 'Untitled example');
+      const meta = [entry?.authors, entry?.venue, entry?.year].filter(Boolean).map(escapeHtml).join(' • ');
+      const doiUrl = normalizeExternalUrl(entry?.doi);
+      const href = doiUrl ? ` href="${escapeHtml(doiUrl)}" target="_blank" rel="noopener noreferrer"` : '';
+      return `<a${href} class="d-block text-decoration-none border rounded-3 p-3 mb-2">
+        <div class="fw-semibold small text-body">${title}</div>
+        ${meta ? `<div class="small text-body-secondary mt-1">${meta}</div>` : ''}
+      </a>`;
+    }).join('')}</section>`;
+  }
+  return html || '<div class="small text-body-secondary">No reference information provided.</div>';
+}
+
+function renderGuidelineMetaBadges(guide = {}) {
+  const badges = [];
+  if (guide.isMatched) badges.push('<span class="badge bg-success-subtle text-success-emphasis">Matched</span>');
+  if (guide.isEssential) badges.push('<span class="badge bg-primary-subtle text-primary-emphasis">Essential</span>');
+  if (guide.isStaticRecommended) badges.push('<span class="badge bg-success-subtle text-success-emphasis">Recommended</span>');
+  if (guide.isCustom) badges.push('<span class="badge bg-warning-subtle text-warning-emphasis">Custom</span>');
+  getGuideDomainList(guide).slice(0, 2).forEach((domain) => badges.push(`<span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(domain)}</span>`));
+  getGuideStudyTypes(guide).slice(0, 2).forEach((type) => badges.push(`<span class="badge bg-info-subtle text-info-emphasis">${escapeHtml(type)}</span>`));
+  badges.push(`<span class="badge bg-light text-secondary border">${escapeHtml(countChecklistItems(guide))} checklist item${countChecklistItems(guide) === 1 ? '' : 's'}</span>`);
+  return badges.join('');
+}
+
+function renderGuidelineDetailContent(guide = {}) {
+  const {
+    detailName,
+    detailDescription,
+    detailMeta,
+    checklistPane,
+    scopePane,
+    referencesPane
+  } = guidelineSelectorElements();
+  if (detailName) detailName.textContent = guideLabel(guide) || 'Guide';
+  if (detailDescription) detailDescription.textContent = guideDescription(guide) || 'No description available.';
+  if (detailMeta) detailMeta.innerHTML = renderGuidelineMetaBadges(guide);
+  if (checklistPane) checklistPane.innerHTML = renderGuidelineChecklist(guide);
+  if (scopePane) scopePane.innerHTML = renderGuidelineScope(guide);
+  if (referencesPane) referencesPane.innerHTML = renderGuidelineReferences(guide);
+  activateGuidelineChecklistTab();
+}
+
+async function fetchGuidelineSelectorDetail(guide = {}) {
+  const id = String(guide.id || '').trim();
+  if (!id || countChecklistItems(guide) > 0) return guide;
+  if (state.guidelineSelector.detailCache.has(id)) {
+    return { ...guide, ...state.guidelineSelector.detailCache.get(id) };
+  }
+  const detail = await loadGuidelineDetail(id);
+  state.guidelineSelector.detailCache.set(id, detail);
+  return { ...guide, ...detail };
+}
+
+async function showGuidelineSelectorDetail(guideId = '', { revealDelayMs = 0 } = {}) {
+  const id = String(guideId || '').trim();
+  if (!id) return;
+  const {
+    detailName,
+    detailDescription,
+    detailMeta,
+    checklistPane,
+    scopePane,
+    referencesPane
+  } = guidelineSelectorElements();
+  openGuidelineDetailSlider(revealDelayMs);
+  if (detailName) detailName.textContent = 'Loading guideline...';
+  if (detailDescription) detailDescription.textContent = 'Fetching checklist and supporting details.';
+  if (detailMeta) detailMeta.innerHTML = '';
+  if (checklistPane) checklistPane.innerHTML = '<div class="small text-body-secondary">Loading guideline checklist...</div>';
+  if (scopePane) scopePane.innerHTML = '<div class="small text-body-secondary">Loading aims and scope...</div>';
+  if (referencesPane) referencesPane.innerHTML = '<div class="small text-body-secondary">Loading references...</div>';
+  activateGuidelineChecklistTab();
+  const token = state.guidelineSelector.requestToken + 1;
+  state.guidelineSelector.requestToken = token;
+  const guide = guidelineSelectorPool().find((entry) => String(entry.id || '') === id) || { id };
+  const detail = await fetchGuidelineSelectorDetail(guide).catch((error) => {
+    console.warn('[deskreview-mistral-2] guideline detail failed', error);
+    return guide;
+  });
+  if (state.guidelineSelector.requestToken !== token) return;
+  renderGuidelineDetailContent(detail);
+}
+
+function renderGuidelineSelector() {
+  renderGuidelineSelectorFacets();
+  renderGuidelineSelectorCards();
+}
+
+function ensureGuidelineSelectorCatalogLoaded() {
+  if (state.guidelineSelector.catalog.length || state.guidelineSelector.loadingCatalog) return;
+  state.guidelineSelector.loadingCatalog = true;
+  renderGuidelineSelectorCards();
+  loadGuidelineCatalogIndex()
+    .then((catalog) => {
+      state.guidelineSelector.catalog = catalog;
+    })
+    .catch((error) => {
+      console.warn('[deskreview-mistral-2] guideline catalog index failed', error);
+      state.guidelineSelector.catalog = state.reportingGuidelineCatalog || [];
+    })
+    .finally(() => {
+      state.guidelineSelector.loadingCatalog = false;
+      renderGuidelineSelector();
+    });
+}
+
+function renderCustomizeChecks() {
+  if (!els.customizeChecksBody) return;
+  initializeGuidelineSelectorEvents();
+  ensureGuidelineSelectorCatalogLoaded();
+  renderGuidelineSelector();
+}
+
+function initializeGuidelineSelectorEvents() {
+  if (state.guidelineSelector.initialized) return;
+  const {
+    facetColumn,
+    searchInput,
+    cardContainer,
+    closeDetailButton
+  } = guidelineSelectorElements();
+  if (!facetColumn || !searchInput || !cardContainer) return;
+  state.guidelineSelector.initialized = true;
+
+  facetColumn.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-filter]');
+    if (!button) return;
+    event.preventDefault();
+    state.guidelineSelector.selectedFilter = button.getAttribute('data-filter') || 'All';
+    state.guidelineSelector.filterType = button.getAttribute('data-filter-type') || 'none';
+    renderGuidelineSelector();
+    closeGuidelineDetailSlider();
+  });
+
+  searchInput.addEventListener('input', () => {
+    renderGuidelineSelectorCards();
+    closeGuidelineDetailSlider();
+  });
+
+  const activateCard = (card) => {
+    const guideId = card?.getAttribute('data-guideline-id') || '';
+    if (!guideId) return;
+    void showGuidelineSelectorDetail(guideId);
+  };
+
+  cardContainer.addEventListener('click', (event) => {
+    const card = event.target.closest('.guideline-select-card');
+    if (!card) return;
+    activateCard(card);
+  });
+
+  cardContainer.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest('.guideline-select-card');
+    if (!card) return;
+    event.preventDefault();
+    activateCard(card);
+  });
+
+  closeDetailButton?.addEventListener('click', closeGuidelineDetailSlider);
+  els.customizeChecksModal?.addEventListener('hidden.bs.modal', closeGuidelineDetailSlider);
 }
 
 function detailTitle(kind = '') {

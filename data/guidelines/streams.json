@@ -1,0 +1,922 @@
+{
+  "id": "streams",
+  "Name": "STREAMS",
+  "LongName": "STREAMS guidelines: standards for technical reporting in environmental and host-associated microbiome studies",
+  "Description": "STREAMS provides technical reporting standards for environmental, synthetic, and non-human host-associated microbiome studies, extending STORMS toward broader microbiome domains and machine-actionable reporting.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Microbiome study reporting",
+  "StandardizedTopDomain": "Natural sciences",
+  "Aim": "To improve completeness, standardization, and FAIR-aligned technical reporting in environmental and host-associated microbiome research, including metadata, multi-omics methods, controls, analyses, and data/code access.",
+  "ManuscriptType": [
+    "Original research article",
+    "Environmental microbiome study",
+    "Host-associated microbiome study",
+    "Synthetic microbiome study"
+  ],
+  "ManuscriptSubType": [
+    "Metagenomics study",
+    "Amplicon sequencing study",
+    "Multi-omics microbiome study"
+  ],
+  "StudyType": [
+    "Environmental microbiome study",
+    "Non-human host-associated microbiome study",
+    "Synthetic microbiome study",
+    "Multi-omics microbiome study"
+  ],
+  "Keywords": [
+    "STREAMS",
+    "STORMS",
+    "microbiome reporting",
+    "environmental microbiome",
+    "host-associated microbiome",
+    "non-human host microbiome",
+    "synthetic community",
+    "SynCom",
+    "metagenomics",
+    "amplicon sequencing",
+    "16S rRNA",
+    "shotgun metagenomics",
+    "metatranscriptomics",
+    "metaproteomics",
+    "metabolomics",
+    "technical reporting standards",
+    "metadata standards",
+    "MIxS",
+    "ENVO",
+    "FAIR principles",
+    "data repository submission",
+    "sample collection metadata",
+    "positive controls",
+    "negative controls",
+    "batch effects",
+    "bioinformatics workflow",
+    "database version reporting",
+    "data availability",
+    "code availability"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Environmental microbiome study",
+      "Non-human host-associated microbiome study",
+      "Synthetic microbiome study",
+      "Multi-omics microbiome study"
+    ],
+    "Disciplines": [
+      "Natural sciences",
+      "Agricultural sciences",
+      "Medical and health"
+    ],
+    "Coverage": "Microbiome manuscripts involving environmental, synthetic, or non-human host-associated systems with sequencing and/or other omics data generation, analysis, and reporting requirements across metadata, methods, and access sections.",
+    "Focus": "Structured technical reporting of study design, sample/environment context, collection and processing methods, controls, omics generation metadata, bioinformatics/statistical analysis, bias and sensitivity assessment, and data/code/metadata accessibility.",
+    "ContrastWith": "Not a primary study-design guideline for randomized trials, observational epidemiology, or systematic reviews. STREAMS is a microbiome technical-reporting overlay and is not intended for non-microbiome papers that merely mention streams (for example hydrology, media streaming, or network traffic)."
+  },
+  "references": {
+    "primary": {
+      "description": "Kelliher JL, Aiewsakun P, Brislawn C, et al. STREAMS guidelines: standards for technical reporting in environmental and host-associated microbiome studies. Nature Microbiology. 2025;10:3059-3068.",
+      "url": "https://doi.org/10.1038/s41564-025-02186-2"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Abstract",
+      "items": [
+        {
+          "section": "Abstract",
+          "item": "1.0",
+          "item_name": "Abstract organization guidance",
+          "item_question": "Is the abstract organized to communicate key STREAMS elements?",
+          "item_question_background": "Abstracts are often reused across systems and should stand alone as complete summaries.",
+          "item_extraction_instruction": "Extract whether the abstract structure covers design, methods, analyses, and results in a concise, reproducible format.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        },
+        {
+          "section": "Abstract",
+          "item": "1.1",
+          "item_name": "Study design summary",
+          "item_question": "Does the abstract summarize the study design?",
+          "item_question_background": "Design context supports correct interpretation and indexing.",
+          "item_extraction_instruction": "Extract study design language in the abstract.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        },
+        {
+          "section": "Abstract",
+          "item": "1.2",
+          "item_name": "Environment and sample summary",
+          "item_question": "Does the abstract identify environment/host and sample context?",
+          "item_question_background": "Sample and ecosystem context are essential in microbiome studies.",
+          "item_extraction_instruction": "Extract sample/environment/host descriptors from the abstract.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        },
+        {
+          "section": "Abstract",
+          "item": "1.3",
+          "item_name": "Host information summary (if host-associated)",
+          "item_question": "For host-associated studies, does the abstract include host information?",
+          "item_question_background": "Host context affects interpretability for host-associated microbiomes.",
+          "item_extraction_instruction": "Extract host descriptors (species, relevant host attributes) when applicable.",
+          "item_expected_location": "Abstract",
+          "item_optional": true
+        },
+        {
+          "section": "Abstract",
+          "item": "1.4",
+          "item_name": "Methods and analyses summary",
+          "item_question": "Does the abstract summarize methods and analyses, including omics approach?",
+          "item_question_background": "Concise methods language improves discoverability and appraisal.",
+          "item_extraction_instruction": "Extract major laboratory and analytical methods (for example sequencing/omics and analysis approach).",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        },
+        {
+          "section": "Abstract",
+          "item": "1.5",
+          "item_name": "Main results and significance summary",
+          "item_question": "Does the abstract report principal findings and their significance?",
+          "item_question_background": "Abstract-level findings should reflect central technical outcomes.",
+          "item_extraction_instruction": "Extract primary reported outcomes and high-level interpretation in the abstract.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "2.0",
+          "item_name": "Background and rationale",
+          "item_question": "Is background and rationale provided in context of prior microbiome work?",
+          "item_question_background": "Contextual rationale anchors technical reporting relevance.",
+          "item_extraction_instruction": "Extract background synthesis, prior evidence, and rationale for this microbiome study.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "2.1",
+          "item_name": "Hypotheses or research questions",
+          "item_question": "Are hypotheses/objectives/research questions explicitly stated?",
+          "item_question_background": "Explicit questions guide methods and analysis choices.",
+          "item_extraction_instruction": "Extract stated hypotheses, objectives, and/or research questions.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "3.0",
+          "item_name": "Overall study design",
+          "item_question": "Is overall study design explicitly reported?",
+          "item_question_background": "Design details are required for reproducibility and review.",
+          "item_extraction_instruction": "Extract study design type, including whether data reuse, combined analyses, or meta-analyses were used.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "3.1",
+          "item_name": "Sample type and associated metadata",
+          "item_question": "Are sample types and core metadata described?",
+          "item_question_background": "Sample metadata quality determines downstream reuse.",
+          "item_extraction_instruction": "Extract sample types, sample descriptors, and any SynCom/community construction information.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "3.2",
+          "item_name": "Environmental context and geographic location",
+          "item_question": "Is environmental/geographic context reported with sufficient precision?",
+          "item_question_background": "Location/context metadata are central for ecological interpretability.",
+          "item_extraction_instruction": "Extract environment ontology/context details and geographic location information (including coordinates when provided).",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "3.3",
+          "item_name": "Dates and temporal context",
+          "item_question": "Are collection dates and temporal sampling context reported?",
+          "item_question_background": "Temporal factors influence microbiome composition and comparability.",
+          "item_extraction_instruction": "Extract collection dates, duration, frequency, and seasonality/temporal factors.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "3.4",
+          "item_name": "Host information (if host-associated)",
+          "item_question": "For host-associated studies, are host details sufficiently described?",
+          "item_question_background": "Host metadata are required for non-human host-associated microbiome interpretation.",
+          "item_extraction_instruction": "Extract host species and relevant host metadata.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "3.5",
+          "item_name": "Ethics, permits, and permissions",
+          "item_question": "Are ethics and permitting details documented?",
+          "item_question_background": "Permits and ethical governance are critical for responsible sampling.",
+          "item_extraction_instruction": "Extract permits, permissions, ethics approvals, and any data governance statements.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "3.6",
+          "item_name": "Treatments or conditions",
+          "item_question": "Are study treatments/conditions and context clearly described?",
+          "item_question_background": "Treatments and conditions can alter microbiome outcomes.",
+          "item_extraction_instruction": "Extract all treatment/condition details for sampled hosts/environments and experimental context.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "3.7",
+          "item_name": "Sample collection methods",
+          "item_question": "Are sample collection methods and protocols fully documented?",
+          "item_question_background": "Collection methods influence contamination risk and comparability.",
+          "item_extraction_instruction": "Extract collection protocols, tools, body site/niche details, and referenced SOPs.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "3.8",
+          "item_name": "Sample eligibility and selection criteria",
+          "item_question": "Are inclusion/exclusion criteria for samples reported?",
+          "item_question_background": "Selection criteria affect representativeness and bias.",
+          "item_extraction_instruction": "Extract sample eligibility and selection criteria used before analysis.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "3.9",
+          "item_name": "Final analytic sample size",
+          "item_question": "Is final analytic sample size clearly stated?",
+          "item_question_background": "Final sample size is needed for analytical appraisal.",
+          "item_extraction_instruction": "Extract final number of samples used in analysis and any attrition details.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "4.0",
+          "item_name": "Storage and preservation",
+          "item_question": "Are sample storage and preservation conditions reported?",
+          "item_question_background": "Storage conditions can alter measured microbial signals.",
+          "item_extraction_instruction": "Extract storage media, temperature, preservation methods, and holding times.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "4.1",
+          "item_name": "Transportation and shipping",
+          "item_question": "Are transport/shipping conditions and handling described?",
+          "item_question_background": "Transit handling can introduce technical variation.",
+          "item_extraction_instruction": "Extract transportation/shipping conditions and chain-of-custody handling details.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "4.2",
+          "item_name": "Nucleic acid/protein/metabolite extraction methods",
+          "item_question": "Are extraction methods and protocols clearly reported?",
+          "item_question_background": "Extraction protocols strongly influence downstream comparability.",
+          "item_extraction_instruction": "Extract extraction methods, kits, protocol identifiers, and deviations from established procedures.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "4.3",
+          "item_name": "Sample processing, manipulations, and culturing",
+          "item_question": "Are sample processing steps and experimental manipulations documented?",
+          "item_question_background": "Processing details are needed to interpret technical effects.",
+          "item_extraction_instruction": "Extract all processing, manipulation, and culturing details before omics generation.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "4.4",
+          "item_name": "Library preparation details",
+          "item_question": "Are nucleic acid library preparation methods fully specified?",
+          "item_question_background": "Library preparation metadata are essential for repository compliance and reproducibility.",
+          "item_extraction_instruction": "Extract library prep protocols, kits, adapters/indexing details, and sequencing-prep metadata.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "4.5",
+          "item_name": "Enrichment or depletion methods",
+          "item_question": "Are enrichment/depletion methods and rationale reported?",
+          "item_question_background": "Enrichment/depletion can bias observed community composition.",
+          "item_extraction_instruction": "Extract enrichment/depletion procedures and rationale, including expected biases.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "4.6",
+          "item_name": "Amplification targets and primer sequences",
+          "item_question": "When amplification is used, are targets and primers reported?",
+          "item_question_background": "Target region and primer details are critical for interpretability and comparability.",
+          "item_extraction_instruction": "Extract amplified target region(s), primer sequences, and amplification conditions when applicable.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "5.0",
+          "item_name": "Positive controls",
+          "item_question": "Are positive controls and their placement in workflow described?",
+          "item_question_background": "Positive controls support technical quality assessment.",
+          "item_extraction_instruction": "Extract positive control type(s), where used, and performance outcomes.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "5.1",
+          "item_name": "Negative controls",
+          "item_question": "Are negative controls and contamination checks described?",
+          "item_question_background": "Negative controls are crucial for contamination assessment.",
+          "item_extraction_instruction": "Extract negative control type(s), where used, and contamination findings/handling.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "6.0",
+          "item_name": "Sample and analyte quantity/quality assessment",
+          "item_question": "Are quantity/quality assessments of samples and analytes reported?",
+          "item_question_background": "Quality metrics are needed for reliability and comparability.",
+          "item_extraction_instruction": "Extract concentration/quality metrics and QC methods for samples, nucleic acids, proteins, and metabolites.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "6.1",
+          "item_name": "Contamination mitigation and identification strategies",
+          "item_question": "Are laboratory contamination mitigation strategies documented?",
+          "item_question_background": "Contamination controls are central to microbiome data trustworthiness.",
+          "item_extraction_instruction": "Extract contamination prevention and detection strategies at each relevant workflow stage.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "6.2",
+          "item_name": "Biological and technical replicates",
+          "item_question": "Are biological and technical replicates and their usage reported?",
+          "item_question_background": "Replicate design impacts robustness and inference.",
+          "item_extraction_instruction": "Extract replicate types, counts, rationale, and how they were handled in analysis.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "6.3",
+          "item_name": "Sequencing data generation metadata",
+          "item_question": "Are sequencing generation details sufficiently reported?",
+          "item_question_background": "Sequencing platform metadata are needed for technical reproducibility.",
+          "item_extraction_instruction": "Extract sequencing platforms, chemistries, run settings, and relevant submission metadata.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "6.4",
+          "item_name": "Mass spectrometry data generation metadata",
+          "item_question": "For MS data, are generation settings reported?",
+          "item_question_background": "MS metadata are required for reproducibility of metabolomics/proteomics analyses.",
+          "item_extraction_instruction": "Extract mass spectrometry instrumentation/settings and processing metadata where applicable.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "6.5",
+          "item_name": "Contextual or linked datasets",
+          "item_question": "Are linked/contextual datasets and their relation to study data described?",
+          "item_question_background": "Linked data context supports integrated interpretation and reuse.",
+          "item_extraction_instruction": "Extract other datasets used (environmental, host, or contextual) and how they were linked.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "6.6",
+          "item_name": "Batch effects and technical variation",
+          "item_question": "Are anticipated/observed batch effects and handling reported?",
+          "item_question_background": "Batch effects can distort biological conclusions if unaddressed.",
+          "item_extraction_instruction": "Extract sources of batch effects and any mitigation/adjustment strategies.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "7.0",
+          "item_name": "Bioinformatics workflow details",
+          "item_question": "Are bioinformatics workflows and parameters fully reported?",
+          "item_question_background": "Workflow transparency is essential for computational reproducibility.",
+          "item_extraction_instruction": "Extract full workflow steps, tools, versions, and key parameters.",
+          "item_expected_location": "Methods / Bioinformatics",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7.1",
+          "item_name": "Data quality filtering and control performance",
+          "item_question": "Are quality filtering criteria and control performance reported?",
+          "item_question_background": "QC filtering decisions strongly influence final data products.",
+          "item_extraction_instruction": "Extract filtering thresholds and outcomes, including positive/negative control behavior.",
+          "item_expected_location": "Methods / Bioinformatics",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7.2",
+          "item_name": "Normalization procedures",
+          "item_question": "Are normalization methods and rationale reported?",
+          "item_question_background": "Normalization choices affect comparability and effect estimates.",
+          "item_extraction_instruction": "Extract normalization/transformation methods and rationale.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7.3",
+          "item_name": "Reference database metadata",
+          "item_question": "Are taxonomy/annotation database names and versions fully specified?",
+          "item_question_background": "Database versions are critical to reproducibility and interpretation.",
+          "item_extraction_instruction": "Extract database names, versions, access dates/links/DOIs, and custom database construction details.",
+          "item_expected_location": "Methods / Bioinformatics",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7.4",
+          "item_name": "Statistical methods details",
+          "item_question": "Are statistical methods and transformations comprehensively reported?",
+          "item_question_background": "Statistical transparency supports robust interpretation and reanalysis.",
+          "item_extraction_instruction": "Extract statistical tests/models, transformations, and rationale for method choices.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7.5",
+          "item_name": "Missing information handling",
+          "item_question": "Is handling of missing information/data reported?",
+          "item_question_background": "Missingness handling can materially affect results.",
+          "item_extraction_instruction": "Extract missing data definitions, handling strategy, and exclusions due to missingness.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7.6",
+          "item_name": "Bias and confounding assessment",
+          "item_question": "Are potential biases/confounding factors and mitigation described?",
+          "item_question_background": "Bias/confounding control is required for valid technical interpretation.",
+          "item_extraction_instruction": "Extract identified biases/confounders and methods used to minimize or adjust for them.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "7.7",
+          "item_name": "Subgroup definitions and analyses",
+          "item_question": "If subgroups are analyzed, are subgroup criteria and rationale reported?",
+          "item_question_background": "Subgroup analysis can be misleading without explicit prespecification and rationale.",
+          "item_extraction_instruction": "Extract subgroup creation criteria, rationale, and subgroup-specific analysis approach.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "7.8",
+          "item_name": "Sensitivity analyses",
+          "item_question": "Are sensitivity analyses and their setup reported?",
+          "item_question_background": "Sensitivity analyses support robustness assessment.",
+          "item_extraction_instruction": "Extract sensitivity analyses performed and the factors/assumptions varied.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "7.9",
+          "item_name": "Significance thresholds and multiple-testing handling",
+          "item_question": "Are significance thresholds and multiple-testing control methods reported?",
+          "item_question_background": "Thresholding and correction choices affect false positive rates.",
+          "item_extraction_instruction": "Extract significance thresholds, correction methods (for example FDR), and criteria for statistical calls.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8.0",
+          "item_name": "Metadata standards and metadata access",
+          "item_question": "Are metadata standards used and metadata access details reported?",
+          "item_question_background": "Metadata standardization enables interoperability and reuse.",
+          "item_extraction_instruction": "Extract metadata standards used (for example MIxS/ENVO) and where metadata can be accessed.",
+          "item_expected_location": "Methods / Data availability",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8.1",
+          "item_name": "Host data access and constraints",
+          "item_question": "When relevant, are host-associated data access details and constraints reported?",
+          "item_question_background": "Host data governance and access constraints affect reproducibility and ethics.",
+          "item_extraction_instruction": "Extract host-associated data availability, access process, and restrictions/justifications.",
+          "item_expected_location": "Methods / Data availability",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "8.2",
+          "item_name": "Raw data access",
+          "item_question": "Are raw omics data access details reported?",
+          "item_question_background": "Raw data deposition is central to FAIR compliance.",
+          "item_extraction_instruction": "Extract repositories, accession identifiers, and availability status for raw data.",
+          "item_expected_location": "Methods / Data availability",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8.3",
+          "item_name": "Processed data access",
+          "item_question": "Are processed/derived data availability details reported?",
+          "item_question_background": "Processed data access supports direct reuse and verification.",
+          "item_extraction_instruction": "Extract links/accessions for processed data tables/matrices and documentation.",
+          "item_expected_location": "Methods / Data availability",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8.4",
+          "item_name": "Software and code availability",
+          "item_question": "Are software/code and workflow artifacts made available?",
+          "item_question_background": "Computational reproducibility requires access to code and software details.",
+          "item_extraction_instruction": "Extract code repositories, software environments/containers, and workflow/pipeline sharing details.",
+          "item_expected_location": "Methods / Data availability",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8.5",
+          "item_name": "Access limitations and justifications",
+          "item_question": "Are any data/code access limitations and justifications clearly stated?",
+          "item_question_background": "Transparent constraints are needed when full openness is not possible.",
+          "item_extraction_instruction": "Extract stated reasons for restricted access and the pathway for controlled access when available.",
+          "item_expected_location": "Methods / Data availability",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "9.0",
+          "item_name": "Results data summary",
+          "item_question": "Are core results and resulting datasets summarized clearly?",
+          "item_question_background": "Results summaries should connect methods to interpretable outcomes.",
+          "item_extraction_instruction": "Extract core reported data summaries and key output structures.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "9.1",
+          "item_name": "Sample/analysis flow and counts",
+          "item_question": "Is sample/analysis flow and counting transparently reported?",
+          "item_question_background": "Flow transparency helps identify attrition and filtering effects.",
+          "item_extraction_instruction": "Extract counts through each major processing/analysis stage.",
+          "item_expected_location": "Results / Supplementary figures",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "9.2",
+          "item_name": "Control and quality outcomes",
+          "item_question": "Are control performance and quality outcomes reported?",
+          "item_question_background": "Control outcomes contextualize confidence in biological findings.",
+          "item_extraction_instruction": "Extract reported control behavior and quality-control outcomes.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "9.3",
+          "item_name": "Main biological/technical findings",
+          "item_question": "Are major microbiome findings reported with sufficient technical context?",
+          "item_question_background": "Findings should be traceable to the technical pipeline and data.",
+          "item_extraction_instruction": "Extract principal microbiome findings and the technical context used to support them.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "10.0",
+          "item_name": "Figure and table reporting completeness",
+          "item_question": "Do figures/tables adequately communicate methods-linked results?",
+          "item_question_background": "Figure/table completeness improves independent interpretation.",
+          "item_extraction_instruction": "Extract key figure/table elements and whether captions/labels allow independent understanding.",
+          "item_expected_location": "Results / Figures / Tables",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "10.1",
+          "item_name": "Effect estimates and uncertainty",
+          "item_question": "Are effect estimates and uncertainty measures reported where applicable?",
+          "item_question_background": "Uncertainty reporting supports proper technical interpretation.",
+          "item_extraction_instruction": "Extract effect sizes, confidence intervals, and uncertainty/statistical summaries where provided.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "10.2",
+          "item_name": "Subgroup or sensitivity results",
+          "item_question": "Are subgroup/sensitivity result outputs reported when analyses were performed?",
+          "item_question_background": "Supplementary analyses should be reported with comparable detail.",
+          "item_extraction_instruction": "Extract subgroup and sensitivity results and how they compare to primary findings.",
+          "item_expected_location": "Results / Supplementary materials",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "10.3",
+          "item_name": "Linkage to supporting supplementary outputs",
+          "item_question": "Are supporting supplementary outputs linked clearly to reported results?",
+          "item_question_background": "Linking main and supplementary outputs enables traceability.",
+          "item_extraction_instruction": "Extract references to supplementary tables/files and how they support reported results.",
+          "item_expected_location": "Results / Supplementary materials",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "11.0",
+          "item_name": "Interpretation of key results",
+          "item_question": "Are key findings interpreted in line with methods and evidence presented?",
+          "item_question_background": "Interpretation should be consistent with technical and analytical evidence.",
+          "item_extraction_instruction": "Extract how authors interpret central findings in relation to objectives and methods.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "11.1",
+          "item_name": "Relation to prior work",
+          "item_question": "Are findings contextualized against existing literature and datasets?",
+          "item_question_background": "Positioning against prior work supports synthesis and reuse.",
+          "item_extraction_instruction": "Extract comparisons of findings with prior studies and references.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "11.2",
+          "item_name": "Limitations and potential biases",
+          "item_question": "Are limitations and potential biases discussed transparently?",
+          "item_question_background": "Limitations and biases are critical for responsible interpretation.",
+          "item_extraction_instruction": "Extract discussed technical and analytical limitations, and potential bias/confounding sources.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "12.0",
+          "item_name": "Generalisability and applicability",
+          "item_question": "Is generalisability/applicability of findings discussed?",
+          "item_question_background": "Applicability context supports translation across systems and studies.",
+          "item_extraction_instruction": "Extract statements on transferability/generalisability across environments, hosts, or systems.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "12.1",
+          "item_name": "Implications for environmental and host-associated microbiome science",
+          "item_question": "Are practical/research implications for microbiome science articulated?",
+          "item_question_background": "Implication statements help connect technical reporting to broader impact.",
+          "item_extraction_instruction": "Extract stated implications for environmental, synthetic, and/or host-associated microbiome research.",
+          "item_expected_location": "Discussion",
+          "item_optional": true
+        },
+        {
+          "section": "Discussion",
+          "item": "13.0",
+          "item_name": "Conclusions and future directions",
+          "item_question": "Are conclusions and future directions clearly stated?",
+          "item_question_background": "Conclusions and next steps aid interpretation and reuse planning.",
+          "item_extraction_instruction": "Extract final conclusions and proposed future work.",
+          "item_expected_location": "Discussion / Conclusion",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Other information",
+      "items": [
+        {
+          "section": "Other information",
+          "item": "14.0",
+          "item_name": "Acknowledgements",
+          "item_question": "Are acknowledgements and contributor context provided?",
+          "item_question_background": "Acknowledgements can clarify resource and collaboration context.",
+          "item_extraction_instruction": "Extract acknowledgements and relevant consortium/contributor statements.",
+          "item_expected_location": "Acknowledgements",
+          "item_optional": true
+        },
+        {
+          "section": "Other information",
+          "item": "15.0",
+          "item_name": "Funding",
+          "item_question": "Are funding sources and support statements provided?",
+          "item_question_background": "Funding transparency supports assessment of study context.",
+          "item_extraction_instruction": "Extract all funding/support disclosures.",
+          "item_expected_location": "Funding",
+          "item_optional": false
+        },
+        {
+          "section": "Other information",
+          "item": "16.0",
+          "item_name": "Competing interests",
+          "item_question": "Are competing interests/conflicts disclosed?",
+          "item_question_background": "Conflict transparency is essential for trust and appraisal.",
+          "item_extraction_instruction": "Extract conflict-of-interest or competing-interest disclosures.",
+          "item_expected_location": "Competing interests",
+          "item_optional": false
+        },
+        {
+          "section": "Other information",
+          "item": "17.0",
+          "item_name": "Supplementary material linkage",
+          "item_question": "Are supplementary materials clearly identified and linked?",
+          "item_question_background": "Supplementary resources often contain key technical details.",
+          "item_extraction_instruction": "Extract supplementary material references and where they can be accessed.",
+          "item_expected_location": "Supplementary information",
+          "item_optional": true
+        },
+        {
+          "section": "Other information",
+          "item": "18.0",
+          "item_name": "Data and code availability",
+          "item_question": "Are data and code availability statements complete and actionable?",
+          "item_question_background": "Clear availability statements are needed for machine-actionable reuse.",
+          "item_extraction_instruction": "Extract repository locations/accessions and conditions for data and code reuse.",
+          "item_expected_location": "Data availability / Code availability",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "discipline_overlay",
+    "Domains": [
+      "Natural sciences",
+      "Agricultural sciences",
+      "Medical and health"
+    ],
+    "Aliases": [
+      "STREAMS",
+      "STREAMS guidelines",
+      "standards for technical reporting in environmental and host-associated microbiome studies",
+      "Strengthening the Organization and Reporting of Microbiome Studies",
+      "STORMS"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bSTREAMS\\b",
+          "\\bSTORMS\\b",
+          "\\bmicrobiome\\s+stud(y|ies)\\b",
+          "\\benvironmental\\s+microbiome\\b",
+          "\\bhost[-\\s]?associated\\s+microbiome\\b",
+          "\\bsynthetic\\s+microbiome\\b",
+          "\\bSynCom\\b",
+          "\\bmetagenom(ic|ics)\\b",
+          "\\bamplicon\\s+sequencing\\b",
+          "\\b16S\\s*rRNA\\b",
+          "\\bshotgun\\s+metagenom\\w*\\b",
+          "\\bmetatranscriptom\\w*\\b",
+          "\\bmetaproteom\\w*\\b",
+          "\\bmetabolom\\w*\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bMIxS\\b",
+          "\\bENVO\\b",
+          "\\bFAIR\\s+principles\\b",
+          "\\bmetadata\\s+standard(s)?\\b",
+          "\\bpositive\\s+control(s)?\\b",
+          "\\bnegative\\s+control(s)?\\b",
+          "\\bbatch\\s+effect(s)?\\b",
+          "\\bbioinformatics\\s+workflow\\b",
+          "\\bdatabase\\s+version\\b",
+          "\\bdata\\s+availability\\b",
+          "\\bcode\\s+availability\\b",
+          "\\brepository\\s+accession\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmicrobiome\\b",
+          "\\b(metadata|reporting|method(s)?|bioinformatics|sequencing|omics)\\b"
+        ]
+      }
+    ],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bstreamflow\\b",
+          "\\bhydrolog(y|ic)\\b",
+          "\\bvideo\\s+streaming\\b",
+          "\\bnetwork\\s+stream\\b",
+          "\\baudio\\s+streaming\\b",
+          "\\bfinancial\\s+streams\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bstandards?\\s+for\\s+technical\\s+reporting\\b",
+          "\\bmachine[-\\s]?actionable\\b",
+          "\\bchecklist\\s+consist(s|ing)\\s+of\\s+\\d+\\s+items\\b",
+          "\\bmetadata\\s+capture\\b",
+          "\\bsample\\s+collection\\s+metadata\\b",
+          "\\braw\\s+data\\s+access\\b",
+          "\\bprocessed\\s+data\\s+access\\b",
+          "\\bsoftware\\s+and\\s+code\\s+availability\\b",
+          "\\bcontamination\\s+(mitigation|control)\\b",
+          "\\bnormalization\\s+procedure\\b",
+          "\\bsubgroup\\s+analys(is|es)\\b",
+          "\\bsensitivity\\s+analys(is|es)\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\briver\\s+stream\\b",
+          "\\bwatershed\\s+stream\\b",
+          "\\bstream\\s+discharge\\b",
+          "\\blive\\s+stream\\b",
+          "\\bmedia\\s+streaming\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We profiled soil microbiomes using shotgun metagenomics and report MIxS-compliant metadata, sample collection context, controls, bioinformatics workflow versions, and repository accession identifiers.",
+      "This host-associated microbiome study details sample storage, extraction methods, 16S amplification primers, contamination controls, normalization procedures, and code/data availability statements.",
+      "Our synthetic community microbiome manuscript reports positive and negative controls, sequencing platform settings, database versions for taxonomy assignment, sensitivity analyses, and FAIR-aligned metadata deposition."
+    ],
+    "EvidenceExamplesNegative": [
+      "This hydrology paper analyzes streamflow forecasting and watershed discharge without microbiome sequencing, metadata standards, or omics workflows.",
+      "The manuscript describes a video streaming optimization system and does not involve environmental or host-associated microbiome data generation.",
+      "This ecological field report mentions streams and water quality but includes no microbiome profiling, sequencing methods, or microbiome data repositories."
+    ],
+    "Explain": "Apply as a microbiome discipline overlay for manuscripts generating or analyzing environmental, synthetic, or non-human host-associated microbiome omics data, especially when methods/metadata/repository reporting detail appears in full text even without explicit STREAMS citation."
+  }
+}

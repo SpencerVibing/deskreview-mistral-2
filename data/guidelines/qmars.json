@@ -1,0 +1,244 @@
+{
+  "id": "qmars",
+  "Name": "QMARS",
+  "LongName": "Qualitative Meta-Analysis Article Reporting Standards",
+  "Description": "QMARS is APA's reporting standard for qualitative meta-analyses, including metasyntheses, meta-ethnographies, critical interpretive syntheses, and related forms of qualitative secondary analysis.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology qualitative synthesis reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve transparency and methodological integrity in qualitative meta-analyses by specifying what should be reported about synthesis goals, study selection, researcher reflexivity, study characteristics, analytic procedures, and interpretation of the reviewed literature.",
+  "ManuscriptType": [
+    "Research synthesis",
+    "Qualitative meta-analysis",
+    "Qualitative metasynthesis",
+    "Meta-ethnography"
+  ],
+  "ManuscriptSubType": [
+    "Critical interpretive synthesis",
+    "Narrative qualitative synthesis",
+    "Meta-study"
+  ],
+  "StudyType": [
+    "Qualitative meta-analysis",
+    "Qualitative research synthesis"
+  ],
+  "Keywords": [
+    "QMARS",
+    "qualitative meta-analysis",
+    "qualitative metasynthesis",
+    "meta-ethnography",
+    "critical interpretive synthesis",
+    "secondary qualitative analysis"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Qualitative meta-analysis",
+      "Qualitative research synthesis"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science",
+      "Education"
+    ],
+    "Coverage": "Qualitative meta-analyses in psychology and related social sciences that aggregate or integrate qualitative findings across primary studies.",
+    "Focus": "Problem framing, synthesis type, study-selection strategy, researcher positioning, reviewed-study characteristics, secondary analytic procedures, methodological integrity, contextualized findings, and interpretation of the reviewed literature.",
+    "ContrastWith": "Not for primary qualitative studies and not for quantitative meta-analyses. QMARS focuses on secondary synthesis of qualitative findings rather than collection of new qualitative data."
+  },
+  "references": {
+    "primary": {
+      "description": "Levitt HM, Bamberg M, Creswell JW, Frost DM, Josselson R, Suárez-Orozco C. Journal Article Reporting Standards for Qualitative Primary, Qualitative Meta-Analytic, and Mixed Methods Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018;73(1):26-46. doi:10.1037/amp0000151.",
+      "url": "https://doi.org/10.1037/amp0000151"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Framing and Study Selection",
+      "items": [
+        {
+          "section": "Framing and Study Selection",
+          "item": "1",
+          "item_name": "Identify the synthesis as a qualitative meta-analysis and frame its purpose",
+          "item_question": "Does the manuscript identify the key issue or topic, indicate that the work is a qualitative meta-analysis or related synthesis form, and state the problem, objectives, and type of literature being synthesized?",
+          "item_question_background": "QMARS begins by requiring clarity about both the substantive problem and the type of qualitative synthesis being undertaken so readers can evaluate the scope and logic of the review.",
+          "item_extraction_instruction": "Extract the title framing, the named qualitative synthesis method, the problem or objectives, the type of literature included, and the contribution the synthesis aims to make.",
+          "item_expected_location": "Title / Abstract / Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 13,
+              "quote": "Indicate that the work is a form of meta-analysis ... State the problem/question/objectives ... Describe the meta-analytic method.",
+              "locator": "Table 2 title, abstract, and objectives rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Framing and Study Selection",
+          "item": "2",
+          "item_name": "Describe study-selection strategy and the reviewed-study pool",
+          "item_question": "Does the manuscript explain how studies were selected, including search strategy, inclusion and exclusion logic, rationale for the strategy used, and the resulting pool of studies reviewed?",
+          "item_question_background": "Because qualitative meta-analyses may use comprehensive, iterative, or purposive sampling strategies, transparency about the selection process and its rationale is central to methodological integrity.",
+          "item_extraction_instruction": "Extract databases or search processes, inclusion and exclusion criteria, rationale for the search or sampling strategy, final number of studies reviewed, and key characteristics of the reviewed studies.",
+          "item_expected_location": "Method / Study selection / Studies reviewed",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 13,
+              "quote": "Provide a detailed description of how studies to be reviewed were selected, including search strategies and criteria for inclusion and exclusion, and rationale.",
+              "locator": "Table 2 study selection row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Researchers, Reviewed Studies, and Analysis",
+      "items": [
+        {
+          "section": "Researchers, Reviewed Studies, and Analysis",
+          "item": "3",
+          "item_name": "Describe researcher positioning and reviewed-study characteristics",
+          "item_question": "Does the manuscript report the researchers' backgrounds and prior understandings in relation to the synthesis and present key characteristics of the studies reviewed?",
+          "item_question_background": "QMARS treats reflexivity and context as relevant not only to primary qualitative work but also to secondary synthesis, especially when interpretive judgment is central.",
+          "item_extraction_instruction": "Extract the researchers' backgrounds and prior understandings, how these influenced the synthesis, and the reported characteristics of the reviewed studies such as year, geography, language, methods, and participant counts.",
+          "item_expected_location": "Method / Researcher description / Studies reviewed",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 13,
+              "quote": "Describe the researchers' backgrounds in approaching the study ... Present, when possible the following: year of publication, geographic location, language, method of data collection, method of analysis.",
+              "locator": "Table 2 researcher description and studies reviewed rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Researchers, Reviewed Studies, and Analysis",
+          "item": "4",
+          "item_name": "Make qualitative synthesis analysis procedures explicit",
+          "item_question": "Does the manuscript describe how findings were extracted from primary reports, how coding or interpretation proceeded, how disagreements were managed, and how the analytic scheme emerged or was determined?",
+          "item_question_background": "Qualitative meta-analysis depends on transparent explanation of how primary-study findings were identified, compared, weighted interpretively, and synthesized into higher-order understandings.",
+          "item_extraction_instruction": "Extract the procedures for finding extraction, the analysts and their training, coding units, software, collaboration or consensus processes, emergent versus a priori categories, appraisal decisions, and any synthesizing illustrations or artistic products.",
+          "item_expected_location": "Method / Analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Describe the approach to extracting study findings ... Describe the process of arriving at an analytic scheme ... Describe how issues of consistency were addressed.",
+              "locator": "Table 2 data-analytic strategies row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Findings and Interpretation",
+      "items": [
+        {
+          "section": "Findings and Interpretation",
+          "item": "5",
+          "item_name": "Present synthesized findings with contextual and evidential grounding",
+          "item_question": "Does the manuscript describe the synthesized findings and meanings derived from the reviewed studies, ground them in quotations or examples where relevant, and address contradictions, ambiguities, and situatedness across studies?",
+          "item_question_background": "QMARS expects qualitative meta-analytic findings to be interpretive and evidence-grounded, while still attending to contextual differences and tensions among the studies under review.",
+          "item_extraction_instruction": "Extract the main synthesized findings, any quotations from primary studies, treatment of contradictions or ambiguities, discussion of situatedness, and use of diagrams, tables, or models to present the synthesis.",
+          "item_expected_location": "Findings / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Describe the research findings and the meaning and understandings that the researcher has derived from the analysis of the studies ... Explore whether differences in themes across primary studies appear to reflect differences in the phenomena under study.",
+              "locator": "Table 2 findings/results and situatedness rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Findings and Interpretation",
+          "item": "6",
+          "item_name": "Discuss contribution, limitations, transferability, and implications",
+          "item_question": "Does the discussion interpret the synthesis beyond summary, identify contributions and limits, consider alternative explanations, describe transferability boundaries, and outline implications for future research, policy, or practice?",
+          "item_question_background": "A qualitative meta-analysis should show what the synthesis adds to the field while also clarifying the limits of its interpretive reach and future usefulness.",
+          "item_extraction_instruction": "Extract interpretive discussion of contributions, links to existing scholarship, alternative explanations, strengths and limitations of the synthesis, transferability boundaries, and future research, policy, or practice implications.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "Provide a discussion of findings that interpretively goes beyond a summary of the existing studies ... Describe the significance of the study ... Describe the limits of the scope of transferability.",
+              "locator": "Table 2 discussion rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "QMARS",
+      "Qualitative Meta-Analysis Article Reporting Standards",
+      "APA qualitative meta-analysis reporting standards"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bQMARS\\b",
+          "\\bqualitative meta-analysis\\b",
+          "\\bmetasynthesis\\b",
+          "\\bmeta-ethnography\\b",
+          "\\bcritical interpretive synthesis\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bstudy selection\\b",
+          "\\breviewed studies\\b",
+          "\\bsecondary analysis\\b",
+          "\\bsituatedness\\b",
+          "\\bqualitative synthesis\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brandomized clinical trial\\b",
+          "\\bnew participants were recruited\\b",
+          "\\bprimary data collection\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A qualitative metasynthesis reports search and inclusion logic, reviewed-study characteristics, interpretive coding procedures, contextual contradictions across studies, and transferability limits.",
+      "A meta-ethnography in psychology describes researcher positioning, iterative selection of studies, and the synthesis of themes across primary reports."
+    ],
+    "EvidenceExamplesNegative": [
+      "A primary interview study should use JARS-Qual rather than QMARS.",
+      "A quantitative meta-analysis with pooled effect sizes belongs with a quantitative review standard rather than QMARS."
+    ],
+    "Explain": "Use QMARS for qualitative meta-analyses and related qualitative research syntheses that aggregate or integrate findings across primary qualitative studies."
+  }
+}

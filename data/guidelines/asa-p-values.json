@@ -1,0 +1,270 @@
+{
+  "id": "asa-p-values",
+  "Name": "ASA Statement on p-Values",
+  "LongName": "The ASA Statement on p-Values: Context, Process, and Purpose",
+  "Description": "The ASA Statement on p-Values is a cross-disciplinary statistical-inference guideline that clarifies how p-values should and should not be interpreted. It emphasizes that p-values are limited summaries of incompatibility between data and model assumptions, warns against threshold-based decision making and selective reporting, and encourages richer inferential practice using context, estimation, transparency, and complementary methods.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Statistical inference and p-value interpretation",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To improve scientific inference by correcting common misuses and misinterpretations of p-values and statistical significance, and by encouraging fuller reporting, contextual interpretation, and consideration of alternative inferential approaches.",
+  "ManuscriptType": [
+    "Original research article",
+    "Quantitative research report",
+    "Clinical research article",
+    "Observational study report",
+    "Experimental study report",
+    "Methods paper"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Quantitative study",
+    "Clinical study",
+    "Observational study",
+    "Experimental study",
+    "Statistical methods study"
+  ],
+  "Keywords": [
+    "ASA statement",
+    "p-values",
+    "statistical significance",
+    "null hypothesis significance testing",
+    "effect size",
+    "transparency",
+    "multiple analyses",
+    "confidence intervals",
+    "Bayesian methods",
+    "false discovery rate"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Quantitative study",
+      "Clinical study",
+      "Observational study",
+      "Experimental study",
+      "Statistical methods study"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary",
+      "Medical and health",
+      "Natural sciences",
+      "Social sciences"
+    ],
+    "Coverage": "Any empirical manuscript that reports p-values, statistical significance, or hypothesis tests, especially work where inferential claims may otherwise be reduced to threshold-based interpretation.",
+    "Focus": "Interpretation of p-values, distinction between model incompatibility and truth claims, avoidance of mechanical significance thresholds, full reporting of analyses, emphasis on effect size and importance rather than significance alone, and the limited evidential value of p-values in isolation.",
+    "ContrastWith": "This is not a study-design-specific checklist and not a replacement for field-specific reporting standards such as CONSORT, STROBE, or TRIPOD. It is a cross-cutting inferential overlay for how p-values and significance claims are interpreted and reported."
+  },
+  "references": {
+    "primary": {
+      "description": "Wasserstein RL, Lazar NA. The ASA Statement on p-Values: Context, Process, and Purpose. The American Statistician. 2016;70(2):129-133.",
+      "url": "https://amstat.tandfonline.com/doi/epdf/10.1080/00031305.2016.1154108?needAccess=true"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "ASA Principles",
+      "items": [
+        {
+          "section": "ASA Principles",
+          "item": "1",
+          "item_name": "Interpret p-values as model-data incompatibility, not as standalone proof",
+          "item_question": "Does the manuscript interpret p-values as indicating how incompatible the data are with a specified statistical model rather than as direct proof for or against a claim?",
+          "item_question_background": "The first ASA principle defines the p-value in terms of incompatibility between the observed data and a specified model, typically including a null hypothesis. This reframes p-values as conditional summaries tied to assumptions, not direct statements about scientific truth.",
+          "item_extraction_instruction": "Extract how the manuscript defines or interprets reported p-values, including whether they are presented as conditional on a model or null hypothesis and whether model assumptions are acknowledged.",
+          "item_expected_location": "Methods / Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "P-values can indicate how incompatible the data are with a specified statistical model.",
+              "locator": "Principle 1"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "ASA Principles",
+          "item": "2",
+          "item_name": "Do not treat p-values as the probability a hypothesis is true or chance alone caused the data",
+          "item_question": "Does the manuscript avoid interpreting the p-value as the probability that the studied hypothesis is true or that the observed data were produced by random chance alone?",
+          "item_question_background": "The second ASA principle targets two of the most common inferential mistakes: turning a p-value into the probability that a null hypothesis is true, or into the probability that chance alone produced the data. The statement emphasizes that p-values speak about data under assumptions, not about the truth of an explanation itself.",
+          "item_extraction_instruction": "Extract any explanatory language around reported p-values and note whether the manuscript avoids or commits probability-of-hypothesis or chance-alone interpretations.",
+          "item_expected_location": "Abstract / Results / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "P-values do not measure the probability that the studied hypothesis is true, or the probability that the data were produced by random chance alone.",
+              "locator": "Principle 2"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "ASA Principles",
+          "item": "3",
+          "item_name": "Do not base conclusions only on whether a threshold is crossed",
+          "item_question": "Does the manuscript avoid basing scientific conclusions or policy-like decisions solely on whether a p-value crosses a threshold such as 0.05?",
+          "item_question_background": "The third ASA principle rejects bright-line reasoning because it can turn continuous evidence into false binaries. The statement stresses that design quality, measurement, prior evidence, and analytic assumptions all matter alongside any reported p-value.",
+          "item_extraction_instruction": "Extract whether the manuscript uses threshold language such as 'statistically significant' as a sole basis for conclusions, and whether contextual factors beyond threshold crossing are used in interpretation.",
+          "item_expected_location": "Abstract / Results / Discussion / Conclusions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Scientific conclusions and business or policy decisions should not be based only on whether a p-value passes a specific threshold.",
+              "locator": "Principle 3"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "ASA Principles",
+          "item": "4",
+          "item_name": "Report analyses transparently and avoid selective reporting",
+          "item_question": "Does the manuscript provide enough transparency about analyses, hypotheses explored, and reporting choices to avoid selective interpretation of p-values?",
+          "item_question_background": "The fourth ASA principle focuses on the fact that p-values become uninterpretable when they are selected from many analyses without disclosure. The statement explicitly warns against cherry-picking, data dredging, significance chasing, and p-hacking, and calls for full reporting of what was tried and what was reported.",
+          "item_extraction_instruction": "Extract whether the manuscript discloses the number of hypotheses explored, the analyses conducted, data-collection or analysis decisions, multiplicity concerns, and the basis on which reported results were selected.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Proper inference requires full reporting and transparency",
+              "locator": "Principle 4 heading"
+            },
+            {
+              "page": 4,
+              "quote": "Cherry-picking promising findings, also known by such terms as data dredging, significance chasing, significance questing, selective inference, and 'p-hacking,'",
+              "locator": "Principle 4 text"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "ASA Principles",
+          "item": "5",
+          "item_name": "Do not equate statistical significance with effect size or importance",
+          "item_question": "Does the manuscript avoid treating p-values or statistical significance as measures of effect size, scientific importance, or practical importance?",
+          "item_question_background": "The fifth ASA principle highlights that tiny effects can produce very small p-values in large or precise studies, while large effects can have unimpressive p-values in small or noisy studies. It therefore separates significance from magnitude and real-world importance.",
+          "item_extraction_instruction": "Extract whether the manuscript reports and interprets effect sizes, magnitude, clinical or substantive importance, and whether it avoids using p-values as substitutes for those quantities.",
+          "item_expected_location": "Results / Discussion / Conclusions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "A p-value, or statistical significance, does not measure the size of an effect or the importance of a result.",
+              "locator": "Principle 5"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "ASA Principles",
+          "item": "6",
+          "item_name": "Do not use p-values alone as the measure of evidence",
+          "item_question": "Does the manuscript avoid treating a p-value by itself as a sufficient measure of evidence for a model or hypothesis?",
+          "item_question_background": "The sixth ASA principle makes explicit that a p-value without context provides limited information. The statement notes that a value near 0.05 offers only weak evidence against a null hypothesis and that large p-values do not by themselves support the null, because many other explanations may also fit the data.",
+          "item_extraction_instruction": "Extract whether the manuscript supplements p-values with contextual interpretation, effect estimates, uncertainty measures, competing explanations, or other inferential tools rather than presenting p-values alone as decisive evidence.",
+          "item_expected_location": "Results / Discussion / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "By itself, a p-value does not provide a good measure of evidence regarding a model or hypothesis.",
+              "locator": "Principle 6"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Complementary Approaches",
+      "items": [
+        {
+          "section": "Complementary Approaches",
+          "item": "7",
+          "item_name": "Use complementary inferential summaries when appropriate",
+          "item_question": "Where appropriate, does the manuscript supplement or replace p-value-centric reporting with estimation, interval summaries, Bayesian methods, alternative evidence measures, or decision-focused approaches?",
+          "item_question_background": "After laying out the six principles, the ASA statement points to several families of approaches that may better address effect size, uncertainty, or evidence than p-values alone. This is not a requirement to adopt any single alternative, but it is a prompt to avoid letting the analysis end at one thresholded number.",
+          "item_extraction_instruction": "Extract any use of confidence, credibility, or prediction intervals; Bayesian methods; likelihood ratios; Bayes factors; false discovery rates; decision-theoretic approaches; or other complementary inferential summaries.",
+          "item_expected_location": "Methods / Statistical analysis / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "some statisticians prefer to supplement or even replace p-values with other approaches.",
+              "locator": "Section 4, Other Approaches"
+            },
+            {
+              "page": 5,
+              "quote": "These include methods that emphasize estimation over testing, such as confidence, credibility, or prediction intervals; Bayesian methods; alternative measures of evidence",
+              "locator": "Section 4, Other Approaches"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary"
+    ],
+    "Aliases": [
+      "ASA statement on p-values",
+      "p-values context process and purpose",
+      "ASA p-values statement"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bp-values?\\b",
+          "\\bstatistical significance\\b",
+          "\\bnull hypothesis\\b",
+          "\\bp-hacking\\b",
+          "\\bmultiple analyses\\b",
+          "\\beffect size\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\b0\\.05\\b",
+          "\\bconfidence intervals?\\b",
+          "\\bBayes factors?\\b",
+          "\\bfalse discovery rate\\b",
+          "\\bcherry-picking\\b",
+          "\\bdata dredging\\b",
+          "\\bselective inference\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A manuscript reports multiple p-values and significance claims, and needs guidance on thresholding, selective reporting, and the distinction between significance and practical importance.",
+      "A quantitative study uses null-hypothesis significance testing and would benefit from explicit reminders that p-values are not probabilities that the null is true and should be supplemented with effect estimates and uncertainty."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely qualitative manuscript with no statistical inference or significance testing is not a meaningful match for the ASA p-values statement.",
+      "A paper that reports only descriptive summaries and no p-values, significance tests, or inferential thresholds is unlikely to need this overlay."
+    ],
+    "Explain": "Use this ASA overlay for manuscripts that report p-values or significance tests and need guidance on correct interpretation, transparency of analysis, and avoiding threshold-driven overclaiming."
+  }
+}

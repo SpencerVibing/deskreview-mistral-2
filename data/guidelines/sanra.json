@@ -1,0 +1,264 @@
+{
+  "id": "sanra",
+  "Name": "SANRA",
+  "LongName": "Scale for the Assessment of Narrative Review Articles",
+  "Description": "A six-item appraisal scale for evaluating the quality of narrative review articles in medicine. SANRA is designed for editors, reviewers, readers, and authors assessing non-systematic review manuscripts, with each item scored from 0 to 2 and supported by anchor definitions and usage instructions.",
+  "Category": "quality_assessment_tool",
+  "Subdomain": "Narrative reviews",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Assess and improve the quality of narrative review manuscripts by checking whether the review justifies its importance, states clear aims, describes its literature search, supports key claims with references, reasons scientifically, and presents relevant endpoint data appropriately.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Narrative review article"
+  ],
+  "StudyType": [
+    "Narrative review",
+    "Non-systematic review",
+    "Review article"
+  ],
+  "Keywords": [
+    "SANRA",
+    "narrative review",
+    "non-systematic review",
+    "review quality",
+    "literature search",
+    "referencing",
+    "scientific reasoning",
+    "endpoint data"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Narrative review",
+      "Non-systematic review",
+      "Review article"
+    ],
+    "Disciplines": [
+      "Medicine",
+      "Clinical research",
+      "Health sciences",
+      "Biomedical publishing"
+    ],
+    "Coverage": "Medical and health-science narrative review manuscripts that summarize a topic without using a fully systematic-review design.",
+    "Focus": "Justification of the review's importance, statement of aims or questions, transparency about the literature search, completeness of referencing, quality of scientific reasoning, and appropriate presentation of relevant endpoint data.",
+    "ContrastWith": "SANRA is a short critical appraisal tool rather than a full reporting guideline. It is intended for non-systematic narrative reviews and complements, rather than replaces, more formal reporting standards for systematic reviews or primary studies."
+  },
+  "references": {
+    "primary": {
+      "description": "Baethge C, Goldbeck-Wood S, Mertens S. SANRA-a scale for the quality assessment of narrative review articles. Research Integrity and Peer Review. 2019;4:5.",
+      "url": "https://link.springer.com/article/10.1186/s41073-019-0064-8"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Framing the Review",
+      "items": [
+        {
+          "section": "Framing the Review",
+          "item": "1",
+          "item_name": "Justify the article's importance for the readership",
+          "item_question": "Does the narrative review explicitly justify why the topic matters for the journal's readership rather than merely alluding to relevance?",
+          "item_question_background": "The SANRA instructions say importance must be judged in the context of a journal's readership. The guidance asks reviewers to look for whether the manuscript clearly outlines the clinical or scholarly problem and highlights unanswered questions or evidence gaps, not just whether the topic sounds generally important.",
+          "item_extraction_instruction": "Extract the sentences that explain why the review topic matters for the intended readership, including any explicit discussion of the clinical problem, unresolved questions, or evidence gaps.",
+          "item_expected_location": "Title / Abstract / Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Justification of the article's importance for the readership",
+              "locator": "Fig. 1, item 1"
+            },
+            {
+              "page": 4,
+              "quote": "must be seen in the context of each journal's readership",
+              "locator": "Fig. 2, item 1 instructions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Framing the Review",
+          "item": "2",
+          "item_name": "State concrete aims or questions",
+          "item_question": "Does the review formulate one or more concrete aims or questions rather than only describing the topic in vague or general terms?",
+          "item_question_background": "For SANRA, a good narrative review does not just announce a broad topic area. The instructions say the paper should propose specific aims or questions that will be dealt with, because readers need to know what the review is actually trying to accomplish.",
+          "item_extraction_instruction": "Extract the stated aims, objectives, or review questions, and note whether they are specific and concrete or only broadly framed.",
+          "item_expected_location": "Abstract / Introduction / End of introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Statement of concrete aims or formulation of questions",
+              "locator": "Fig. 1, item 2"
+            },
+            {
+              "page": 4,
+              "quote": "will propose one or more specific aims or questions",
+              "locator": "Fig. 2, item 2 instructions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Search and Documentation",
+      "items": [
+        {
+          "section": "Search and Documentation",
+          "item": "3",
+          "item_name": "Describe the literature search",
+          "item_question": "Does the review describe how the literature was searched with enough detail to show the sources and boundaries of the evidence base?",
+          "item_question_background": "SANRA treats transparency about information sources as a central quality signal for narrative reviews. The instructions make clear that a perfect narrative-review score does not require the exhaustive method of a systematic review, but it does require more than a passing mention of the search; search terms and the types of literature included should be identifiable.",
+          "item_extraction_instruction": "Extract any description of databases, search terms, search strategy, search period, inclusion boundaries, and types of literature or evidence sources used.",
+          "item_expected_location": "Methods / Introduction / Supplementary methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Description of the literature search",
+              "locator": "Fig. 1, item 3"
+            },
+            {
+              "page": 4,
+              "quote": "not necessary to describe the literature search in as much detail",
+              "locator": "Fig. 2, item 3 instructions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Search and Documentation",
+          "item": "4",
+          "item_name": "Support key statements with references",
+          "item_question": "Are the review's key statements backed by references consistently enough that the main argument is documented rather than asserted?",
+          "item_question_background": "The SANRA instructions emphasize that not every sentence needs a citation, but statements essential to the manuscript's argument should almost always be referenced. The tool even distinguishes between consistently, inconsistently, and only sporadically documented key claims.",
+          "item_extraction_instruction": "Extract representative key claims and identify whether they are supported by citations, noting especially any major assertions that lack references.",
+          "item_expected_location": "Throughout the manuscript, especially introduction, body sections, and conclusion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Key statements are supported by references",
+              "locator": "Fig. 1, item 4 anchor for high standard"
+            },
+            {
+              "page": 4,
+              "quote": "those that are essential for the arguments of the manuscript",
+              "locator": "Fig. 2, item 4 instructions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Argument and Evidence",
+      "items": [
+        {
+          "section": "Argument and Evidence",
+          "item": "5",
+          "item_name": "Use scientific reasoning supported by appropriate evidence",
+          "item_question": "Does the narrative review build its main points on appropriate arguments and bring in suitable forms of evidence for those arguments instead of introducing evidence selectively or weakly?",
+          "item_question_background": "The SANRA explanation for scientific reasoning focuses on the quality of the point being made, not just the presence of citations. A convincing review should present evidence for key arguments and identify study designs or evidence types that fit the claim being advanced.",
+          "item_extraction_instruction": "Extract examples of how the review connects claims to evidence, including whether it names study designs, uses evidence appropriately for the argument, and avoids selective or superficial support.",
+          "item_expected_location": "Main body / Discussion / Argumentative synthesis sections",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "The article's point is not based on appropriate arguments",
+              "locator": "Fig. 1, item 5 anchor for low standard"
+            },
+            {
+              "page": 4,
+              "quote": "presents evidence for key arguments",
+              "locator": "Fig. 2, item 5 instructions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Argument and Evidence",
+          "item": "6",
+          "item_name": "Present relevant endpoint data appropriately",
+          "item_question": "Does the review present the concrete outcome or endpoint data central to its argument in an appropriate and interpretable way?",
+          "item_question_background": "SANRA separates the use of evidence from the presentation of outcome data. The instructions explain that relevant data vary by field, but when quantitative endpoints are central, they should be shown in the right form and with the right context, such as confidence intervals for effect sizes when appropriate.",
+          "item_extraction_instruction": "Extract how the review presents the main outcome or endpoint data, including whether data are concrete, relevant to the argument, and expressed in an appropriate format for the field.",
+          "item_expected_location": "Main body / Tables / Figures / Results summarized in text",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Appropriate presentation of data",
+              "locator": "Fig. 1, item 6"
+            },
+            {
+              "page": 4,
+              "quote": "it is appropriate that effect sizes are accompanied by confidence intervals",
+              "locator": "Fig. 2, item 6 instructions"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Axis": "primary_design",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "SANRA",
+      "Scale for the Assessment of Narrative Review Articles",
+      "narrative review quality assessment"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bnarrative review\\b",
+          "\\bnon-systematic review\\b",
+          "\\breview article\\b",
+          "\\bSANRA\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bliterature search\\b",
+          "\\bkey statements\\b",
+          "\\breferences\\b",
+          "\\bevidence gaps?\\b",
+          "\\bscientific reasoning\\b",
+          "\\bendpoint data\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A medical narrative review manuscript explains why the topic matters, states clear review aims, describes how literature was gathered, supports key claims with references, and synthesizes endpoint data in an argument-driven way.",
+      "An editor or reviewer is evaluating a non-systematic review article and wants a short checklist focused on narrative-review quality rather than systematic-review reporting."
+    ],
+    "EvidenceExamplesNegative": [
+      "A systematic review or meta-analysis with protocol registration, formal study selection, and risk-of-bias methods is better matched to systematic-review standards than to SANRA.",
+      "A primary clinical trial or observational study manuscript with no review-style synthesis should not map to SANRA."
+    ],
+    "Explain": "Use SANRA for narrative review manuscripts in medicine and health when the task is to assess or improve the core quality of a non-systematic review article."
+  }
+}

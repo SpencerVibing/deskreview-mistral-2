@@ -1,0 +1,234 @@
+{
+  "id": "statistics-urology-design",
+  "Name": "Statistics in Urology: Design",
+  "LongName": "Guidelines for Reporting of Statistics for Clinical Research in Urology: Design",
+  "Description": "Design-focused statistical reporting overlay for clinical research manuscripts in urology. It covers study-design reporting, cohort selection, randomization, and sufficiently detailed statistical methods.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical research statistics reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Improve reporting of study design and statistical analysis setup in urology manuscripts by making cohort selection, randomization, study questions, and analysis methods transparent and reproducible.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical research article",
+    "Observational study report",
+    "Randomized trial report",
+    "Diagnostic or prognostic study report"
+  ],
+  "ManuscriptSubType": [
+    "Clinical outcomes study",
+    "Time-to-event analysis report",
+    "Prediction or prognostic model report",
+    "Diagnostic test evaluation",
+    "Meta-analysis with statistical synthesis"
+  ],
+  "StudyType": [
+    "Clinical study",
+    "Observational study",
+    "Randomized trial",
+    "Diagnostic study",
+    "Prognostic study",
+    "Meta-analysis"
+  ],
+  "Keywords": [
+    "statistics reporting",
+    "clinical research statistics",
+    "urology statistics",
+    "p-values",
+    "confidence intervals",
+    "time-to-event analysis",
+    "multivariable models",
+    "diagnostic tests",
+    "clinical interpretation",
+    "study design reporting",
+    "cohort selection",
+    "randomization",
+    "statistical methods reproducibility"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical study",
+      "Observational study",
+      "Randomized trial",
+      "Diagnostic study",
+      "Prognostic study",
+      "Meta-analysis"
+    ],
+    "Disciplines": [
+      "Urology",
+      "Clinical medicine",
+      "Medical research",
+      "Biostatistics"
+    ],
+    "Coverage": "Clinical research manuscripts, especially in urology, that report statistical analyses of interventions, outcomes, predictors, diagnostic tests, prognostic models, or evidence synthesis.",
+    "Focus": "Transparent reporting of cohort selection and randomization, appropriate description of statistical methods, correct interpretation of p-values and confidence intervals, emphasis on effect estimates, careful handling of time-to-event analyses, sound multivariable and diagnostic modeling, and clinically meaningful conclusions.",
+    "ContrastWith": "Not a disease-specific treatment guideline and not a substitute for design-specific reporting statements such as CONSORT, STROBE, TRIPOD, or AMSTAR. It is a cross-cutting statistical overlay for clinical research reporting."
+  },
+  "references": {
+    "primary": {
+      "description": "Assel M, Sjoberg D, Elders A, Wang X, Huo D, Botchway A, Delfino K, Fan Y, Zhao Z, Koyama T, Hollenbeck B, Qin R, Zahnd W, Zabor EC, Kattan MW, Vickers AJ. Guidelines for Reporting of Statistics for Clinical Research in Urology. The Journal of Urology. 2019;201:595-604.",
+      "url": "https://www.auajournals.org/doi/epdf/10.1097/JU.0000000000000001"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Reporting of Design and Statistical Analysis",
+      "items": [
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.1",
+          "item_name": "Follow existing reporting guidelines for the type of study you are reporting",
+          "item_question": "Does the manuscript follow the recommendation to \"follow existing reporting guidelines for the type of study you are reporting\"?",
+          "item_question_background": "The paper points authors to design-specific standards such as CONSORT, ReMARK, TRIPOD, STROBE, and AMSTAR because many core reporting expectations are already well defined elsewhere.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"follow existing reporting guidelines for the type of study you are reporting\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Follow existing reporting guidelines for the type of study you are reporting",
+              "locator": "Guideline 1.1"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.2",
+          "item_name": "Describe cohort selection fully",
+          "item_question": "Does the manuscript follow the recommendation to \"describe cohort selection fully\"?",
+          "item_question_background": "A cohort label alone is not enough; the article says readers need dates, inclusion criteria, whether the series was consecutive or selected, and exclusions counted one by one to understand who entered the analysis.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"describe cohort selection fully\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe cohort selection fully",
+              "locator": "Guideline 1.2"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.3",
+          "item_name": "Describe the practical steps of randomization in randomized trials",
+          "item_question": "Does the manuscript follow the recommendation to \"describe the practical steps of randomization in randomized trials\"?",
+          "item_question_background": "The key issue is allocation concealment: simply mentioning a randomization list or envelopes does not show that recruiters could not predict or alter assignments before enrollment.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"describe the practical steps of randomization in randomized trials\".",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe the practical steps of randomization in randomized trials",
+              "locator": "Guideline 1.3"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.4",
+          "item_name": "Statistical methods should describe the study questions and statistical approaches used to address each question",
+          "item_question": "Does the manuscript follow the recommendation to \"statistical methods should describe the study questions and statistical approaches used to address each question\"?",
+          "item_question_background": "The article criticizes generic method blurbs because they only show that obviously wrong tests were avoided; authors should instead tie each primary question to its specific analysis and rationale.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"statistical methods should describe the study questions and statistical approaches used to address each question\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Statistical methods should describe the study questions and statistical approaches used to address each question",
+              "locator": "Guideline 1.4"
+            }
+          ]
+        },
+        {
+          "section": "Reporting of Design and Statistical Analysis",
+          "item": "1.5",
+          "item_name": "Statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set",
+          "item_question": "Does the manuscript follow the recommendation to \"statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set\"?",
+          "item_question_background": "Replication is treated as a scientific cornerstone here, so vague phrases like adjusting for confounders or non-linear methods are insufficient without naming variables, coding choices, and model details.",
+          "item_extraction_instruction": "Extract whether and how the manuscript addresses the recommendation to \"statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set\".",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Statistical methods should be described in sufficient detail to allow replication by an independent statistician given the same data set",
+              "locator": "Guideline 1.5"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology: Design",
+      "Statistics in Urology: Design",
+      "Guidelines for Reporting of Statistics for Clinical Research in Urology",
+      "clinical research statistics reporting guideline",
+      "urology statistics reporting guideline"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\burology\\b",
+          "\\bclinical research\\b",
+          "\\bstatistics\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bp-value[s]?\\b",
+          "\\bconfidence interval[s]?\\b",
+          "\\bKaplan[- ]Meier\\b",
+          "\\bmultivariable\\b",
+          "\\bhazard ratio\\b",
+          "\\bdecision curve\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdo not accept the null hypothesis\\b",
+          "\\bdescribe cohort selection fully\\b",
+          "\\ballocation concealment\\b",
+          "\\btime[- ]to[- ]event\\b",
+          "\\boverfit\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bqualitative meta-analysis\\b",
+          "\\banimal experiment\\b",
+          "\\bcase report\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A clinical paper discusses p-values, confidence intervals, Kaplan-Meier curves, multivariable models, or diagnostic-test performance and needs a statistical reporting overlay.",
+      "A urology outcomes manuscript reports time-to-event analyses, hazard ratios, calibration, or decision curves and would benefit from this guideline."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely qualitative study without statistical inference is not a match.",
+      "A lab protocol or disease-management guideline is not the target of this reporting standard."
+    ],
+    "Explain": "Use this module when a urology clinical manuscript needs help reporting study design, cohort selection, randomization, and statistical methods in a reproducible way."
+  }
+}

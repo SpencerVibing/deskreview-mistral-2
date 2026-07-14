@@ -1,0 +1,383 @@
+{
+  "id": "tidier",
+  "Name": "TIDieR",
+  "LongName": "Template for Intervention Description and Replication (TIDieR) checklist and guide",
+  "Description": "TIDieR is a 12-item intervention-reporting checklist and guide designed to improve completeness of intervention descriptions so studies can be interpreted, replicated, and implemented.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Intervention description and replication reporting",
+  "StandardizedTopDomain": "Cross-disciplinary",
+  "Aim": "To ensure interventions are described in enough detail for replication and practical implementation, including rationale, materials, procedures, provider details, delivery mode, dose, tailoring, modifications, and fidelity.",
+  "ManuscriptType": [
+    "Original research article",
+    "Clinical trial report",
+    "Intervention study report",
+    "Study protocol"
+  ],
+  "ManuscriptSubType": [
+    "Nonpharmacologic intervention trial",
+    "Behavioral intervention study",
+    "Rehabilitation and exercise intervention study"
+  ],
+  "StudyType": [
+    "Intervention study",
+    "Randomized controlled trial",
+    "Clinical trial protocol",
+    "Comparative effectiveness study"
+  ],
+  "Keywords": [
+    "TIDieR",
+    "Template for Intervention Description and Replication",
+    "intervention reporting",
+    "intervention fidelity",
+    "intervention adherence",
+    "replication",
+    "treatment description",
+    "behavioral intervention",
+    "nonpharmacologic intervention",
+    "materials and procedures",
+    "who provided",
+    "how delivered",
+    "where delivered",
+    "when and how much",
+    "tailoring",
+    "modifications",
+    "CONSORT item 5 extension",
+    "SPIRIT item 11 extension"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Intervention study",
+      "Randomized controlled trial",
+      "Clinical trial protocol",
+      "Comparative effectiveness study"
+    ],
+    "Disciplines": [
+      "Cross-disciplinary",
+      "Medical and health",
+      "Social sciences",
+      "Engineering & Technology"
+    ],
+    "Coverage": "Any manuscript that evaluates or documents one or more interventions and needs a reproducible, implementation-ready intervention description, including trials, protocols, and other intervention-focused designs.",
+    "Focus": "Intervention rationale, materials, procedures, provider qualifications, delivery mode, setting, schedule/dose, personalization, protocol modifications, and planned/actual fidelity or adherence.",
+    "ContrastWith": "TIDieR is not a full design-level reporting standard by itself; it is an intervention-description overlay intended to be used alongside primary design guidelines such as CONSORT or SPIRIT and other study-design checklists."
+  },
+  "references": {
+    "primary": {
+      "description": "Hoffmann TC, Glasziou PP, Boutron I, et al. Better reporting of interventions: template for intervention description and replication (TIDieR) checklist and guide. BMJ. 2014;348:g1687.",
+      "url": "https://doi.org/10.1136/bmj.g1687"
+    },
+    "secondary": [
+      {
+        "description": "TIDieR checklist PDF (EQUATOR Network resource).",
+        "url": "https://www.equator-network.org/wp-content/uploads/2014/03/TIDieR-Checklist-PDF.pdf"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "TIDieR checklist",
+      "items": [
+        {
+          "section": "TIDieR checklist",
+          "item": "1",
+          "item_name": "Brief name",
+          "item_question": "Is the intervention identified with a clear brief name or phrase?",
+          "item_question_background": "A concise intervention label anchors interpretation and traceability across reports and protocols.",
+          "item_extraction_instruction": "Extract the intervention name/label used by the authors, including comparator labels where applicable.",
+          "item_expected_location": "Title / Abstract / Methods (intervention subsection)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "BRIEF NAME ... Provide the name or a phrase that describes the intervention.",
+              "locator": "TIDieR checklist page 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "2",
+          "item_name": "Why",
+          "item_question": "Is the rationale, theory, or goal of essential intervention elements described?",
+          "item_question_background": "Intervention rationale is needed to interpret mechanisms and transferability.",
+          "item_extraction_instruction": "Extract the stated rationale/theory/goals for intervention components.",
+          "item_expected_location": "Introduction / Methods (rationale)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "WHY ... Describe any rationale, theory, or goal of the elements essential to the intervention.",
+              "locator": "TIDieR checklist page 1"
+            }
+          ],
+          "extraction_confidence": 0.91,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "3",
+          "item_name": "What (materials)",
+          "item_question": "Are physical/information materials used in intervention delivery or provider training described and locatable?",
+          "item_question_background": "Materials are often required to replicate intervention delivery.",
+          "item_extraction_instruction": "Extract all intervention materials and where they can be accessed (appendix/repository/URL).",
+          "item_expected_location": "Methods / Supplement / Appendix / Repository links",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "WHAT Materials: Describe any physical or informational materials ... Provide information on where the materials can be accessed.",
+              "locator": "TIDieR checklist page 1"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "4",
+          "item_name": "What (procedures)",
+          "item_question": "Are intervention procedures, activities, and processes described, including enabling/support activities?",
+          "item_question_background": "Procedure transparency is central to faithful replication and implementation.",
+          "item_extraction_instruction": "Extract stepwise procedures and any enabling/support processes used in delivery.",
+          "item_expected_location": "Methods (intervention procedures)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Procedures: Describe each of the procedures, activities, and/or processes used in the intervention...",
+              "locator": "TIDieR checklist page 1"
+            }
+          ],
+          "extraction_confidence": 0.91,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "5",
+          "item_name": "Who provided",
+          "item_question": "Are intervention providers' categories, expertise/background, and training described?",
+          "item_question_background": "Provider characteristics can materially affect intervention effects and reproducibility.",
+          "item_extraction_instruction": "Extract provider roles, qualifications/experience, and specific training for delivery.",
+          "item_expected_location": "Methods (intervention delivery/provider section)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "WHO PROVIDED ... For each category of intervention provider ... describe their expertise, background and any specific training given.",
+              "locator": "TIDieR checklist page 1"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "6",
+          "item_name": "How",
+          "item_question": "Are modes of intervention delivery described (for example face-to-face, internet, telephone) and individual/group format?",
+          "item_question_background": "Delivery mode affects accessibility, fidelity, and comparability.",
+          "item_extraction_instruction": "Extract all delivery modes/channels and whether delivery was individual or group-based.",
+          "item_expected_location": "Methods (delivery mode)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "HOW ... Describe the modes of delivery ... and whether it was provided individually or in a group.",
+              "locator": "TIDieR checklist page 1"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "7",
+          "item_name": "Where",
+          "item_question": "Is the intervention setting/location described, including necessary infrastructure or relevant features?",
+          "item_question_background": "Setting context influences feasibility and external validity.",
+          "item_extraction_instruction": "Extract intervention location(s), setting type(s), and infrastructure/context features.",
+          "item_expected_location": "Methods (setting)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "WHERE ... Describe the type(s) of location(s) where the intervention occurred, including any necessary infrastructure...",
+              "locator": "TIDieR checklist page 1"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "8",
+          "item_name": "When and how much",
+          "item_question": "Are intervention schedule and dose details reported (frequency, period, number of sessions, duration, intensity/dose)?",
+          "item_question_background": "Dose/schedule detail is required for replication and interpretation of outcomes.",
+          "item_extraction_instruction": "Extract timing and dose parameters: frequency, schedule, total period, session count, duration, intensity/dose.",
+          "item_expected_location": "Methods (intervention protocol/dose)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Describe the number of times the intervention was delivered and over what period of time... duration, intensity or dose.",
+              "locator": "WHEN and HOW MUCH"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "9",
+          "item_name": "Tailoring",
+          "item_question": "If personalized/titrated/adapted, are what/why/when/how of tailoring described?",
+          "item_question_background": "Personalization rules are essential for reproducibility in adaptive interventions.",
+          "item_extraction_instruction": "Extract whether tailoring occurred and the exact adaptation rules, timing, and rationale.",
+          "item_expected_location": "Methods (tailoring/adaptation)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "If the intervention was planned to be personalised, titrated or adapted, then describe what, why, when, and how.",
+              "locator": "TAILORING"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "10",
+          "item_name": "Modifications",
+          "item_question": "If intervention changed during study, are modifications described (what/why/when/how)?",
+          "item_question_background": "Protocol modifications can influence interpretation and generalizability.",
+          "item_extraction_instruction": "Extract all in-study intervention modifications with reasons and timing.",
+          "item_expected_location": "Methods / Results (protocol deviations or updates)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "If the intervention was modified during the course of the study, describe the changes (what, why, when, and how).",
+              "locator": "MODIFICATIONS"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "11",
+          "item_name": "How well (planned)",
+          "item_question": "If adherence/fidelity was assessed, are planned assessment methods, assessors, and maintenance strategies reported?",
+          "item_question_background": "Planned fidelity assessment helps judge intervention integrity.",
+          "item_extraction_instruction": "Extract planned adherence/fidelity metrics, assessors, and strategies to maintain/improve fidelity.",
+          "item_expected_location": "Methods (fidelity/adherence assessment)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Planned: If intervention adherence or fidelity was assessed, describe how and by whom...",
+              "locator": "HOW WELL"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "TIDieR checklist",
+          "item": "12",
+          "item_name": "How well (actual)",
+          "item_question": "If adherence/fidelity was assessed, is actual intervention delivery relative to plan reported?",
+          "item_question_background": "Actual fidelity determines whether observed effects reflect intended intervention.",
+          "item_extraction_instruction": "Extract actual adherence/fidelity results and extent intervention was delivered as planned.",
+          "item_expected_location": "Results (fidelity/adherence outcomes)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Actual: If intervention adherence or fidelity was assessed, describe the extent to which the intervention was delivered as planned.",
+              "locator": "HOW WELL"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Cross-disciplinary",
+      "Medical and health",
+      "Social sciences",
+      "Engineering & Technology"
+    ],
+    "Aliases": [
+      "TIDieR",
+      "Template for Intervention Description and Replication",
+      "TIDieR checklist",
+      "TIDieR guide"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bTIDieR\\b",
+          "\\bTemplate\\s+for\\s+Intervention\\s+Description\\s+and\\s+Replication\\b",
+          "\\bintervention\\s+description\\b",
+          "\\breplication\\b",
+          "\\bintervention\\s+fidelity\\b",
+          "\\badherence\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\btidy\\s+data\\b",
+          "\\btidyverse\\b",
+          "\\broom\\s+package\\b",
+          "\\bcleaning\\s+dataset\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bwho\\s+provided\\b",
+          "\\bwhen\\s+and\\s+how\\s+much\\b",
+          "\\btailoring\\b",
+          "\\bmodifications\\b",
+          "\\bdelivered\\s+as\\s+planned\\b",
+          "\\bintervention\\s+materials\\b",
+          "\\bintervention\\s+procedures\\b",
+          "\\bnonpharmacologic\\s+intervention\\b",
+          "\\bCONSORT\\s+item\\s*5\\b",
+          "\\bSPIRIT\\s+item\\s*11\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "The intervention is described using TIDieR including materials, procedures, provider training, delivery mode, and dose schedule.",
+      "We reported intervention fidelity with planned and actual adherence and described all protocol modifications.",
+      "This nonpharmacologic trial uses CONSORT with TIDieR as an extension for intervention details."
+    ],
+    "EvidenceExamplesNegative": [
+      "The paper mentions tidy data and tidyverse packages but does not report an intervention study.",
+      "This manuscript is a molecular assay protocol with no intervention providers, delivery mode, or fidelity reporting context.",
+      "The article is a narrative editorial without intervention procedures or dose/schedule reporting."
+    ],
+    "Explain": "Adds an intervention-description reporting overlay when manuscripts evaluate interventions and need reproducible details on materials, procedures, delivery, dosing, tailoring, and fidelity."
+  }
+}

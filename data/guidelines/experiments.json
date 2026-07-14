@@ -1,0 +1,735 @@
+{
+  "id": "experiments",
+  "Name": "Experiments",
+  "LongName": "Reporting Guidelines for Experimental Research: A Report from the Experimental Research Section Standards Committee",
+  "Description": "A reporting guideline for laboratory, field, and survey experiments in social science, designed to improve transparency and evaluability of experimental design, implementation, attrition, and analysis reporting.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Social science experimental reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To ensure experimental manuscripts report enough methodological and results detail for readers and reviewers to evaluate validity, interpret findings, and assess replicability.",
+  "ManuscriptType": [
+    "Original research article",
+    "Experimental study report",
+    "Field experiment report",
+    "Survey experiment report",
+    "Laboratory experiment report"
+  ],
+  "ManuscriptSubType": [
+    "Political science experiment",
+    "Behavioral social science experiment",
+    "Survey-embedded randomized experiment"
+  ],
+  "StudyType": [
+    "Experimental study",
+    "Randomized experiment",
+    "Field experiment",
+    "Laboratory experiment",
+    "Survey experiment"
+  ],
+  "Keywords": [
+    "reporting guidelines for experimental research",
+    "experimental research section standards committee",
+    "recommended reporting standards for experiments",
+    "laboratory field survey experiments",
+    "political science experiment reporting",
+    "random assignment",
+    "unit of randomization",
+    "baseline means and standard deviations",
+    "pretreatment measures",
+    "treatment fidelity",
+    "manipulation checks",
+    "CONSORT participant flow diagram",
+    "attrition by treatment group",
+    "intent-to-treat",
+    "ITT analysis",
+    "response rate",
+    "survey firm recruitment",
+    "blinding",
+    "inverse probability weighting",
+    "replication dataset"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Experimental study",
+      "Randomized experiment",
+      "Field experiment",
+      "Laboratory experiment",
+      "Survey experiment"
+    ],
+    "Disciplines": [
+      "Social sciences"
+    ],
+    "Coverage": "Social science manuscripts reporting randomized or quasi-randomized experiments, especially political science lab, field, and survey experiments with treatment and control groups.",
+    "Focus": "Transparent reporting of hypotheses, participant recruitment and context, assignment procedures, treatment delivery, participant flow, attrition, and intent-to-treat statistical summaries.",
+    "ContrastWith": "This guide is a social-science experiment reporting framework and not a medical trial standard, qualitative reporting guide, or non-experimental observational reporting standard."
+  },
+  "references": {
+    "primary": {
+      "description": "Gerber AS, Arceneaux K, Boudreau C, et al. Reporting guidelines for experimental research: A report from the Experimental Research Section Standards Committee. Journal of Experimental Political Science. 2014;1(1):81-98. doi:10.1017/xps.2014.11.",
+      "url": "https://researchonline.lse.ac.uk/id/eprint/84986/1/04_GerberEtAl2014-ReportingStandards-Main&Appendix1_final.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Hypotheses",
+      "items": [
+        {
+          "section": "Hypotheses",
+          "item": "1",
+          "item_name": "Specific objectives or hypotheses",
+          "item_question": "Are the specific objectives or hypotheses of the experiment explicitly stated?",
+          "item_question_background": "Explicit hypotheses are needed to evaluate whether analyses and conclusions align with the stated research questions.",
+          "item_extraction_instruction": "Extract the stated research question(s) and specific hypothesis/hypotheses tested.",
+          "item_expected_location": "Introduction / End of introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "A. Hypotheses - State specific objectives or hypotheses.",
+              "locator": "Appendix 1 section A"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Subjects and context",
+      "items": [
+        {
+          "section": "Subjects and context",
+          "item": "2",
+          "item_name": "Eligibility and exclusion criteria",
+          "item_question": "Are participant eligibility and exclusion criteria reported?",
+          "item_question_background": "Eligibility and exclusion criteria determine who is represented and are required to assess internal and external validity.",
+          "item_extraction_instruction": "Extract who was eligible, exclusion criteria, and any recruitment-stage changes to eligibility/exclusion.",
+          "item_expected_location": "Methods (participants or sample)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Report eligibility and exclusion criteria for participants.",
+              "locator": "Appendix 1 section B"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Subjects and context",
+          "item": "3",
+          "item_name": "Participant recruitment and selection procedures",
+          "item_question": "Are procedures used to recruit and select participants described?",
+          "item_question_background": "Recruitment procedures affect sample composition and potential selection bias.",
+          "item_extraction_instruction": "Extract recruitment and participant selection procedures; if a survey was used, extract survey firm identity and respondent recruitment approach.",
+          "item_expected_location": "Methods (recruitment)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Report procedures used to recruit and select participants.",
+              "locator": "Appendix 1 section B"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Subjects and context",
+          "item": "4",
+          "item_name": "Recruitment and experiment dates",
+          "item_question": "Are recruitment periods and experiment dates reported, including follow-up measurement dates where relevant?",
+          "item_question_background": "Timing information supports context interpretation, seasonality checks, and reproducibility.",
+          "item_extraction_instruction": "Extract dates or time windows for recruitment, experiment conduct, and repeated measurements/follow-up.",
+          "item_expected_location": "Methods (timeline or procedures)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Report recruitment dates defining the periods of recruitment and when the experiments were conducted.",
+              "locator": "Appendix 1 section B"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Subjects and context",
+          "item": "5",
+          "item_name": "Data-collection settings and locations",
+          "item_question": "Are settings and locations where data were collected described?",
+          "item_question_background": "Setting and location influence generalizability and practical interpretation of effects.",
+          "item_extraction_instruction": "Extract data-collection setting(s) and contextual specifics (for example field/lab/classroom, institution type, geographic location).",
+          "item_expected_location": "Methods (setting/context)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Describe settings and locations where the data were collected.",
+              "locator": "Appendix 1 section B"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Subjects and context",
+          "item": "6",
+          "item_name": "Survey response rate (if survey)",
+          "item_question": "If a survey component exists, are response rate and calculation method reported?",
+          "item_question_background": "Survey response reporting is required to judge nonresponse risk and representativeness.",
+          "item_extraction_instruction": "If applicable, extract survey response rate, denominator definition, and how response rate was calculated.",
+          "item_expected_location": "Methods / Results (survey sample)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "If there is a survey: Provide response rate and how it was calculated.",
+              "locator": "Appendix 1 section B"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Allocation method",
+      "items": [
+        {
+          "section": "Allocation method",
+          "item": "7",
+          "item_name": "Assignment-sequence generation",
+          "item_question": "Are details of the assignment-sequence generation procedure reported?",
+          "item_question_background": "Assignment generation detail is needed to evaluate assignment integrity and bias risk.",
+          "item_extraction_instruction": "Extract the procedure used to generate assignment sequence (for example randomization method) and any restrictions such as blocking.",
+          "item_expected_location": "Methods (randomization/allocation)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "Report details of the procedure used to generate the assignment sequence.",
+              "locator": "Appendix 1 section C"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Allocation method",
+          "item": "8",
+          "item_name": "Unit of randomization",
+          "item_question": "If random assignment is used, is the unit of randomization reported?",
+          "item_question_background": "Unit-of-randomization clarity is necessary for correct analysis and standard-error estimation.",
+          "item_extraction_instruction": "Extract whether random assignment was used and the unit of randomization (for example individual, group, household, cluster).",
+          "item_expected_location": "Methods (assignment/allocation)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "Note the unit of randomization (individuals, groups, households, etc.).",
+              "locator": "Appendix 1 section C"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Allocation method",
+          "item": "9",
+          "item_name": "Baseline covariate table by group",
+          "item_question": "If random assignment is used, are baseline means and standard deviations for pretreatment variables reported by group?",
+          "item_question_background": "Baseline covariate reporting helps detect assignment or implementation problems and supports critical appraisal.",
+          "item_extraction_instruction": "Extract whether a baseline table is provided by experimental group and whether blocking-related reporting (including weighted summaries where needed) is addressed.",
+          "item_expected_location": "Results / Tables / Appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "provide a table ... showing baseline means and standard deviations ... by experimental group",
+              "locator": "Appendix 1 section C"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Treatments",
+      "items": [
+        {
+          "section": "Treatments",
+          "item": "10",
+          "item_name": "Treatment and control condition description",
+          "item_question": "Are interventions in each treatment condition and control condition described in detail?",
+          "item_question_background": "Detailed treatment and control descriptions are required for replication and interpretation of causal contrasts.",
+          "item_extraction_instruction": "Extract detailed descriptions of each treatment arm and the control condition, including what participants actually received.",
+          "item_expected_location": "Methods (interventions/treatments)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "Provide a detailed description of the interventions in each treatment condition, as well as a description of the control group.",
+              "locator": "Appendix 1 section D"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Treatments",
+          "item": "11",
+          "item_name": "Treatment delivery details and fidelity",
+          "item_question": "Are treatment administration details, anomalies, checks, and fidelity evidence reported?",
+          "item_question_background": "Without administration and fidelity detail, treatment effects may be uninterpretable or non-replicable.",
+          "item_extraction_instruction": "Extract how and when interventions were administered; delivery mode; software details if computerized; anomalies; manipulation checks; practice rounds; debriefing/interviews/questionnaires; and treatment fidelity evidence.",
+          "item_expected_location": "Methods (intervention procedures) / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "State how and when manipulations or interventions were administered.",
+              "locator": "Appendix 1 section D"
+            },
+            {
+              "page": 18,
+              "quote": "Report treatment fidelity: Evidence on whether the treatment was delivered as intended.",
+              "locator": "Appendix 1 section D"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Treatments",
+          "item": "12",
+          "item_name": "Treatment materials availability",
+          "item_question": "Are complete treatment materials made available (for example scripts, question wording variants, mailings)?",
+          "item_question_background": "Material availability is central to reproducibility and transparent peer review.",
+          "item_extraction_instruction": "Extract whether complete treatment materials are available and where, including scripts, wording variants, and sample materials where relevant.",
+          "item_expected_location": "Methods / Appendix / Supplement / Repository",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "verbatim instructions and/or other treatment materials provided in an appendix",
+              "locator": "Appendix 1 section D"
+            },
+            {
+              "page": 21,
+              "quote": "Did the author(s) make complete treatment materials available?",
+              "locator": "Table 1 treatment materials row"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Outcome measures and covariates",
+      "items": [
+        {
+          "section": "Outcome measures and covariates",
+          "item": "13",
+          "item_name": "Primary and secondary outcome definitions",
+          "item_question": "Are primary/secondary outcomes and covariates precisely defined?",
+          "item_question_background": "Outcome and covariate definition detail is needed to verify construct validity and analysis reproducibility.",
+          "item_extraction_instruction": "Extract definitions of primary and secondary outcomes and covariates, including coding and scale details.",
+          "item_expected_location": "Methods (outcomes/measures)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Provide precise definitions of all primary and secondary measures and covariates.",
+              "locator": "Appendix 1 section E.1"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Outcome measures and covariates",
+          "item": "14",
+          "item_name": "Index construction and question wording",
+          "item_question": "If indices or survey items are used, are construction details and exact wording reported?",
+          "item_question_background": "Index and wording details are essential to reproduce outcomes and compare effect estimates.",
+          "item_extraction_instruction": "If applicable, extract exact index construction rules and survey question wording (including appendix location).",
+          "item_expected_location": "Methods / Appendix / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "For indices, provide exact description of how they are formed. For survey items, provide exact question wording in an appendix.",
+              "locator": "Appendix 1 section E.1"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Outcome measures and covariates",
+          "item": "15",
+          "item_name": "Prespecified versus exploratory outcomes",
+          "item_question": "Are prespecified outcomes/subgroup analyses distinguished from exploratory analyses?",
+          "item_question_background": "Separating prespecified and exploratory analyses reduces selective-reporting ambiguity.",
+          "item_extraction_instruction": "Extract statements that identify which outcomes/subgroup analyses were prespecified and which were exploratory.",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Clearly state which of the outcomes and subgroup analyses were specified prior to the experiment and which were the result of exploratory analysis.",
+              "locator": "Appendix 1 section E.1"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Participant flow and attrition",
+      "items": [
+        {
+          "section": "Participant flow and attrition",
+          "item": "16",
+          "item_name": "Initially assessed for eligibility",
+          "item_question": "Is the number of subjects initially assessed for eligibility reported?",
+          "item_question_background": "Starting denominators are required to understand recruitment and potential selection losses.",
+          "item_extraction_instruction": "Extract the number of subjects assessed for eligibility at study entry.",
+          "item_expected_location": "Results / CONSORT-style flow diagram / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Number of subjects initially assessed for eligibility for the study.",
+              "locator": "Appendix 1 section E.2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Participant flow and attrition",
+          "item": "17",
+          "item_name": "Pre-randomization exclusions and reasons",
+          "item_question": "Are exclusions before random assignment and reasons reported?",
+          "item_question_background": "Pre-assignment exclusions can introduce bias and must be transparent.",
+          "item_extraction_instruction": "Extract counts and reasons for exclusions prior to random assignment.",
+          "item_expected_location": "Results / Participant flow diagram",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Exclusions prior to random assignment and reasons for the exclusions.",
+              "locator": "Appendix 1 section E.2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Participant flow and attrition",
+          "item": "18",
+          "item_name": "Initial assignment counts by group",
+          "item_question": "Is the number of subjects initially assigned to each experimental group reported?",
+          "item_question_background": "Group assignment counts are needed for denominator consistency and effect interpretation.",
+          "item_extraction_instruction": "Extract initial assigned counts for each experimental group.",
+          "item_expected_location": "Results / Participant flow diagram / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "Number of subjects initially assigned to each experimental group.",
+              "locator": "Appendix 1 section E.2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Participant flow and attrition",
+          "item": "19",
+          "item_name": "Allocated intervention received and nonreceipt reasons",
+          "item_question": "Is the proportion receiving allocated intervention reported, with reasons for nonreceipt?",
+          "item_question_background": "Nonreceipt/noncompliance can bias estimands if not transparently reported.",
+          "item_extraction_instruction": "Extract per-group proportion receiving allocated intervention and reasons for nonreceipt.",
+          "item_expected_location": "Results / Participant flow diagram / Compliance reporting",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "The proportion of each group that received the allocated intervention and the reasons why subjects did not receive the intended intervention.",
+              "locator": "Appendix 1 section E.2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Participant flow and attrition",
+          "item": "20",
+          "item_name": "Missing outcome data by group",
+          "item_question": "Is the number of subjects in each group without outcome data reported?",
+          "item_question_background": "Outcome-missingness by group is critical for attrition-bias assessment.",
+          "item_extraction_instruction": "Extract counts per group for subjects lacking outcome data and any reasons provided.",
+          "item_expected_location": "Results / Participant flow diagram / Attrition section",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "The number of subjects in each group that dropped out or for other reasons do not have outcome data.",
+              "locator": "Appendix 1 section E.2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Participant flow and attrition",
+          "item": "21",
+          "item_name": "Analysis sample counts and exclusions",
+          "item_question": "Is the number analyzed per group reported with reasons for exclusions?",
+          "item_question_background": "Analysis-population transparency is needed to evaluate analysis validity and attrition handling.",
+          "item_extraction_instruction": "Extract per-group analyzed counts and reasons for exclusions from analysis.",
+          "item_expected_location": "Results / Participant flow diagram / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 18,
+              "quote": "The number of subjects in each group that are included in the statistical analysis, and the reasons for any exclusions.",
+              "locator": "Appendix 1 section E.2"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Statistical analysis",
+      "items": [
+        {
+          "section": "Statistical analysis",
+          "item": "22",
+          "item_name": "Intent-to-treat summary statistics",
+          "item_question": "Are sample means, standard deviations, and group sizes for outcomes reported using intent-to-treat analysis?",
+          "item_question_background": "ITT descriptive outcome summaries improve transparency and interpretability of group-level outcomes.",
+          "item_extraction_instruction": "Extract ITT outcome summaries (means, standard deviations, and N per assigned group), including block-weighted summaries if unequal assignment with block randomization.",
+          "item_expected_location": "Results / Tables / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 19,
+              "quote": "Report sample means and standard deviations for the outcome variables using intent-to-treat (ITT) analysis",
+              "locator": "Appendix 1 section E.3"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Statistical analysis",
+          "item": "23",
+          "item_name": "Level-of-analysis versus level-of-randomization",
+          "item_question": "Is any mismatch between level of analysis and level of randomization addressed with appropriate standard errors?",
+          "item_question_background": "Ignoring assignment-analysis level mismatch can produce incorrect uncertainty estimates.",
+          "item_extraction_instruction": "Extract whether level-of-analysis differs from level-of-randomization and how standard errors were adjusted.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 19,
+              "quote": "Note whether the level of analysis differs from level of randomization and estimate appropriate standard errors.",
+              "locator": "Appendix 1 section E.3"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Statistical analysis",
+          "item": "24",
+          "item_name": "Attrition and missing-data handling",
+          "item_question": "Are attrition reasons, missing-data frequencies, and missing-data handling methods reported?",
+          "item_question_background": "Attrition and missing-data choices can materially change estimated effects and must be auditable.",
+          "item_extraction_instruction": "Extract attrition discussion, missing-data frequencies by group, missing-data methods (for example deletion or imputation), and case-deletion counts/rationales by analysis.",
+          "item_expected_location": "Methods / Results / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 19,
+              "quote": "If there is attrition, discuss reasons for attrition and examine whether attrition is related to pre-treatment variables.",
+              "locator": "Appendix 1 section E.3"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Statistical analysis",
+          "item": "25",
+          "item_name": "Survey weighting procedures (if survey)",
+          "item_question": "For survey experiments, are weighting procedures described in detail?",
+          "item_question_background": "Weighting choices affect treatment-effect estimates and representativeness.",
+          "item_extraction_instruction": "If applicable, extract survey weighting procedures, variables used, and how weights were applied in analysis.",
+          "item_expected_location": "Methods (statistical analysis)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 19,
+              "quote": "For survey experiments: Describe in detail any weighting procedures that are used.",
+              "locator": "Appendix 1 section E.3"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Other information",
+      "items": [
+        {
+          "section": "Other information",
+          "item": "26",
+          "item_name": "Ethics, registration, funding, conflicts, and replication dataset",
+          "item_question": "Are ethical review, protocol registration, funding role, publication restrictions/conflicts, and replication dataset availability reported?",
+          "item_question_background": "These transparency elements are key for assessing governance, potential bias, and reproducibility.",
+          "item_extraction_instruction": "Extract IRB/ethics approval, protocol registration access, funding source and role, publication restrictions/conflicts, and replication dataset URL if available.",
+          "item_expected_location": "Methods / Ethics statement / Funding / Data availability / End matter",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 19,
+              "quote": "Was the experiment reviewed and approved by an IRB?... If a replication data set is available, provide the URL.",
+              "locator": "Appendix 1 section F"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "discipline_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "Reporting Guidelines for Experimental Research",
+      "Recommended Reporting Standards for Experiments",
+      "Experimental Research Section Standards Committee",
+      "APSA Experimental Research reporting guidelines",
+      "Gerber Arceneaux Boudreau Dowling Hillygus Palfrey Biggers Hendry 2014"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\breporting\\s+guidelines\\s+for\\s+experimental\\s+research\\b",
+          "\\brecommended\\s+reporting\\s+standards\\s+for\\s+experiments\\b",
+          "\\bexperimental\\s+research\\s+section\\s+standards\\s+committee\\b",
+          "\\bJournal\\s+of\\s+Experimental\\s+Political\\s+Science\\b",
+          "\\b10\\.1017/xps\\.2014\\.11\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bfield\\s+experiment(s)?\\b",
+          "\\bsurvey\\s+experiment(s)?\\b",
+          "\\blaboratory\\s+experiment(s)?\\b",
+          "\\brandom\\s+assignment\\b",
+          "\\btreatment\\s+group(s)?\\b",
+          "\\bcontrol\\s+group(s)?\\b",
+          "\\bunit\\s+of\\s+randomization\\b",
+          "\\bpretreatment\\s+measure(s)?\\b",
+          "\\bmanipulation\\s+check(s)?\\b",
+          "\\bintent[-\\s]?to[-\\s]?treat|\\bITT\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\b(field|survey|laboratory|lab)\\s+experiment(s)?\\b|\\brandom(?:ly)?\\s+assign(?:ed|ment)?\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bpolitical\\s+science\\b|\\bpublic\\s+opinion\\b|\\bvoter(s)?\\b|\\bcampaign\\b|\\bsocial\\s+science\\b|\\bAPSA\\b"
+        ]
+      }
+    ],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bCONSORT\\s+2025\\b",
+          "\\bPRISMA\\s+2020\\b",
+          "\\bARRIVE\\s+2\\.0\\b",
+          "\\bSTARD\\b",
+          "\\bSTROBE\\b",
+          "\\bTRIPOD\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsurvey\\s+firm\\b",
+          "\\bresponse\\s+rate\\s+calculated\\b",
+          "\\bblocking\\b",
+          "\\bclustered\\s+random\\s+assignment\\b",
+          "\\bbaseline\\s+means?\\s+and\\s+standard\\s+deviations\\b",
+          "\\bCONSORT\\s+participant\\s+flow\\s+diagram\\b",
+          "\\bassigned\\s+to\\s+each\\s+experimental\\s+group\\b",
+          "\\breceived\\s+allocated\\s+intervention\\b",
+          "\\battrition\\s+related\\s+to\\s+pre[-\\s]?treatment\\s+variables\\b",
+          "\\binverse\\s+probability\\s+weighting\\b",
+          "\\bpost[-\\s]?experiment\\s+debriefing\\b",
+          "\\bpractice\\s+rounds\\b",
+          "\\bdeception\\s+was\\s+used\\b",
+          "\\breplication\\s+data\\s+set\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brandomized\\s+clinical\\s+trial\\b",
+          "\\bpatients?\\b",
+          "\\bhospital\\b",
+          "\\bdrug\\s+dose\\b",
+          "\\banimal\\s+experiment(s)?\\b",
+          "\\bin\\s+vivo\\b",
+          "\\bmaterials\\s+stress\\s+testing\\b",
+          "\\bengineering\\s+test\\s+bench\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We conducted a survey experiment in which respondents were randomly assigned to one of three message treatments and a control condition; response rates and assignment procedures are reported in detail.",
+      "The manuscript reports unit of randomization, baseline covariate means by treatment group, CONSORT-style participant flow, and ITT outcome summaries.",
+      "A laboratory experiment paper describes blocking, manipulation checks, treatment fidelity, and attrition by assigned group, with reasons for exclusions from analysis."
+    ],
+    "EvidenceExamplesNegative": [
+      "A randomized clinical trial in cardiology that follows CONSORT and does not involve social science lab/field/survey experimental context.",
+      "A non-experimental observational social survey without treatment/control assignment.",
+      "An engineering materials paper describing stress-testing experiments unrelated to social-science treatment assignment reporting."
+    ],
+    "Explain": "Use this as a social-science experimental reporting overlay when manuscripts report field/lab/survey randomized experiments with treatment-control design and detailed assignment, participant-flow, and ITT reporting signals."
+  }
+}

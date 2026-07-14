@@ -1,0 +1,322 @@
+{
+  "id": "jars-qual",
+  "Name": "JARS-Qual",
+  "LongName": "Journal Article Reporting Standards for Qualitative Research",
+  "Description": "JARS-Qual is APA's reporting standard for manuscripts that report primary qualitative research in psychology and related social sciences. It emphasizes qualitative framing, reflexive researcher positioning, detailed source and recruitment description, transparent data collection and analysis, methodological integrity, grounded findings, and discussion of transferability and implications.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology qualitative research reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the clarity, methodological integrity, transparency, and usefulness of primary qualitative research reports by specifying the information that should be included across title, abstract, introduction, method, findings, and discussion.",
+  "ManuscriptType": [
+    "Original research article",
+    "Primary qualitative research report",
+    "Behavioral or social science qualitative manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Interview study",
+    "Observation-based qualitative study",
+    "Document or archival qualitative analysis",
+    "Narrative or interpretive qualitative report"
+  ],
+  "StudyType": [
+    "Primary qualitative study",
+    "Interpretive qualitative study",
+    "Descriptive qualitative study"
+  ],
+  "Keywords": [
+    "JARS-Qual",
+    "qualitative reporting standards",
+    "APA qualitative reporting",
+    "primary qualitative research",
+    "methodological integrity",
+    "reflexivity",
+    "transferability",
+    "approach to inquiry"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Primary qualitative study",
+      "Interpretive qualitative study",
+      "Descriptive qualitative study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science",
+      "Education"
+    ],
+    "Coverage": "Primary qualitative research reports in psychology and related behavioral, social, and educational sciences, including studies based on interviews, observations, documents, archives, and other qualitative data sources.",
+    "Focus": "Approach to inquiry, problem framing, researcher reflexivity, participant or source description, recruitment and selection, data collection and recording, analytic strategies, methodological integrity, findings presentation, transferability, and implications.",
+    "ContrastWith": "Not a quantitative reporting guide, not a mixed-methods integration standard, and not a qualitative meta-analysis standard. JARS-Qual is designed for primary qualitative studies and should be distinguished from QMARS and MMARS, which address other evidence structures."
+  },
+  "references": {
+    "primary": {
+      "description": "Levitt HM, Bamberg M, Creswell JW, Frost DM, Josselson R, Suárez-Orozco C. Journal Article Reporting Standards for Qualitative Primary, Qualitative Meta-Analytic, and Mixed Methods Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018;73(1):26-46. doi:10.1037/amp0000151.",
+      "url": "https://doi.org/10.1037/amp0000151"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title, Abstract, and Introduction",
+      "items": [
+        {
+          "section": "Title, Abstract, and Introduction",
+          "item": "1",
+          "item_name": "Identify the qualitative study clearly",
+          "item_question": "Does the title and abstract identify the key issue or topic, state the problem or objectives, describe the study design and data sources, summarize the analytic strategy and main findings, and provide keywords?",
+          "item_question_background": "JARS-Qual expects early clarity about the nature of the qualitative inquiry so reviewers and readers can understand the manuscript's topic, design, and significance from the outset.",
+          "item_extraction_instruction": "Extract how the title and abstract state the issue or topic, problem or objectives, qualitative design, participant or data-source types, analytic strategy, findings, implications, and keywords.",
+          "item_expected_location": "Title page / Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "State the problem/question/objectives under investigation. Indicate the study design, including types of participants or data sources, analytic strategy, main results/findings, and main implications/significance. Identify five keywords.",
+              "locator": "Table 1 title page and abstract rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Title, Abstract, and Introduction",
+          "item": "2",
+          "item_name": "Frame the problem, goals, and inquiry rationale",
+          "item_question": "Does the introduction frame the research problem in context, review and synthesize relevant literature, state the study goals, and explain the rationale for the selected qualitative design and approach to inquiry?",
+          "item_question_background": "Qualitative reports should connect the research problem to relevant debates and explain why the selected qualitative approach is well suited to the purpose of the study.",
+          "item_extraction_instruction": "Extract the contextual framing of the problem or question, literature synthesis, study objectives or aims, target audience if specified, and the rationale for the selected design or approach to inquiry.",
+          "item_expected_location": "Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 9,
+              "quote": "Frame the problem or question and its context. Review, critique, and synthesize the applicable literature. State the purpose/goals/aims of the study. Provide the rationale for fit of design used to investigate this purpose/goal.",
+              "locator": "Table 1 introduction rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Method: Researchers, Sources, and Recruitment",
+      "items": [
+        {
+          "section": "Method: Researchers, Sources, and Recruitment",
+          "item": "3",
+          "item_name": "Describe research design and researcher positioning reflexively",
+          "item_question": "Does the method section summarize the design and explain the researchers' backgrounds, prior understandings, and management of their influence on the study?",
+          "item_question_background": "JARS-Qual foregrounds reflexive transparency by asking researchers to describe the design and their own relationship to the phenomenon, participants, and analytic process.",
+          "item_extraction_instruction": "Extract the design overview, data-collection and analytic strategies, approach to inquiry if reported, researcher backgrounds, prior understandings, and how those understandings were managed or influenced the study.",
+          "item_expected_location": "Method / Research design overview / Researcher description",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Summarize the research design ... Describe the researchers' backgrounds in approaching the study ... Describe how prior understandings of the phenomena under investigation were managed and/or influenced the research.",
+              "locator": "Table 1 research design overview and researcher description rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Method: Researchers, Sources, and Recruitment",
+          "item": "4",
+          "item_name": "Describe participants or other data sources and relationships",
+          "item_question": "Does the manuscript report the number and characteristics of participants or other data sources, identify existing or archival sources when relevant, and describe any relevant researcher-participant relationships?",
+          "item_question_background": "Credible qualitative reporting requires explicit description of who or what was studied and how researcher relationships or source contexts may have shaped the inquiry.",
+          "item_extraction_instruction": "Extract the numbers and characteristics of participants, documents, events, or archival sources; their selection-relevant features; any shared data or repositories; and any prior or evolving researcher relationships relevant to the study.",
+          "item_expected_location": "Method / Participants or other data sources",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Provide the numbers of participants/documents/events analyzed ... Describe existing data sources, if relevant ... Describe the relationships and interactions between researchers and participants relevant to the research process.",
+              "locator": "Table 1 participants/data sources and researcher-participant relationship rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Method: Researchers, Sources, and Recruitment",
+          "item": "5",
+          "item_name": "Report recruitment, selection, sample rationale, and stopping logic",
+          "item_question": "Does the manuscript explain recruitment and selection procedures, compensation, ethics and consent, attrition or refusal, the rationale for the number of sources included, and the rationale for halting collection?",
+          "item_question_background": "JARS-Qual asks authors to show how sources entered the study, why that number was appropriate, and how collection came to stop, including considerations such as saturation or other design-appropriate logic.",
+          "item_extraction_instruction": "Extract recruitment procedures, compensation or incentives, ethics and consent processes, participant-selection strategy, inclusion or exclusion criteria, rationale for the number selected, attrition or refusal, and the rationale for halting collection.",
+          "item_expected_location": "Method / Participant recruitment / Participant selection",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "Describe the recruitment process ... Describe the process by which the number of participants/documents/events analyzed was determined ... Describe the rationale for decision to halt data collection.",
+              "locator": "Table 1 recruitment and participant selection rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Method: Data Collection and Analysis",
+      "items": [
+        {
+          "section": "Method: Data Collection and Analysis",
+          "item": "6",
+          "item_name": "Describe data collection and recording in a process-transparent way",
+          "item_question": "Does the manuscript explain the form of data collected, how collection protocols developed or changed, the collection context and duration, the guiding questions or prompts, and the recording or transcription processes used?",
+          "item_question_background": "Qualitative data collection is often iterative and adaptive, so readers need enough information to understand both the original and evolving collection process and how the data were documented.",
+          "item_extraction_instruction": "Extract the form of data, origins and evolution of the collection protocol, any changes made during collection, contextual or scheduling features, central questions or prompts, and any recording, field note, transcription, or data management procedures.",
+          "item_expected_location": "Method / Data collection",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 11,
+              "quote": "State the form of data collected ... Describe any alterations of data-collection strategy in response to the evolving findings or study rationale ... Identify data audio/visual recording methods, field notes, or transcription processes used.",
+              "locator": "Table 1 data collection and recording rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Method: Data Collection and Analysis",
+          "item": "7",
+          "item_name": "Make analytic strategy and methodological integrity explicit",
+          "item_question": "Does the manuscript describe the analytic procedures, who analyzed the data, how coding or interpretation developed, what units were analyzed, what tools were used, and how methodological integrity was supported?",
+          "item_question_background": "JARS-Qual requires transparent reporting of how qualitative findings were generated and why the resulting claims should be considered methodologically sound.",
+          "item_extraction_instruction": "Extract the analytic method and purpose, analyst roles and training, coding or interpretive procedures, units of analysis, software, emergent or a priori category development, handling of inconsistencies, and methodological-integrity practices such as grounding in evidence, contextualization, checks, audits, member feedback, or reflexive processes.",
+          "item_expected_location": "Method / Analysis / Methodological integrity",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Describe the methods and procedures used and for what purpose/goal ... Demonstrate that the claims made from the analysis are warranted and have produced findings with methodological integrity.",
+              "locator": "Table 1 data-analytic strategies and methodological integrity rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Findings and Discussion",
+      "items": [
+        {
+          "section": "Findings and Discussion",
+          "item": "8",
+          "item_name": "Present findings in an evidence-grounded, design-consistent manner",
+          "item_question": "Do the findings or results sections describe the qualitative findings and the meanings derived from them, demonstrate the analytic path to those findings, and use excerpts or illustrations appropriately?",
+          "item_question_background": "Findings should show both what was concluded and how those conclusions arose from the qualitative materials in a form coherent with the study's design and goals.",
+          "item_extraction_instruction": "Extract how findings are named and organized, how the analytic process leading to them is shown, whether quotations or excerpts are used to ground claims, and whether diagrams, tables, models, or other synthesizing illustrations are used.",
+          "item_expected_location": "Findings / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Describe research findings ... Demonstrate the analytic process of reaching findings ... Present synthesizing illustrations if useful in organizing and conveying findings.",
+              "locator": "Table 1 findings/results rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Findings and Discussion",
+          "item": "9",
+          "item_name": "Discuss contributions, alternatives, transferability, ethics, and implications",
+          "item_question": "Does the discussion describe the study's contributions and significance, compare findings with prior work, consider alternative explanations, identify strengths and limitations, describe the limits of transferability, revisit ethical challenges, and consider implications for future research, policy, or practice?",
+          "item_question_background": "JARS-Qual expects qualitative discussions to interpret findings beyond summary and to clarify both the value and limits of the study in context.",
+          "item_extraction_instruction": "Extract the central contributions and significance of the study, links to prior scholarship, alternative explanations, strengths and limitations, transferability limits, ethical dilemmas or challenges, and implications for future research, policy, or practice.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "Describe the central contributions and their significance ... Reflect on any alternative explanations ... Describe the limits of the scope of transferability ... Consider the implications for future research, policy, or practice.",
+              "locator": "Table 1 discussion rows"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS-Qual",
+      "Journal Article Reporting Standards for Qualitative Research",
+      "APA qualitative reporting standards"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bJARS[-\\s]?Qual\\b",
+          "\\bJournal Article Reporting Standards\\b.*\\bQualitative\\b",
+          "\\bprimary qualitative research\\b",
+          "\\bapproach to inquiry\\b"
+        ]
+      },
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\binterviews?\\b",
+          "\\bqualitative\\b",
+          "\\bthematic analysis\\b",
+          "\\breflexivity\\b",
+          "\\bmethodological integrity\\b",
+          "\\bmember checks?\\b",
+          "\\btriangulation\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bresearcher[-\\s]?participant relationship\\b",
+          "\\bsaturation\\b",
+          "\\bapproach to inquiry\\b",
+          "\\bmethodological integrity\\b",
+          "\\btransferability\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\brandomized clinical trial\\b",
+          "\\bstructural equation modeling\\b",
+          "\\bmeta-analysis\\b",
+          "\\beffect size\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "A qualitative interview study reports researcher reflexivity, purposive sampling, iterative data collection, thematic analysis, and discussion of transferability under APA qualitative reporting standards.",
+      "A primary qualitative manuscript describes participants or archives, approach to inquiry, methodological integrity, grounded findings, and ethical challenges."
+    ],
+    "EvidenceExamplesNegative": [
+      "A quantitative experiment with effect sizes and random assignment is not a JARS-Qual manuscript.",
+      "A qualitative metasynthesis belongs with QMARS rather than the primary qualitative-research table."
+    ],
+    "Explain": "Use JARS-Qual for primary qualitative research manuscripts that need APA-style reporting of reflexivity, sources, recruitment, data collection, qualitative analysis, methodological integrity, findings, and transferability."
+  }
+}

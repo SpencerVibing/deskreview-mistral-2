@@ -1,0 +1,185 @@
+{
+  "id": "jars-replication",
+  "Name": "JARS-Replication",
+  "LongName": "JARS-Quant Table 6: Reporting Standards for Replication Studies",
+  "Description": "The JARS-Quant replication table provides reporting expectations for external replication studies in psychology, emphasizing explicit comparison with the original study's design, participants, instrumentation, and analytic criteria.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology replication reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the clarity and evaluability of replication reports by requiring authors to describe the type of replication and to compare the replication study directly with the original across key methodological dimensions.",
+  "ManuscriptType": [
+    "Original research article",
+    "Replication study report"
+  ],
+  "ManuscriptSubType": [
+    "Direct replication",
+    "Approximate replication",
+    "Conceptual replication"
+  ],
+  "StudyType": [
+    "Replication study"
+  ],
+  "Keywords": [
+    "JARS replication",
+    "replication study",
+    "direct replication",
+    "conceptual replication",
+    "predictive power",
+    "treatment fidelity"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Replication study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology"
+    ],
+    "Coverage": "External replication studies in psychology and related fields where authors repeat one or more specific prior studies and need to compare the original and replication directly.",
+    "Focus": "Replication type, deviations from the original, participant and setting comparisons, instrumentation comparability, translation and psychometrics, analytic comparability, and decision criteria for judging replication success.",
+    "ContrastWith": "Not for internal cross-validation, bootstrapping, or resampling procedures within a single dataset. This module is intended for external replications of previously published or archived studies."
+  },
+  "references": {
+    "primary": {
+      "description": "Appelbaum M, Cooper H, Kline RB, Mayo-Wilson E, Nezu AM, Rao SM. Journal Article Reporting Standards for Quantitative Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018. PMID: 29345484.",
+      "url": "https://psycnet.apa.org/fulltext/2018-00750-002.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Replication Framing",
+      "items": [
+        {
+          "section": "Replication Framing",
+          "item": "1",
+          "item_name": "Identify the type of replication and any departures from the original",
+          "item_question": "Does the manuscript state whether the study is a direct, approximate, or conceptual replication and identify any new conditions, materials, or procedures not present in the original?",
+          "item_question_background": "Replication claims are interpretable only if readers can see what kind of replication was attempted and where it intentionally or unintentionally diverged from the source study.",
+          "item_extraction_instruction": "Extract the stated replication type and any new conditions, materials, or procedures that differ from the original study.",
+          "item_expected_location": "Title / Introduction / Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "Report sufficient information ... to determine whether the study is a direct ... approximate ... or conceptual ... replication. Indicate whether a replication study has conditions, materials, or procedures that were not part of the original study.",
+              "locator": "Table 6 study type row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Original-versus-Replication Comparison",
+      "items": [
+        {
+          "section": "Original-versus-Replication Comparison",
+          "item": "2",
+          "item_name": "Compare participant recruitment and context",
+          "item_question": "Does the manuscript compare participant recruitment, setting, allocation procedures, and demographic characteristics between the original and replication studies?",
+          "item_question_background": "Readers need explicit original-versus-replication comparison to judge whether any difference in outcomes could stem from population or context changes rather than failure to replicate.",
+          "item_extraction_instruction": "Extract how the manuscript compares recruitment procedures, setting, allocation, demographics, and any implications of major differences.",
+          "item_expected_location": "Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "Compare the recruitment procedures in the original and replication studies ... Compare the demographic characteristics of the participants in both studies.",
+              "locator": "Table 6 participants row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Original-versus-Replication Comparison",
+          "item": "3",
+          "item_name": "Compare instrumentation, translation, and psychometrics",
+          "item_question": "Does the manuscript compare hardware and soft measures, translation procedures, psychometric properties, and administration methods between the original and replication studies?",
+          "item_question_background": "Instrumentation differences are a common hidden source of failed or misleading replications and must be surfaced explicitly.",
+          "item_extraction_instruction": "Extract comparisons of apparatus, questionnaires, translation methods, psychometrics, informants, and administration mode between the original and replication studies.",
+          "item_expected_location": "Method / Measures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "Report instrumentation ... Clarify ... any major differences between the original and replication studies ... Report psychometric characteristics of the scores analyzed in the replication study and compare these properties with those in the original study.",
+              "locator": "Table 6 instrumentation row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Original-versus-Replication Comparison",
+          "item": "4",
+          "item_name": "State analytic comparability and replication criteria",
+          "item_question": "Does the manuscript report the same analytical methods used in the original study and state the criteria used to judge whether the original results were replicated?",
+          "item_question_background": "A replication report should explain both whether the original analyses were rerun and what decision rule is being used to claim success or failure.",
+          "item_extraction_instruction": "Extract whether the same analytical methods were reused, any additional analyses, and the statistical criteria used to judge replication such as significance, effect sizes, confidence intervals, or Bayes factors.",
+          "item_expected_location": "Analysis / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "Report results of the same analytical methods ... State the statistical criteria for deciding whether the original results were replicated in the new study.",
+              "locator": "Table 6 analysis row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS replication",
+      "JARS-Quant Table 6",
+      "Reporting Standards for Replication Studies"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\breplication study\\b",
+          "\\bdirect replication\\b",
+          "\\bconceptual replication\\b",
+          "\\bapproximate replication\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\boriginal study\\b",
+          "\\breplication study\\b",
+          "\\btreatment fidelity\\b",
+          "\\bBayes factors\\b",
+          "\\bpredictive power\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A replication manuscript explicitly labels itself as a direct replication and compares recruitment, instrumentation, and decision criteria with the original study.",
+      "A psychology replication report uses original analyses plus Bayes factors and explains what counts as successful replication."
+    ],
+    "EvidenceExamplesNegative": [
+      "A novel experiment with no original study comparison is not a JARS-Replication paper.",
+      "Internal cross-validation or bootstrap resampling within one sample should not map here."
+    ],
+    "Explain": "Use this module for psychology manuscripts that explicitly report external replications of prior studies."
+  }
+}

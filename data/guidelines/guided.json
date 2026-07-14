@@ -1,0 +1,405 @@
+{
+  "id": "guided",
+  "Name": "GUIDED",
+  "LongName": "Guidance for reporting intervention development studies in health research (GUIDED)",
+  "Description": "GUIDED is a 14-item reporting checklist for intervention development studies in health research, aimed at improving transparency, consistency, and learning from intervention-development processes.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Intervention development reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve quality and consistency of reporting of health intervention development studies by covering context, purpose, target population, development approaches, evidence and theory use, stakeholder input, adaptation, uncertainty, and open accessibility.",
+  "ManuscriptType": [
+    "Original research article",
+    "Intervention development study",
+    "Methodological paper",
+    "Complex intervention design paper"
+  ],
+  "ManuscriptSubType": [
+    "Digital health intervention development",
+    "Behavioral intervention development",
+    "Service intervention co-design study"
+  ],
+  "StudyType": [
+    "Intervention development study",
+    "Complex intervention design",
+    "Mixed-methods development study"
+  ],
+  "Keywords": [
+    "GUIDED",
+    "Guidance for reporting intervention development",
+    "intervention development reporting",
+    "complex intervention development",
+    "health intervention design",
+    "stakeholder contribution",
+    "guiding principles",
+    "development uncertainty",
+    "open access reporting",
+    "TIDieR linkage"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Intervention development study",
+      "Complex intervention design",
+      "Mixed-methods development study"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Cross-disciplinary",
+      "Social sciences"
+    ],
+    "Coverage": "Health and healthcare manuscripts reporting how interventions were developed before or alongside feasibility/evaluation, including evidence synthesis, theory use, co-design or stakeholder-informed approaches.",
+    "Focus": "Transparent reporting of development rationale, methods, evidence inputs, theoretical basis, stakeholder roles, design changes over time, subgroup considerations, residual uncertainties, and accessibility of the development report.",
+    "ContrastWith": "GUIDED focuses on intervention development process reporting, not full trial-result reporting. It complements design-specific guidelines (for example CONSORT) and intervention-description guidance (for example TIDieR)."
+  },
+  "references": {
+    "primary": {
+      "description": "Duncan E, O'Cathain A, Rousseau N, et al. Guidance for reporting intervention development studies in health research (GUIDED): an evidence-based consensus study. BMJ Open. 2020;10:e033516.",
+      "url": "https://doi.org/10.1136/bmjopen-2019-033516"
+    },
+    "secondary": [
+      {
+        "description": "Open-access mirror of the GUIDED BMJ Open article PDF.",
+        "url": "https://dspace.stir.ac.uk/bitstream/1893/30987/1/e033516.full.pdf"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "GUIDED checklist",
+      "items": [
+        {
+          "section": "GUIDED checklist",
+          "item": "1",
+          "item_name": "Context",
+          "item_question": "Is the context for which the intervention was developed reported?",
+          "item_question_background": "Context reporting supports transferability judgments across settings.",
+          "item_extraction_instruction": "Extract the setting/context and contextual constraints/opportunities shaping development decisions.",
+          "item_expected_location": "Introduction / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Item 1 Description: Report the context for which the intervention was developed.",
+              "locator": "GUIDED item 1"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "2",
+          "item_name": "Purpose",
+          "item_question": "Is the purpose of the intervention development process reported?",
+          "item_question_background": "Purpose clarifies intended problem-solution goals for development work.",
+          "item_extraction_instruction": "Extract explicit development purpose/objective and intended contribution of the intervention.",
+          "item_expected_location": "Introduction / Objectives",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Item 2 Description: Report the purpose of the intervention development...",
+              "locator": "GUIDED item 2"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "3",
+          "item_name": "Target population",
+          "item_question": "Is the target population for the intervention reported?",
+          "item_question_background": "Target-population clarity is essential for relevance and implementation planning.",
+          "item_extraction_instruction": "Extract intended population(s), key characteristics, and inclusion rationale used during development.",
+          "item_expected_location": "Introduction / Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Item 3 Description: Report the target population for the intervention...",
+              "locator": "GUIDED item 3"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "4",
+          "item_name": "Published development approach",
+          "item_question": "Is it reported how any published intervention development approach contributed to the process?",
+          "item_question_background": "Named approaches improve methodological interpretability and reproducibility.",
+          "item_extraction_instruction": "Extract any formal development frameworks/methods used and how they shaped decisions.",
+          "item_expected_location": "Methods (development approach)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report how any published intervention development approach contributed to the development process.",
+              "locator": "Table 1 item"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "5",
+          "item_name": "Evidence sources",
+          "item_question": "Is it reported how evidence from different sources informed intervention development?",
+          "item_question_background": "Evidence provenance supports credibility of development choices.",
+          "item_extraction_instruction": "Extract evidence types/sources and explicit links between evidence and intervention decisions.",
+          "item_expected_location": "Methods / Results (development decisions)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report how evidence from different sources informed the intervention development.",
+              "locator": "Table 1 item"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "6",
+          "item_name": "Theory use",
+          "item_question": "Is it reported how/if existing published theory informed intervention development?",
+          "item_question_background": "Theory links mechanism assumptions with design decisions.",
+          "item_extraction_instruction": "Extract whether theory was used, which theory, and how it informed components or logic.",
+          "item_expected_location": "Methods (theoretical basis)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "Item 6 Description: Report how/if existing published theory informed the intervention development process.",
+              "locator": "GUIDED item 6"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "7",
+          "item_name": "Use of existing components",
+          "item_question": "Is any use of components from existing interventions reported?",
+          "item_question_background": "Distinguishing adapted versus novel components improves interpretation.",
+          "item_extraction_instruction": "Extract adopted/adapted components and their original sources.",
+          "item_expected_location": "Methods (intervention design)",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report any use of components from an existing intervention.",
+              "locator": "Table 1 item"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "8",
+          "item_name": "Guiding principles and priorities",
+          "item_question": "Are guiding principles, people, or factors prioritised during decision-making reported?",
+          "item_question_background": "Priority rules clarify trade-offs during development.",
+          "item_extraction_instruction": "Extract guiding principles and priority-setting factors influencing design choices.",
+          "item_expected_location": "Methods / Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report any guiding principles, people or factors which were prioritised when making decisions.",
+              "locator": "Table 1 item"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "9",
+          "item_name": "Stakeholder contribution",
+          "item_question": "Is stakeholder contribution to the intervention development process reported?",
+          "item_question_background": "Stakeholder roles affect acceptability, feasibility, and relevance.",
+          "item_extraction_instruction": "Extract who contributed (for example patients/public, clinicians, implementers), when, and how contributions influenced decisions.",
+          "item_expected_location": "Methods (stakeholder involvement)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report how stakeholders contributed to the intervention development process.",
+              "locator": "Table 1 item"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "10",
+          "item_name": "Changes during development",
+          "item_question": "Are changes in intervention content/format from the start of development reported (including discarded components and reasons)?",
+          "item_question_background": "Change tracking reveals why final interventions differ from initial concepts.",
+          "item_extraction_instruction": "Extract what changed during development, why changes occurred, and what components were discarded and why.",
+          "item_expected_location": "Methods / Results (iterative development)",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "item 10 'Report how the intervention changed in content and format from the start...' and ... reasons for discarding intervention components",
+              "locator": "Post-consensus merge"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "11",
+          "item_name": "Subgroup-specific changes",
+          "item_question": "Are required or likely required intervention changes for subgroups reported?",
+          "item_question_background": "Subgroup adaptation details support equity and implementation planning.",
+          "item_extraction_instruction": "Extract planned/required adaptations for relevant subgroups and supporting rationale.",
+          "item_expected_location": "Methods / Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report any changes to interventions required or likely to be required for subgroups.",
+              "locator": "Table 1 item"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "12",
+          "item_name": "Remaining uncertainties",
+          "item_question": "Are important uncertainties at the end of the intervention development process reported?",
+          "item_question_background": "Documenting uncertainty supports appropriate next-stage evaluation planning.",
+          "item_extraction_instruction": "Extract unresolved uncertainties and their implications for feasibility/evaluation/implementation.",
+          "item_expected_location": "Discussion / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Report important uncertainties at the end of the intervention development process.",
+              "locator": "Table 1 item"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "13",
+          "item_name": "Link to TIDieR",
+          "item_question": "Is TIDieR guidance followed when describing the developed intervention?",
+          "item_question_background": "TIDieR linkage improves consistency of final intervention description detail.",
+          "item_extraction_instruction": "Extract whether and how TIDieR was used to structure intervention description/reporting.",
+          "item_expected_location": "Methods / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Item 13 Description: Follow TIDieR guidance when describing the developed intervention.",
+              "locator": "GUIDED item 13"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "GUIDED checklist",
+          "item": "14",
+          "item_name": "Open access reporting",
+          "item_question": "Is the intervention development process reported in an open access format?",
+          "item_question_background": "Open accessibility supports cumulative methodological learning and reuse.",
+          "item_extraction_instruction": "Extract where/how intervention development reporting is openly accessible (journal, report, website).",
+          "item_expected_location": "Publication metadata / Data availability / Links",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Item 14 Description: Report the intervention development process in an open access format.",
+              "locator": "GUIDED item 14"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health",
+      "Cross-disciplinary",
+      "Social sciences"
+    ],
+    "Aliases": [
+      "GUIDED",
+      "Guidance for reporting intervention development studies",
+      "GUIDance for the rEporting of intervention Development"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bGUIDED\\b",
+          "\\bintervention\\s+development\\s+stud(y|ies)\\b",
+          "\\breporting\\s+intervention\\s+development\\b",
+          "\\bcomplex\\s+intervention\\s+development\\b",
+          "\\bstakeholder\\s+contribution\\b",
+          "\\bdevelopment\\s+process\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsoftware\\s+development\\s+life\\s+cycle\\b",
+          "\\bgame\\s+development\\b",
+          "\\bconstruction\\s+project\\s+development\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\btarget\\s+population\\b",
+          "\\bpublished\\s+theory\\b",
+          "\\bguiding\\s+principles\\b",
+          "\\bstakeholder\\s+contributed\\b",
+          "\\bintervention\\s+changed\\s+in\\s+content\\s+and\\s+format\\b",
+          "\\bremaining\\s+uncertaint(y|ies)\\b",
+          "\\bopen\\s+access\\s+format\\b",
+          "\\bTIDieR\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "The study reports context, purpose, target population, and how evidence and theory informed intervention development decisions.",
+      "Stakeholder contributions are described alongside iterative changes in intervention content and unresolved uncertainties.",
+      "Authors explicitly use GUIDED and link intervention description to TIDieR reporting."
+    ],
+    "EvidenceExamplesNegative": [
+      "The manuscript reports trial outcomes only and does not describe how the intervention was developed.",
+      "This is a pure software engineering design paper with no health intervention development context.",
+      "The article provides intervention results but no account of evidence/theory/stakeholder inputs used during development."
+    ],
+    "Explain": "Adds an intervention-development reporting overlay when manuscripts describe how health interventions were designed and iteratively refined before or alongside evaluation."
+  }
+}

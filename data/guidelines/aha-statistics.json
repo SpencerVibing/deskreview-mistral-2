@@ -1,0 +1,725 @@
+{
+  "id": "aha-statistics",
+  "Name": "AHA Statistics",
+  "LongName": "Recommendations for Statistical Reporting in Cardiovascular Medicine",
+  "Description": "A broad statistical-reporting overlay from the American Heart Association for manuscripts submitted to cardiovascular journals. The document emphasizes cross-cutting statistical reporting standards, points authors to existing design-specific reporting guidelines, and adds AHA-focused expectations for visualization, time-to-event analysis, Bayesian methods, missing data, correlated data, confounding adjustment, and sample-size reporting.",
+  "Category": "reporting_guideline",
+  "Subdomain": "Cardiovascular medicine",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Improve the clarity, reproducibility, and interpretability of statistical analyses in cardiovascular medicine manuscripts by ensuring that methods and results are reported with enough detail for qualified statistical review and informed clinical reading.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Cardiovascular medicine manuscript"
+  ],
+  "StudyType": [
+    "Clinical trial",
+    "Observational study",
+    "Diagnostic accuracy study",
+    "Prediction model study",
+    "Systematic review or meta-analysis",
+    "Survival analysis",
+    "Bayesian analysis",
+    "Statistical genetics study"
+  ],
+  "Keywords": [
+    "American Heart Association",
+    "cardiovascular medicine",
+    "statistical reporting",
+    "biostatistics",
+    "survival analysis",
+    "missing data",
+    "propensity scores",
+    "Bayesian analysis",
+    "sample size",
+    "visualization"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical trial",
+      "Observational study",
+      "Diagnostic accuracy study",
+      "Prediction model study",
+      "Systematic review or meta-analysis",
+      "Survival analysis",
+      "Bayesian analysis",
+      "Statistical genetics study"
+    ],
+    "Disciplines": [
+      "Cardiovascular medicine",
+      "Clinical research",
+      "Epidemiology",
+      "Biostatistics",
+      "Translational medicine"
+    ],
+    "Coverage": "Cardiovascular research manuscripts that report statistical analyses and need a high-level but concrete overlay for methods transparency, interpretation, and design-specific reporting expectations in AHA journals.",
+    "Focus": "Detailed description of study population and statistical methods, clinically interpretable scaling and presentation of results, honest visualization, design-specific reporting crosswalks, time-to-event analyses, Bayesian analyses, missing data, correlated data, confounding adjustment, and power and sample-size reporting.",
+    "ContrastWith": "This AHA statement is an overlay and curated compendium rather than a replacement for primary design-specific reporting standards such as CONSORT, PRISMA, STARD, TRIPOD, or STROBE. It highlights what cardiovascular statistical reviewers especially need to see in addition to those standards."
+  },
+  "references": {
+    "primary": {
+      "description": "Althouse AD, Below JE, Claggett BL, et al. Recommendations for Statistical Reporting in Cardiovascular Medicine: A Special Report From the American Heart Association. Circulation. 2021;144:e70-e91.",
+      "url": "https://www.ahajournals.org/doi/epub/10.1161/CIRCULATIONAHA.121.055393"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "General Standards",
+      "items": [
+        {
+          "section": "General Standards",
+          "item": "1",
+          "item_name": "Describe the study population in detail",
+          "item_question": "Does the manuscript describe the study population with enough detail about recruitment context, participant selection, and inclusion and exclusion criteria for readers to understand how the analytic cohort was formed?",
+          "item_question_background": "The AHA statement treats vague cohort descriptions as a recurring statistical-review problem because readers cannot interpret generalizability or bias without knowing when, where, and how participants entered the analysis. It specifically asks for recruitment dates, sites, selection process, and explicit accounting of exclusions.",
+          "item_extraction_instruction": "Extract dates, sites of recruitment, sampling approach, inclusion criteria, exclusion criteria, frequencies for exclusions, and any flow diagram that traces cohort formation.",
+          "item_expected_location": "Methods / Study population / Participant flow / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "The study population must be described in detail",
+              "locator": "1.2.1 Study Population"
+            },
+            {
+              "page": 3,
+              "quote": "Flow diagrams are strongly recommended",
+              "locator": "1.2.1 Study Population"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "General Standards",
+          "item": "2",
+          "item_name": "Report statistical methods specifically enough to identify each analysis",
+          "item_question": "Does the manuscript report statistical methods with enough specificity that a reviewer can tell exactly which test, comparison, or model produced each reported result?",
+          "item_question_background": "The statement explicitly criticizes vague phrases like 't tests as appropriate' because such language prevents statistical reviewers from reconstructing which inferential procedure generated a given P value or estimate. The goal is analysis-level specificity, not just a list of broad method families.",
+          "item_extraction_instruction": "Extract the named tests, models, and comparisons used for each major result, including table or figure footnotes that clarify which procedure generated which output.",
+          "item_expected_location": "Methods / Statistical analysis / Table and figure footnotes",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Statistical methods should be detailed",
+              "locator": "1.2.2 Statistical Methods"
+            },
+            {
+              "page": 3,
+              "quote": "it should be readily clear to the reviewer which test was used",
+              "locator": "1.2.2 Statistical Methods"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "General Standards",
+          "item": "3",
+          "item_name": "Scale continuous variables for clinical interpretability",
+          "item_question": "Are continuous variables scaled and reported in units that make their estimated effects clinically interpretable?",
+          "item_question_background": "The statement points out that continuous-variable effects are often formally correct but practically opaque if they are expressed per unit too small to matter clinically. It therefore asks authors to choose scales like 10 years or 10 mm Hg when those better support interpretation.",
+          "item_extraction_instruction": "Extract the scaling used for continuous predictors and outcomes, including whether estimates are expressed in clinically interpretable increments and whether the scale is explicitly reported.",
+          "item_expected_location": "Methods / Statistical analysis / Results tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Continuous variables should be scaled in such a way that the estimates are interpretable",
+              "locator": "1.2.5 Continuous Variables"
+            },
+            {
+              "page": 3,
+              "quote": "All reports of continuous variables must include the scale used",
+              "locator": "1.2.5 Continuous Variables"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "General Standards",
+          "item": "4",
+          "item_name": "Report exact P values and address multiplicity explicitly",
+          "item_question": "Does the manuscript report exact P values and explicitly state whether and how multiple comparisons were handled?",
+          "item_question_background": "The AHA statement treats threshold-only P-value reporting and silent multiplicity decisions as barriers to good review. It asks for exact P values and requires authors either to name the multiplicity adjustment used or to state clearly that none was performed.",
+          "item_extraction_instruction": "Extract the reported P values, their precision, and any statement about corrections for multiple comparisons or the absence of such corrections.",
+          "item_expected_location": "Methods / Results / Table footnotes / Figure legends",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Report exact P values",
+              "locator": "1.2.7 P Values"
+            },
+            {
+              "page": 4,
+              "quote": "authors must either explicitly state that no corrections for multiple comparisons have been performed",
+              "locator": "1.2.8 Multiple Comparison"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "General Standards",
+          "item": "5",
+          "item_name": "Use inference language that matches the statistical evidence",
+          "item_question": "Does the manuscript avoid treating nonsignificant results as proof of no effect and use language that matches what the statistical test actually supports?",
+          "item_question_background": "The statement explicitly warns against the absence-of-evidence equals evidence-of-absence error. This is a reporting issue as much as an inferential one because overconfident wording can misrepresent what a frequentist test has shown.",
+          "item_extraction_instruction": "Extract the language used to describe statistically nonsignificant findings and assess whether it distinguishes lack of evidence from evidence of equivalence or no effect.",
+          "item_expected_location": "Abstract / Results / Discussion / Conclusions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Avoid the “absence of evidence=evidence of absence” error",
+              "locator": "1.2.9 Statistical Inference"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "General Standards",
+          "item": "6",
+          "item_name": "Disclose preregistration and code sharing when available",
+          "item_question": "Does the manuscript state whether the statistical analysis plan was preregistered and whether the statistical code can be shared?",
+          "item_question_background": "The AHA group frames preregistration and code sharing as practical transparency tools that can strengthen review even when data sharing is difficult. The emphasis is especially on making it clear what was planned and what was actually run.",
+          "item_extraction_instruction": "Extract any preregistration or analysis-plan registration statement and any code-availability statement specific to the statistical analyses.",
+          "item_expected_location": "Methods / Registration statement / Data and code availability / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Preregistration of statistical analysis plans is encouraged",
+              "locator": "1.2.10 Preregistration"
+            },
+            {
+              "page": 4,
+              "quote": "it is generally practical for study teams to share the statistical code used",
+              "locator": "1.2.11 Share Data or Code"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Visualization",
+      "items": [
+        {
+          "section": "Visualization",
+          "item": "7",
+          "item_name": "Make figures complete",
+          "item_question": "Do figures include titles, labeled axes with units, legends for symbols or colors, and explicit displays of uncertainty or dispersion?",
+          "item_question_background": "The statement's first visualization principle is completeness. Reviewers should not have to infer basic figure meaning or guess whether bars show SD, SE, or confidence intervals; those elements must be made explicit in the display or legend.",
+          "item_extraction_instruction": "Extract whether figures have titles, axis labels, units, legends, and measures of uncertainty or dispersion, and note how those uncertainty displays are identified.",
+          "item_expected_location": "Figures / Figure legends / Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Figures should have titles, and axes should be labeled",
+              "locator": "1.3.1 Completeness"
+            },
+            {
+              "page": 4,
+              "quote": "Measures of uncertainty or dispersion",
+              "locator": "1.3.1 Completeness"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Visualization",
+          "item": "8",
+          "item_name": "Show underlying data distributions when possible",
+          "item_question": "Do figures reveal the underlying data distribution rather than relying on summary displays that can hide sample size, outliers, or multimodality?",
+          "item_question_background": "The AHA group specifically warns that bar graphs can conceal important features of the data, especially when sample size is small. Their preferred direction is to reveal more of the underlying distribution, such as with overlaid points or richer summaries.",
+          "item_extraction_instruction": "Extract whether figures show individual data points or distribution-aware displays such as box-whisker or violin plots, and note reliance on bar graphs that conceal data structure.",
+          "item_expected_location": "Figures / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "exact data points should be visualized rather than summarized",
+              "locator": "1.2.3 Visualization"
+            },
+            {
+              "page": 4,
+              "quote": "Figures should maximize the amount of information presented about the underlying data distribution",
+              "locator": "1.3.2 Informativeness"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Visualization",
+          "item": "9",
+          "item_name": "Avoid visually misleading presentation choices",
+          "item_question": "Do figures avoid presentation choices that exaggerate patterns, such as nonrepresentative data slices or truncated axes that overstate group differences?",
+          "item_question_background": "The statement's truthfulness principle focuses on the risk that technically correct graphs can still tell a distorted story. Reviewers are asked to look for plotting choices that amplify trends beyond what the complete data support.",
+          "item_extraction_instruction": "Extract any truncated axes, selective windows, or other display choices that may exaggerate differences, and note whether the figure narrative matches the complete analysis.",
+          "item_expected_location": "Figures / Figure legends / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "This practice should be avoided",
+              "locator": "1.3.3 Truthfulness"
+            },
+            {
+              "page": 4,
+              "quote": "The narrative told by the figures should align with what is supported by an honest analysis of the complete data",
+              "locator": "1.3.3 Truthfulness"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Design-Specific Crosswalks",
+      "items": [
+        {
+          "section": "Design-Specific Crosswalks",
+          "item": "10",
+          "item_name": "Use the appropriate primary reporting guideline for the study design",
+          "item_question": "Does the manuscript identify and follow the primary design-specific reporting guideline relevant to the study, such as STARD, TRIPOD, CONSORT, PRISMA, or STROBE-based guidance?",
+          "item_question_background": "This AHA paper is intentionally a curated overlay rather than a replacement for existing reporting standards. It repeatedly directs authors to design-specific primary guidelines and then adds cardiovascular-statistical points of emphasis on top of them.",
+          "item_extraction_instruction": "Extract any statement identifying the primary design-specific reporting guideline used, and note whether the manuscript structure aligns with that standard.",
+          "item_expected_location": "Methods / Reporting statement / Supplement / Author checklist",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Authors are asked to adhere to the reporting recommendations by the Enhancing the Quality and Transparency of Health Research network",
+              "locator": "1.1 Existing Guidelines"
+            },
+            {
+              "page": 5,
+              "quote": "We recommend the Transparent Reporting of a Multivariable Prediction Model",
+              "locator": "Section 3 introduction"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Design-Specific Crosswalks",
+          "item": "11",
+          "item_name": "For diagnostic or validation studies, define the test process and accuracy metrics clearly",
+          "item_question": "If the manuscript is a diagnostic or validation study, does it define the testing process, the criterion standard, the handling of missing or equivocal results, and the metrics used to express diagnostic accuracy?",
+          "item_question_background": "The AHA statement builds on STARD but highlights several details that are especially important to cardiovascular reviewers, including how test abnormality was defined, whether reading was blinded, how equivocal data were handled, and what accuracy metrics were reported.",
+          "item_extraction_instruction": "Extract the definition of the test or metric, criterion standard, blinding and reader structure, treatment of missing or equivocal data, and the diagnostic-accuracy metrics reported.",
+          "item_expected_location": "Methods / Diagnostic test procedures / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "The treatment of missing, uninterpretable, or equivocal data must be described",
+              "locator": "2.1 Specific Points of Emphasis for STARD"
+            },
+            {
+              "page": 5,
+              "quote": "The metrics used to define diagnostic accuracy usually include sensitivity, specificity",
+              "locator": "2.1 Specific Points of Emphasis for STARD"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design-Specific Crosswalks",
+          "item": "12",
+          "item_name": "For prediction models, describe variable selection and validation clearly",
+          "item_question": "If the manuscript develops or validates a clinical prediction model, does it explain how predictors were selected, how nonlinear effects and missing data were handled, and how model performance was validated?",
+          "item_question_background": "The AHA statement acknowledges that multiple modeling strategies may be defensible, but insists that the variable-selection procedure, performance assessment, and validation approach be transparent. It is particularly concerned with overfitting and overoptimistic assessment from evaluating a model only where it was built.",
+          "item_extraction_instruction": "Extract the predictor-selection approach, treatment of continuous covariates, missing-data handling, internal or external validation strategy, and reported discrimination or calibration metrics.",
+          "item_expected_location": "Methods / Prediction model development / Validation / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "the selection procedure must be clearly described",
+              "locator": "3.1 Variable Selection Approach"
+            },
+            {
+              "page": 6,
+              "quote": "It is necessary to assess the validity of the model",
+              "locator": "3.4 Performance and Validation"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design-Specific Crosswalks",
+          "item": "13",
+          "item_name": "For statistical genetics studies, document population structure and imputation choices",
+          "item_question": "If the manuscript is a statistical genetics study, does it report case and control definitions, handling of ancestry and relatedness, and the software and reference panel used for imputation when applicable?",
+          "item_question_background": "The genetics section emphasizes that large cardiovascular genomic data sets can harbor subtle population structure and technical artifacts that meaningfully bias results. Reproducibility and interpretation therefore depend on explicit documentation of these design and preprocessing choices.",
+          "item_extraction_instruction": "Extract definitions of cases and controls, how ancestry, relatedness, and batch effects were addressed, and any imputation software, parameters, and reference-panel details.",
+          "item_expected_location": "Methods / Genetics analysis / Quality control / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "researchers presenting results of large data sets ... should directly address this potential source of bias",
+              "locator": "4.1 Statistical Considerations"
+            },
+            {
+              "page": 7,
+              "quote": "document the software ... the reference panel",
+              "locator": "4.1 Statistical Considerations"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Time-to-Event and Bayesian Analyses",
+      "items": [
+        {
+          "section": "Time-to-Event and Bayesian Analyses",
+          "item": "14",
+          "item_name": "For time-to-event analyses, define risk sets, events, and time at risk explicitly",
+          "item_question": "If the manuscript reports time-to-event analyses, does it define who was at risk, what counted as an event, when time at risk began, how many events occurred, and how much follow-up time was available?",
+          "item_question_background": "The AHA survival section is built around the idea that time-to-event analyses are uninterpretable without a clear accounting of the risk set and event process. Cardiovascular outcomes often use composite endpoints whose definitions and origin times can otherwise remain ambiguous.",
+          "item_extraction_instruction": "Extract the starting risk set, event definition, event counts overall and by group, origin time, and summary follow-up or person-time information.",
+          "item_expected_location": "Methods / Outcomes / Results / Kaplan-Meier figure notes",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 12,
+              "quote": "The total number of participants at risk",
+              "locator": "7.1 Reporting Results of Time-to-Event Analyses"
+            },
+            {
+              "page": 13,
+              "quote": "Explicit definition of what constitutes an event in the analysis",
+              "locator": "7.1 Reporting Results of Time-to-Event Analyses"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Time-to-Event and Bayesian Analyses",
+          "item": "15",
+          "item_name": "Report survival effect estimates, uncertainty, and key model assumptions",
+          "item_question": "For time-to-event analyses, does the manuscript report a summary effect measure with uncertainty and name the model used, including any key assumptions such as proportional hazards?",
+          "item_question_background": "The statement does not accept isolated hazard ratios with P values as sufficient. Reviewers need to know the model family, the uncertainty around the estimate, and whether assumptions such as proportional hazards were checked and met.",
+          "item_extraction_instruction": "Extract the survival summary measure, confidence or credible interval, named statistical model, and any testing or reporting of model assumptions such as proportional hazards.",
+          "item_expected_location": "Methods / Results / Tables / Figure legends",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 13,
+              "quote": "a summary statistic must be reported",
+              "locator": "7.1 Reporting Results of Time-to-Event Analyses"
+            },
+            {
+              "page": 13,
+              "quote": "If the analysis was performed with a Cox model, the proportional hazards assumption should be tested",
+              "locator": "7.1 Reporting Results of Time-to-Event Analyses"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Time-to-Event and Bayesian Analyses",
+          "item": "16",
+          "item_name": "Make Kaplan-Meier displays interpretable",
+          "item_question": "If Kaplan-Meier curves are shown, do they include at least the number at risk over time and, ideally, confidence bands and additional event or censoring information?",
+          "item_question_background": "The AHA statement adopts the KMunicate idea that traditional Kaplan-Meier figures often omit information readers need to interpret late follow-up and uncertainty. It therefore asks for risk tables at minimum and richer uncertainty display when possible.",
+          "item_extraction_instruction": "Extract whether Kaplan-Meier plots include numbers at risk, confidence bands, event or censoring information, and any explanation of adjusted survival curves if shown.",
+          "item_expected_location": "Figures / Figure legends / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 13,
+              "quote": "at minimum, the remaining number at risk over time",
+              "locator": "7.1 Reporting Results of Time-to-Event Analyses"
+            },
+            {
+              "page": 13,
+              "quote": "add shaded regions",
+              "locator": "7.1 Reporting Results of Time-to-Event Analyses"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Time-to-Event and Bayesian Analyses",
+          "item": "17",
+          "item_name": "For Bayesian analyses, report priors, posterior summaries, and robustness to prior choice",
+          "item_question": "If the manuscript uses Bayesian methods, does it report the prior distributions and rationale, the method used to generate posterior summaries, the posterior estimates and credible intervals, and the robustness of results to different priors?",
+          "item_question_background": "The AHA Bayesian section emphasizes that Bayesian analyses are not self-documenting. Reviewers need to see how prior beliefs entered the analysis, how posterior inference was computed, and whether substantive conclusions depend heavily on subjective prior choices.",
+          "item_extraction_instruction": "Extract prior distributions and hyperparameters, rationale for priors, posterior computation method and software, posterior summaries, posterior probabilities of effects of interest, and any prior-sensitivity analysis.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Specify choice of prior distribution",
+              "locator": "8.1 Key Standards for Conducting, Reporting, and Interpreting Results of Bayesian Analysis"
+            },
+            {
+              "page": 14,
+              "quote": "Discuss robustness to different choices of prior distributions",
+              "locator": "8.1 Key Standards for Conducting, Reporting, and Interpreting Results of Bayesian Analysis"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Missing Data and Correlated Data",
+      "items": [
+        {
+          "section": "Missing Data and Correlated Data",
+          "item": "18",
+          "item_name": "Report the extent and assumed mechanism of missing data",
+          "item_question": "Does the manuscript report how much data are missing for key outcomes and predictors and explain the assumed missing-data mechanism?",
+          "item_question_background": "The AHA missing-data section starts with simple but often omitted basics: how much information is absent and why. Without that foundation, readers cannot judge whether the analytic approach is plausible or whether missingness may distort the findings.",
+          "item_extraction_instruction": "Extract frequencies of missing outcome and predictor data, reported reasons for missingness, and the primary assumption about whether missingness is MCAR, MAR, or MNAR.",
+          "item_expected_location": "Methods / Results / Tables / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Report the frequency of missing data for all primary and secondary outcome measures",
+              "locator": "9.1 Standards for Statistical Reporting"
+            },
+            {
+              "page": 14,
+              "quote": "use that to inform a primary set of assumptions about the missing-data mechanism",
+              "locator": "9.1 Standards for Statistical Reporting"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Missing Data and Correlated Data",
+          "item": "19",
+          "item_name": "Report the missing-data analysis strategy and sensitivity analyses",
+          "item_question": "Does the manuscript describe the analysis used under the primary missing-data assumption and any sensitivity analyses exploring departures from that assumption?",
+          "item_question_background": "The statement makes clear that no missing-data method can rescue a poorly understood missingness process, so it asks not only for the primary analysis but also for robustness checks under alternative assumptions. This is meant to show whether inferences are stable or fragile.",
+          "item_extraction_instruction": "Extract the missing-data method, enough implementation detail to recreate it, and any sensitivity analyses that assess robustness to departures from the primary missingness assumption.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Conduct analyses using a statistically valid approach under the primary missing data assumption",
+              "locator": "9.1 Standards for Statistical Reporting"
+            },
+            {
+              "page": 14,
+              "quote": "Consider sensitivity analyses",
+              "locator": "9.1 Standards for Statistical Reporting"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Missing Data and Correlated Data",
+          "item": "20",
+          "item_name": "Describe the correlation structure when observations are not independent",
+          "item_question": "If the manuscript includes clustered, repeated, or otherwise correlated observations, does it describe the levels of clustering, within-cluster exposure structure, and measurement timing?",
+          "item_question_background": "The AHA correlated-data section emphasizes that many standard statistical methods assume independence that may not hold in cardiovascular studies with repeated measures, imaging segments, or clustered assignment. Reviewers need to understand the correlation structure before they can judge the analysis.",
+          "item_extraction_instruction": "Extract whether exposure occurs individually or in clusters, the levels of clustering present, whether exposure varies within cluster, and the number and timing of measurements.",
+          "item_expected_location": "Methods / Study design / Data structure / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "The levels of clustering of observations present in the structure of the data",
+              "locator": "10.1 Design, Analysis, and Reporting of a Study With Correlated Data"
+            },
+            {
+              "page": 15,
+              "quote": "What measurements were taken and when",
+              "locator": "10.1 Design, Analysis, and Reporting of a Study With Correlated Data"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Missing Data and Correlated Data",
+          "item": "21",
+          "item_name": "Report the modeling approach used to handle correlated data",
+          "item_question": "If the manuscript analyzes correlated data, does it report the modeling strategy, covariance assumptions, and resulting parameter estimates with uncertainty?",
+          "item_question_background": "The statement warns that ignoring correlation can bias standard errors downward and inflate false positives. It therefore asks for both the modeling framework chosen to account for correlation and the assumptions used to specify that correlation.",
+          "item_extraction_instruction": "Extract the link function, marginal or conditional modeling strategy, handling of time or structural variables, covariance-structure selection, and the resulting model estimates with confidence intervals.",
+          "item_expected_location": "Methods / Statistical analysis / Results / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "whether a conditional ... or a marginal ... modeling strategy was used",
+              "locator": "10.1 Design, Analysis, and Reporting of a Study With Correlated Data"
+            },
+            {
+              "page": 15,
+              "quote": "Key results from the modeling",
+              "locator": "10.1 Design, Analysis, and Reporting of a Study With Correlated Data"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Confounding and Sample Size",
+      "items": [
+        {
+          "section": "Confounding and Sample Size",
+          "item": "22",
+          "item_name": "For covariate adjustment, report the analytical plan and model specification clearly",
+          "item_question": "If the manuscript uses covariate adjustment or multivariable modeling, does it explain the analytical plan, endpoint definition, model form, covariate choice, and how variables were coded and handled?",
+          "item_question_background": "The AHA statement views adjustment methods as especially vulnerable to hidden researcher degrees of freedom. It therefore asks for transparency not just about the final model, but about the plan linking hypotheses, endpoints, covariates, and model form.",
+          "item_extraction_instruction": "Extract the analytical plan, endpoint specification, model family, model-development approach, covariates used for adjustment, and how those covariates were coded or parameterized.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 16,
+              "quote": "Include a clearly written analytical plan",
+              "locator": "11.1 Points of Emphasis"
+            },
+            {
+              "page": 16,
+              "quote": "Authors should specify the model form used",
+              "locator": "11.1 Points of Emphasis"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Confounding and Sample Size",
+          "item": "23",
+          "item_name": "For propensity score or instrumental variable methods, justify the approach and report key diagnostics",
+          "item_question": "If the manuscript uses propensity scores or instrumental variables, does it justify the chosen approach and report the details needed to assess whether the design assumptions are plausible?",
+          "item_question_background": "The AHA group recognizes that cardiovascular comparative-effectiveness studies increasingly rely on design-based confounding control methods. Those approaches can be powerful, but only if reviewers can see what kind of weighting or instrument was used and whether the core assumptions were evaluated credibly.",
+          "item_extraction_instruction": "Extract whether weighting, stratification, or covariate adjustment with propensity scores was used and why; if inverse probability weighting was used, record the weight type; if instrumental variables were used, extract the instrument, strength metrics, and discussion of exclusion and independence assumptions.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "authors should justify their approach",
+              "locator": "11.1 Points of Emphasis"
+            },
+            {
+              "page": 17,
+              "quote": "authors should provide an assessment of the strength of the instrument",
+              "locator": "11.1 Points of Emphasis"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Confounding and Sample Size",
+          "item": "24",
+          "item_name": "Report sample size and power considerations transparently",
+          "item_question": "Does the manuscript report the number of observations analyzed, any relevant cluster counts, the rationale for the final sample size, and avoidance of post hoc power calculations based on the observed effect size?",
+          "item_question_background": "The statement treats sample size reporting as more than a one-line power claim. Reviewers should see how many observations and clusters were available, how the sample size was justified for the primary analysis, and whether the authors avoided the well-known trap of post hoc power calculations tied directly to the observed result.",
+          "item_extraction_instruction": "Extract the number of observations analyzed, cluster counts if relevant, the original sample-size or power rationale, and any mention of post hoc power calculations or why they were not used.",
+          "item_expected_location": "Abstract / Methods / Results / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 17,
+              "quote": "the number of observations collected and analyzed should be featured prominently",
+              "locator": "12.1 Number of Observations"
+            },
+            {
+              "page": 18,
+              "quote": "Post hoc power calculations using the observed effect size",
+              "locator": "12.5 Post Hoc Power Calculations"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "AHA statistical reporting in cardiovascular medicine",
+      "Recommendations for Statistical Reporting in Cardiovascular Medicine",
+      "AHA statistical reporting",
+      "Circulation statistical reporting special report"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|journal|full_text",
+        "Patterns": [
+          "\\bcardiovascular\\b",
+          "\\bCirculation\\b",
+          "\\bAHA\\b",
+          "\\bstatistical analysis\\b",
+          "\\bhazard ratio\\b",
+          "\\bpropensity score\\b",
+          "\\bKaplan-Meier\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|journal|full_text",
+        "Patterns": [
+          "\\bmultiple comparisons\\b",
+          "\\bmissing data\\b",
+          "\\bBayesian\\b",
+          "\\bcorrelated data\\b",
+          "\\binstrumental variable\\b",
+          "\\bclinical prediction model\\b",
+          "\\bdiagnostic accuracy\\b",
+          "\\bsample size\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A cardiovascular outcomes manuscript reports complex statistical analyses including survival models, propensity scores, missing-data handling, and detailed figures, and needs a journal-oriented overlay for statistical transparency.",
+      "A Circulation-style manuscript uses a design-specific guideline such as CONSORT or PRISMA but also needs cardiovascular-specific expectations for exact P values, interpretable scaling, Kaplan-Meier presentation, and confounding-adjustment reporting."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely mechanistic laboratory paper with no substantive statistical analysis beyond a few descriptive summaries is not a strong match for this AHA overlay.",
+      "A non-cardiovascular manuscript that only needs a single design-specific reporting standard and has no special cardiovascular-statistical reporting issues is unlikely to need this overlay."
+    ],
+    "Explain": "Use this AHA overlay for cardiovascular manuscripts with substantial statistical analysis, especially when reviewers need explicit reporting on methods detail, visualization, survival analysis, confounding adjustment, missing data, or Bayesian analysis in addition to the underlying design-specific guideline."
+  }
+}

@@ -1,0 +1,845 @@
+{
+  "id": "tsbs",
+  "Name": "TSBS",
+  "LongName": "Transparency in Social and Behavioral Sciences",
+  "Description": "A consensus-based transparency checklist for social and behavioural research, especially confirmatory work on primary data. The article introduces the framework and its four sections, while the companion online application provides the full 36-item long checklist used to document preregistration, methods, results and discussion, and data, code, and materials availability.",
+  "Category": "reporting_guideline",
+  "Subdomain": "Social and behavioural research transparency",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "Improve and document the transparency of social and behavioural research reports by making key choices about preregistration, methods, analysis, and sharing of research artifacts visible to editors, reviewers, and readers.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Social or behavioural research report"
+  ],
+  "StudyType": [
+    "Confirmatory study",
+    "Experimental study",
+    "Observational study",
+    "Survey study",
+    "Primary data study"
+  ],
+  "Keywords": [
+    "transparency checklist",
+    "social science",
+    "behavioural research",
+    "preregistration",
+    "methods transparency",
+    "open data",
+    "open code",
+    "materials availability",
+    "confirmatory research"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Confirmatory study",
+      "Experimental study",
+      "Observational study",
+      "Survey study",
+      "Primary data study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Behavioural science",
+      "Psychology",
+      "Communication research",
+      "Political science"
+    ],
+    "Coverage": "Broad social and behavioural research reports, especially confirmatory studies using primary data, where authors need to disclose what was planned, what was done, what changed, and what research artifacts are available.",
+    "Focus": "Preregistration timing and content, participant handling and study procedures, transparency about analytical decisions and assumption handling, explicit separation of confirmatory versus exploratory work, and public availability of data, code, and materials.",
+    "ContrastWith": "This checklist is a broad transparency overlay rather than a design-specific reporting guideline like CONSORT or PRISMA. It is meant to complement those standards by documenting research-process transparency across many social and behavioural study types."
+  },
+  "references": {
+    "primary": {
+      "description": "Aczel B, Szaszi B, Sarafoglou A, et al. A consensus-based transparency checklist. Nature Human Behaviour. 2020.",
+      "url": "https://sites.stat.columbia.edu/gelman/research/published/checklist.pdf"
+    },
+    "secondary": [
+      {
+        "description": "Transparency Checklist 1.0 long-form online application (36-item version).",
+        "url": "https://www.shinyapps.org/apps/TransparencyChecklist/"
+      }
+    ]
+  },
+  "Checklist": [
+    {
+      "section": "Preregistration",
+      "items": [
+        {
+          "section": "Preregistration",
+          "item": "1",
+          "item_name": "Post a time-stamped preregistration before analyzing the complete data",
+          "item_question": "Prior to analyzing the complete data set, was a time-stamped preregistration posted in an independent, third-party registry for the data analysis plan?",
+          "item_question_background": "The checklist frames preregistration as one of the clearest ways to make confirmatory research transparent. This item asks whether a documented analysis plan existed before full-data analysis, which helps reviewers distinguish planned work from later analytic choices.",
+          "item_extraction_instruction": "Extract whether a time-stamped preregistration exists, the registry used, and whether it was posted before analysis of the complete data set.",
+          "item_expected_location": "Methods / Preregistration statement / Supplement / Repository link",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "The final version of the Transparency Checklist 1.0 contains 36 items",
+              "locator": "Checklist overview"
+            },
+            {
+              "page": 1,
+              "quote": "they could adopt open research practices such as study preregistration",
+              "locator": "The practical side of transparency"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "2",
+          "item_name": "Provide URLs to all preregistrations for the study",
+          "item_question": "Does the manuscript include a URL to all preregistrations that concern the present study?",
+          "item_question_background": "Transparency depends on readers being able to inspect the preregistration, not merely being told that one exists. This item focuses on direct access to every relevant preregistration record.",
+          "item_extraction_instruction": "Extract all URLs or persistent links to preregistrations relevant to the study.",
+          "item_expected_location": "Methods / Preregistration statement / Footnotes / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Responses to the checklist items can be submitted along with a manuscript",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "3",
+          "item_name": "State when the study was preregistered",
+          "item_question": "Does the transparency report specify when the study was preregistered relative to data collection, data exploration, and statistical analysis?",
+          "item_question_background": "This item matters because the credibility of preregistration depends on timing. A record posted before data collection carries a different interpretive weight from one posted after data exploration or after some analyses were already conducted.",
+          "item_extraction_instruction": "Extract the stated timing of preregistration and whether it occurred before data collection, before exploration, before analysis, or later.",
+          "item_expected_location": "Preregistration statement / Repository record / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "When parts of the scientific process remain hidden",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "4",
+          "item_name": "Preregister inclusion and exclusion criteria",
+          "item_question": "Does the preregistration fully describe all inclusion and exclusion criteria for participation?",
+          "item_question_background": "Eligibility decisions can strongly shape a study's eventual sample and conclusions. This item makes those participation rules part of the preregistered record so they are not left implicit or adjusted invisibly later.",
+          "item_extraction_instruction": "Extract preregistered participant inclusion and exclusion criteria and any thresholds or eligibility rules specified in advance.",
+          "item_expected_location": "Preregistration / Methods / Eligibility criteria",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "four components of a study: preregistration; methods; results and discussion",
+              "locator": "Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "5",
+          "item_name": "Preregister participant assignment procedures",
+          "item_question": "Does the preregistration fully describe all procedures for assigning participants to conditions?",
+          "item_question_background": "Condition assignment is a central design choice in confirmatory work. By asking for this information in preregistration, the checklist aims to make group-allocation procedures auditable before outcomes are known.",
+          "item_extraction_instruction": "Extract the preregistered procedures for assigning participants to conditions, groups, or treatments.",
+          "item_expected_location": "Preregistration / Design plan / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "identifying concrete actions that researchers can take to enhance transparency",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "6",
+          "item_name": "Preregister stimulus randomization procedures",
+          "item_question": "Does the preregistration fully describe all procedures for randomizing stimulus materials?",
+          "item_question_background": "In many behavioural studies, randomization applies not only to participants but also to stimuli or item presentation. This item captures design features that can influence outcomes but are often poorly documented.",
+          "item_extraction_instruction": "Extract any preregistered procedures for stimulus randomization, ordering, counterbalancing, or allocation of materials.",
+          "item_expected_location": "Preregistration / Materials plan / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "underspecified methods, analyses and reporting practices",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "7",
+          "item_name": "Preregister blinding or naivete procedures",
+          "item_question": "Does the preregistration fully describe any procedures for ensuring that participants, experimenters, and data-analysts were kept naive or blinded to potentially biasing information?",
+          "item_question_background": "The checklist treats blinding as a transparency issue because awareness of conditions or hypotheses can bias conduct, interpretation, or analysis. Declaring these procedures in advance makes potential protections against bias visible.",
+          "item_extraction_instruction": "Extract preregistered blinding or naivete procedures for participants, experimenters, and analysts.",
+          "item_expected_location": "Preregistration / Design plan / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Human reasoning is vulnerable to a host of pernicious and often subtle biases",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "8",
+          "item_name": "Preregister the sample-size rationale",
+          "item_question": "Does the preregistration fully describe a rationale for the sample size used, such as an a priori power analysis?",
+          "item_question_background": "Sample-size planning affects both evidential value and interpretability. This item asks whether the rationale for the eventual sample was documented before analysis rather than introduced only after results are known.",
+          "item_extraction_instruction": "Extract any preregistered sample-size rationale, including power analyses, precision targets, stopping rules, or other planning justification.",
+          "item_expected_location": "Preregistration / Power analysis / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "the transparency report provides researchers the opportunity to explain their choices",
+              "locator": "Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "9",
+          "item_name": "Preregister the measures of interest",
+          "item_question": "Does the preregistration fully describe the measures of interest?",
+          "item_question_background": "A study's evidential claims depend on what was measured. This item makes the target constructs and outcomes part of the preregistered record so they cannot be silently shifted after seeing the data.",
+          "item_extraction_instruction": "Extract the preregistered measures, outcomes, constructs, or dependent variables designated as of interest.",
+          "item_expected_location": "Preregistration / Measures / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "claims should be based on observations that are reported transparently",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "10",
+          "item_name": "Preregister all operationalizations",
+          "item_question": "Does the preregistration fully describe all operationalizations for the measures of interest?",
+          "item_question_background": "Knowing a construct name is not enough; reviewers need to know how it was operationalized. This item targets the concrete instruments, tasks, or coding schemes used to realize the preregistered measures.",
+          "item_extraction_instruction": "Extract preregistered operational definitions, instruments, questionnaires, tasks, coding schemes, or scoring rules for the measures of interest.",
+          "item_expected_location": "Preregistration / Measures / Materials / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "cover most of the elements relevant to transparency and accountability",
+              "locator": "Reactive-Delphi consensus process"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "11",
+          "item_name": "Preregister data preprocessing plans",
+          "item_question": "Does the preregistration fully describe the data preprocessing plans, such as transformations, cleaning, normalization, or smoothing?",
+          "item_question_background": "Data preprocessing can substantially shape results while often remaining underreported. This item asks authors to make those plans explicit before analysis so reviewers can judge whether later preprocessing choices were anticipated.",
+          "item_extraction_instruction": "Extract preregistered plans for cleaning, transformation, normalization, smoothing, exclusion, or other preprocessing steps.",
+          "item_expected_location": "Preregistration / Data plan / Methods / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "These research practices can be difficult to detect",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "12",
+          "item_name": "Preregister missing-data handling",
+          "item_question": "Does the preregistration fully describe how missing data, such as dropouts, were planned to be handled?",
+          "item_question_background": "Missing-data decisions can strongly affect inference, especially in longitudinal or participant-based research. This item brings those decisions into the preregistered plan rather than leaving them to ad hoc analysis-stage judgment.",
+          "item_extraction_instruction": "Extract preregistered plans for handling missing data, dropouts, exclusions, or incomplete cases.",
+          "item_expected_location": "Preregistration / Analysis plan / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "critical information about the research process necessary to evaluate the robustness of a finding",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Preregistration",
+          "item": "13",
+          "item_name": "Preregister the intended statistical analyses",
+          "item_question": "Does the preregistration fully describe the intended statistical analysis for each research question, including relevant inferential criteria and modeling choices?",
+          "item_question_background": "The checklist treats planned analysis strategy as a central transparency target because analytic flexibility can generate unjustifiably optimistic findings. This item pushes key inferential choices into the preregistered record before results are known.",
+          "item_extraction_instruction": "Extract the preregistered analyses for each research question, including test sidedness, inference criteria, multiplicity corrections, model-selection criteria, priors, or other specified analysis rules.",
+          "item_expected_location": "Preregistration / Statistical analysis plan / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "lack of transparency need not be intentional",
+              "locator": "Good science requires transparency"
+            },
+            {
+              "page": 2,
+              "quote": "provide reviewers, editors and, eventually, readers with critical information",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "14",
+          "item_name": "Report the sample-size rationale in the manuscript",
+          "item_question": "Does the manuscript report the rationale for the sample size used, such as an a priori power analysis?",
+          "item_question_background": "Even when a study was preregistered, readers still need to see the sample-size justification in the report itself. This item focuses on making planning logic visible at the manuscript stage.",
+          "item_extraction_instruction": "Extract the manuscript's sample-size rationale, including power analysis, feasibility rationale, stopping rule, or other justification.",
+          "item_expected_location": "Methods / Power analysis / Participants",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "methods",
+              "locator": "Checklist section overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "15",
+          "item_name": "Describe participant recruitment",
+          "item_question": "Does the manuscript describe how participants were recruited?",
+          "item_question_background": "Recruitment procedures shape the population from which conclusions can be drawn. This item asks authors to expose how participants entered the study rather than treating the sample as self-explanatory.",
+          "item_extraction_instruction": "Extract participant recruitment sources, channels, dates, settings, or outreach procedures.",
+          "item_expected_location": "Methods / Participants / Recruitment",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "The checklist reinforces the norm of transparency by identifying concrete actions",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "16",
+          "item_name": "Describe participant selection criteria",
+          "item_question": "Does the manuscript describe how participants were selected, for example through eligibility criteria?",
+          "item_question_background": "Selection criteria determine who is analyzed and who is not. This item asks authors to surface those boundaries clearly so readers can judge generalizability and possible selection effects.",
+          "item_extraction_instruction": "Extract eligibility criteria, screening thresholds, inclusion rules, and exclusion rules actually used in the study.",
+          "item_expected_location": "Methods / Participants / Eligibility criteria",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "trustworthiness of the associated conclusions is eroded",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "17",
+          "item_name": "Describe participant compensation",
+          "item_question": "Does the manuscript describe what compensation was offered for participation?",
+          "item_question_background": "Compensation can affect recruitment, retention, and sample characteristics. This item ensures that an aspect of study procedure with possible behavioural consequences is documented transparently.",
+          "item_extraction_instruction": "Extract payments, incentives, course credit, reimbursements, or other compensation offered to participants.",
+          "item_expected_location": "Methods / Participants / Procedures",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "to improve and document the transparency of their research",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "18",
+          "item_name": "Describe dropout handling",
+          "item_question": "Does the manuscript describe how participant dropout was handled, for example whether participants were replaced or omitted?",
+          "item_question_background": "Attrition is a common source of hidden analytic discretion. This item asks authors to state how dropouts affected the sample rather than leaving readers to infer that from final Ns alone.",
+          "item_extraction_instruction": "Extract how participant dropout, attrition, or incomplete participation was handled in recruitment, data collection, and analysis.",
+          "item_expected_location": "Methods / Participants / Attrition / Flowchart",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "Transparency is required not only for evaluating and reproducing results",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "19",
+          "item_name": "Describe condition assignment procedures",
+          "item_question": "Does the manuscript describe how participants were assigned to conditions?",
+          "item_question_background": "Assignment procedures are often central to causal interpretation in social and behavioural studies. This item makes those procedures explicit at the reporting stage whether or not they were also preregistered.",
+          "item_extraction_instruction": "Extract how participants were assigned to conditions, groups, tasks, or interventions, including any randomization or allocation rules.",
+          "item_expected_location": "Methods / Design / Procedure",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "all the major stages of the research process",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "20",
+          "item_name": "Describe stimulus randomization",
+          "item_question": "Does the manuscript describe how stimulus materials were randomized?",
+          "item_question_background": "Order and material randomization can influence behavioural outcomes in ways that are easy to overlook if not reported. This item preserves those procedural details for reviewers and replicators.",
+          "item_extraction_instruction": "Extract any randomization, counterbalancing, or ordering procedures applied to stimulus materials, items, or tasks.",
+          "item_expected_location": "Methods / Materials / Procedure",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "effective replication and extension of that work",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "21",
+          "item_name": "Describe blinding or naivete procedures",
+          "item_question": "Does the manuscript describe whether, and if so how, participants, experimenters, and data-analysts were kept naive to potentially biasing information?",
+          "item_question_background": "This item targets opportunities for expectation effects and analytic bias. It asks authors to report any protections against such biases so readers can judge the study's susceptibility to them.",
+          "item_extraction_instruction": "Extract blinding or naivete procedures for participants, experimenters, and analysts, or explicit statements that no such procedures were used.",
+          "item_expected_location": "Methods / Procedure / Analysis plan",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "confirmation bias",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "22",
+          "item_name": "Describe the design, procedures, and materials well enough for replication",
+          "item_question": "Does the manuscript describe the study design, procedures, and materials well enough to allow independent replication?",
+          "item_question_background": "The checklist's methods section is not just about completeness for its own sake; it is explicitly tied to independent replication. This item asks whether a separate research team could understand what was done well enough to repeat it.",
+          "item_extraction_instruction": "Extract descriptions of design, procedures, tasks, materials, and any supplemental details that support independent replication.",
+          "item_expected_location": "Methods / Procedure / Materials / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "for effective replication and extension of that work",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "23",
+          "item_name": "Describe the measures of interest",
+          "item_question": "Does the manuscript describe the measures of interest?",
+          "item_question_background": "The measures themselves are part of what readers need to assess a study's claims. This item ensures the report makes clear what constructs or outcomes were actually measured.",
+          "item_extraction_instruction": "Extract the measures, outcomes, constructs, or dependent variables identified as of interest in the manuscript.",
+          "item_expected_location": "Methods / Measures / Outcomes",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "critical information about the research process necessary to evaluate the robustness of a finding",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "24",
+          "item_name": "Describe all operationalizations of the measures",
+          "item_question": "Does the manuscript describe all operationalizations for the measures of interest?",
+          "item_question_background": "Operationalization determines what an abstract construct means in practice. This item asks for the concrete questionnaires, tasks, codings, or manipulations through which the reported measures were realized.",
+          "item_extraction_instruction": "Extract the operational definitions, instruments, questionnaires, tasks, coding rules, or scoring procedures used for the measures of interest.",
+          "item_expected_location": "Methods / Measures / Materials / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "none of the responses on the checklist is a priori good or bad",
+              "locator": "Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Methods",
+          "item": "25",
+          "item_name": "Disclose changes from the preregistration",
+          "item_question": "Does the manuscript disclose any changes to the preregistration, such as changes in eligibility criteria, group membership cutoffs, or experimental procedures?",
+          "item_question_background": "Transparency does not require perfect immutability; it requires that deviations be made visible. This item captures whether authors openly report where the executed study diverged from what was preregistered.",
+          "item_extraction_instruction": "Extract any reported changes from the preregistration, including changes to eligibility, assignments, cutoffs, procedures, outcomes, or analysis plans.",
+          "item_expected_location": "Methods / Deviations from plan / Supplement / Preregistration statement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "the transparency report provides researchers the opportunity to explain their choices",
+              "locator": "Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Results and Discussion",
+      "items": [
+        {
+          "section": "Results and Discussion",
+          "item": "26",
+          "item_name": "Distinguish confirmatory and exploratory analyses explicitly",
+          "item_question": "Does the manuscript distinguish explicitly between confirmatory, that is prespecified, and exploratory, that is not prespecified, analyses?",
+          "item_question_background": "One of the checklist's most important safeguards against hindsight bias is to keep planned and unplanned analyses clearly separated in the report. This helps readers avoid interpreting post hoc discoveries as though they had been predicted all along.",
+          "item_extraction_instruction": "Extract how the manuscript labels confirmatory versus exploratory analyses and whether this distinction is maintained consistently in results and discussion.",
+          "item_expected_location": "Results / Discussion / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "hindsight bias",
+              "locator": "Good science requires transparency"
+            },
+            {
+              "page": 2,
+              "quote": "especially for confirmatory work",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Results and Discussion",
+          "item": "27",
+          "item_name": "Describe how violations of statistical assumptions were handled",
+          "item_question": "Does the manuscript describe how violations of statistical assumptions were handled?",
+          "item_question_background": "Analyses often depend on assumptions that are imperfectly met in real data. This item asks authors to surface how they dealt with those mismatches rather than presenting the final analysis as if assumption problems never arose.",
+          "item_extraction_instruction": "Extract any discussion of assumption checks, detected violations, and the remedial or alternative analyses used in response.",
+          "item_expected_location": "Results / Statistical analysis / Supplement / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "can easily produce unjustifiably optimistic research reports",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Results and Discussion",
+          "item": "28",
+          "item_name": "Justify statistical choices",
+          "item_question": "Does the manuscript justify key statistical choices, such as including or excluding covariates, applying or not applying transformations, or choosing one model class over another?",
+          "item_question_background": "The checklist recognizes that many defensible statistical options exist, but transparency requires showing why one path was chosen. This item focuses on making those analyst decisions inspectable rather than implicit.",
+          "item_extraction_instruction": "Extract justifications for covariate decisions, transformations, model choices, multilevel versus simpler models, or other consequential analytic decisions.",
+          "item_expected_location": "Methods / Results / Supplement / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "the opportunity to explain their choices",
+              "locator": "Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Results and Discussion",
+          "item": "29",
+          "item_name": "Report the sample size for each design cell",
+          "item_question": "Does the manuscript report the sample size for each cell of the design?",
+          "item_question_background": "Overall sample size can conceal imbalances or thin cells that matter for interpretation. This item asks for cell-level Ns so readers can assess design structure and evidential strength more accurately.",
+          "item_extraction_instruction": "Extract sample sizes for each group, condition, cell, or analytically relevant subdivision of the design.",
+          "item_expected_location": "Results / Tables / Participants flow / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "the robustness of a finding",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Results and Discussion",
+          "item": "30",
+          "item_name": "Report how incomplete or missing data were handled",
+          "item_question": "Does the manuscript report how incomplete or missing data were handled?",
+          "item_question_background": "Missing-data treatment is often a hidden source of analytic flexibility. This item asks that the final report make those decisions visible so readers can judge their effect on the findings.",
+          "item_extraction_instruction": "Extract how incomplete observations, missing values, and excluded cases were handled in the reported analyses.",
+          "item_expected_location": "Methods / Results / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "methods, analyses and reporting practices",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Results and Discussion",
+          "item": "31",
+          "item_name": "Present data preprocessing protocols",
+          "item_question": "Does the manuscript present protocols for data preprocessing, such as cleaning, discarding of cases or items, normalizing, smoothing, or artifact correction?",
+          "item_question_background": "Preprocessing can alter the evidential basis of a study as much as the formal statistical model. This item asks authors to expose those upstream choices in the final report, not just in code or informal lab practice.",
+          "item_extraction_instruction": "Extract protocols for cleaning, exclusions, artifact correction, normalization, smoothing, or other preprocessing steps applied before or during analysis.",
+          "item_expected_location": "Methods / Results / Supplement / Data processing appendix",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "major stages of the research process",
+              "locator": "Transparency Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data Code and Materials Availability",
+      "items": [
+        {
+          "section": "Data Code and Materials Availability",
+          "item": "32",
+          "item_name": "Make processed data publicly available",
+          "item_question": "Have the processed data on which the analyses of the manuscript were based been made publicly available?",
+          "item_question_background": "The checklist treats data sharing as a major practical route to transparency and reanalysis. This item focuses on the processed data that directly support the reported analyses, which are often the minimum needed for others to verify results.",
+          "item_extraction_instruction": "Extract whether the processed data underlying the manuscript's analyses are publicly available and where they can be accessed.",
+          "item_expected_location": "Data availability statement / Repository link / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "open data, code and materials",
+              "locator": "The practical side of transparency"
+            },
+            {
+              "page": 2,
+              "quote": "data, code and materials availability",
+              "locator": "Checklist overview"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Code and Materials Availability",
+          "item": "33",
+          "item_name": "Make code and software publicly available",
+          "item_question": "Have all code and software, that is not copyright protected, been made publicly available?",
+          "item_question_background": "Code sharing is central to computational transparency because it reveals exactly how analyses were implemented. This item asks not only whether code exists, but whether it is publicly available in a form others can inspect and use.",
+          "item_extraction_instruction": "Extract whether analysis code and software are shared, any access restrictions, and the location of the shared code or scripts.",
+          "item_expected_location": "Code availability statement / Repository link / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "promote the availability of all research items, including data, materials and code",
+              "locator": "TOP guidelines discussion"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Code and Materials Availability",
+          "item": "34",
+          "item_name": "Make instructions, stimuli, and test materials publicly available",
+          "item_question": "Have all instructions, stimuli, and test materials, that are not copyright protected, been made publicly available?",
+          "item_question_background": "For many behavioural studies, the materials are inseparable from the analysis because they define what participants experienced. This item makes those artifacts part of the transparency record where legal constraints allow.",
+          "item_extraction_instruction": "Extract whether instructions, stimuli, tasks, questionnaires, and other materials are publicly available and where they are archived.",
+          "item_expected_location": "Materials availability statement / Repository link / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "badges that acknowledge open data, code and materials",
+              "locator": "The practical side of transparency"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Code and Materials Availability",
+          "item": "35",
+          "item_name": "Archive data well enough for an informed outsider to reproduce the analysis",
+          "item_question": "Are the data properly archived, that is, would a graduate student with relevant background knowledge be able to identify each variable and reproduce the analysis?",
+          "item_question_background": "Transparency is not achieved by file release alone. This item asks whether the archived materials are intelligible and organized enough for a reasonably skilled outsider to reproduce the reported work rather than merely download opaque files.",
+          "item_extraction_instruction": "Extract whether archived data are documented with enough metadata, variable definitions, structure, and linkage to support reproduction by a knowledgeable third party.",
+          "item_expected_location": "Repository documentation / Data dictionary / Supplement / README",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 1,
+              "quote": "research synthesis and meta-analysis from the raw data",
+              "locator": "Good science requires transparency"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Code and Materials Availability",
+          "item": "36",
+          "item_name": "Include a manuscript availability statement for all research items",
+          "item_question": "Does the manuscript include a statement concerning the availability and location of all research items, including data, materials, and code relevant to the study?",
+          "item_question_background": "A final availability statement makes the transparency status of the study legible from the manuscript itself. This item ensures readers are not left searching blindly for what can be accessed and where.",
+          "item_extraction_instruction": "Extract the manuscript's availability statement describing the presence, absence, location, and access conditions for data, materials, and code.",
+          "item_expected_location": "Availability statement / Back matter / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "generate a report that they can submit with their manuscript",
+              "locator": "Online applications"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "Transparency Checklist",
+      "Transparency Checklist 1.0",
+      "consensus-based transparency checklist",
+      "Aczel transparency checklist"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bpreregistration\\b",
+          "\\btransparency\\b",
+          "\\bopen data\\b",
+          "\\bopen code\\b",
+          "\\bmaterials availability\\b",
+          "\\bconfirmatory\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bexploratory\\b",
+          "\\bdata preprocessing\\b",
+          "\\bblinded\\b",
+          "\\bpower analysis\\b",
+          "\\bmissing data\\b",
+          "\\breplication\\b",
+          "\\brepository\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A psychology or political-science manuscript distinguishes confirmatory from exploratory analyses, links a preregistration, discloses preprocessing and missing-data decisions, and includes data and code availability information.",
+      "A social or behavioural study wants a broad transparency overlay documenting preregistration content, methods decisions, and the availability of research artifacts in addition to any design-specific standard."
+    ],
+    "EvidenceExamplesNegative": [
+      "A purely theoretical manuscript with no primary data, no empirical methods section, and no research artifacts to share is not a meaningful match for this checklist.",
+      "A paper that only needs a narrow study-design checklist and has no broader transparency or availability reporting component is unlikely to need the full Transparency Checklist overlay."
+    ],
+    "Explain": "Use the Transparency Checklist as a broad social-science transparency overlay for manuscripts that need explicit disclosure of preregistration, methodological choices, confirmatory versus exploratory status, and the availability of data, code, and materials."
+  }
+}

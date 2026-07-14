@@ -1,0 +1,256 @@
+{
+  "id": "jars-quant",
+  "Name": "JARS-Quant",
+  "LongName": "Journal Article Reporting Standards for Quantitative Research in Psychology",
+  "Description": "APA's JARS-Quant master standard for reporting quantitative empirical studies in psychology and related behavioral, social, and educational sciences. It provides a core table of reporting expectations that applies regardless of design, with additional design-specific modules used alongside it.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology quantitative research reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve the clarity, completeness, transparency, and reproducibility of quantitative research reports in psychology by specifying the core information that should be reported across article sections regardless of specific study design.",
+  "ManuscriptType": [
+    "Original research article",
+    "Quantitative psychology manuscript",
+    "Behavioral science empirical study",
+    "Educational science empirical study"
+  ],
+  "ManuscriptSubType": [
+    "Quantitative empirical report",
+    "APA-style manuscript",
+    "Behavioral or social science quantitative report"
+  ],
+  "StudyType": [
+    "Quantitative empirical study",
+    "Experimental study",
+    "Observational study",
+    "Longitudinal study"
+  ],
+  "Keywords": [
+    "JARS-Quant",
+    "journal article reporting standards",
+    "psychology reporting standards",
+    "APA reporting standards",
+    "quantitative research reporting",
+    "behavioral science reporting"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Quantitative empirical study",
+      "Experimental study",
+      "Observational study",
+      "Longitudinal study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral science",
+      "Education"
+    ],
+    "Coverage": "Quantitative empirical studies in psychology and related behavioral, social, and educational sciences, especially manuscripts prepared in APA style that may also require design-specific companion tables.",
+    "Focus": "Core reporting of title, abstract, introduction, method, results, and discussion elements including hypotheses, sampling, measurement, design classification, data diagnostics, statistical analysis, participant flow, interpretation, and generalizability.",
+    "ContrastWith": "Not a qualitative reporting guide and not a stand-alone replacement for the design-specific JARS modules, SEM/Bayesian add-ons, or meta-analysis standards. JARS-Quant serves as the universal quantitative base table to be combined with more specific modules where needed."
+  },
+  "references": {
+    "primary": {
+      "description": "Appelbaum M, Cooper H, Kline RB, Mayo-Wilson E, Nezu AM, Rao SM. Journal Article Reporting Standards for Quantitative Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018. PMID: 29345484.",
+      "url": "https://psycnet.apa.org/fulltext/2018-00750-002.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title, Abstract, and Introduction",
+      "items": [
+        {
+          "section": "Title, Abstract, and Introduction",
+          "item": "1",
+          "item_name": "Identify the problem, variables, and populations clearly",
+          "item_question": "Does the title, abstract, and introduction clearly identify the main variables, theoretical issues, populations studied, and problem under investigation?",
+          "item_question_background": "JARS-Quant begins by asking authors to orient readers to the substantive problem, the focal variables, and the population before readers encounter the design and results details.",
+          "item_extraction_instruction": "Extract how the manuscript names the main variables, target population, study problem, and central hypotheses or objectives in the title, abstract, and introduction.",
+          "item_expected_location": "Title / Abstract / Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Identify main variables and theoretical issues under investigation ... Identify the populations studied.",
+              "locator": "Table 1 title row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Title, Abstract, and Introduction",
+          "item": "2",
+          "item_name": "Report core abstract elements",
+          "item_question": "Does the abstract report objectives, participant characteristics, study method, findings, and conclusions with enough detail to understand the study at a glance?",
+          "item_question_background": "The abstract is expected to summarize not only the question and findings but also the study method, sample, outcomes, and key statistical reporting elements.",
+          "item_extraction_instruction": "Extract whether the abstract includes the problem, main hypotheses, participant description, design, sample size, materials, outcomes, findings, and conclusions.",
+          "item_expected_location": "Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Describe the study method, including ... Research design ... Sample size ... Outcome measures ... Report findings, including effect sizes and confidence intervals or statistical significance levels.",
+              "locator": "Table 1 abstract rows"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Title, Abstract, and Introduction",
+          "item": "3",
+          "item_name": "Specify hypotheses and relation to design",
+          "item_question": "Are specific hypotheses, aims, and objectives stated, including how they relate to the research design and whether they are primary, secondary, or exploratory?",
+          "item_question_background": "The revised JARS-Quant emphasizes separating primary, secondary, and exploratory hypotheses to help readers assess evidential strength and multiplicity.",
+          "item_extraction_instruction": "Extract the stated hypotheses or aims and note whether the manuscript distinguishes primary, secondary, and exploratory analyses and links them to the design.",
+          "item_expected_location": "Introduction / Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "State specific hypotheses, aims, and objectives ... Primary and secondary hypotheses; other planned analyses ... State how hypotheses and research design relate to one another.",
+              "locator": "Table 1 hypothesis row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Method and Results",
+      "items": [
+        {
+          "section": "Method and Results",
+          "item": "4",
+          "item_name": "Describe sample, measurement, and design fully",
+          "item_question": "Does the method section report inclusion and exclusion criteria, participant characteristics, sampling procedures, sample size justification, measures, masking, psychometrics, and the applicable study design classification?",
+          "item_question_background": "The core JARS-Quant method expectations are designed to let readers evaluate who was studied, how they were selected, what was measured, and which design standard should also apply.",
+          "item_extraction_instruction": "Extract inclusion/exclusion criteria, demographics, sampling methods, power or precision rationale, measures and covariates, quality of measurement, masking, psychometrics, and the named design category.",
+          "item_expected_location": "Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "State whether conditions were manipulated or naturally observed. Report the type of design as per the JARS-Quant tables.",
+              "locator": "Table 1 conditions and design row"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Method and Results",
+          "item": "5",
+          "item_name": "Report data diagnostics and analytic strategy",
+          "item_question": "Does the manuscript explain planned data diagnostics, missing-data handling, transformations, outlier processing, and the analytic strategy for primary, secondary, and exploratory hypotheses?",
+          "item_question_background": "A major revision in JARS-Quant was the explicit inclusion of data diagnostics and analytic strategy before results are interpreted.",
+          "item_extraction_instruction": "Extract planned exclusions, missing-data methods, outlier handling, distribution checks, transformations, and the inferential strategy for primary, secondary, and exploratory analyses.",
+          "item_expected_location": "Method / Statistics",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 5,
+              "quote": "Describe planned data diagnostics ... Describe the analytic strategy for inferential statistics and protection against experiment-wise error for primary hypotheses, secondary hypotheses, exploratory hypotheses.",
+              "locator": "Table 1 data diagnostics and analytic strategy rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Method and Results",
+          "item": "6",
+          "item_name": "Report participant flow and statistical findings transparently",
+          "item_question": "Does the results section report participant flow, recruitment timing, missing data, inferential statistics, effect sizes, confidence intervals, software, and any analytic problems or anomalies?",
+          "item_question_background": "Transparent reporting of participant flow and the minimally sufficient statistical details is central to evaluating quantitative claims and reproducibility.",
+          "item_extraction_instruction": "Extract recruitment periods, participant flow, missingness details, inferential statistics, effect sizes, confidence intervals, software, and any convergence or diagnostic problems.",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Provide information detailing the statistical and data-analytic methods employed ... Results of all inferential tests conducted ... Effect-size estimates and confidence intervals ... Identification of the statistical software used.",
+              "locator": "Table 1 statistics and data analysis row"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "7",
+          "item_name": "Interpret support, limitations, and generalizability",
+          "item_question": "Does the discussion address support or nonsupport for hypotheses, limitations and bias, similarity to prior work, generalizability, and implications for future research or policy?",
+          "item_question_background": "JARS-Quant expects discussion sections to separate what the data support from what remains uncertain, while situating findings in prior work and broader applicability.",
+          "item_extraction_instruction": "Extract statements about support for primary or secondary hypotheses, threats to validity, comparison with prior studies, external validity, and future implications.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 6,
+              "quote": "Provide a statement of support or nonsupport for all hypotheses ... Discuss generalizability (external validity) ... Discuss implications for future research, program, or policy.",
+              "locator": "Table 1 discussion rows"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS-Quant",
+      "Journal Article Reporting Standards for Quantitative Research in Psychology",
+      "APA quantitative reporting standards"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bJARS[-\\s]?Quant\\b",
+          "\\bJournal Article Reporting Standards\\b",
+          "\\bAPA\\b.*\\breporting standard",
+          "\\bquantitative research in psychology\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bprimary, secondary, and exploratory\\b",
+          "\\bdata diagnostics\\b",
+          "\\bparticipant flow\\b",
+          "\\bbehavioral\\b|\\bpsychology\\b|\\beducational science\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "The manuscript cites JARS-Quant and separates primary, secondary, and exploratory hypotheses while reporting participant flow and data diagnostics.",
+      "An APA-style psychology article reports sample selection, psychometrics, masking, data diagnostics, and effect sizes in the core JARS-Quant structure."
+    ],
+    "EvidenceExamplesNegative": [
+      "A qualitative interview study that follows SRQR but has no quantitative analyses is not a JARS-Quant match.",
+      "A pure meta-analysis manuscript should map more directly to MARS than to the JARS-Quant base table."
+    ],
+    "Explain": "Use JARS-Quant as the master psychology quantitative-reporting overlay when a manuscript presents original quantitative empirical data and follows APA-style reporting expectations."
+  }
+}

@@ -1,0 +1,723 @@
+{
+  "id": "tripod-ai",
+  "Name": "TRIPOD+AI",
+  "LongName": "TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods",
+  "Description": "TRIPOD/TRIPOD+AI provides reporting guidance for studies that develop prediction models, scores, classifiers, biomarker signatures, or evaluate model performance in healthcare, regardless of whether regression or machine learning methods are used.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical prediction models",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve complete, accurate, and transparent reporting of prediction model development and evaluation studies in healthcare, including studies using machine learning methods.",
+  "ManuscriptType": [
+    "Original research article",
+    "Prediction model development study",
+    "Prediction model evaluation study"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Prediction model development study",
+    "Prediction model evaluation study",
+    "Diagnostic prediction model study",
+    "Prognostic prediction model study"
+  ],
+  "Keywords": [
+    "TRIPOD+AI",
+    "TRIPOD",
+    "clinical prediction model",
+    "prognostic model",
+    "diagnostic model",
+    "model development",
+    "model evaluation",
+    "external validation",
+    "machine learning",
+    "regression model",
+    "calibration",
+    "discrimination",
+    "clinical utility",
+    "fairness",
+    "open science",
+    "code sharing"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Prediction model development study",
+      "Prediction model evaluation study",
+      "Diagnostic prediction model study",
+      "Prognostic prediction model study"
+    ],
+    "Disciplines": [
+      "Medical and health"
+    ],
+    "Coverage": "Healthcare studies that develop a multivariable prediction model or evaluate its performance, including studies using regression and machine learning approaches.",
+    "Focus": "Transparent reporting of context, data, participant flow, predictors, outcomes, analysis methods, model specification, model performance, fairness considerations, open science practices, and usability in care pathways.",
+    "ContrastWith": "Not for randomized trial intervention reporting (CONSORT), observational association-only reporting (STROBE), diagnostic test accuracy reporting without a multivariable prediction-model/signature focus (STARD), or systematic review reporting (PRISMA). If the manuscript explicitly states that it was performed or reported according to TRIPOD and develops or validates a diagnostic/prognostic model, score, signature, classifier, or risk tool, TRIPOD+AI remains applicable alongside STARD when both guide types fit."
+  },
+  "references": {
+    "primary": {
+      "description": "Collins GS, Moons KGM, Dhiman P, et al. TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. BMJ. 2024;385:e078378.",
+      "url": "https://www.bmj.com/content/bmj/385/bmj-2023-078378.full.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title",
+      "items": [
+        {
+          "section": "Title",
+          "item": "1",
+          "item_name": "Identify prediction model study type, population, and outcome",
+          "item_question": "Is TRIPOD+AI item 1 reported?",
+          "item_question_background": "Readers should immediately recognize whether the paper develops or evaluates a prediction model and for whom and what outcome.",
+          "item_extraction_instruction": "Extract wording in the title that identifies development/evaluation, target population, and predicted outcome.",
+          "item_expected_location": "Title",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Abstract",
+      "items": [
+        {
+          "section": "Abstract",
+          "item": "2",
+          "item_name": "Report per TRIPOD+AI for Abstracts",
+          "item_question": "Is TRIPOD+AI item 2 reported?",
+          "item_question_background": "Abstracts often drive indexing and first-pass appraisal, so key model study details should be present.",
+          "item_extraction_instruction": "Extract whether the abstract covers context, objectives, data, modelling approach, performance measures, and conclusions consistent with TRIPOD+AI for Abstracts.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "3a",
+          "item_name": "Healthcare context and rationale",
+          "item_question": "Is TRIPOD+AI item 3a reported?",
+          "item_question_background": "Clinical context and rationale support judging relevance and novelty.",
+          "item_extraction_instruction": "Extract diagnostic/prognostic context, rationale, and references to existing models.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "3b",
+          "item_name": "Target population, intended purpose, intended users",
+          "item_question": "Is TRIPOD+AI item 3b reported?",
+          "item_question_background": "Model purpose and users clarify where and by whom the model is intended to be used.",
+          "item_extraction_instruction": "Extract target population, intended use in care pathway, and intended users (for example clinicians, patients, public).",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "3c",
+          "item_name": "Known health inequalities",
+          "item_question": "Is TRIPOD+AI item 3c reported?",
+          "item_question_background": "Pre-existing inequalities can affect fairness and transportability.",
+          "item_extraction_instruction": "Extract statements about known inequalities between sociodemographic groups relevant to this prediction context.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "4",
+          "item_name": "Study objectives",
+          "item_question": "Is TRIPOD+AI item 4 reported?",
+          "item_question_background": "Clear objectives prevent ambiguity about whether the work is development, evaluation, or both.",
+          "item_extraction_instruction": "Extract explicit objectives and whether the study is development, evaluation, or both.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "5a",
+          "item_name": "Data sources and representativeness",
+          "item_question": "Is TRIPOD+AI item 5a reported?",
+          "item_question_background": "Data source and representativeness are central to bias and applicability.",
+          "item_extraction_instruction": "Extract development/evaluation data sources, rationale for using them, and representativeness claims.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "5b",
+          "item_name": "Data collection dates and follow-up end",
+          "item_question": "Is TRIPOD+AI item 5b reported?",
+          "item_question_background": "Study timing supports temporal context and possible dataset shift assessment.",
+          "item_extraction_instruction": "Extract start/end dates for participant accrual and follow-up end date where applicable.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "6a",
+          "item_name": "Study setting and centres",
+          "item_question": "Is TRIPOD+AI item 6a reported?",
+          "item_question_background": "Setting details support transportability judgments.",
+          "item_extraction_instruction": "Extract healthcare setting, number of centres, and centre locations.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "6b",
+          "item_name": "Eligibility criteria",
+          "item_question": "Is TRIPOD+AI item 6b reported?",
+          "item_question_background": "Eligibility criteria define the modelled population.",
+          "item_extraction_instruction": "Extract participant inclusion and exclusion criteria.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "6c",
+          "item_name": "Treatments and handling in modelling",
+          "item_question": "Is TRIPOD+AI item 6c reported?",
+          "item_question_background": "Treatment effects can influence predictor-outcome relations and model validity.",
+          "item_extraction_instruction": "Extract treatment details and how treatments were handled in development/evaluation analyses.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "7",
+          "item_name": "Data preprocessing and quality checks",
+          "item_question": "Is TRIPOD+AI item 7 reported?",
+          "item_question_background": "Preprocessing decisions can materially alter model behaviour and fairness.",
+          "item_extraction_instruction": "Extract preprocessing and quality-check steps and whether they were similar across relevant sociodemographic groups.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8a",
+          "item_name": "Outcome definition, horizon, assessment consistency",
+          "item_question": "Is TRIPOD+AI item 8a reported?",
+          "item_question_background": "Outcome definition and timing determine target validity and comparability.",
+          "item_extraction_instruction": "Extract outcome definition, prediction horizon, how/when assessed, rationale for outcome choice, and consistency across sociodemographic groups.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "8b",
+          "item_name": "Outcome assessor characteristics",
+          "item_question": "Is TRIPOD+AI item 8b reported?",
+          "item_question_background": "Subjective outcome assessment can introduce systematic bias.",
+          "item_extraction_instruction": "If subjective outcome interpretation is involved, extract assessor qualifications and demographic characteristics.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "8c",
+          "item_name": "Blinding of outcome assessment",
+          "item_question": "Is TRIPOD+AI item 8c reported?",
+          "item_question_background": "Blinding can reduce measurement and information bias.",
+          "item_extraction_instruction": "Extract actions taken to blind outcome assessment.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9a",
+          "item_name": "Initial predictor choice and pre-selection",
+          "item_question": "Is TRIPOD+AI item 9a reported?",
+          "item_question_background": "Predictor selection strategy affects reproducibility and overfitting risk.",
+          "item_extraction_instruction": "Extract how candidate predictors were chosen and any pre-selection before model building.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9b",
+          "item_name": "Predictor definitions and measurement",
+          "item_question": "Is TRIPOD+AI item 9b reported?",
+          "item_question_background": "Predictor definitions must be explicit for replication and implementation.",
+          "item_extraction_instruction": "Extract all predictors, how/when measured, and any blinding of predictor assessment.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9c",
+          "item_name": "Predictor assessor characteristics",
+          "item_question": "Is TRIPOD+AI item 9c reported?",
+          "item_question_background": "Subjective predictor measurement can introduce systematic bias.",
+          "item_extraction_instruction": "If subjective predictor interpretation is involved, extract assessor qualifications and demographic characteristics.",
+          "item_expected_location": "Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "10",
+          "item_name": "Sample size and adequacy rationale",
+          "item_question": "Is TRIPOD+AI item 10 reported?",
+          "item_question_background": "Inadequate sample size can yield unstable and biased performance estimates.",
+          "item_extraction_instruction": "Extract how development/evaluation sample sizes were determined and any calculation or adequacy justification.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "11",
+          "item_name": "Missing data handling",
+          "item_question": "Is TRIPOD+AI item 11 reported?",
+          "item_question_background": "Missing-data handling can substantially affect model estimates and performance.",
+          "item_extraction_instruction": "Extract missing data methods and reasons for omitted data.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12a",
+          "item_name": "Data use and partitioning",
+          "item_question": "Is TRIPOD+AI item 12a reported?",
+          "item_question_background": "Improper data partitioning can lead to information leakage.",
+          "item_extraction_instruction": "Extract how data were used for development and evaluation, including partitioning strategy and sample-size considerations.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12b",
+          "item_name": "Predictor handling in analyses",
+          "item_question": "Is TRIPOD+AI item 12b reported?",
+          "item_question_background": "Feature handling choices alter model behaviour and comparability.",
+          "item_extraction_instruction": "Extract predictor handling details such as transformations, scaling, and functional forms.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12c",
+          "item_name": "Model type, rationale, building steps, tuning, internal validation",
+          "item_question": "Is TRIPOD+AI item 12c reported?",
+          "item_question_background": "Model-building transparency is required for reproducibility and appraisal.",
+          "item_extraction_instruction": "Extract model type(s), rationale, model-building workflow, hyperparameter tuning, and internal validation approach.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12d",
+          "item_name": "Heterogeneity handling across clusters",
+          "item_question": "Is TRIPOD+AI item 12d reported?",
+          "item_question_background": "Cluster-level heterogeneity can affect generalisability and calibration.",
+          "item_extraction_instruction": "Extract whether and how heterogeneity across clusters/settings was handled and quantified.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "12e",
+          "item_name": "Performance measures and plots",
+          "item_question": "Is TRIPOD+AI item 12e reported?",
+          "item_question_background": "Performance must be evaluated with transparent, suitable metrics and rationale.",
+          "item_extraction_instruction": "Extract all performance measures/plots (for example discrimination, calibration, clinical utility) and rationale.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12f",
+          "item_name": "Model updating during evaluation",
+          "item_question": "Is TRIPOD+AI item 12f reported?",
+          "item_question_background": "Model updating changes interpretation of evaluation results and transportability.",
+          "item_extraction_instruction": "If evaluation included updating/recalibration, extract what was updated and for which settings or sociodemographic groups.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "12g",
+          "item_name": "How predictions were calculated for evaluation",
+          "item_question": "Is TRIPOD+AI item 12g reported?",
+          "item_question_background": "Transparent prediction-generation steps prevent hidden implementation discrepancies.",
+          "item_extraction_instruction": "For evaluation studies, extract how predictions were computed (formula, code, model object, API, etc.).",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "13",
+          "item_name": "Class imbalance methods",
+          "item_question": "Is TRIPOD+AI item 13 reported?",
+          "item_question_background": "Class imbalance handling can materially affect model calibration and discrimination.",
+          "item_extraction_instruction": "If class imbalance methods were used, extract why/how they were used and any recalibration methods.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "14",
+          "item_name": "Fairness approaches and rationale",
+          "item_question": "Is TRIPOD+AI item 14 reported?",
+          "item_question_background": "Fairness handling is central to equitable model performance.",
+          "item_extraction_instruction": "Extract fairness-related approaches and their rationale.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "15",
+          "item_name": "Model output and threshold rationale",
+          "item_question": "Is TRIPOD+AI item 15 reported?",
+          "item_question_background": "Output format and thresholding determine clinical interpretation.",
+          "item_extraction_instruction": "Extract model output type and any classification threshold definitions and rationale.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "16",
+          "item_name": "Differences between development and evaluation data",
+          "item_question": "Is TRIPOD+AI item 16 reported?",
+          "item_question_background": "Dataset differences can explain changes in model performance.",
+          "item_extraction_instruction": "Extract differences between development and evaluation datasets in setting, eligibility, outcome, and predictors.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "17",
+          "item_name": "Ethical approval and consent",
+          "item_question": "Is TRIPOD+AI item 17 reported?",
+          "item_question_background": "Ethics governance supports trustworthy and compliant model research.",
+          "item_extraction_instruction": "Extract ethics committee/IRB name and consent or waiver details.",
+          "item_expected_location": "Methods / Ethics statement",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Open science",
+      "items": [
+        {
+          "section": "Open science",
+          "item": "18a",
+          "item_name": "Funding source and funder role",
+          "item_question": "Is TRIPOD+AI item 18a reported?",
+          "item_question_background": "Funding transparency helps assess potential influences on methods and reporting.",
+          "item_extraction_instruction": "Extract funding sources and explicit role of funders.",
+          "item_expected_location": "Funding statement / Back matter",
+          "item_optional": false
+        },
+        {
+          "section": "Open science",
+          "item": "18b",
+          "item_name": "Conflicts of interest",
+          "item_question": "Is TRIPOD+AI item 18b reported?",
+          "item_question_background": "Conflict disclosure helps readers interpret potential bias sources.",
+          "item_extraction_instruction": "Extract conflict-of-interest and financial disclosure statements for all authors.",
+          "item_expected_location": "Competing interests / Disclosures",
+          "item_optional": false
+        },
+        {
+          "section": "Open science",
+          "item": "18c",
+          "item_name": "Protocol accessibility",
+          "item_question": "Is TRIPOD+AI item 18c reported?",
+          "item_question_background": "Protocol transparency supports verification of prespecified methods.",
+          "item_extraction_instruction": "Extract where the protocol can be accessed, or explicit statement that no protocol was prepared.",
+          "item_expected_location": "Methods / Protocol / Supplement",
+          "item_optional": false
+        },
+        {
+          "section": "Open science",
+          "item": "18d",
+          "item_name": "Study registration",
+          "item_question": "Is TRIPOD+AI item 18d reported?",
+          "item_question_background": "Registration supports transparency and discourages selective reporting.",
+          "item_extraction_instruction": "Extract registry name and registration number, or explicit statement that the study was not registered.",
+          "item_expected_location": "Methods / Back matter",
+          "item_optional": false
+        },
+        {
+          "section": "Open science",
+          "item": "18e",
+          "item_name": "Data availability",
+          "item_question": "Is TRIPOD+AI item 18e reported?",
+          "item_question_background": "Data availability statements support reproducibility and secondary assessment.",
+          "item_extraction_instruction": "Extract availability and access conditions for study data.",
+          "item_expected_location": "Data availability / Back matter",
+          "item_optional": false
+        },
+        {
+          "section": "Open science",
+          "item": "18f",
+          "item_name": "Code availability",
+          "item_question": "Is TRIPOD+AI item 18f reported?",
+          "item_question_background": "Code availability is critical for reproducibility in ML and statistical pipelines.",
+          "item_extraction_instruction": "Extract availability and access conditions for analytical code.",
+          "item_expected_location": "Code availability / Supplement / Repository statement",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Patient and public involvement",
+      "items": [
+        {
+          "section": "Patient and public involvement",
+          "item": "19",
+          "item_name": "Patient and public involvement details",
+          "item_question": "Is TRIPOD+AI item 19 reported?",
+          "item_question_background": "Patient/public involvement can improve relevance and acceptability of model research.",
+          "item_extraction_instruction": "Extract how patients/public were involved in design, conduct, reporting, interpretation, or dissemination, or explicit no-involvement statement.",
+          "item_expected_location": "Methods / PPI statement",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "20a",
+          "item_name": "Participant flow and outcome counts",
+          "item_question": "Is TRIPOD+AI item 20a reported?",
+          "item_question_background": "Participant flow clarifies potential selection effects and denominator changes.",
+          "item_extraction_instruction": "Extract participant flow, counts with/without outcome, follow-up summary where relevant, and flow diagram mention.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "20b",
+          "item_name": "Participant and data characteristics",
+          "item_question": "Is TRIPOD+AI item 20b reported?",
+          "item_question_background": "Characteristics are needed to judge applicability, fairness, and missingness context.",
+          "item_extraction_instruction": "Extract key dates, predictor demographics, treatments, sample size, number of outcome events, follow-up, missingness, and group differences.",
+          "item_expected_location": "Results / Tables",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "20c",
+          "item_name": "Comparison to development data (evaluation studies)",
+          "item_question": "Is TRIPOD+AI item 20c reported?",
+          "item_question_background": "Distribution shifts between datasets can explain performance changes.",
+          "item_extraction_instruction": "For evaluation studies, extract comparison of key predictor/outcome distributions versus development data.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "21",
+          "item_name": "Participants and events per analysis",
+          "item_question": "Is TRIPOD+AI item 21 reported?",
+          "item_question_background": "Analysis-level denominators are needed for reproducibility and risk-of-bias assessment.",
+          "item_extraction_instruction": "Extract number of participants and outcome events for each analysis stage.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "22",
+          "item_name": "Full model specification and access constraints",
+          "item_question": "Is TRIPOD+AI item 22 reported?",
+          "item_question_background": "Independent evaluation and implementation require full model specification.",
+          "item_extraction_instruction": "Extract model formula/code/object/API details and any restrictions on access or reuse.",
+          "item_expected_location": "Results / Supplement / Repository",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "23a",
+          "item_name": "Model performance with confidence intervals",
+          "item_question": "Is TRIPOD+AI item 23a reported?",
+          "item_question_background": "Performance with uncertainty and subgroup information is essential for interpretation.",
+          "item_extraction_instruction": "Extract performance estimates with confidence intervals overall and in key subgroups, plus any supporting plots.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "23b",
+          "item_name": "Heterogeneity in performance across clusters",
+          "item_question": "Is TRIPOD+AI item 23b reported?",
+          "item_question_background": "Cluster heterogeneity informs transportability and implementation risk.",
+          "item_extraction_instruction": "If assessed, extract heterogeneity results for model performance across clusters/settings.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "24",
+          "item_name": "Model updating results",
+          "item_question": "Is TRIPOD+AI item 24 reported?",
+          "item_question_background": "Updated model details are needed when evaluation triggers recalibration or revision.",
+          "item_extraction_instruction": "For evaluation studies with updating, extract updated model details and subsequent performance.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "25",
+          "item_name": "Interpretation in context including fairness",
+          "item_question": "Is TRIPOD+AI item 25 reported?",
+          "item_question_background": "Interpretation should reflect objectives, prior evidence, and fairness implications.",
+          "item_extraction_instruction": "Extract overall interpretation with explicit reference to objectives, prior studies, and fairness considerations.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "26",
+          "item_name": "Study limitations and effects",
+          "item_question": "Is TRIPOD+AI item 26 reported?",
+          "item_question_background": "Explicit limitations are needed for honest appraisal of bias and uncertainty.",
+          "item_extraction_instruction": "Extract discussed limitations (for example representativeness, sample size, overfitting, missing data) and their expected effects on bias, uncertainty, and generalisability.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "27a",
+          "item_name": "Handling poor or unavailable input data",
+          "item_question": "Is TRIPOD+AI item 27a reported?",
+          "item_question_background": "Operational guidance is needed for real-world deployment with imperfect inputs.",
+          "item_extraction_instruction": "For development-focused studies, extract recommendations for assessing/handling poor or unavailable predictor inputs during implementation.",
+          "item_expected_location": "Discussion / Implementation considerations",
+          "item_optional": true
+        },
+        {
+          "section": "Discussion",
+          "item": "27b",
+          "item_name": "Required user interaction and expertise",
+          "item_question": "Is TRIPOD+AI item 27b reported?",
+          "item_question_background": "Users and required expertise affect safe and feasible model deployment.",
+          "item_extraction_instruction": "Extract expected user interaction with model inputs/usage and required user expertise.",
+          "item_expected_location": "Discussion / Implementation considerations",
+          "item_optional": true
+        },
+        {
+          "section": "Discussion",
+          "item": "27c",
+          "item_name": "Future research for applicability and generalisability",
+          "item_question": "Is TRIPOD+AI item 27c reported?",
+          "item_question_background": "Future-work plans should address applicability and transportability gaps.",
+          "item_extraction_instruction": "Extract proposed next research steps, especially those targeting applicability and generalisability.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "TRIPOD+AI",
+      "TRIPOD AI",
+      "Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis",
+      "prediction model reporting guideline",
+      "TRIPOD",
+      "TRIPOD statement",
+      "TRIPOD guidelines"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bTRIPOD\\+?AI\\b",
+          "\\bclinical\\s+prediction\\s+model(s)?\\b",
+          "\\bmultivariable\\s+prediction\\s+model(s)?\\b",
+          "\\bprognostic\\s+model(s)?\\b",
+          "\\bdiagnostic\\s+prediction\\s+model(s)?\\b",
+          "\\bprediction\\s+rule(s)?\\b",
+          "\\brisk\\s+score(s)?\\b",
+          "\\bscoring\\s+tool(s)?\\b",
+          "\\btriage\\s+score(s)?\\b",
+          "\\btriage\\s+scoring\\s+tool(s)?\\b",
+          "\\bmodel(?:ling)?\\s+of\\b",
+          "\\bmodel\\s+development\\b",
+          "\\bdevelopment\\s+and\\s+validation\\b",
+          "\\bdevelop(?:ed|ment)?\\b.{0,40}\\bvalidat(?:ed|ion)\\b",
+          "\\bvalidation\\s+of\\s+(?:a\\s+)?(?:multivariable\\s+)?(?:prediction\\s+model|risk\\s+score|scoring\\s+tool)\\b",
+          "\\bexternal\\s+validation\\b",
+          "\\bcalibration\\b",
+          "\\bdiscrimination\\b",
+          "\\breported\\s+in\\s+accordance\\s+with\\s+TRIPOD\\b",
+          "\\bperformed\\s+and\\s+reported\\s+in\\s+accordance\\s+with\\s+TRIPOD\\b",
+          "\\bmultiprotein\\s+signature(s)?\\b",
+          "\\bprotein\\s+signature(s)?\\b",
+          "\\bbiomarker\\s+signature(s)?\\b",
+          "\\bclassifier(s)?\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\brandomi[sz]ed\\s+trial\\b",
+          "\\bsystematic\\s+review\\b",
+          "\\bmeta-analys(is|es)\\b",
+          "\\bhealth\\s+economic\\s+evaluation\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmultivariable\\s+prediction\\b",
+          "\\bretrospective\\s+cohort\\b",
+          "\\bmachine\\s+learning\\b",
+          "\\bmodel\\s+validation\\b",
+          "\\bc[-\\s]?statistic\\b",
+          "\\bdecision\\s+curve\\s+analysis\\b",
+          "\\brecalibration\\b",
+          "\\bmodel\\s+updat(ing|e)\\b",
+          "\\bmachine\\s+learning\\s+prediction\\b",
+          "\\breported\\s+in\\s+accordance\\s+with\\s+TRIPOD\\b",
+          "\\bLasso\\b",
+          "\\bRidge\\s+regression(s)?\\b",
+          "\\bAUCs?\\b.{0,60}\\bvalidation\\b",
+          "\\bdiagnostic\\s+(?:multiprotein|biomarker|protein)\\s+signature(s)?\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bintervention\\s+trial\\b",
+          "\\bprotocol\\s+only\\b",
+          "\\bcase\\s+report\\b",
+          "\\bqualitative\\s+study\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We developed and externally validated a prognostic prediction model for 30-day mortality and report calibration slope, c-statistic, and decision-curve analysis.",
+      "This study evaluates a machine-learning diagnostic prediction model in a multicentre cohort and reports discrimination and calibration with confidence intervals."
+    ],
+    "EvidenceExamplesNegative": [
+      "This randomized trial compares two treatments and does not develop or evaluate a multivariable prediction model.",
+      "This paper is a systematic review of prediction studies and does not report primary model development or model performance evaluation."
+    ],
+    "Explain": "This catalog item covers TRIPOD and TRIPOD+AI prediction-model reporting. Select it for healthcare manuscripts that develop or evaluate diagnostic/prognostic prediction models, scores, classifiers, or biomarker signatures. It can apply alongside STARD when a diagnostic-accuracy manuscript also develops or validates a multivariable prediction/signature model, especially when the manuscript explicitly says it was reported in accordance with TRIPOD."
+  }
+}

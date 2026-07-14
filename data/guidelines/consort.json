@@ -1,0 +1,607 @@
+{
+  "id": "consort",
+  "Name": "CONSORT",
+  "LongName": "CONSORT 2025 statement: updated guideline for reporting randomised trials",
+  "Description": "CONSORT 2025 provides an updated minimum set of reporting items for randomised trial reports, aiming to make methods and results clear, complete, and transparent. It includes a 30-item checklist (with sub-items) and related guidance to help authors, editors, and reviewers assess whether key information about design, conduct, analysis, and findings is reported.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Clinical trials",
+  "StandardizedTopDomain": "Medical and health",
+  "ManuscriptType": [
+    "Original research article",
+    "Randomised controlled trial report"
+  ],
+  "Aim": "To improve the completeness and transparency of reporting of randomised trials so that readers can appraise validity, interpret findings, and use results in practice and research.",
+  "ScopeText": "In scope: primary reports of completed randomised trials (any intervention type, including pharmacological and non-pharmacological; any setting), where participants are allocated to interventions using randomisation and the paper reports trial results. Out of scope: trial protocols (use SPIRIT 2025), non-randomised studies, purely methodological/statistical papers without trial results, secondary analyses that are not the primary trial report (unless explicitly reporting trial results per CONSORT), and non-trial study designs (e.g., observational cohorts, case-control, diagnostic accuracy, qualitative studies).",
+  "Keywords": [
+    "CONSORT 2025",
+    "CONSORT",
+    "randomised trial",
+    "randomized trial",
+    "clinical trial reporting",
+    "reporting guideline",
+    "trial transparency",
+    "open science",
+    "trial registration",
+    "protocol access",
+    "statistical analysis plan",
+    "data sharing",
+    "conflicts of interest",
+    "sample size",
+    "randomisation",
+    "allocation concealment",
+    "blinding",
+    "participant flow",
+    "baseline characteristics",
+    "harms reporting"
+  ],
+  "References": {
+    "primary": {
+      "description": "Hopewell S, et al. CONSORT 2025 statement: updated guideline for reporting randomised trials. BMJ. 2025;389:e081123. doi:10.1136/bmj-2024-081123.",
+      "url": "https://www.bmj.com/content/bmj/389/bmj-2024-081123.full.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title and abstract",
+      "items": [
+        {
+          "section": "Title and abstract",
+          "item": "1a",
+          "item_name": "Identification as a randomised trial",
+          "item_question": "Is CONSORT 2025 item 1a (Identification as a randomised trial) reported?",
+          "item_question_background": "If readers cannot immediately recognise a paper as a randomised trial, it may be missed in searches and in evidence syntheses or misclassified, undermining discoverability and appraisal.",
+          "item_extraction_instruction": "Check the title for the word “randomised” (or “randomized”) and confirm the study is identified as a randomised trial.",
+          "item_expected_location": "Title",
+          "item_optional": false
+        },
+        {
+          "section": "Title and abstract",
+          "item": "1b",
+          "item_name": "Structured summary (design, methods, results, conclusions)",
+          "item_question": "Is CONSORT 2025 item 1b (Structured summary (design, methods, results, conclusions)) reported?",
+          "item_question_background": "Abstracts often drive clinical and policy decisions; missing key design or results details can lead to incorrect interpretation before the full text is read.",
+          "item_extraction_instruction": "In the abstract, verify a structured summary includes: objectives; trial design and framework; methods (eligibility/setting, interventions/comparators, primary outcome, allocation method, blinding); results (numbers randomised/analysed, primary outcome results with effect size/precision, important harms); conclusions (interpretation); trial registration; funding.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Open science",
+      "items": [
+        {
+          "section": "Open science",
+          "item": "2",
+          "item_name": "Trial registration",
+          "item_question": "Is CONSORT 2025 item 2 (Trial registration) reported?",
+          "item_question_background": "Registration deters selective reporting and undisclosed post‑hoc changes; without it, readers cannot verify prespecification or locate registry results postings.",
+          "item_extraction_instruction": "Locate trial registration details: registry name, identifying number, URL to record, date of registration; and whether results are publicly posted (registry, preprint URL, or published articles with citations).",
+          "item_expected_location": "Abstract and/or Methods (Trial registration); sometimes footer or end matter",
+          "item_optional": false
+        },
+        {
+          "section": "Open science",
+          "item": "3",
+          "item_name": "Protocol and statistical analysis plan access",
+          "item_question": "Is CONSORT 2025 item 3 (Protocol and statistical analysis plan access) reported?",
+          "item_question_background": "Access to the protocol and full analysis plan allows verification of prespecified outcomes/analyses and helps detect deviations that could bias estimates.",
+          "item_extraction_instruction": "Identify where the trial protocol can be accessed (URL/DOI/repository/registry/supplement) and where the full statistical analysis plan can be accessed (URL/DOI/repository/registry/supplement).",
+          "item_expected_location": "Methods (Protocol) and/or Supplementary materials / Data availability",
+          "item_optional": false
+        },
+        {
+          "section": "Open science",
+          "item": "4",
+          "item_name": "Data sharing (participant data, code, materials) access",
+          "item_question": "Is CONSORT 2025 item 4 (Data sharing (participant data, code, materials) access) reported?",
+          "item_question_background": "Without clear sharing information, independent reanalysis and reuse of data/materials become difficult, limiting reproducibility and cumulative science.",
+          "item_extraction_instruction": "Extract the data/materials sharing statement: what is shared (de-identified participant data, data dictionary, analytic code, intervention materials), where accessible (repository/platform/on request), how accessed (process), or explicitly state no sharing with explanation.",
+          "item_expected_location": "Methods (Data sharing) and/or Data availability statement / Supplement",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Funding and conflicts of interest",
+      "items": [
+        {
+          "section": "Funding and conflicts of interest",
+          "item": "5a",
+          "item_name": "Funding sources and role of funders",
+          "item_question": "Is CONSORT 2025 item 5a (Funding sources and role of funders) reported?",
+          "item_question_background": "Funding arrangements can influence design choices, analysis, and reporting; readers need to judge potential sponsor influence and independence.",
+          "item_extraction_instruction": "Record funder names, type of support (direct money or indirect support such as free drugs/equipment/services/medical writing), and the role of funders in design, conduct, analysis, and reporting.",
+          "item_expected_location": "Funding statement / Acknowledgements / End matter",
+          "item_optional": false
+        },
+        {
+          "section": "Funding and conflicts of interest",
+          "item": "5b",
+          "item_name": "Author conflicts of interest",
+          "item_question": "Is CONSORT 2025 item 5b (Author conflicts of interest) reported?",
+          "item_question_background": "Undisclosed financial or non-financial interests can bias interpretation and trust; transparent declarations enable readers to weigh potential competing interests.",
+          "item_extraction_instruction": "Extract all declared conflicts (financial and non-financial) for manuscript authors; note any procedures described to reduce influence on design/conduct/analysis/reporting; if none, confirm the paper explicitly states no conflicts.",
+          "item_expected_location": "Competing interests / Disclosures section",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "6",
+          "item_name": "Scientific background and rationale",
+          "item_question": "Is CONSORT 2025 item 6 (Scientific background and rationale) reported?",
+          "item_question_background": "A clear rationale anchors why the trial was needed and how it relates to existing evidence, helping readers judge relevance and avoid redundant research.",
+          "item_extraction_instruction": "Check that the introduction explains: importance of the question; why a new trial is needed; how the intervention might work; justification of comparator; evidence of benefits/harms; and references to relevant systematic reviews where available.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "section": "Introduction",
+          "item": "7",
+          "item_name": "Specific objectives (benefits and harms)",
+          "item_question": "Is CONSORT 2025 item 7 (Specific objectives (benefits and harms)) reported?",
+          "item_question_background": "Vague objectives make it hard to distinguish primary intent from exploratory aims and increase the risk of outcome switching or selective emphasis.",
+          "item_extraction_instruction": "Extract the trial objectives related to benefits and harms, specifying participants, interventions, comparators, primary outcomes, and timepoint; if using estimands framework, objectives defined accordingly.",
+          "item_expected_location": "Introduction (Objectives) and/or end of Introduction",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "section": "Methods",
+          "item": "8",
+          "item_name": "Patient and public involvement",
+          "item_question": "Is CONSORT 2025 item 8 (Patient and public involvement) reported?",
+          "item_question_background": "Patient/public input can affect outcome relevance, recruitment feasibility, and acceptability; knowing whether and how it occurred informs applicability and ethics.",
+          "item_extraction_instruction": "Identify how patients/public were involved (which stages), who was involved, and whether the paper states there was no involvement.",
+          "item_expected_location": "Methods (Patient and public involvement) or end matter",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "9",
+          "item_name": "Trial design",
+          "item_question": "Is CONSORT 2025 item 9 (Trial design) reported?",
+          "item_question_background": "Design features (e.g., parallel vs crossover; superiority vs non-inferiority) determine appropriate analysis and interpretation; missing details can mislead effect inference.",
+          "item_extraction_instruction": "Extract trial design type, conceptual framework, unit of randomisation, and allocation ratio.",
+          "item_expected_location": "Methods (Trial design)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "10",
+          "item_name": "Changes to trial after commencement",
+          "item_question": "Is CONSORT 2025 item 10 (Changes to trial after commencement) reported?",
+          "item_question_background": "Unreported changes can mask data-driven modifications (e.g., outcomes, analyses, sample size) that inflate false-positive findings.",
+          "item_extraction_instruction": "Identify important post-commencement changes with timing and reasons (randomisation ratio, eligibility, interventions, outcomes/assessment/timepoints, sample size, groups, follow-up duration, analysis methods, conduct changes such as dropping sites); list any non-prespecified outcomes and analyses.",
+          "item_expected_location": "Methods (Protocol deviations/Changes) and/or Results",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "11",
+          "item_name": "Trial setting",
+          "item_question": "Is CONSORT 2025 item 11 (Trial setting) reported?",
+          "item_question_background": "Context (setting, locations, number of sites) affects generalisability; without it, readers cannot judge whether findings transfer to their own setting.",
+          "item_extraction_instruction": "Extract locations (country/city/site), recruitment setting (primary/tertiary care; outpatient/inpatient; clinic/community), and number of sites.",
+          "item_expected_location": "Methods (Setting/Participants)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12a",
+          "item_name": "Eligibility criteria for participants",
+          "item_question": "Is CONSORT 2025 item 12a (Eligibility criteria for participants) reported?",
+          "item_question_background": "Eligibility criteria define who the results apply to and can introduce selection-related bias if unclear.",
+          "item_extraction_instruction": "Extract all inclusion and exclusion criteria and methods of recruitment (referral, self-selection, advertisements).",
+          "item_expected_location": "Methods (Participants)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "12b",
+          "item_name": "Eligibility criteria for sites and intervention deliverers (if applicable)",
+          "item_question": "Is CONSORT 2025 item 12b (Eligibility criteria for sites and intervention deliverers (if applicable)) reported?",
+          "item_question_background": "In trials where site or provider expertise matters (e.g., surgery, physiotherapy), unreported eligibility criteria can hide performance differences that affect outcomes.",
+          "item_extraction_instruction": "If applicable, extract eligibility criteria for sites (e.g., volume/experience) and for individuals delivering interventions (qualifications, years in practice, skills, training validation before trial start).",
+          "item_expected_location": "Methods (Setting/Interventions)",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "13",
+          "item_name": "Intervention and comparator details (replication; materials access if relevant)",
+          "item_question": "Is CONSORT 2025 item 13 (Intervention and comparator details (replication; materials access if relevant)) reported?",
+          "item_question_background": "Incomplete intervention descriptions prevent replication and make it unclear what was actually tested, limiting translation into practice and synthesis.",
+          "item_extraction_instruction": "Extract detailed descriptions enabling replication: components; administration; timing/duration; tailoring; materials and where accessed; allowed/prohibited concomitant care; criteria for modifications/discontinuations; usual care details if comparator is usual care; assessment of fidelity/adherence and strategies to improve; and prespecified definition for treated-as-planned vs not where appropriate.",
+          "item_expected_location": "Methods (Interventions) and/or Supplementary materials",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "14",
+          "item_name": "Pre-specified outcomes (measurement variable, metric, aggregation, timepoint)",
+          "item_question": "Is CONSORT 2025 item 14 (Pre-specified outcomes (measurement variable, metric, aggregation, timepoint)) reported?",
+          "item_question_background": "Outcome definitions drive both analysis and clinical meaning; ambiguous outcomes enable selective framing and impede meta-analysis harmonisation.",
+          "item_extraction_instruction": "For each prespecified primary and secondary outcome, extract: which are primary/secondary; rationale and core outcome set status; variable measured with definitions; participant-level analysis metric; aggregation method; timepoint; and who assessed outcomes.",
+          "item_expected_location": "Methods (Outcomes)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "15",
+          "item_name": "Harms definition and assessment methods",
+          "item_question": "Is CONSORT 2025 item 15 (Harms definition and assessment methods) reported?",
+          "item_question_background": "Harms can be under-detected or inconsistently coded; without assessment methods, safety conclusions may be falsely reassuring.",
+          "item_extraction_instruction": "Extract harms methods: definitions/measurement for systematically assessed harms (including who assessed and blinding, timepoints/period); collection for non-systematic harms, coding and severity grading (who, blinding, systems used); and grouping categories (seriousness, severity, body system, withdrawals due to harms, causality) plus who did grouping and blinding.",
+          "item_expected_location": "Methods (Harms/Safety)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "16a",
+          "item_name": "Sample size determination",
+          "item_question": "Is CONSORT 2025 item 16a (Sample size determination) reported?",
+          "item_question_background": "Sample size assumptions determine power and interpretability; opaque calculations make null results hard to interpret and may conceal optimistic assumptions.",
+          "item_extraction_instruction": "Extract how sample size was determined: primary outcome basis; assumed values per group with rationale/references; target difference with rationale; alpha; power; adjustments for missing data/non-adherence; target per group; software used.",
+          "item_expected_location": "Methods (Sample size)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "16b",
+          "item_name": "Interim analyses and stopping guidelines (if any)",
+          "item_question": "Is CONSORT 2025 item 16b (Interim analyses and stopping guidelines (if any)) reported?",
+          "item_question_background": "Interim looks and early stopping can exaggerate effect estimates; reporting safeguards helps readers evaluate potential overestimation and operational bias.",
+          "item_extraction_instruction": "If interim analyses were done, extract whether conducted and pre-planned, timing/indications/by whom, statistical methods, who accessed interim results and blinding, and whether an independent Data Monitoring Committee was involved; extract stopping criteria and who decided to continue/stop/modify.",
+          "item_expected_location": "Methods (Interim analyses/Stopping rules) and/or Results",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "17a",
+          "item_name": "Random sequence generation: who generated and method used",
+          "item_question": "Is CONSORT 2025 item 17a (Random sequence generation: who generated and method used) reported?",
+          "item_question_background": "If sequence generation is unclear, selection bias can occur through predictable allocation or manipulation, threatening internal validity.",
+          "item_extraction_instruction": "Extract who generated the allocation sequence, the method (e.g., computerized random number generator), and any software used.",
+          "item_expected_location": "Methods (Randomisation)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "17b",
+          "item_name": "Type of randomisation and restriction details",
+          "item_question": "Is CONSORT 2025 item 17b (Type of randomisation and restriction details) reported?",
+          "item_question_background": "Restricted methods (blocking/stratification/minimisation) affect balance and potential predictability; missing details hinder bias assessment and replication.",
+          "item_extraction_instruction": "Extract randomisation type (simple vs restricted; fixed vs adaptive) and reasons; for blocks: how generated, block sizes, fixed vs varied, and whether trialists knew sizes; for stratification: factors; for minimisation: factors and random element details.",
+          "item_expected_location": "Methods (Randomisation)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "18",
+          "item_name": "Allocation concealment mechanism",
+          "item_question": "Is CONSORT 2025 item 18 (Allocation concealment mechanism) reported?",
+          "item_question_background": "Even with a good sequence, poor concealment allows foreknowledge of assignments and selective enrolment, producing biased group differences.",
+          "item_extraction_instruction": "Describe the mechanism implementing the random sequence (central computer/telephone, sealed opaque envelopes/containers, etc.) and steps used to conceal the sequence until assignment; confirm how enrollers were kept unaware of next assignment.",
+          "item_expected_location": "Methods (Allocation concealment)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "19",
+          "item_name": "Randomisation implementation: access, enrolment, assignment",
+          "item_question": "Is CONSORT 2025 item 19 (Randomisation implementation: access, enrolment, assignment) reported?",
+          "item_question_background": "Knowing who enrolled and assigned participants—and whether they could access the sequence—helps judge risk of manipulation during implementation.",
+          "item_extraction_instruction": "Extract who had access to the random allocation sequence, who enrolled participants, who assigned interventions, and whether enrollers/assigners had access; if same people generated/concealed and implemented, extract storage and safeguards preventing access.",
+          "item_expected_location": "Methods (Randomisation/Implementation)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "20a",
+          "item_name": "Blinding: who was blinded",
+          "item_question": "Is CONSORT 2025 item 20a (Blinding: who was blinded) reported?",
+          "item_question_background": "Blinding reduces performance and detection bias; without reporting who was blinded, readers cannot judge susceptibility to biased outcome assessment.",
+          "item_extraction_instruction": "Identify who was blinded (participants, care providers, data collectors, outcome assessors, data analysts).",
+          "item_expected_location": "Methods (Blinding) and/or Trial design",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "20b",
+          "item_name": "Blinding: how achieved and similarity of interventions (if blinded)",
+          "item_question": "Is CONSORT 2025 item 20b (Blinding: how achieved and similarity of interventions (if blinded)) reported?",
+          "item_question_background": "Stating blinding without mechanism is unreliable; differences between interventions can unblind participants/providers and distort subjective outcomes.",
+          "item_extraction_instruction": "If blinding was used, extract mechanism (placebo/double-dummy etc.), similarities/differences in intervention characteristics, procedures to maintain/evaluate blinding, known compromises, and any emergency unblinding procedures with reasons.",
+          "item_expected_location": "Methods (Blinding)",
+          "item_optional": true
+        },
+        {
+          "section": "Methods",
+          "item": "21a",
+          "item_name": "Statistical methods for primary/secondary outcomes and harms",
+          "item_question": "Is CONSORT 2025 item 21a (Statistical methods for primary/secondary outcomes and harms) reported?",
+          "item_question_background": "Transparent analysis methods are required to reproduce results and to detect selective modelling choices that could change conclusions.",
+          "item_extraction_instruction": "Extract statistical methods for each analysis (main comparison), deviations from SAP, prespecified vs post-hoc, effect measures with CIs, significance level; if Bayesian, priors/computation/modelling with credible intervals; if adjusted analyses, rationale, prespecified vs post hoc, covariates and handling; methods for multiplicity; software used.",
+          "item_expected_location": "Methods (Statistical analysis)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "21b",
+          "item_name": "Definition of analysis population and analysis group",
+          "item_question": "Is CONSORT 2025 item 21b (Definition of analysis population and analysis group) reported?",
+          "item_question_background": "Different analysis sets (e.g., intention-to-treat vs per-protocol) can materially change effect estimates; readers need to know who was analysed and how.",
+          "item_extraction_instruction": "Extract who was included in each analysis (including exclusions due to missing data/other reasons) and the group in which participants were analysed (e.g., as-randomised).",
+          "item_expected_location": "Methods (Statistical analysis)",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "21c",
+          "item_name": "Missing data handling",
+          "item_question": "Is CONSORT 2025 item 21c (Missing data handling) reported?",
+          "item_question_background": "Missing outcomes can bias effect estimates; reporting assumptions and methods lets readers assess robustness and plausibility.",
+          "item_extraction_instruction": "For each analysis, extract missing-data mechanism assumptions with justification, handling method (e.g., multiple imputation) with justification, and whether sensitivity analyses were conducted.",
+          "item_expected_location": "Methods (Statistical analysis) and/or Results",
+          "item_optional": false
+        },
+        {
+          "section": "Methods",
+          "item": "21d",
+          "item_name": "Methods for additional analyses (subgroup/sensitivity) and prespecification",
+          "item_question": "Is CONSORT 2025 item 21d (Methods for additional analyses (subgroup/sensitivity) and prespecification) reported?",
+          "item_question_background": "Subgroup and sensitivity analyses are prone to false positives; distinguishing prespecified from data-driven analyses curbs ‘cherry-picking’.",
+          "item_extraction_instruction": "Extract whether additional analyses were prespecified or post hoc and whether all are reported; for sensitivity analyses: rationale and methods; for subgroup analyses: baseline variables explored, rationale, methods (e.g., interaction tests).",
+          "item_expected_location": "Methods (Statistical analysis)",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "22a",
+          "item_name": "Participant flow numbers (assigned, received, analysed) and flow diagram",
+          "item_question": "Is CONSORT 2025 item 22a (Participant flow numbers (assigned, received, analysed) and flow diagram) reported?",
+          "item_question_background": "Attrition and deviations can introduce bias; a clear flow diagram shows where participants were lost and supports trustworthy denominators.",
+          "item_extraction_instruction": "In a flow diagram, extract numbers evaluated (if recorded), excluded pre-randomisation with reasons, randomised per group, received/completed intervention, completed follow-up, and included in primary outcome analysis; where appropriate, number of care providers/centres per group and participants treated per provider/centre.",
+          "item_expected_location": "Results (Participant flow) and/or Figure (CONSORT flow diagram)",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "22b",
+          "item_name": "Losses and exclusions after randomisation with reasons",
+          "item_question": "Is CONSORT 2025 item 22b (Losses and exclusions after randomisation with reasons) reported?",
+          "item_question_background": "Post-randomisation losses can differ by group and bias results; generic labels like “protocol deviation” hide critical information.",
+          "item_extraction_instruction": "Extract numbers lost to follow-up per group and excluded from primary outcome analysis per group with explicit reasons (avoid vague ‘protocol deviation’).",
+          "item_expected_location": "Results (Participant flow) and/or Flow diagram",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "23a",
+          "item_name": "Recruitment and follow-up dates",
+          "item_question": "Is CONSORT 2025 item 23a (Recruitment and follow-up dates) reported?",
+          "item_question_background": "Recruitment and follow-up periods affect contemporaneous care, exposure duration, and outcome capture; without dates, context and risk of secular trends are unclear.",
+          "item_extraction_instruction": "Extract start and completion dates of recruitment, date follow-up ended, and follow-up duration (median/IQR/min/max).",
+          "item_expected_location": "Results (Recruitment) and/or Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "23b",
+          "item_name": "Why trial ended or was stopped (if relevant)",
+          "item_question": "Is CONSORT 2025 item 23b (Why trial ended or was stopped (if relevant)) reported?",
+          "item_question_background": "Early stopping can lead to exaggerated effects or underpowered safety assessment; readers must know why and who decided.",
+          "item_extraction_instruction": "If the trial ended early/stopped, extract reasons (interim result, funding, recruitment difficulties, etc.), who made the decision, and funder role in stopping.",
+          "item_expected_location": "Results (Recruitment) and/or Discussion",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "24a",
+          "item_name": "Intervention/comparator as actually administered (adherence/fidelity etc.)",
+          "item_question": "Is CONSORT 2025 item 24a (Intervention/comparator as actually administered (adherence/fidelity etc.)) reported?",
+          "item_question_background": "What was planned is not always what was delivered; without actual delivery/adherence data, effectiveness vs efficacy interpretations are compromised.",
+          "item_extraction_instruction": "Extract who delivered interventions (number/expertise), how/what was actually administered, participant adherence, and whether delivered as intended (fidelity) where appropriate.",
+          "item_expected_location": "Results (Intervention delivery) and/or Methods",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "24b",
+          "item_name": "Concomitant care received during the trial",
+          "item_question": "Is CONSORT 2025 item 24b (Concomitant care received during the trial) reported?",
+          "item_question_background": "Co-interventions can dilute or inflate observed effects; reporting concomitant care helps judge contamination and interpret causal attribution.",
+          "item_extraction_instruction": "For each group, extract number/percentage receiving relevant concomitant interventions and cumulative/average exposure where relevant.",
+          "item_expected_location": "Results (Co-interventions/Concomitant care)",
+          "item_optional": true
+        },
+        {
+          "section": "Results",
+          "item": "25",
+          "item_name": "Baseline characteristics table",
+          "item_question": "Is CONSORT 2025 item 25 (Baseline characteristics table) reported?",
+          "item_question_background": "Baseline imbalances can suggest problems with randomisation or chance imbalance, especially in small trials; a table supports appraisal and meta-analysis.",
+          "item_extraction_instruction": "Verify a table reports baseline demographic and clinical characteristics per group: continuous variables (mean±SD or median with percentiles) and categorical variables (n and %).",
+          "item_expected_location": "Results (Baseline data) and/or Table 1",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "26",
+          "item_name": "Numbers analysed and outcome estimation for each outcome",
+          "item_question": "Is CONSORT 2025 item 26 (Numbers analysed and outcome estimation for each outcome) reported?",
+          "item_question_background": "Transparent denominators and effect estimates (with precision) are essential for interpretation, meta-analysis, and understanding missing data impact.",
+          "item_extraction_instruction": "For each primary and secondary outcome by group, extract: number included in analysis; number with available data at the outcome timepoint; result per group; effect size with precision (e.g., 95% CI); for binary/time-to-event outcomes, both absolute and relative effects; and reasons for missing data; include appropriate summaries for continuous and binary/time-to-event outcomes.",
+          "item_expected_location": "Results (Outcomes) and/or Tables/Figures",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "27",
+          "item_name": "Harms/unintended events in each group",
+          "item_question": "Is CONSORT 2025 item 27 (Harms/unintended events in each group) reported?",
+          "item_question_background": "Safety signals may be missed if harms are selectively reported; structured harms tables support balanced benefit–risk assessment.",
+          "item_extraction_instruction": "Extract harms per group (preferably in a table with number at risk): deaths; withdrawals due to harms; numbers with ≥1 harm event; number of events if appropriate; statement if no adverse events identified; and, where appropriate, effect sizes with precision and absolute/relative effects.",
+          "item_expected_location": "Results (Harms/Safety) and/or Tables",
+          "item_optional": false
+        },
+        {
+          "section": "Results",
+          "item": "28",
+          "item_name": "Ancillary (subgroup/sensitivity) analyses results",
+          "item_question": "Is CONSORT 2025 item 28 (Ancillary (subgroup/sensitivity) analyses results) reported?",
+          "item_question_background": "Ancillary analyses can be informative but also misleading if selectively highlighted; prespecification status is crucial for credibility.",
+          "item_extraction_instruction": "Extract results for all other analyses (including subgroup and sensitivity) and clearly distinguish prespecified from post-hoc analyses.",
+          "item_expected_location": "Results (Additional analyses) and/or Supplementary results",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "29",
+          "item_name": "Interpretation balancing benefits/harms and other evidence",
+          "item_question": "Is CONSORT 2025 item 29 (Interpretation balancing benefits/harms and other evidence) reported?",
+          "item_question_background": "Discussion ‘spin’ can overstate findings; balanced interpretation against harms and existing evidence supports sound decision-making.",
+          "item_extraction_instruction": "Check discussion includes a brief balanced summary of benefits and harms, relates results to existing evidence (e.g., systematic reviews), and avoids overinterpretation.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "section": "Discussion",
+          "item": "30",
+          "item_name": "Trial limitations (bias, imprecision, generalisability, multiplicity)",
+          "item_question": "Is CONSORT 2025 item 30 (Trial limitations (bias, imprecision, generalisability, multiplicity)) reported?",
+          "item_question_background": "Explicit limitations help readers judge how much confidence to place in results and avoid overgeneralising from biased or imprecise estimates.",
+          "item_extraction_instruction": "Extract stated limitations: potential bias sources and any mitigation methods, imprecision, generalisability, and multiplicity of analyses where relevant.",
+          "item_expected_location": "Discussion (Limitations)",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "StudyType": [
+    "Original research article",
+    "Randomised controlled trial report"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Randomized trial"
+    ],
+    "Disciplines": [
+      "Medical and health"
+    ],
+    "Coverage": "Completed randomized controlled trials (RCTs) in humans, focusing primarily on the common two-group, parallel-arm trial design【15†】. It applies exclusively to manuscripts reporting final trial results of prospectively randomized interventions【16†】.",
+    "Focus": "Provides an evidence-based, minimum set of items for transparent and complete trial reporting. CONSORT emphasizes clear description of trial design, participant flow, interventions, randomization and blinding procedures, outcomes, and statistical results【16†】. This enables readers and reviewers to appraise the trial’s validity and reproducibility.",
+    "ContrastWith": "Not for trial protocols (use SPIRIT for protocol papers) or other study types. It excludes observational studies and case reports (use STROBE or related guidelines for those), and not for systematic reviews (use PRISMA). In short, CONSORT is specific to RCT results, whereas trial protocols, observational research, and reviews each have their own specialized checklists."
+  },
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "CONSORT",
+      "CONSORT 2010",
+      "CONSORT 2025",
+      "Consolidated Standards of Reporting Trials",
+      "CONSORT statement",
+      "CONSORT checklist",
+      "CONSORT flow diagram"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bCONSORT\\b",
+          "\\brandomi[sz](ed|ation)\\b.*\\btrial\\b",
+          "\\brandomly\\s+assigned\\b",
+          "\\brandomized\\b",
+          "\\brandomised\\b",
+          "\\brct\\b",
+          "\\bclinical trial\\b",
+          "\\brandom allocation\\b",
+          "\\bparallel\\s+group\\b",
+          "\\bplacebo\\s+controlled\\b",
+          "\\ballocation\\s+concealment\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bSPIRIT\\b",
+          "\\btrial\\s+protocol\\b",
+          "\\bthis\\s+protocol\\b",
+          "\\bsystematic review\\b",
+          "\\bmeta analysis\\b",
+          "\\bmeta-analysis\\b",
+          "\\bPRISMA\\b",
+          "\\bobservational\\b",
+          "\\bcohort\\b",
+          "\\bcase[-\\s]?control\\b",
+          "\\bcross[-\\s]?sectional\\b",
+          "\\bSTROBE\\b",
+          "\\bcase\\s+report\\b",
+          "\\bCARE\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bCONSORT\\s+flow\\s+diagram\\b",
+          "\\bparticipants?\\s+were\\s+randomi[sz]ed\\b",
+          "\\bbaseline\\s+characteristics\\b",
+          "\\bintervention group\\b",
+          "\\bcontrol group\\b",
+          "\\ballocated\\b",
+          "\\badverse\\s+event(s)?\\b|\\bserious\\s+adverse\\s+event(s)?\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bwe\\s+will\\s+(recruit|enrol|enroll|randomi[sz]e|allocate)\\b",
+          "\\bplanned\\s+analysis\\b",
+          "\\bprotocol\\s+version\\b",
+          "\\bethics\\s+and\\s+dissemination\\b"
+        ]
+      }
+    ],
+    "EvidenceExamplesPositive": [
+      "We conducted a randomized controlled trial and report it according to the CONSORT statement.",
+      "Participants were randomly assigned 1:1; allocation concealment and blinding are described."
+    ],
+    "EvidenceExamplesNegative": [
+      "This is a trial protocol and will be reported according to SPIRIT.",
+      "We conducted a systematic review and meta-analysis of randomized trials (PRISMA).",
+      "This observational cohort study is reported according to STROBE."
+    ],
+    "Explain": "Maps completed randomized controlled trial reports to CONSORT while avoiding protocols, observational studies, case reports, and evidence syntheses."
+  }
+}

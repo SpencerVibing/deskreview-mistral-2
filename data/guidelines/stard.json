@@ -1,0 +1,402 @@
+{
+  "id": "stard",
+  "Name": "STARD",
+  "LongName": "STARD 2015: An Updated List of Essential Items for Reporting Diagnostic Accuracy Studies",
+  "Description": "STARD 2015 is a reporting guideline that specifies essential items for complete and transparent reporting of diagnostic accuracy studies. It aims to improve the quality of reporting to enable readers to assess risk of bias, applicability, and validity of diagnostic test evaluations.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Diagnostic accuracy research",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To enhance the completeness and transparency of reporting in studies of diagnostic accuracy, enabling critical appraisal of bias, applicability, and the validity of estimates of test performance.",
+  "ManuscriptType": [
+    "Original research article"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Diagnostic accuracy study"
+  ],
+  "Keywords": [
+    "STARD 2015",
+    "diagnostic accuracy",
+    "index test",
+    "reference standard",
+    "sensitivity",
+    "specificity",
+    "predictive value",
+    "ROC curve",
+    "area under the curve",
+    "clinical diagnosis",
+    "medical test evaluation",
+    "reporting guideline",
+    "risk of bias",
+    "applicability",
+    "spectrum bias",
+    "verification bias",
+    "cross-sectional study",
+    "prospective study"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Diagnostic accuracy study",
+      "Prospective diagnostic study",
+      "Retrospective diagnostic study",
+      "Cross-sectional diagnostic study"
+    ],
+    "Disciplines": [
+      "Clinical medicine",
+      "Laboratory medicine",
+      "Radiology",
+      "Epidemiology",
+      "Public health"
+    ],
+    "Coverage": "Primary studies evaluating the accuracy of one or more index tests against a reference standard in human participants.",
+    "Focus": "Transparent reporting of participant selection, index test and reference standard conduct, statistical methods, and accuracy estimates to allow assessment of bias and applicability.",
+    "ContrastWith": "Not intended for randomized trials of diagnostic strategies, prognostic model studies, or purely analytical validation studies without clinical accuracy evaluation."
+  },
+  "references": {
+    "primary": {
+      "description": "Bossuyt PM, Reitsma JB, Bruns DE, et al. STARD 2015: An Updated List of Essential Items for Reporting Diagnostic Accuracy Studies. BMJ. 2015;351:h5527.",
+      "url": "[https://pmc.ncbi.nlm.nih.gov/articles/PMC4623764/](https://pmc.ncbi.nlm.nih.gov/articles/PMC4623764/)"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title or Abstract",
+      "items": [
+        {
+          "item": "1",
+          "item_name": "Identification as diagnostic accuracy study",
+          "item_question_background": "Clear identification ensures correct indexing and prevents misclassification in evidence syntheses of test accuracy.",
+          "item_extraction_instruction": "Check title or abstract for terms such as sensitivity, specificity, predictive values, AUC, or diagnostic accuracy.",
+          "item_expected_location": "Title or Abstract",
+          "item_optional": false
+        },
+        {
+          "item": "2",
+          "item_name": "Structured summary",
+          "item_question_background": "Incomplete abstracts can mislead readers who rely on summaries for clinical or policy decisions.",
+          "item_extraction_instruction": "Verify abstract reports design, methods, results (accuracy estimates with precision), and conclusions.",
+          "item_expected_location": "Abstract",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "item": "3",
+          "item_name": "Scientific and clinical background",
+          "item_question_background": "Understanding intended use and role of the test is essential to judge applicability and clinical impact.",
+          "item_extraction_instruction": "Extract description of clinical context, intended use, and role of the index test.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        },
+        {
+          "item": "4",
+          "item_name": "Study objectives and hypotheses",
+          "item_question_background": "Explicit objectives reduce risk of selective emphasis and clarify whether analyses were prespecified.",
+          "item_extraction_instruction": "Extract stated objectives and any hypotheses.",
+          "item_expected_location": "Introduction",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Methods",
+      "items": [
+        {
+          "item": "5",
+          "item_name": "Study design",
+          "item_question_background": "Prospective versus retrospective design influences susceptibility to bias.",
+          "item_extraction_instruction": "Extract whether data collection was prospective or retrospective.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "6",
+          "item_name": "Eligibility criteria",
+          "item_question_background": "Eligibility criteria determine patient spectrum and risk of spectrum bias.",
+          "item_extraction_instruction": "Extract inclusion and exclusion criteria.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "7",
+          "item_name": "Basis for participant identification",
+          "item_question_background": "Recruitment basis affects representativeness and applicability.",
+          "item_extraction_instruction": "Extract how potentially eligible participants were identified.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "8",
+          "item_name": "Setting and dates",
+          "item_question_background": "Time and setting influence disease prevalence and generalisability.",
+          "item_extraction_instruction": "Extract setting, location, and dates of recruitment.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "9",
+          "item_name": "Participant sampling",
+          "item_question_background": "Non-consecutive or convenience sampling may introduce selection bias.",
+          "item_extraction_instruction": "Extract whether participants formed a consecutive, random, or convenience series.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "10a",
+          "item_name": "Index test details",
+          "item_question_background": "Insufficient detail prevents replication and assessment of performance.",
+          "item_extraction_instruction": "Extract detailed description of the index test sufficient for replication.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "10b",
+          "item_name": "Reference standard details",
+          "item_question_background": "Reference standard validity determines correctness of accuracy estimates.",
+          "item_extraction_instruction": "Extract detailed description of the reference standard.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "11",
+          "item_name": "Rationale for reference standard",
+          "item_question_background": "Choice of an imperfect reference standard may introduce misclassification bias.",
+          "item_extraction_instruction": "Extract rationale for selecting the reference standard.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "12a",
+          "item_name": "Index test positivity cut-offs",
+          "item_question_background": "Data-driven thresholds inflate apparent accuracy.",
+          "item_extraction_instruction": "Extract definition and rationale for index test cut-offs and whether prespecified.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "12b",
+          "item_name": "Reference standard positivity cut-offs",
+          "item_question_background": "Unclear disease classification criteria distort sensitivity and specificity.",
+          "item_extraction_instruction": "Extract definition and rationale for reference standard cut-offs.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "13a",
+          "item_name": "Blinding of index test assessors",
+          "item_question_background": "Knowledge of reference standard results may bias index test interpretation.",
+          "item_extraction_instruction": "Extract whether index test performers/readers were blinded to reference standard results.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "13b",
+          "item_name": "Blinding of reference standard assessors",
+          "item_question_background": "Knowledge of index test results may bias disease classification.",
+          "item_extraction_instruction": "Extract whether reference standard assessors were blinded to index test results.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "14",
+          "item_name": "Statistical methods",
+          "item_question_background": "Transparent analytic methods are required to interpret and reproduce accuracy estimates.",
+          "item_extraction_instruction": "Extract methods for estimating sensitivity, specificity, AUC, and measures of uncertainty.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "15",
+          "item_name": "Handling indeterminate and missing results",
+          "item_question_background": "Excluding indeterminate results can bias accuracy estimates.",
+          "item_extraction_instruction": "Extract how indeterminate and missing data were handled.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "16",
+          "item_name": "Analyses of variability",
+          "item_question_background": "Unreported subgroup variability may conceal inconsistent performance.",
+          "item_extraction_instruction": "Extract analyses of variability in diagnostic accuracy and whether prespecified.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        },
+        {
+          "item": "17",
+          "item_name": "Sample size determination",
+          "item_question_background": "Insufficient sample size leads to imprecise and unstable accuracy estimates.",
+          "item_extraction_instruction": "Extract rationale for sample size.",
+          "item_expected_location": "Methods",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "item": "18",
+          "item_name": "Participant flow",
+          "item_question_background": "Unclear participant flow obscures potential selection and verification biases.",
+          "item_extraction_instruction": "Extract numbers at each stage and note presence of flow diagram.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "item": "19",
+          "item_name": "Baseline characteristics",
+          "item_question_background": "Participant characteristics influence spectrum and applicability.",
+          "item_extraction_instruction": "Extract demographic and clinical characteristics.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "item": "20",
+          "item_name": "Distribution of disease severity and alternative diagnoses",
+          "item_question_background": "Disease spectrum affects test performance estimates.",
+          "item_extraction_instruction": "Extract distribution of disease severity and alternative diagnoses.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "item": "21a",
+          "item_name": "Time interval and interventions",
+          "item_question_background": "Long intervals or intervening treatments can alter disease status and bias results.",
+          "item_extraction_instruction": "Extract time interval between index test and reference standard and any interventions.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "item": "21b",
+          "item_name": "Cross tabulation of index test by reference standard",
+          "item_question_background": "Without raw 2×2 data, recalculation and verification of estimates are impossible.",
+          "item_extraction_instruction": "Extract cross-tabulation data (true positives, false positives, true negatives, false negatives).",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "item": "22",
+          "item_name": "Estimates of diagnostic accuracy",
+          "item_question_background": "Precision measures are required to judge reliability.",
+          "item_extraction_instruction": "Extract sensitivity, specificity, AUC, predictive values, and confidence intervals.",
+          "item_expected_location": "Results",
+          "item_optional": false
+        },
+        {
+          "item": "23",
+          "item_name": "Adverse events",
+          "item_question_background": "Test-related harms influence risk–benefit considerations.",
+          "item_extraction_instruction": "Extract reported adverse events from index test or reference standard.",
+          "item_expected_location": "Results",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "item": "24",
+          "item_name": "Study limitations",
+          "item_question_background": "Failure to discuss bias limits critical appraisal.",
+          "item_extraction_instruction": "Extract discussion of bias, uncertainty, and generalisability.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        },
+        {
+          "item": "25",
+          "item_name": "Implications for practice",
+          "item_question_background": "Interpretation should reflect intended use and clinical role.",
+          "item_extraction_instruction": "Extract implications for clinical practice and role of index test.",
+          "item_expected_location": "Discussion",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Other Information",
+      "items": [
+        {
+          "item": "26",
+          "item_name": "Registration number and registry",
+          "item_question_background": "Registration deters selective reporting.",
+          "item_extraction_instruction": "Extract registration number and registry name if available.",
+          "item_expected_location": "Abstract or End matter",
+          "item_optional": true
+        },
+        {
+          "item": "27",
+          "item_name": "Protocol access",
+          "item_question_background": "Protocol access allows verification of prespecified methods.",
+          "item_extraction_instruction": "Extract information on where full study protocol can be accessed.",
+          "item_expected_location": "End matter",
+          "item_optional": true
+        },
+        {
+          "item": "28",
+          "item_name": "Funding and role of funders",
+          "item_question_background": "Funding sources may influence study design and reporting.",
+          "item_extraction_instruction": "Extract funding sources and role of funders.",
+          "item_expected_location": "Funding statement",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "STARD",
+      "STARD 2015",
+      "Standards for Reporting Diagnostic Accuracy Studies"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\bSTARD\\b",
+          "\\bdiagnostic accuracy\\b",
+          "\\bindex test\\b",
+          "\\breference standard\\b",
+          "\\bsensitivity\\b",
+          "\\bspecificity\\b",
+          "\\bROC\\b",
+          "\\barea under the curve\\b",
+          "\\bAUC\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [
+      {
+        "Field": "title|abstract|keywords",
+        "Patterns": [
+          "\\brandomi[sz]ed controlled trial\\b",
+          "\\bsystematic review\\b",
+          "\\bmeta[- ]analysis\\b",
+          "\\bprediction\\s+model(s)?\\b",
+          "\\bmultivariable\\s+prediction\\b",
+          "\\bprognostic\\s+model(s)?\\b",
+          "\\brisk\\s+score(s)?\\b",
+          "\\bscoring\\s+tool(s)?\\b",
+          "\\btriage\\s+score(s)?\\b",
+          "\\bmodel\\s+development\\b",
+          "\\bexternal\\s+validation\\b"
+        ]
+      }
+    ],
+    "StrongPositive": [],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [],
+    "EvidenceExamplesNegative": [],
+    "Explain": "Matches primary diagnostic accuracy studies evaluating an index test against a reference standard."
+  }
+}

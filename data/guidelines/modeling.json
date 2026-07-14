@@ -1,0 +1,1075 @@
+{
+  "id": "modeling",
+  "Name": "Reporting Modelling Studies",
+  "LongName": "Reporting guidelines for modelling studies",
+  "Description": "A synthesized reporting checklist for health and population modelling studies, extracted from Table 1 of Bennett and Manuel's review of existing guidance. The paper does not introduce a formal consensus guideline, but it compiles concrete reporting items across model structure, data, uncertainty, consistency, validity, implementation, transparency, and sponsorship for population modelling manuscripts.",
+  "Category": "reporting_guideline",
+  "Subdomain": "Health and population modelling",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the transparency and critical appraisal of population modelling studies by making key model design choices, data sources, assumptions, uncertainty analyses, validation steps, and implementation details explicit.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Population modelling study"
+  ],
+  "StudyType": [
+    "Population modelling study",
+    "Decision-analytic modelling study",
+    "Health policy modelling study",
+    "Economic evaluation modelling study",
+    "Disease simulation study"
+  ],
+  "Keywords": [
+    "population modelling",
+    "decision-analytic modelling",
+    "simulation model",
+    "health policy model",
+    "reporting guideline",
+    "model structure",
+    "uncertainty",
+    "validation",
+    "calibration",
+    "transparency"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Population modelling study",
+      "Decision-analytic modelling study",
+      "Health policy modelling study",
+      "Economic evaluation modelling study",
+      "Disease simulation study"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Health policy",
+      "Health economics",
+      "Epidemiology",
+      "Decision science"
+    ],
+    "Coverage": "Manuscripts that report health, disease, or policy models used to estimate outcomes over time or across populations, especially decision-analytic, simulation, and population-based disease models.",
+    "Focus": "Model decision problem, perspective, structure, assumptions, comparators, data identification and incorporation, uncertainty and sensitivity analysis, calibration, internal and external consistency, predictive validity, software, transparency, and sponsorship disclosure.",
+    "ContrastWith": "This is a synthesized checklist derived from a review article rather than a formal consensus statement. It is broader than a calibration-only guide and more modelling-specific than general observational or trial reporting checklists."
+  },
+  "references": {
+    "primary": {
+      "description": "Bennett C, Manuel DG. Reporting guidelines for modelling studies. BMC Medical Research Methodology. 2012;12:168.",
+      "url": "https://link.springer.com/article/10.1186/1471-2288-12-168"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Structure",
+      "items": [
+        {
+          "section": "Structure",
+          "item": "1",
+          "item_name": "State the decision problem clearly",
+          "item_question": "Does the manuscript include a clear statement of the decision problem?",
+          "item_question_background": "The checklist begins with the decision problem because readers cannot judge whether a model is relevant if the practical or policy question being addressed is left vague.",
+          "item_extraction_instruction": "Extract the stated decision problem or policy question the model is intended to inform.",
+          "item_expected_location": "Introduction / Objectives",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Is there a clear statement of the decision problem?", "locator": "Table 1, Decision problem/objective"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "2",
+          "item_name": "State an objective consistent with the decision problem",
+          "item_question": "Does the manuscript specify the objective of the evaluation, and is it consistent with the stated decision problem?",
+          "item_question_background": "A modelling objective should not drift away from the decision problem it claims to serve, because that mismatch can make the reported outputs hard to interpret for end users.",
+          "item_extraction_instruction": "Extract the stated modelling or evaluation objective and whether it aligns with the decision problem.",
+          "item_expected_location": "Introduction / Objectives",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Is the objective of the evaluation specified and consistent with the stated decision problem?", "locator": "Table 1, Decision problem/objective"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "3",
+          "item_name": "Identify the primary decision-maker",
+          "item_question": "Does the manuscript specify the primary decision-maker for whom the model is intended?",
+          "item_question_background": "The intended decision-maker shapes what outcomes, assumptions, and perspective matter, so the checklist asks authors to say explicitly who the model is designed to help.",
+          "item_extraction_instruction": "Extract any statement identifying the model's target decision-maker, audience, or end user.",
+          "item_expected_location": "Introduction / Objectives / Perspective",
+          "item_optional": true,
+          "source_page_refs": [{"page": 3, "quote": "Is the primary decision-maker specified?", "locator": "Table 1, Decision problem/objective"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "4",
+          "item_name": "State the model perspective",
+          "item_question": "Does the manuscript clearly state the perspective of the model?",
+          "item_question_background": "Perspective determines which costs, consequences, and outcomes belong in a model, so it is a core framing choice rather than a background detail.",
+          "item_extraction_instruction": "Extract the stated modelling perspective, such as societal, payer, provider, or policy-maker perspective.",
+          "item_expected_location": "Methods / Perspective",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Is the perspective of the model clearly stated?", "locator": "Table 1, Scope/perspective"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "5",
+          "item_name": "Make model inputs consistent with the perspective",
+          "item_question": "Are the model inputs consistent with the stated perspective?",
+          "item_question_background": "A model can become internally incoherent if it claims one perspective but uses inputs that belong to another, such as mixing incompatible costs or outcomes.",
+          "item_extraction_instruction": "Extract evidence that chosen inputs, outcomes, and cost components match the declared perspective.",
+          "item_expected_location": "Methods / Perspective / Inputs",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the model inputs consistent with the stated perspective?", "locator": "Table 1, Scope/perspective"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "6",
+          "item_name": "Justify variable definitions",
+          "item_question": "Are definitions of the variables in the model justified?",
+          "item_question_background": "Variable definitions determine what the model actually represents, so the checklist asks authors to explain why those particular definitions are appropriate.",
+          "item_extraction_instruction": "Extract definitions of model variables and any rationale provided for those definitions.",
+          "item_expected_location": "Methods / Variables / Model inputs",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are definitions of the variables in the model justified?", "locator": "Table 1, Scope/perspective"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "7",
+          "item_name": "State and justify the scope of the model",
+          "item_question": "Has the scope of the model been stated and justified?",
+          "item_question_background": "Scope defines what is inside and outside the model, so without an explicit scope statement readers cannot tell whether omissions are deliberate or accidental.",
+          "item_extraction_instruction": "Extract the stated scope of the model and any justification for boundaries or exclusions.",
+          "item_expected_location": "Introduction / Methods / Scope",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Has the scope of the model been stated and justified?", "locator": "Table 1, Scope/perspective"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "8",
+          "item_name": "Align outcomes with perspective, scope, and objective",
+          "item_question": "Are the outcomes of the model consistent with the perspective, scope, and overall objective of the model?",
+          "item_question_background": "Reported outcomes should serve the model's stated purpose; otherwise, even technically correct outputs may not answer the question the paper says it is addressing.",
+          "item_extraction_instruction": "Extract the model outcomes and assess whether the manuscript connects them to the stated perspective, scope, and objective.",
+          "item_expected_location": "Methods / Outcomes / Results",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the outcomes of the model consistent with the perspective, scope and overall objective of the model?", "locator": "Table 1, Scope/perspective"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "9",
+          "item_name": "Use a model structure consistent with theory of the condition",
+          "item_question": "Is the structure of the model consistent with a coherent theory of the health condition under evaluation?",
+          "item_question_background": "The checklist asks whether the model structure reflects a defensible theory of the condition, because a structurally implausible model can mislead even when parameter estimates look reasonable.",
+          "item_extraction_instruction": "Extract the theory, conceptual framework, or disease logic used to justify the overall structure of the model.",
+          "item_expected_location": "Methods / Model structure / Conceptual framework",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Is the structure of the model consistent with a coherent theory of the health condition under evaluation?", "locator": "Table 1, Rationale for structure"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "10",
+          "item_name": "Report sources used to develop model structure",
+          "item_question": "Are the sources of data used to develop the structure of the model specified?",
+          "item_question_background": "Structure is often informed by prior evidence rather than invented from scratch, so readers need to know which sources shaped the model's architecture.",
+          "item_extraction_instruction": "Extract references, datasets, expert sources, or empirical evidence used to develop the model structure.",
+          "item_expected_location": "Methods / Model structure / References",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the sources of data used to develop the structure of the model specified?", "locator": "Table 1, Rationale for structure"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "11",
+          "item_name": "Justify causal relationships in the structure",
+          "item_question": "Are the causal relationships described by the model structure justified appropriately?",
+          "item_question_background": "Causal links inside a model do not become credible simply because they are diagrammed; the checklist asks authors to show why those relationships should be there.",
+          "item_extraction_instruction": "Extract how the manuscript justifies the causal pathways or directional relationships in the model.",
+          "item_expected_location": "Methods / Model structure / Conceptual framework",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the causal relationships described by the model structure justified appropriately?", "locator": "Table 1, Rationale for structure"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "12",
+          "item_name": "State and justify structural assumptions",
+          "item_question": "Are the structural assumptions clearly stated and justified?",
+          "item_question_background": "Structural assumptions can drive outputs even more strongly than single parameter values, so the checklist treats them as something to disclose explicitly rather than leave implicit.",
+          "item_extraction_instruction": "Extract all stated structural assumptions and the reasons given for adopting them.",
+          "item_expected_location": "Methods / Assumptions / Model structure",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the structural assumptions clearly stated and justified?", "locator": "Table 1, Structural assumptions"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "13",
+          "item_name": "Assess whether structural assumptions are reasonable",
+          "item_question": "Are the structural assumptions reasonable given the overall objective, perspective, and scope of the model?",
+          "item_question_background": "An assumption can be explicit yet still be poorly matched to the model's purpose, so the checklist separately asks whether the assumption is actually reasonable in context.",
+          "item_extraction_instruction": "Extract any discussion evaluating structural assumptions against the model's aims, perspective, and scope.",
+          "item_expected_location": "Methods / Assumptions / Discussion",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the structural assumptions reasonable given the overall objective, perspective and scope of the model?", "locator": "Table 1, Structural assumptions"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "14",
+          "item_name": "Define the options under evaluation clearly",
+          "item_question": "Is there a clear definition of the options under evaluation?",
+          "item_question_background": "Comparative models are only interpretable when the interventions, policies, or strategies being compared are precisely defined rather than described loosely.",
+          "item_extraction_instruction": "Extract the modelled interventions, strategies, comparators, or policy options and their definitions.",
+          "item_expected_location": "Methods / Interventions / Comparators",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Is there a clear definition of the options under evaluation?", "locator": "Table 1, Strategies/comparators"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "15",
+          "item_name": "Evaluate all feasible and practical options",
+          "item_question": "Have all feasible and practical options been evaluated?",
+          "item_question_background": "A modelling comparison can mislead if relevant options are omitted, because the apparent best choice may only be best among a narrowed set of alternatives.",
+          "item_extraction_instruction": "Extract whether the manuscript explains the full set of feasible options considered and whether any relevant alternatives were omitted.",
+          "item_expected_location": "Methods / Comparators / Discussion",
+          "item_optional": true,
+          "source_page_refs": [{"page": 3, "quote": "Have all feasible and practical options been evaluated?", "locator": "Table 1, Strategies/comparators"}],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "16",
+          "item_name": "Justify excluded feasible options",
+          "item_question": "Is there justification for the exclusion of feasible options?",
+          "item_question_background": "If the model does not include every feasible option, the omission needs explanation so readers can judge whether the comparison set is defensible.",
+          "item_extraction_instruction": "Extract any justification for excluding otherwise feasible comparators or strategies.",
+          "item_expected_location": "Methods / Comparators / Discussion",
+          "item_optional": true,
+          "source_page_refs": [{"page": 3, "quote": "Is there justification for the exclusion of feasible options?", "locator": "Table 1, Strategies/comparators"}],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "17",
+          "item_name": "Choose a model type appropriate to the problem",
+          "item_question": "Is the chosen model type appropriate given the decision problem and specified causal relationships within the model?",
+          "item_question_background": "The checklist treats model type as a substantive choice, because the wrong modelling framework can encode the wrong dynamics even if the inputs are otherwise sound.",
+          "item_extraction_instruction": "Extract the model type used and the rationale connecting it to the decision problem and causal structure.",
+          "item_expected_location": "Methods / Model type / Rationale",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Is the chosen model type appropriate given the decision problem and specified causal relationships within the model?", "locator": "Table 1, Model type"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "18",
+          "item_name": "Use a sufficient time horizon",
+          "item_question": "Is the time horizon of the model sufficient to reflect all important differences between options?",
+          "item_question_background": "Time horizon matters because short horizons can hide downstream differences that are central to the policy or clinical question the model claims to address.",
+          "item_extraction_instruction": "Extract the model time horizon and any reasoning that it is long enough to capture relevant differences.",
+          "item_expected_location": "Methods / Time horizon",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Is the time horizon of the model sufficient to reflect all important differences between options?", "locator": "Table 1, Time horizon"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "19",
+          "item_name": "Describe and justify time horizon and treatment duration choices",
+          "item_question": "Are the time horizon of the model, the duration of treatment, and the duration of treatment effect described and justified?",
+          "item_question_background": "Beyond total horizon length, the timing of treatment and persistence of treatment effects can materially alter outputs, so the checklist asks authors to report and justify each of those durations.",
+          "item_extraction_instruction": "Extract the model time horizon, treatment duration, treatment effect duration, and their justifications.",
+          "item_expected_location": "Methods / Time horizon / Assumptions",
+          "item_optional": true,
+          "source_page_refs": [{"page": 3, "quote": "Are the time horizon of the model, the duration of treatment and the duration of treatment effect described and justified?", "locator": "Table 1, Time horizon"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "20",
+          "item_name": "Make disease states or pathways biologically plausible",
+          "item_question": "Do the disease states or pathways reflect the underlying biological process and the impact of the interventions?",
+          "item_question_background": "State transitions and pathways are not just bookkeeping devices; they embody assumptions about disease process and intervention effects that need biological plausibility.",
+          "item_extraction_instruction": "Extract the disease states or decision pathways and the argument that they reflect underlying biology and intervention impacts.",
+          "item_expected_location": "Methods / Model structure / Disease states",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Do the disease states (state transition model) or the pathways (decision tree model) reflect the underlying biological process of the disease in question and the impact of the interventions?", "locator": "Table 1, Disease states/pathways"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "21",
+          "item_name": "Justify the cycle length",
+          "item_question": "Is the cycle length justified?",
+          "item_question_background": "Cycle length can change how events are represented over time, so it needs justification rather than being left as a hidden technical default.",
+          "item_extraction_instruction": "Extract the cycle length and any rationale for why that interval was chosen.",
+          "item_expected_location": "Methods / Model timing",
+          "item_optional": true,
+          "source_page_refs": [{"page": 3, "quote": "Is the cycle length justified?", "locator": "Table 1, Cycle length"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Structure",
+          "item": "22",
+          "item_name": "Keep the structure as simple as justified",
+          "item_question": "Is there evidence that the structure of the model is as simple as possible and that any simplifications are justified?",
+          "item_question_background": "The checklist values parsimony because unnecessary structural complexity can turn a model into the very black box the paper warns against.",
+          "item_extraction_instruction": "Extract any evidence that the model structure was simplified where possible and that simplifications were justified.",
+          "item_expected_location": "Methods / Model structure / Discussion",
+          "item_optional": true,
+          "source_page_refs": [{"page": 3, "quote": "Is there indication that the structure of the model is as simple as possible and that any simplifications are justified?", "locator": "Table 1, Parsimony"}],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data",
+      "items": [
+        {
+          "section": "Data",
+          "item": "23",
+          "item_name": "Use transparent and appropriate data identification methods",
+          "item_question": "Are the data identification methods transparent and appropriate given the objectives of the model?",
+          "item_question_background": "How model data are found affects every downstream estimate, so the checklist starts the data section by asking authors to show that identification methods fit the model's objectives.",
+          "item_extraction_instruction": "Extract the search, selection, or identification methods used to obtain model data and any explanation of why those methods were appropriate.",
+          "item_expected_location": "Methods / Data sources / Evidence identification",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the data identification methods transparent and appropriate given the objectives of the model?", "locator": "Table 1, Data identification"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "24",
+          "item_name": "Report inputs and assumptions so their appropriateness can be judged",
+          "item_question": "Are results reported in a way that allows the assessment of the appropriateness of each parameter input and each assumption in the target settings?",
+          "item_question_background": "Readers need enough detail about inputs and assumptions to decide whether those choices make sense for the context where the model is meant to apply.",
+          "item_extraction_instruction": "Extract how parameter inputs and assumptions are reported and whether the report supports judging their appropriateness in the target setting.",
+          "item_expected_location": "Methods / Inputs / Supplementary tables",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are results reported in a way that allows the assessment of the appropriateness of each parameter input and each assumption in the target settings?", "locator": "Table 1, Data identification"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "25",
+          "item_name": "Justify choices between data sources",
+          "item_question": "Where choices have been made between data sources, are these justified appropriately?",
+          "item_question_background": "When multiple sources could populate a parameter, source choice becomes an analytic decision that should be explained rather than silently made.",
+          "item_extraction_instruction": "Extract any discussion of choosing among competing data sources and the reasons given for those choices.",
+          "item_expected_location": "Methods / Data sources / Assumptions",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Where choices have been made between data sources, are these justified appropriately?", "locator": "Table 1, Data identification"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "26",
+          "item_name": "Reflect uncertainty and heterogeneity when pooling sources",
+          "item_question": "Where data from different sources are pooled, is uncertainty about precision and heterogeneity adequately reflected?",
+          "item_question_background": "Pooling can hide disagreement across sources, so the checklist asks authors to show that precision and heterogeneity were not washed out when combining evidence.",
+          "item_extraction_instruction": "Extract how multiple data sources were pooled and whether uncertainty and heterogeneity were incorporated.",
+          "item_expected_location": "Methods / Data synthesis / Inputs",
+          "item_optional": true,
+          "source_page_refs": [{"page": 3, "quote": "Where data from different sources are pooled, is this done in a way that the uncertainty relating to their precision and possible heterogeneity is adequately reflected?", "locator": "Table 1, Data identification"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "27",
+          "item_name": "Use data relevant to the target audience and setting",
+          "item_question": "Are the data used to populate the model relevant to the target audiences and settings?",
+          "item_question_background": "A technically sound parameter source may still be poorly matched to the decision context, so the checklist asks whether the chosen data actually fit the intended audience and setting.",
+          "item_extraction_instruction": "Extract whether and how the manuscript argues that input data are relevant to the target decision-makers and setting.",
+          "item_expected_location": "Methods / Data sources / Setting",
+          "item_optional": false,
+          "source_page_refs": [{"page": 3, "quote": "Are the data used to populate the model relevant to the target audiences (i.e., decision-makers) and settings?", "locator": "Table 1, Data identification"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "28",
+          "item_name": "Pay particular attention to important parameters",
+          "item_question": "Has particular attention been paid to identifying data for the important parameters in the model?",
+          "item_question_background": "Some parameters matter more than others, and the checklist expects data identification to be especially careful for those influential inputs.",
+          "item_extraction_instruction": "Extract any statement that key or influential parameters received enhanced evidence identification or prioritization.",
+          "item_expected_location": "Methods / Inputs / Sensitivity planning",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Has particular attention been paid to identifying data for the important parameters in the model?", "locator": "Table 1 continued, Data identification"}],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "29",
+          "item_name": "Assess data quality appropriately",
+          "item_question": "Has the quality of the data been assessed appropriately?",
+          "item_question_background": "The review article stresses transparency about model inputs, and this item asks whether authors evaluated the quality of the evidence they chose to use rather than treating all sources as equally trustworthy.",
+          "item_extraction_instruction": "Extract how the quality or credibility of the input data was assessed.",
+          "item_expected_location": "Methods / Data quality / Evidence appraisal",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Has the quality of the data been assessed appropriately?", "locator": "Table 1 continued, Data identification"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "30",
+          "item_name": "Describe and justify expert opinion methods",
+          "item_question": "Where expert opinion has been used, are the methods described and justified?",
+          "item_question_background": "Expert input can be necessary in modelling, but the checklist expects it to be reported as a method with its own rationale rather than a hidden fallback.",
+          "item_extraction_instruction": "Extract whether expert opinion was used, how it was elicited, and how its use was justified.",
+          "item_expected_location": "Methods / Inputs / Expert elicitation",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Where expert opinion has been used, are the methods described and justified?", "locator": "Table 1 continued, Data identification"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "31",
+          "item_name": "Use justifiable data modelling techniques",
+          "item_question": "Is the data modelling methodology based on justifiable statistical and epidemiological techniques?",
+          "item_question_background": "How raw evidence is modelled into usable parameters matters as much as where the evidence came from, so the checklist asks whether those methods are defensible.",
+          "item_extraction_instruction": "Extract the statistical or epidemiological techniques used to model input data and the justification for those choices.",
+          "item_expected_location": "Methods / Data modelling / Statistical methods",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Is the data modelling methodology based on justifiable statistical and epidemiological techniques?", "locator": "Table 1 continued, Data modelling"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "32",
+          "item_name": "Describe and justify baseline data",
+          "item_question": "Is the choice of baseline data described and justified?",
+          "item_question_background": "Baseline data anchor the model's starting conditions, so the checklist asks authors to explain both what baseline they chose and why.",
+          "item_extraction_instruction": "Extract the baseline data used and the rationale for selecting it.",
+          "item_expected_location": "Methods / Baseline data / Inputs",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Is the choice of baseline data described and justified?", "locator": "Table 1 continued, Baseline data"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "33",
+          "item_name": "Calculate transition probabilities appropriately",
+          "item_question": "Are transition probabilities calculated appropriately?",
+          "item_question_background": "Transition probabilities determine how states evolve over time, so poor calculation here can undermine the entire dynamic behavior of the model.",
+          "item_extraction_instruction": "Extract how transition probabilities were calculated or estimated and any justification for the approach.",
+          "item_expected_location": "Methods / Transition probabilities / Model parameters",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Are transition probabilities calculated appropriately?", "locator": "Table 1 continued, Baseline data"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "34",
+          "item_name": "Synthesize relative treatment effects appropriately",
+          "item_question": "If relative treatment effects were derived from trial data, were they synthesized using appropriate techniques?",
+          "item_question_background": "Treatment effect synthesis can strongly affect comparative outputs, so the checklist asks whether authors used appropriate techniques when combining trial evidence.",
+          "item_extraction_instruction": "Extract whether treatment effects came from trial data, how they were synthesized, and why that synthesis approach was appropriate.",
+          "item_expected_location": "Methods / Treatment effects / Evidence synthesis",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "If relative treatment effects have been derived from trial data, have they been synthesized using appropriate techniques?", "locator": "Table 1 continued, Treatment effects"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "35",
+          "item_name": "Document and justify extrapolation assumptions",
+          "item_question": "Have the methods and assumptions used to extrapolate short-term results to final outcomes been documented and justified?",
+          "item_question_background": "Extrapolation extends evidence beyond what was directly observed, so the checklist treats those methods and assumptions as something readers should see and assess.",
+          "item_extraction_instruction": "Extract how short-term evidence was extrapolated to longer-term outcomes and the assumptions justifying that extrapolation.",
+          "item_expected_location": "Methods / Extrapolation / Assumptions",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Have the methods and assumptions used to extrapolate short-term results to final outcomes been documented and justified?", "locator": "Table 1 continued, Treatment effects"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "36",
+          "item_name": "Explore alternative extrapolation assumptions with sensitivity analysis",
+          "item_question": "Have alternative extrapolation assumptions been explored through sensitivity analysis?",
+          "item_question_background": "Because extrapolation assumptions can be highly consequential, the checklist asks authors to test how sensitive conclusions are to different plausible extrapolation choices.",
+          "item_extraction_instruction": "Extract any sensitivity analyses that vary assumptions used for extrapolating short-term to final outcomes.",
+          "item_expected_location": "Methods / Sensitivity analysis / Results",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Have alternative assumptions been explored through sensitivity analysis?", "locator": "Table 1 continued, Treatment effects"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "37",
+          "item_name": "Document and justify continuing treatment-effect assumptions",
+          "item_question": "Have assumptions regarding the continuing effect of treatment once treatment is complete been documented and justified?",
+          "item_question_background": "Persistence of treatment effects after treatment stops is often uncertain but can materially change projected outcomes, so it needs explicit treatment.",
+          "item_extraction_instruction": "Extract assumptions about whether and how treatment effects continue after treatment ends, along with their justification.",
+          "item_expected_location": "Methods / Treatment effects / Assumptions",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Have assumptions regarding the continuing effect of treatment once treatment is complete been documented and justified?", "locator": "Table 1 continued, Treatment effects"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "38",
+          "item_name": "Test alternative assumptions about continuing treatment effects",
+          "item_question": "Have alternative assumptions about continuing treatment effects been explored through sensitivity analysis?",
+          "item_question_background": "Since post-treatment persistence is often not directly observed, the checklist asks authors to show how results change when that assumption is varied.",
+          "item_extraction_instruction": "Extract sensitivity analyses that vary assumptions about continuing treatment effects after treatment completion.",
+          "item_expected_location": "Methods / Sensitivity analysis / Results",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Have alternative assumptions been explored through sensitivity analysis?", "locator": "Table 1 continued, Treatment effects"}],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "39",
+          "item_name": "Support how risk factors are modelled",
+          "item_question": "Has evidence been presented to support modelling risk factors as additive or multiplicative effects on baseline probabilities or rates?",
+          "item_question_background": "How risk factors combine can reshape projected incidence and mortality, so the checklist expects evidence for using additive versus multiplicative formulations.",
+          "item_extraction_instruction": "Extract how risk factors were incorporated and any evidence supporting additive or multiplicative treatment.",
+          "item_expected_location": "Methods / Risk factors / Model assumptions",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Has evidence supporting the modeling of risk factors as having an additive or multiplicative effect on baseline probabilities or rates of disease incidence or mortality been presented?", "locator": "Table 1 continued, Risk factors"}],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "40",
+          "item_name": "Describe and reference all incorporated data in sufficient detail",
+          "item_question": "Have all data incorporated into the model been described and referenced in sufficient detail?",
+          "item_question_background": "This item turns transparency into a practical requirement: every input that enters the model should be traceable to a sufficiently described source.",
+          "item_extraction_instruction": "Extract whether all incorporated data are described, tabulated, and referenced in enough detail to trace them back to their sources.",
+          "item_expected_location": "Methods / Inputs / Supplementary tables",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Have all data incorporated into the model been described and referenced in sufficient detail?", "locator": "Table 1 continued, Data incorporation"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "41",
+          "item_name": "Justify use of mutually inconsistent data",
+          "item_question": "Has the use of mutually inconsistent data been justified?",
+          "item_question_background": "Models often draw from multiple sources, but when those sources are not mutually consistent the choice to combine them becomes a methodological decision that needs defence.",
+          "item_extraction_instruction": "Extract any acknowledgement of inconsistent data sources and the justification for using them together.",
+          "item_expected_location": "Methods / Inputs / Assumptions / Limitations",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Has the use of mutually inconsistent data been justified (i.e., are assumptions and choices appropriate)?", "locator": "Table 1 continued, Data incorporation"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "42",
+          "item_name": "Make the data incorporation process transparent",
+          "item_question": "Is the process of data incorporation transparent?",
+          "item_question_background": "Even well-described data sources are not enough if readers cannot see how those sources were translated into model parameters and linked into the final model.",
+          "item_extraction_instruction": "Extract how the manuscript explains the process of transforming source data into model inputs and incorporating them into the model.",
+          "item_expected_location": "Methods / Data incorporation / Supplement",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Is the process of data incorporation transparent?", "locator": "Table 1 continued, Data incorporation"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "43",
+          "item_name": "Describe and justify parameter distributions",
+          "item_question": "If data were incorporated as distributions, has the choice of distribution for each parameter been described and justified?",
+          "item_question_background": "When parameter uncertainty is represented with distributions, the chosen distribution family becomes part of the model's assumptions and should be explained.",
+          "item_extraction_instruction": "Extract the parameter distributions used and any justification for their choice.",
+          "item_expected_location": "Methods / Probabilistic analysis / Parameters",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "If data have been incorporated as distributions, has the choice of distribution for each parameter been described and justified?", "locator": "Table 1 continued, Data incorporation"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "44",
+          "item_name": "Reflect second-order uncertainty when using distributions",
+          "item_question": "If data were incorporated as distributions, is it clear that second-order uncertainty is reflected?",
+          "item_question_background": "Using distributions is not enough by itself; the checklist asks whether parameter uncertainty about those distributions is represented in a way that captures second-order uncertainty.",
+          "item_extraction_instruction": "Extract whether and how second-order uncertainty is represented when inputs are modelled as distributions.",
+          "item_expected_location": "Methods / Uncertainty analysis / Probabilistic analysis",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "If data have been incorporated as distributions, is it clear that second order uncertainty is reflected?", "locator": "Table 1 continued, Data incorporation"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "45",
+          "item_name": "Address the principal types of uncertainty",
+          "item_question": "Have the principal types of uncertainty been addressed?",
+          "item_question_background": "The paper highlights inconsistency in reporting model quality items, and this row asks whether uncertainty is treated comprehensively rather than narrowly.",
+          "item_extraction_instruction": "Extract which types of uncertainty the manuscript addresses and how.",
+          "item_expected_location": "Methods / Uncertainty analysis / Sensitivity analysis",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Have the four principal types of uncertainty been addressed?", "locator": "Table 1 continued, Assessment of uncertainty"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "46",
+          "item_name": "Justify omitted forms of uncertainty",
+          "item_question": "If particular forms of uncertainty were omitted, has that omission been justified?",
+          "item_question_background": "Uncertainty analysis is often incomplete in practice, so the checklist asks authors to explain any omissions rather than leaving them uninterpreted.",
+          "item_extraction_instruction": "Extract any forms of uncertainty that were not analysed and the reasons given for omitting them.",
+          "item_expected_location": "Methods / Uncertainty analysis / Limitations",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "If not, has the omission of particular forms of uncertainty been justified?", "locator": "Table 1 continued, Assessment of uncertainty"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "47",
+          "item_name": "Address methodological uncertainty with alternative model versions",
+          "item_question": "Have methodological uncertainties been addressed by running alternative versions of the model with different methodological assumptions?",
+          "item_question_background": "Methodological choices such as discounting or analytic approach can matter independently of parameter uncertainty, so the checklist asks whether authors varied those choices directly.",
+          "item_extraction_instruction": "Extract any alternative model versions used to examine methodological uncertainty.",
+          "item_expected_location": "Methods / Sensitivity analysis / Scenario analysis",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Have methodological uncertainties been addressed by running alternative versions of the model with different methodological assumptions?", "locator": "Table 1 continued, Methodological"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "48",
+          "item_name": "Address structural uncertainty through sensitivity analysis",
+          "item_question": "Is there evidence that structural uncertainties have been addressed via sensitivity analysis?",
+          "item_question_background": "Because structural choices can be major drivers of results, the checklist asks whether their impact was explored rather than assumed away.",
+          "item_extraction_instruction": "Extract sensitivity analyses or scenario analyses that vary structural model assumptions.",
+          "item_expected_location": "Methods / Sensitivity analysis / Structural assumptions",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Is there evidence that structural uncertainties have been addressed via sensitivity analysis?", "locator": "Table 1 continued, Structural"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "49",
+          "item_name": "Address heterogeneity with subgroup-specific modelling",
+          "item_question": "Has heterogeneity been dealt with by running the model separately for different subgroups?",
+          "item_question_background": "A single pooled model can hide important subgroup differences, so this item asks whether heterogeneity was examined through separate modelling where relevant.",
+          "item_extraction_instruction": "Extract whether the model was run separately for subgroups and how heterogeneity was handled.",
+          "item_expected_location": "Methods / Subgroup analysis / Heterogeneity",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Has heterogeneity been dealt with by running the model separately for different subgroups?", "locator": "Table 1 continued, Heterogeneity"}],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "50",
+          "item_name": "Use appropriate methods to assess parameter uncertainty",
+          "item_question": "Are the methods of assessment of parameter uncertainty appropriate?",
+          "item_question_background": "Parameter uncertainty should be quantified with methods that match the available evidence and model structure, not just with arbitrary ranges or ad hoc procedures.",
+          "item_extraction_instruction": "Extract how parameter uncertainty was assessed and any argument that the method was appropriate.",
+          "item_expected_location": "Methods / Parameter uncertainty / Sensitivity analysis",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Are the methods of assessment of parameter uncertainty appropriate?", "locator": "Table 1 continued, Parameter"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "51",
+          "item_name": "State and justify sensitivity-analysis ranges for point estimates",
+          "item_question": "If data are incorporated as point estimates, are the ranges used for sensitivity analysis stated clearly and justified?",
+          "item_question_background": "When a model uses point estimates, the plausibility of any sensitivity analysis depends on whether the explored ranges are explicit and defensible.",
+          "item_extraction_instruction": "Extract the ranges used for sensitivity analysis around point estimates and the justification for those ranges.",
+          "item_expected_location": "Methods / Sensitivity analysis / Parameters",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "If data are incorporated as point estimates, are the ranges used for sensitivity analysis stated clearly and justified?", "locator": "Table 1 continued, Parameter"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "52",
+          "item_name": "Report which sensitivity analyses were carried out",
+          "item_question": "Does the manuscript report which sensitivity analyses were carried out?",
+          "item_question_background": "Sensitivity analysis cannot be appraised if readers are left guessing what was actually varied, so the checklist asks for explicit reporting of the analyses performed.",
+          "item_extraction_instruction": "Extract the set of sensitivity analyses performed and how they are described.",
+          "item_expected_location": "Methods / Sensitivity analysis / Results",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Which sensitivity analyses were carried out?", "locator": "Table 1 continued, Parameter"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "53",
+          "item_name": "Describe how the model was calibrated",
+          "item_question": "Does the manuscript explain how the model was calibrated?",
+          "item_question_background": "Calibration is one of the few areas where the paper found somewhat better reporting, which underscores how central calibration procedures are for interpreting a fitted population model.",
+          "item_extraction_instruction": "Extract whether the model was calibrated and how the calibration process is described.",
+          "item_expected_location": "Methods / Calibration",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "How was the model calibrated?", "locator": "Table 1 continued, Calibration"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "54",
+          "item_name": "Describe the source data used for calibration",
+          "item_question": "Does the manuscript describe the source data used for calibration?",
+          "item_question_background": "The review found that calibration target data were reported more consistently than other calibration details, reflecting how important those source data are to understanding the fitting process.",
+          "item_extraction_instruction": "Extract the data sources used as calibration targets.",
+          "item_expected_location": "Methods / Calibration / Data sources",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Calibration - description of source data", "locator": "Table 1 continued, Calibration"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "55",
+          "item_name": "Describe the calibration search algorithm",
+          "item_question": "Does the manuscript describe the search algorithm used for calibration?",
+          "item_question_background": "Calibration results depend not just on targets but on the search procedure used to find acceptable parameter sets, so the algorithm itself needs reporting.",
+          "item_extraction_instruction": "Extract the search algorithm or procedure used to explore parameter space during calibration.",
+          "item_expected_location": "Methods / Calibration",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Calibration - description of search algorithm", "locator": "Table 1 continued, Calibration"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "56",
+          "item_name": "Describe the calibration goodness-of-fit metric",
+          "item_question": "Does the manuscript describe the goodness-of-fit metric used in calibration?",
+          "item_question_background": "A calibration exercise can only be judged if readers know what criterion defined a better or worse fit to the target data.",
+          "item_extraction_instruction": "Extract the goodness-of-fit metric or objective function used for calibration.",
+          "item_expected_location": "Methods / Calibration / Model fit",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Calibration - description of goodness-of-fit metric", "locator": "Table 1 continued, Calibration"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "57",
+          "item_name": "Describe the calibration acceptance criteria",
+          "item_question": "Does the manuscript describe the criteria used to accept calibrated parameter sets?",
+          "item_question_background": "Acceptable fit is not self-defining, so the checklist asks authors to say what threshold or rule determined whether calibration succeeded.",
+          "item_extraction_instruction": "Extract the acceptance criteria used to determine adequate calibration fit.",
+          "item_expected_location": "Methods / Calibration / Acceptance criteria",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Calibration - description of acceptance criteria", "locator": "Table 1 continued, Calibration"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "58",
+          "item_name": "Describe the calibration stopping rule",
+          "item_question": "Does the manuscript describe the stopping rule used in calibration?",
+          "item_question_background": "Calibration can stop for many reasons, and those choices can affect which solutions are found, so the stopping rule should be transparent.",
+          "item_extraction_instruction": "Extract the stopping rule used to end the calibration process.",
+          "item_expected_location": "Methods / Calibration / Algorithm details",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Calibration - description of stopping rule", "locator": "Table 1 continued, Calibration"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data",
+          "item": "59",
+          "item_name": "Compare results with previous models and explain differences",
+          "item_question": "Have the results of the model been compared with those of previous models and have any differences been explained?",
+          "item_question_background": "Positioning results against prior models helps readers see whether new outputs are plausible, surprising, or driven by identifiable methodological differences.",
+          "item_extraction_instruction": "Extract whether the manuscript compares its results with previous models and how it explains any differences.",
+          "item_expected_location": "Results / Discussion / External comparison",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Have the results of the model been compared with those of previous models and any differences in results explained?", "locator": "Table 1 continued, Calibration"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Consistency",
+      "items": [
+        {
+          "section": "Consistency",
+          "item": "60",
+          "item_name": "Test the mathematical logic of the model thoroughly",
+          "item_question": "Is there evidence that the mathematical logic of the model has been tested thoroughly before use?",
+          "item_question_background": "Internal consistency is about whether the model behaves according to its own logic, so the checklist asks for evidence of testing before reported use.",
+          "item_extraction_instruction": "Extract any internal testing, debugging, or logical verification of the model before it was used for analysis.",
+          "item_expected_location": "Methods / Model testing / Validation",
+          "item_optional": false,
+          "source_page_refs": [{"page": 4, "quote": "Is there evidence that the mathematical logic of the model has been tested thoroughly before use?", "locator": "Table 1, Internal consistency"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Consistency",
+          "item": "61",
+          "item_name": "Explain and justify counterintuitive results",
+          "item_question": "Are any counterintuitive results from the model explained and justified?",
+          "item_question_background": "Unexpected outputs may reveal either genuine insight or model error, so the checklist asks authors not to leave counterintuitive findings unexplained.",
+          "item_extraction_instruction": "Extract any counterintuitive results and the explanation offered for them.",
+          "item_expected_location": "Results / Discussion",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "Are any counterintuitive results from the model explained and justified?", "locator": "Table 1, External consistency"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Consistency",
+          "item": "62",
+          "item_name": "Explain differences when calibration against independent data is imperfect",
+          "item_question": "If the model was calibrated against independent data, have any differences been explained and justified?",
+          "item_question_background": "External consistency is not just about showing calibration; it is also about explaining where the model fails to match independent data and why that might be acceptable.",
+          "item_extraction_instruction": "Extract any discrepancies between the calibrated model and independent data and how the manuscript explains them.",
+          "item_expected_location": "Results / Calibration / Validation / Discussion",
+          "item_optional": true,
+          "source_page_refs": [{"page": 4, "quote": "If the model has been calibrated against independent data, have any differences been explained and justified?", "locator": "Table 1, External consistency"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Validity",
+      "items": [
+        {
+          "section": "Validity",
+          "item": "63",
+          "item_name": "Present face-validity evidence from subject-matter experts",
+          "item_question": "Has evidence of face validity been presented through expert evaluation over a range of inputs, outputs, and time horizons?",
+          "item_question_background": "Face validity matters because models should appear reasonable to domain experts across realistic conditions, not only under a single favored scenario.",
+          "item_extraction_instruction": "Extract any expert review or face-validity assessment of the model across inputs, outputs, or time horizons.",
+          "item_expected_location": "Methods / Validation / Discussion",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Has evidence of face validity - evaluation by experts in the subject matter area for a wide range of input conditions and output variables, over varying time horizons - been presented?", "locator": "Table 1, Output plausibility"}],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Validity",
+          "item": "64",
+          "item_name": "Test the validity of the model",
+          "item_question": "Was the validity of the model tested?",
+          "item_question_background": "The review identified under-reporting of validation practices, so this item asks the most basic question first: whether validity testing was done at all.",
+          "item_extraction_instruction": "Extract whether the manuscript reports any formal validity testing of the model.",
+          "item_expected_location": "Methods / Validation / Results",
+          "item_optional": false,
+          "source_page_refs": [{"page": 5, "quote": "Was the validity of the model tested?", "locator": "Table 1, Predictive validity"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Validity",
+          "item": "65",
+          "item_name": "Describe how model validity was checked",
+          "item_question": "Does the manuscript describe how the validity of the model was checked?",
+          "item_question_background": "Saying that validation occurred is not enough if the procedures are hidden, so the checklist asks authors to show the method of checking validity.",
+          "item_extraction_instruction": "Extract the procedures used to check model validity.",
+          "item_expected_location": "Methods / Validation",
+          "item_optional": false,
+          "source_page_refs": [{"page": 5, "quote": "Is there a description of how the validity of the model was checked?", "locator": "Table 1, Predictive validity"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Validity",
+          "item": "66",
+          "item_name": "Quantify validity",
+          "item_question": "Does the manuscript quantify model validity?",
+          "item_question_background": "A qualitative claim of validity is weaker than one supported by explicit quantitative evidence, so the checklist asks how validity was quantified.",
+          "item_extraction_instruction": "Extract any quantitative measures used to summarize model validity.",
+          "item_expected_location": "Results / Validation",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "How was the validity quantified? (e.g., % explained)", "locator": "Table 1, Predictive validity"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Computer Implementation",
+      "items": [
+        {
+          "section": "Computer Implementation",
+          "item": "67",
+          "item_name": "List the software used and justify its choice",
+          "item_question": "Is the software used in the study listed and is its choice justified?",
+          "item_question_background": "Implementation platform affects reproducibility and sometimes model behavior, so the checklist asks authors to name the software and explain why it was used.",
+          "item_extraction_instruction": "Extract the software or programming platform used and any justification for selecting it.",
+          "item_expected_location": "Methods / Software / Implementation details",
+          "item_optional": false,
+          "source_page_refs": [{"page": 5, "quote": "Is the software used in the study listed and its choice justified?", "locator": "Table 1, Computer implementation"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Transparency",
+      "items": [
+        {
+          "section": "Transparency",
+          "item": "68",
+          "item_name": "Make the model available to the reader",
+          "item_question": "Is the model available to the reader?",
+          "item_question_background": "The article argues that models should not remain black boxes, so direct reader access to the model is one of the clearest transparency signals in the checklist.",
+          "item_extraction_instruction": "Extract whether the model is available to readers and how it can be accessed.",
+          "item_expected_location": "Data and code availability / Supplement / Appendix",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Is the model available to the reader?", "locator": "Table 1, Transparency"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Transparency",
+          "item": "69",
+          "item_name": "Provide detailed calibration-method documentation",
+          "item_question": "Is a detailed document describing the calibration methods available?",
+          "item_question_background": "Because calibration details are often underreported, the checklist specifically asks whether a fuller document exists to make that part of the workflow inspectable.",
+          "item_extraction_instruction": "Extract whether a separate detailed document describing calibration methods is available.",
+          "item_expected_location": "Supplement / Appendix / Online materials",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Is a detailed document describing the calibration methods available?", "locator": "Table 1, Transparency"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Transparency",
+          "item": "70",
+          "item_name": "Provide relevant appendices",
+          "item_question": "Do the authors provide relevant appendices?",
+          "item_question_background": "Appendices are a practical mechanism for keeping the main paper readable while still exposing the structural and data details needed for appraisal.",
+          "item_extraction_instruction": "Extract whether relevant appendices or supplementary files are provided and what they contain.",
+          "item_expected_location": "Supplement / Appendix / Online materials",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Do the authors provide relevant appendices?", "locator": "Table 1, Transparency"}],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Sponsorship",
+      "items": [
+        {
+          "section": "Sponsorship",
+          "item": "71",
+          "item_name": "Disclose the relationship between sponsor and study performer",
+          "item_question": "Is disclosure of the relationship between the study sponsor and the performer of the study provided?",
+          "item_question_background": "Funding relationships can shape modelling choices and interpretation, so the checklist ends by asking for transparent disclosure of sponsor involvement.",
+          "item_extraction_instruction": "Extract sponsorship and funding disclosures, including any stated relationship between sponsor and study performers.",
+          "item_expected_location": "Funding / Competing interests / Acknowledgments",
+          "item_optional": true,
+          "source_page_refs": [{"page": 5, "quote": "Is disclosure of relationship between study sponsor and performer of the study provided?", "locator": "Table 1, Sponsorship"}],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "reporting modelling studies",
+      "reporting guidelines for modelling studies",
+      "population modelling reporting checklist",
+      "decision-analytic modelling reporting",
+      "health policy modelling reporting"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bmodel(l)?ing stud(y|ies)\\b",
+          "\\bpopulation model(l)?ing\\b",
+          "\\bdecision[- ]analytic model(l)?ing\\b",
+          "\\bdisease simulation model\\b",
+          "\\bhealth policy model\\b",
+          "\\beconomic evaluation model\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\btime horizon\\b",
+          "\\bstructural assumptions\\b",
+          "\\bcalibration\\b",
+          "\\bsensitivity analysis\\b",
+          "\\btransition probabilities\\b",
+          "\\bvalidation\\b",
+          "\\bmodel perspective\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A health-policy or disease-simulation manuscript reports model structure, time horizon, transition probabilities, calibration, uncertainty analysis, and validation, and needs a modelling-specific reporting checklist.",
+      "A decision-analytic or economic-evaluation model paper needs structured prompts for transparency about assumptions, data incorporation, sensitivity analysis, and software implementation."
+    ],
+    "EvidenceExamplesNegative": [
+      "A primary randomized trial or observational cohort report with no explicit analytic model, calibration, or sensitivity-analysis framework is not a modelling-study checklist use case.",
+      "A purely theoretical mathematical paper with no reported health-policy or population modelling application would not strongly match this checklist."
+    ],
+    "Explain": "Use this checklist for health and population modelling manuscripts when the main reporting challenge is transparency about model structure, inputs, assumptions, uncertainty, validation, and implementation."
+  }
+}

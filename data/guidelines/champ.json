@@ -1,0 +1,820 @@
+{
+  "id": "champ",
+  "Name": "CHAMP",
+  "LongName": "CHecklist for Statistical Assessment of Medical Papers",
+  "Description": "A 30-item checklist for statistical assessment of medical papers. CHAMP is designed primarily for editors and peer reviewers assessing the design, conduct, data analysis, reporting, presentation, and interpretation of medical research manuscripts, while also serving as a reference for authors and readers.",
+  "Category": "quality_assessment_tool",
+  "Subdomain": "Statistical assessment of medical papers",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "Improve the statistical validity and reporting quality of medical research papers by guiding reviewers, editors, authors, and readers through common problems in design, analysis, reporting, and interpretation.",
+  "ManuscriptType": [
+    "Research manuscript"
+  ],
+  "ManuscriptSubType": [
+    "Medical research paper"
+  ],
+  "StudyType": [
+    "Clinical trial",
+    "Observational study",
+    "Prediction model study",
+    "Survey study",
+    "Epidemiologic study"
+  ],
+  "Keywords": [
+    "CHAMP",
+    "statistical review",
+    "medical paper",
+    "peer review",
+    "study design",
+    "confounding",
+    "missing data",
+    "p-hacking",
+    "confidence intervals",
+    "interpretation"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical trial",
+      "Observational study",
+      "Prediction model study",
+      "Survey study",
+      "Epidemiologic study"
+    ],
+    "Disciplines": [
+      "Medicine",
+      "Clinical epidemiology",
+      "Sports medicine",
+      "Public health",
+      "Biostatistics"
+    ],
+    "Coverage": "General medical and sports-science research papers that require a broad statistical assessment of design, analysis, reporting, and interpretation.",
+    "Focus": "Research goal and study design, sample size, protocol consistency, statistical methods and assumptions, treatment effects and confounding, missing data, numerical presentation, meta-analysis utility, figure and table quality, and interpretation discipline.",
+    "ContrastWith": "CHAMP is a statistical appraisal checklist rather than a design-specific reporting standard. It complements study-type guidelines such as CONSORT, STROBE, PRISMA, or TRIPOD by focusing on common statistical-review issues across many medical paper types."
+  },
+  "references": {
+    "primary": {
+      "description": "Mansournia MA, Collins GS, Nielsen RO, et al. A CHecklist for statistical Assessment of Medical Papers (the CHAMP statement): explanation and elaboration. Br J Sports Med. 2021.",
+      "url": "https://clinicaltrialsalliance.org.au/wp-content/uploads/2021/07/CHAMP-Guideline.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Design and Conduct",
+      "items": [
+        {
+          "section": "Design and Conduct",
+          "item": "1",
+          "item_name": "Describe the research goal, objectives, design, and population clearly",
+          "item_question": "Does the paper clearly describe the goal of research, the study objective or question, the study design, and the study and target populations?",
+          "item_question_background": "CHAMP begins with clarity about what the study is trying to do and to whom it applies, because internal and external validity cannot be judged without that foundation. The explanation also distinguishes descriptive, predictive, and causal research goals as materially different aims.",
+          "item_extraction_instruction": "Extract the stated research goal, study objective, named design, source and target populations, and any description of generalisability or inclusion and exclusion boundaries.",
+          "item_expected_location": "Introduction / Methods / Study design / Participants",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Clear description of the goal of research, study objective(s), study design and study population",
+              "locator": "Table 1, item 1"
+            },
+            {
+              "page": 2,
+              "quote": "The research goal, study objectives, study design, and study and target populations must be clearly described",
+              "locator": "Item 1 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Conduct",
+          "item": "2",
+          "item_name": "Describe outcomes, exposures or treatments, covariates, and measurement methods clearly",
+          "item_question": "Does the paper clearly describe all outcomes, exposures or treatments, covariates, and how and when each variable was measured?",
+          "item_question_background": "This item makes the analytic ingredients explicit, including predictors and potential confounders or effect modifiers. The explanation also notes that when the goal is causal inference, the assumed causal structure should be made visible, ideally with a causal diagram.",
+          "item_extraction_instruction": "Extract the outcomes, exposures or treatments, predictors, confounders, effect modifiers, measurement methods, timing of measurement, and any causal diagram or causal assumptions.",
+          "item_expected_location": "Methods / Variables / Measurements / Causal model",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Clear description of outcomes, exposures/treatments and covariates, and their measurement methods",
+              "locator": "Table 1, item 2"
+            },
+            {
+              "page": 3,
+              "quote": "The measurement method and timing of measurement for each of these variables should also be specified",
+              "locator": "Item 2 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Conduct",
+          "item": "3",
+          "item_name": "Use a valid study design for the research question",
+          "item_question": "Is the study design valid for the research question and sufficiently described to judge whether major design-related sources of bias were avoided?",
+          "item_question_background": "CHAMP treats design validity as a core statistical issue because analysis cannot repair a badly matched design. The explanation focuses on whether the chosen design and its implementation are appropriate for the scientific question and bias structure.",
+          "item_extraction_instruction": "Extract the design features relevant to validity, such as control selection, randomisation procedures, allocation concealment, follow-up structure, sampling, and other design safeguards.",
+          "item_expected_location": "Methods / Study design / Participants",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Validity of the study design",
+              "locator": "Table 1, item 3"
+            },
+            {
+              "page": 3,
+              "quote": "The design should be valid and match the research question without introducing bias",
+              "locator": "Item 3 explanation"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Conduct",
+          "item": "4",
+          "item_name": "State and justify the sample size clearly",
+          "item_question": "Does the manuscript clearly state and justify the sample size, including enough detail to understand or replicate any calculation used?",
+          "item_question_background": "The explanation emphasizes that sample size is not just a ritual power statement but part of the study's design logic. CHAMP expects enough detail to understand the assumptions, target effect size or precision, and relevant adjustments such as attrition or clustering.",
+          "item_extraction_instruction": "Extract the sample size rationale, calculation inputs, target effect or precision, outcome on which the calculation is based, and any inflation for attrition, clustering, or design effects.",
+          "item_expected_location": "Methods / Sample size / Power analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Clear statement and justification of sample size",
+              "locator": "Table 1, item 4"
+            },
+            {
+              "page": 4,
+              "quote": "the sample size section should be described in enough detail to allow replication of the estimate",
+              "locator": "Item 4 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Conduct",
+          "item": "5",
+          "item_name": "Declare design violations and assess whether they are acceptable",
+          "item_question": "Does the paper clearly declare important design violations and discuss whether those violations are acceptable for the study's scientific goals?",
+          "item_question_background": "CHAMP explicitly acknowledges that departures from the ideal design often occur in real research. The statistical question is not only whether violations happened, but whether their magnitude and reasons threaten the study's intended inference.",
+          "item_extraction_instruction": "Extract declared design violations such as non-response, censoring, loss to follow-up, or non-compliance, along with any justification or assessment of their acceptability.",
+          "item_expected_location": "Methods / Results / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Clear declaration of design violations and acceptability of the design violations",
+              "locator": "Table 1, item 5"
+            },
+            {
+              "page": 4,
+              "quote": "Design violations frequently occur in research",
+              "locator": "Item 5 explanation"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Conduct",
+          "item": "6",
+          "item_name": "Ensure consistency with the published protocol",
+          "item_question": "Is the paper consistent with any previously published protocol or registry information regarding important study features such as sample size, outcomes, and statistical methods?",
+          "item_question_background": "Protocol consistency is a transparency safeguard against quiet shifts in outcomes or analysis strategy. CHAMP highlights that reviewers should look for mismatches between the manuscript and prior public plans, not just what the paper says in isolation.",
+          "item_extraction_instruction": "Extract any published protocol or registry references and note inconsistencies involving sample size, primary and secondary or exploratory outcomes, and statistical methods.",
+          "item_expected_location": "Methods / Protocol statement / Registry / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Consistency between the paper and its previously published protocol",
+              "locator": "Table 1, item 6"
+            },
+            {
+              "page": 4,
+              "quote": "The reviewer should identify inconsistencies with any published protocol",
+              "locator": "Item 6 explanation"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Data Analysis",
+      "items": [
+        {
+          "section": "Data Analysis",
+          "item": "7",
+          "item_name": "Describe statistical methods correctly and completely",
+          "item_question": "Does the paper provide a correct and complete description of the statistical methods used for both descriptive and analytical parts of the study?",
+          "item_question_background": "CHAMP expects a statistical methods section that allows a reviewer to assess suitability and completeness, not just a few method names. This item is about whether the reader can tell what was done and why it addresses the study objectives.",
+          "item_extraction_instruction": "Extract the statistical procedures used, including descriptive and analytical methods, and assess whether they are described in enough detail for review.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Correct and complete description of statistical methods",
+              "locator": "Table 1, item 7"
+            },
+            {
+              "page": 4,
+              "quote": "Both descriptive and analytical statistical methods should be sufficiently described",
+              "locator": "Item 7 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "8",
+          "item_name": "Use valid statistical methods and outline assumptions",
+          "item_question": "Are the statistical methods valid for the data and question, and are the key assumptions checked, justified, or addressed appropriately?",
+          "item_question_background": "This item goes beyond naming a test to asking whether its assumptions plausibly hold or whether robust alternatives were needed. The explanation also flags sparse-data bias, correlated data, matching, censoring, and other design-dependent issues that can invalidate standard analyses.",
+          "item_extraction_instruction": "Extract the assumptions for the main analyses, how they were checked or justified, any alternative methods used when assumptions were violated, and any handling of sparse data, clustering, matching, or censoring.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Valid statistical methods used and assumptions outlined",
+              "locator": "Table 1, item 8"
+            },
+            {
+              "page": 4,
+              "quote": "The validity of statistical analyses relies on some assumptions",
+              "locator": "Item 8 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "9",
+          "item_name": "Assess treatment effects or interactions appropriately",
+          "item_question": "Does the analysis assess treatment effects or interactions between treatment and other covariates appropriately for the stated question?",
+          "item_question_background": "CHAMP includes this item because interaction claims and treatment-effect estimates are common sites of analytic misuse. Reviewers need to confirm that these effects are modeled and interpreted in a way that matches the study design and target comparison.",
+          "item_extraction_instruction": "Extract how treatment effects or treatment-by-covariate interactions were estimated, tested, and interpreted.",
+          "item_expected_location": "Methods / Results / Statistical analysis",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Appropriate assessment of treatment effect or interaction between treatment and another covariate",
+              "locator": "Table 1, item 9"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "10",
+          "item_name": "Use correlation and associational tests correctly",
+          "item_question": "Does the paper use correlation and associational statistical testing correctly rather than conflating different kinds of relationships or applying inappropriate tests?",
+          "item_question_background": "CHAMP singles out correlation and association because they are often misused or overinterpreted in medical papers. The review task is to verify that the chosen tests match the variable types and the relationship being claimed.",
+          "item_extraction_instruction": "Extract any correlation or association analyses and note whether the chosen method matches the scales and relationships under study.",
+          "item_expected_location": "Methods / Results / Statistical analysis",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Correct use of correlation and associational statistical testing",
+              "locator": "Table 1, item 10"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "11",
+          "item_name": "Handle continuous predictors appropriately",
+          "item_question": "Are continuous predictors handled appropriately rather than in ways that impose implausible linearity or otherwise distort their relationship with the outcome?",
+          "item_question_background": "The explanation points out that continuous predictors should not automatically be forced into simplistic forms without checking whether those forms are credible. CHAMP explicitly mentions flexible approaches like splines or fractional polynomials when linearity is doubtful.",
+          "item_extraction_instruction": "Extract how continuous predictors were modeled, including whether they were categorized, assumed linear, centered, or modeled flexibly, and any rationale for those choices.",
+          "item_expected_location": "Methods / Statistical analysis",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Appropriate handling of continuous predictors",
+              "locator": "Table 1, item 11"
+            },
+            {
+              "page": 5,
+              "quote": "the form be examined, as a linearity assumption may not be correct",
+              "locator": "Item 11 explanation"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "12",
+          "item_name": "Use confidence intervals that exclude impossible values",
+          "item_question": "Do the reported confidence intervals avoid impossible values and use interval methods appropriate to the quantity being estimated?",
+          "item_question_background": "CHAMP uses this item to catch superficially routine but mathematically invalid intervals, such as proportions with negative lower bounds. The broader point is that interval estimation must respect the natural range of the estimand.",
+          "item_extraction_instruction": "Extract confidence intervals for bounded quantities and assess whether the interval method respects the plausible range of the parameter.",
+          "item_expected_location": "Results / Tables / Statistical analysis",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "CIs do not include impossible values",
+              "locator": "Table 1, item 12"
+            },
+            {
+              "page": 5,
+              "quote": "A valid CI should exclude impossible values",
+              "locator": "Item 12 explanation"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "13",
+          "item_name": "Compare baseline characteristics appropriately in randomized trials",
+          "item_question": "In randomized trials, does the paper avoid inappropriate significance testing of baseline characteristics and instead discuss meaningful imbalances by size and implication?",
+          "item_question_background": "CHAMP emphasizes that baseline differences in randomized trials are expected to arise by chance, so P values at baseline are misleading. The important task is to identify any practically important imbalances and consider their consequences, preferably using prespecified adjustment decisions.",
+          "item_extraction_instruction": "Extract how baseline characteristics are compared in randomized trials, whether significance tests were used, and how any important imbalances were handled or discussed.",
+          "item_expected_location": "Results / Baseline table / Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Appropriate comparison of baseline characteristics between the study arms in randomised trials",
+              "locator": "Table 1, item 13"
+            },
+            {
+              "page": 5,
+              "quote": "reporting p values does not make sense",
+              "locator": "Item 13 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "14",
+          "item_name": "Assess and adjust confounding correctly",
+          "item_question": "Does the analysis assess and adjust confounding appropriately, using subject-matter knowledge rather than automated variable-selection procedures to choose confounders?",
+          "item_question_background": "This item reflects CHAMP's strong stance that confounding control is a causal-design problem, not a p-value filtering exercise. The explanation explicitly rejects stepwise confounder selection and encourages a priori causal knowledge, often represented in causal diagrams.",
+          "item_extraction_instruction": "Extract how confounders were identified and adjusted for, whether causal diagrams were used, whether automated selection procedures were used, and how time-varying confounding was handled if relevant.",
+          "item_expected_location": "Methods / Causal model / Statistical analysis",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Correct assessment and adjustment of confounding",
+              "locator": "Table 1, item 14"
+            },
+            {
+              "page": 5,
+              "quote": "Selection of confounders should be based on a priori causal knowledge",
+              "locator": "Item 14 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "15",
+          "item_name": "Avoid model extrapolation unsupported by the data",
+          "item_question": "Does the analysis avoid model extrapolation that is not supported by the observed data range and parameterization?",
+          "item_question_background": "CHAMP includes this item because regression models are often interpreted at impossible or unsupported covariate values, such as a BMI of zero. The explanation focuses on whether coefficients are parameterized so they have meaning within the observed data range.",
+          "item_extraction_instruction": "Extract how predictors were centered or parameterized and whether the model interpretation relies on unsupported extrapolation outside the observed data range.",
+          "item_expected_location": "Methods / Statistical analysis / Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Avoiding model extrapolation not supported by data",
+              "locator": "Table 1, item 15"
+            },
+            {
+              "page": 5,
+              "quote": "The model is valid only within the range of observed data",
+              "locator": "Item 15 explanation"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Data Analysis",
+          "item": "16",
+          "item_name": "Handle missing data adequately",
+          "item_question": "Does the manuscript describe and justify the handling of missing data in relation to plausible missingness assumptions and, when needed, sensitivity analyses?",
+          "item_question_background": "Missing data are a major source of bias in medical research, and CHAMP expects authors to connect their chosen handling method to assumptions about why data are missing. This item also points to sensitivity analysis as important when assumptions are uncertain.",
+          "item_extraction_instruction": "Extract the missing-data mechanism assumed, the methods used to handle missingness, any sensitivity analyses, and the justification for the chosen approach.",
+          "item_expected_location": "Methods / Statistical analysis / Supplement / Limitations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Adequate handling of missing data",
+              "locator": "Table 1, item 16"
+            },
+            {
+              "page": 5,
+              "quote": "The methods used for handling missing data should be described and justified",
+              "locator": "Item 16 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Reporting and Presentation",
+      "items": [
+        {
+          "section": "Reporting and Presentation",
+          "item": "17",
+          "item_name": "Describe the data adequately and correctly",
+          "item_question": "Does the paper describe the data adequately and correctly so that readers can understand what was observed and analyzed?",
+          "item_question_background": "CHAMP begins its reporting section by focusing on faithful description of the observed data. Before effect measures and inferences are presented, the reader should have a clear picture of the data structure and what quantities are being summarized.",
+          "item_extraction_instruction": "Extract how the data are summarized, including sample characteristics, variable distributions, and whether those summaries match the scale and structure of the variables.",
+          "item_expected_location": "Results / Descriptive tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Adequate and correct description of the data",
+              "locator": "Table 1, item 17"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Reporting and Presentation",
+          "item": "18",
+          "item_name": "Report descriptive results as occurrence measures and analytical results as association measures with confidence intervals",
+          "item_question": "Does the paper report descriptive results as occurrence measures with confidence intervals and analytical results as association measures with confidence intervals, while also including P values where relevant?",
+          "item_question_background": "This item reflects CHAMP's emphasis on matching the numerical summary to the scientific purpose. Descriptive occurrence measures and analytical association measures are not interchangeable, and both should be presented with uncertainty rather than as bare point estimates.",
+          "item_extraction_instruction": "Extract the occurrence measures used for descriptive results, the association measures used for analytical results, whether confidence intervals are provided, and whether P values are reported alongside them.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Descriptive results provided as occurrence measures with CIs and analytical results provided as association measures and CIs along with p values",
+              "locator": "Table 1, item 18"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Reporting and Presentation",
+          "item": "19",
+          "item_name": "Provide confidence intervals for contrasts between groups",
+          "item_question": "Are confidence intervals provided for the contrast between groups rather than only for each group separately?",
+          "item_question_background": "CHAMP points out that in comparative studies the scientific question is usually about the contrast, not the standalone estimate in each arm. Reporting only group-specific confidence intervals obscures the inferential target of the comparison.",
+          "item_extraction_instruction": "Extract whether confidence intervals are provided for group differences or contrasts, not just for each group's outcome separately.",
+          "item_expected_location": "Results / Tables / Figures",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "CIs provided for the contrast between groups rather than for each group",
+              "locator": "Table 1, item 19"
+            },
+            {
+              "page": 6,
+              "quote": "the 95% CIs should be given for the contrast between groups rather than for each group",
+              "locator": "Item 19 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reporting and Presentation",
+          "item": "20",
+          "item_name": "Avoid selective reporting and p-hacking",
+          "item_question": "Does the paper avoid selective reporting of analyses and signs of p-hacking, such as presenting only favorable or statistically significant results from a larger pool of performed analyses?",
+          "item_question_background": "CHAMP treats selective analysis reporting as a major threat to trustworthiness because it lets the reported story reflect favorable outcomes rather than the full analytic process. The explanation highlights that this is hard to detect directly but often leaves recognizable traces.",
+          "item_extraction_instruction": "Extract whether all performed analyses appear to be reported, whether only favorable or significant results are shown, and whether the reported analyses align with the stated objectives and methods.",
+          "item_expected_location": "Results / Methods / Protocol comparison / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Avoiding selective reporting of analyses and p-hacking",
+              "locator": "Table 1, item 20"
+            },
+            {
+              "page": 6,
+              "quote": "All statistical analyses performed should be reported regardless of the results",
+              "locator": "Item 20 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reporting and Presentation",
+          "item": "21",
+          "item_name": "Use appropriate and consistent numerical precision",
+          "item_question": "Are effect sizes, test statistics, and P values reported with appropriate and consistent numerical precision, and are exact P values reported instead of only ranges or threshold statements?",
+          "item_question_background": "This item reflects CHAMP's concern with both over-rounding and spurious precision. Numerical presentation should be interpretable and honest, avoiding both crude significance bins and misleadingly many decimal places.",
+          "item_extraction_instruction": "Extract how effect sizes, test statistics, and P values are rounded and formatted, and whether exact P values are reported instead of only thresholded ranges.",
+          "item_expected_location": "Results / Tables / Figures / Statistical reporting",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Appropriate and consistent numerical precisions for effect sizes, test statistics and p values, and reporting the p values rather than their range",
+              "locator": "Table 1, item 21"
+            },
+            {
+              "page": 6,
+              "quote": "P values should be reported directly with one or two significant figures",
+              "locator": "Item 21 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reporting and Presentation",
+          "item": "22",
+          "item_name": "Report enough numerical detail for future meta-analysis",
+          "item_question": "Does the paper provide sufficient numerical results that could be used in a subsequent meta-analysis without requiring major reconstruction or guesswork?",
+          "item_question_background": "CHAMP explicitly links good reporting to downstream evidence synthesis. The explanation uses trial outcome summaries to show how inadequate reporting can prevent later meta-analysis or force analysts to rely on unverifiable assumptions.",
+          "item_extraction_instruction": "Extract whether the manuscript provides the group-level means, standard deviations, contrasts, counts, or other numerical summaries needed for meta-analytic reuse.",
+          "item_expected_location": "Results / Tables / Supplement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Providing sufficient numerical results that could be included in a subsequent meta-analysis",
+              "locator": "Table 1, item 22"
+            },
+            {
+              "page": 6,
+              "quote": "Providing numerical results in individual studies contributing to subsequent meta-analysis is of special importance",
+              "locator": "Item 22 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Reporting and Presentation",
+          "item": "23",
+          "item_name": "Present figures and tables acceptably",
+          "item_question": "Are figures and tables presented in acceptable ways, with appropriate plot types, scaling, labels, units, and enough detail to stand on their own?",
+          "item_question_background": "CHAMP's final reporting item is about whether visual presentation helps or hinders correct statistical interpretation. The explanation explicitly warns against poor plot choices like bar charts with standard-error 'dynamite plunger' bars when more informative displays are available.",
+          "item_extraction_instruction": "Extract the figure and table types used, whether scales and labels are appropriate, whether tables can stand alone, and whether known poor display choices are avoided.",
+          "item_expected_location": "Tables / Figures / Figure legends",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Acceptable presentation of the figures and tables",
+              "locator": "Table 1, item 23"
+            },
+            {
+              "page": 6,
+              "quote": "Tables and figures are effective data presentation that should be properly managed",
+              "locator": "Item 23 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Interpretation",
+      "items": [
+        {
+          "section": "Interpretation",
+          "item": "24",
+          "item_name": "Interpret results using effect estimates confidence intervals and precise P values",
+          "item_question": "Does the paper interpret results using the point estimate, 95% confidence interval, and precise P value, and avoid treating large P values as evidence of no effect?",
+          "item_question_background": "CHAMP is explicit that statistical interpretation should not collapse into whether a threshold was crossed. This item requires attention to effect size compatibility and rejects the common mistake of treating non-significant results as proof of absence.",
+          "item_extraction_instruction": "Extract how the manuscript interprets estimates, confidence intervals, and P values, and whether it avoids claiming no effect merely because P exceeds 0.05.",
+          "item_expected_location": "Results / Discussion / Conclusions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Interpreting the results based on association measures and 95% CIs along with p values",
+              "locator": "Table 1, item 24"
+            },
+            {
+              "page": 6,
+              "quote": "It is incorrect to interpret p value >0.05 as showing no treatment effect",
+              "locator": "Item 24 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Interpretation",
+          "item": "25",
+          "item_name": "Use confidence intervals rather than post hoc power analysis for interpretation",
+          "item_question": "Does the paper avoid using post hoc power analysis to interpret results and instead use confidence intervals or precision-based reasoning?",
+          "item_question_background": "CHAMP treats post hoc power as a misleading interpretive move that adds little beyond the observed result itself. The preferred emphasis is on what the confidence interval says about compatible effect sizes and precision.",
+          "item_extraction_instruction": "Extract whether the manuscript uses post hoc power calculations in interpretation and whether confidence intervals or precision are used instead.",
+          "item_expected_location": "Results / Discussion / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Using CIs rather than post hoc power analysis for interpreting the results of studies",
+              "locator": "Table 1, item 25"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Interpretation",
+          "item": "26",
+          "item_name": "Interpret occurrence and association measures correctly",
+          "item_question": "Does the paper correctly interpret occurrence or association measures rather than confusing what those measures quantify?",
+          "item_question_background": "Medical papers often use risks, rates, odds ratios, hazard ratios, and related measures interchangeably in prose even when they have distinct meanings. CHAMP highlights the importance of interpreting each measure on its own terms.",
+          "item_extraction_instruction": "Extract how occurrence and association measures are interpreted in the text and whether those interpretations match the scale and definition of the reported measure.",
+          "item_expected_location": "Results / Discussion / Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Correctly interpreting occurrence or association measures",
+              "locator": "Table 1, item 26"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Interpretation",
+          "item": "27",
+          "item_name": "Distinguish causation from association and correlation",
+          "item_question": "Does the paper distinguish causation from association and correlation rather than using causal language when only associational evidence is available?",
+          "item_question_background": "This item reflects one of CHAMP's core epistemic boundaries: statistical association is not automatically causal evidence. The explanation and references emphasize that causal claims need design and confounding assumptions that go beyond ordinary correlation or regression output.",
+          "item_extraction_instruction": "Extract any causal language in the manuscript and assess whether it is justified by the design and analysis or whether the paper should remain in associational terms.",
+          "item_expected_location": "Abstract / Results / Discussion / Conclusions",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Distinguishing causation from association and correlation",
+              "locator": "Table 1, item 27"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Interpretation",
+          "item": "28",
+          "item_name": "Distinguish prespecified from exploratory analyses in interpretation",
+          "item_question": "Does the paper distinguish the results of prespecified analyses from the results of exploratory analyses when interpreting the findings?",
+          "item_question_background": "CHAMP treats prespecification as a key marker of reliability. The explanation makes the point directly: results from a priori analyses deserve more confidence than findings obtained after data dredging or post hoc search.",
+          "item_extraction_instruction": "Extract how the paper labels or separates prespecified and exploratory analyses in the interpretation of its findings.",
+          "item_expected_location": "Results / Discussion / Protocol comparison",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Results of prespecified analyses are distinguished from the results of exploratory analyses in the interpretation",
+              "locator": "Table 1, item 28"
+            },
+            {
+              "page": 7,
+              "quote": "The results obtained from the prespecified (a priori) analyses ... are much more reliable",
+              "locator": "Item 28 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Interpretation",
+          "item": "29",
+          "item_name": "Discuss methodological limitations appropriately",
+          "item_question": "Does the paper discuss the main methodological limitations of the study design and analysis and their likely impact on the results?",
+          "item_question_background": "CHAMP wants limitations to be discussed as sources of possible bias, not as ritual caveats. The explanation even points to quantitative bias analysis as an ideal, while allowing that at minimum the key sources of bias and their likely effects should be discussed qualitatively.",
+          "item_extraction_instruction": "Extract the methodological limitations discussed, any quantitative or qualitative bias analysis, and how the likely impact of uncontrolled bias on the results is described.",
+          "item_expected_location": "Discussion / Limitations / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Appropriate discussion of the study methodological limitations",
+              "locator": "Table 1, item 29"
+            },
+            {
+              "page": 7,
+              "quote": "The methodological limitations of the study design and analysis should be discussed",
+              "locator": "Item 29 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Interpretation",
+          "item": "30",
+          "item_name": "Draw only conclusions supported by the analysis and target population",
+          "item_question": "Does the paper draw only conclusions supported by the statistical analysis and avoid generalizing results beyond the target population?",
+          "item_question_background": "The final CHAMP item ties interpretation back to both analysis and generalisability. A statistically careful paper can still go wrong if it makes claims that outrun the design, data, or study population to which the findings actually apply.",
+          "item_extraction_instruction": "Extract the paper's final conclusions and assess whether they are supported by the statistical analysis and appropriately limited to the study's target population.",
+          "item_expected_location": "Discussion / Conclusions / Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 2,
+              "quote": "Drawing only conclusions supported by the statistical analysis and no generalisation of the results to subjects outside the target population",
+              "locator": "Table 1, item 30"
+            },
+            {
+              "page": 7,
+              "quote": "if the study has been done in women, it cannot necessarily be generalised to a population of men and women",
+              "locator": "Item 30 explanation"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "primary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "CHAMP",
+      "CHecklist for statistical Assessment of Medical Papers",
+      "CHAMP statement"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bCHAMP\\b",
+          "\\bstatistical assessment\\b",
+          "\\bmedical papers?\\b",
+          "\\bconfounding\\b",
+          "\\bmissing data\\b",
+          "\\bp-hacking\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bsample size\\b",
+          "\\bprotocol\\b",
+          "\\bcontinuous predictors\\b",
+          "\\bbaseline characteristics\\b",
+          "\\bmeta-analysis\\b",
+          "\\bconfidence intervals?\\b",
+          "\\bcausation\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "An editor or peer reviewer is assessing a medical manuscript for common statistical problems spanning design, confounding, missing data, reporting, and interpretation.",
+      "A clinical or epidemiologic paper needs a broad statistical-review checklist rather than a narrow design-specific reporting statement."
+    ],
+    "EvidenceExamplesNegative": [
+      "A manuscript that only needs a design-specific reporting standard such as CONSORT or PRISMA, without a broader statistical appraisal overlay, is not a pure CHAMP use case.",
+      "A purely theoretical paper with no empirical design, statistical analysis, or numerical reporting would not meaningfully match CHAMP."
+    ],
+    "Explain": "Use CHAMP when a medical paper needs structured statistical appraisal across design, analysis, reporting, and interpretation, especially in editorial or peer-review contexts."
+  }
+}

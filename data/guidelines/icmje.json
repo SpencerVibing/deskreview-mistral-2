@@ -1,0 +1,1612 @@
+{
+  "id": "icmje",
+  "Name": "ICMJE Recommendations",
+  "LongName": "Recommendations for the Conduct, Reporting, Editing, and Publication of Scholarly Work in Medical Journals",
+  "Description": "The ICMJE Recommendations provide a broad, cross-cutting framework for ethical conduct, transparent reporting, manuscript preparation, peer review, and publication practices in medical journals. This checklist operationalizes the manuscript-preparation guidance (Section IV.A) as discrete, manuscript-detectable information items that an LLM can classify as present or absent in the submitted text, together with the manuscript-detectable disclosure, ethics, and transparency statements drawn from the wider Recommendations.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Medical journal reporting and publication ethics",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To help authors, editors, reviewers, and journals produce accurate, clear, reproducible, and unbiased medical-journal articles by specifying minimum expectations for manuscript preparation, disclosure, participant protection, clinical-trial transparency, and publication integrity.",
+  "ManuscriptType": [
+    "Original research article",
+    "Systematic review",
+    "Meta-analysis",
+    "Case report",
+    "Narrative review",
+    "Medical journal manuscript"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Clinical trial",
+    "Observational study",
+    "Diagnostic study",
+    "Systematic review",
+    "Human-participant study",
+    "Animal study"
+  ],
+  "Keywords": [
+    "ICMJE",
+    "medical journals",
+    "authorship",
+    "conflicts of interest",
+    "clinical trial registration",
+    "data sharing",
+    "reporting guidelines",
+    "manuscript preparation",
+    "publication ethics",
+    "peer review",
+    "AI disclosure"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Clinical trial",
+      "Observational study",
+      "Diagnostic study",
+      "Systematic review",
+      "Human-participant study",
+      "Animal study"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Clinical medicine",
+      "Public health",
+      "Biomedical research"
+    ],
+    "Coverage": "Manuscripts submitted to medical journals, especially human and animal health research reports, where authors need to meet baseline expectations for ethical conduct, transparent reporting, manuscript structure, disclosure, and publication integrity.",
+    "Focus": "IMRAD manuscript structure; title page and structured abstract content; clear description of participants, sex/gender and race/ethnicity, methods, and statistics; logical results reporting; responsible discussion; reference practice; tables, figures, units, and abbreviations; and the disclosure, ethics, trial-transparency, and data-sharing statements that can be detected within the manuscript text.",
+    "ContrastWith": "This is a broad editorial and reporting framework rather than a design-specific checklist. It complements specialist study-design standards such as CONSORT, STROBE, PRISMA, and STARD instead of replacing them. Submission-process requirements that cannot be verified from the manuscript text (for example, cover-letter statements, co-author approval, or corresponding-author attestations) are intentionally excluded from this checklist."
+  },
+  "references": {
+    "primary": {
+      "description": "International Committee of Medical Journal Editors. Recommendations for the Conduct, Reporting, Editing, and Publication of Scholarly Work in Medical Journals. Updated January 2026.",
+      "url": "https://www.icmje.org/icmje-recommendations.pdf"
+    },
+    "manuscript_preparation": {
+      "description": "ICMJE. Preparing a Manuscript for Submission to a Medical Journal (Section IV.A).",
+      "url": "https://www.icmje.org/recommendations/browse/manuscript-preparation/preparing-for-submission.html"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Title Page",
+      "items": [
+        {
+          "section": "Title Page",
+          "item": "1",
+          "item_name": "Article title with study-design descriptor",
+          "item_question": "Does the manuscript include an article title that conveys the study design (for example, randomized controlled trial, cohort study, systematic review)?",
+          "item_question_background": "ICMJE asks that the title carry information about the study design so the article is correctly indexed and so readers can immediately recognize what kind of study it is.",
+          "item_extraction_instruction": "Extract the article title and note whether it states or clearly implies the study design.",
+          "item_expected_location": "Title page",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Article title (must include study design information per reporting guidelines)",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Title Page",
+          "item": "2",
+          "item_name": "Author names with highest academic degrees",
+          "item_question": "Does the title page list each author's name together with their highest academic degree(s)?",
+          "item_question_background": "ICMJE specifies that each author's highest academic degrees be presented on the title page.",
+          "item_extraction_instruction": "Extract the author list and note whether highest academic degrees are given for the authors.",
+          "item_expected_location": "Title page",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Each author's highest academic degrees",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Title Page",
+          "item": "3",
+          "item_name": "Author affiliations (departments and institutions)",
+          "item_question": "Does the title page identify the department(s) and institution(s) to which the work should be attributed for each author?",
+          "item_question_background": "ICMJE expects the name of the department(s) and institution(s) to which the work should be attributed to appear on the title page.",
+          "item_extraction_instruction": "Extract author affiliations and note whether departments and institutions are provided.",
+          "item_expected_location": "Title page",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Department(s) and institution(s) where work should be attributed",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.96,
+          "needs_review": false
+        },
+        {
+          "section": "Title Page",
+          "item": "4",
+          "item_name": "Corresponding author contact details",
+          "item_question": "Does the title page provide the corresponding author's contact details, including a telephone number and email address?",
+          "item_question_background": "ICMJE asks that the corresponding author's contact information, including telephone number and email address, be stated so the journal and readers can reach them.",
+          "item_extraction_instruction": "Extract the corresponding-author designation and note whether a telephone number and email address are provided.",
+          "item_expected_location": "Title page",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Corresponding author's telephone number and email address",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Title Page",
+          "item": "5",
+          "item_name": "Author ORCID identifiers",
+          "item_question": "Does the title page include ORCID identifiers for the authors?",
+          "item_question_background": "ICMJE encourages, but does not require, inclusion of authors' ORCID identifiers.",
+          "item_extraction_instruction": "Extract any ORCID identifiers listed for the authors.",
+          "item_expected_location": "Title page",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Authors' ORCID identifiers (encouraged)",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Title Page",
+          "item": "6",
+          "item_name": "Disclaimers",
+          "item_question": "If applicable, does the title page include any necessary disclaimers (for example, that the views expressed are the author's own and not those of an employer or funder)?",
+          "item_question_background": "ICMJE lists disclaimers among the optional title-page elements, used when an author's statements should not be attributed to an institution or sponsor.",
+          "item_extraction_instruction": "Extract any disclaimer statement on the title page.",
+          "item_expected_location": "Title page",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Disclaimers (e.g., \"views expressed...are his or her own\")",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Title Page",
+          "item": "7",
+          "item_name": "Word counts for text and abstract",
+          "item_question": "Does the title page state the word count for the text (excluding abstract, acknowledgments, tables, figure legends, and references) and a separate word count for the abstract?",
+          "item_question_background": "ICMJE asks for a text word count and a separate abstract word count so editors can assess length against journal limits.",
+          "item_extraction_instruction": "Extract any stated word count for the manuscript text and any separate word count for the abstract.",
+          "item_expected_location": "Title page",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Word count for text excluding abstract, acknowledgments, tables, figure legends, references",
+              "locator": "Manuscript Preparation > Title Page"
+            },
+            {
+              "page": null,
+              "quote": "Separate word count for abstract",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Title Page",
+          "item": "8",
+          "item_name": "Number of figures and tables",
+          "item_question": "Does the title page state the number of figures and tables in the manuscript?",
+          "item_question_background": "ICMJE asks authors to report the number of figures and tables so editors can verify the submission package.",
+          "item_extraction_instruction": "Extract any statement of the number of figures and tables.",
+          "item_expected_location": "Title page",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Number of figures and tables",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Abstract",
+      "items": [
+        {
+          "section": "Abstract",
+          "item": "9",
+          "item_name": "Abstract states context or background",
+          "item_question": "Does the abstract provide the context or background for the study?",
+          "item_question_background": "ICMJE expects the abstract to state the context or background so readers understand why the study was done.",
+          "item_extraction_instruction": "Extract the background/context sentence(s) from the abstract.",
+          "item_expected_location": "Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Context or background for the study",
+              "locator": "Manuscript Preparation > Abstract"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Abstract",
+          "item": "10",
+          "item_name": "Abstract states study purpose and basic procedures",
+          "item_question": "Does the abstract state the study's purpose and its basic procedures (participant selection, settings, measurements, and analytical methods)?",
+          "item_question_background": "ICMJE expects the abstract to state the purpose and the basic procedures including selection of participants, settings, measurements, and analytical methods.",
+          "item_extraction_instruction": "Extract the abstract's statement of purpose and its description of basic procedures.",
+          "item_expected_location": "Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Study's purpose and basic procedures (participant selection, settings, measurements, analytical methods)",
+              "locator": "Manuscript Preparation > Abstract"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Abstract",
+          "item": "11",
+          "item_name": "Abstract reports main findings with effect sizes and significance",
+          "item_question": "Does the abstract report the main findings, giving specific effect sizes and their statistical and clinical significance?",
+          "item_question_background": "ICMJE asks that the abstract present main findings with specific effect sizes and an indication of statistical and clinical significance, not vague summaries.",
+          "item_extraction_instruction": "Extract the abstract's main findings and note whether effect sizes and statistical/clinical significance are given.",
+          "item_expected_location": "Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Main findings with specific effect sizes and statistical/clinical significance",
+              "locator": "Manuscript Preparation > Abstract"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Abstract",
+          "item": "12",
+          "item_name": "Abstract states principal conclusions",
+          "item_question": "Does the abstract state the principal conclusions, emphasizing new and important aspects of the study?",
+          "item_question_background": "ICMJE expects the abstract to state principal conclusions and highlight what is new and important.",
+          "item_extraction_instruction": "Extract the abstract's concluding statement(s).",
+          "item_expected_location": "Abstract",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Principal conclusions emphasizing new and important aspects",
+              "locator": "Manuscript Preparation > Abstract"
+            }
+          ],
+          "extraction_confidence": 0.94,
+          "needs_review": false
+        },
+        {
+          "section": "Abstract",
+          "item": "13",
+          "item_name": "Abstract notes important limitations",
+          "item_question": "Does the abstract note the important limitations of the study?",
+          "item_question_background": "ICMJE asks that important limitations be noted in the abstract so readers are not misled by the summary alone.",
+          "item_extraction_instruction": "Extract any statement of limitations within the abstract.",
+          "item_expected_location": "Abstract",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Important limitations noted",
+              "locator": "Manuscript Preparation > Abstract"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Introduction",
+      "items": [
+        {
+          "section": "Introduction",
+          "item": "14",
+          "item_name": "Introduction states the problem and its significance",
+          "item_question": "Does the introduction provide the context or background of the study, that is, the nature of the problem and its significance?",
+          "item_question_background": "ICMJE expects the introduction to give the nature of the problem and its significance so the rationale for the study is clear.",
+          "item_extraction_instruction": "Extract the introduction's statement of the problem and its significance.",
+          "item_expected_location": "Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Context or background for the study (that is, the nature of the problem and its significance)",
+              "locator": "Manuscript Preparation > Introduction"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Introduction",
+          "item": "15",
+          "item_name": "Introduction states the specific objective or hypothesis",
+          "item_question": "Does the introduction state the specific purpose, research objective, or hypothesis being tested?",
+          "item_question_background": "ICMJE expects the introduction to state the specific purpose or research objective, or the hypothesis tested by the study or observation.",
+          "item_extraction_instruction": "Extract the stated objective, research question, or hypothesis from the introduction.",
+          "item_expected_location": "Introduction",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Specific purpose or research objective of, or hypothesis tested by, the study or observation",
+              "locator": "Manuscript Preparation > Introduction"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Methods — Selection and Description of Participants",
+      "items": [
+        {
+          "section": "Methods — Selection and Description of Participants",
+          "item": "16",
+          "item_name": "Eligibility and exclusion criteria",
+          "item_question": "Does the methods section state the eligibility and exclusion criteria for participants?",
+          "item_question_background": "ICMJE asks authors to describe clearly how participants were selected, including eligibility and exclusion criteria.",
+          "item_extraction_instruction": "Extract the stated eligibility and exclusion criteria.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Eligibility and exclusion criteria",
+              "locator": "Manuscript Preparation > Methods > Selection and Description of Participants"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Selection and Description of Participants",
+          "item": "17",
+          "item_name": "Source population described",
+          "item_question": "Does the methods section describe the source population from which participants were drawn?",
+          "item_question_background": "ICMJE asks for a description of the source population so readers can judge applicability of the findings.",
+          "item_extraction_instruction": "Extract any description of the source population or setting from which participants were recruited.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Source population description",
+              "locator": "Manuscript Preparation > Methods > Selection and Description of Participants"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Selection and Description of Participants",
+          "item": "18",
+          "item_name": "Descriptive demographic data for participants",
+          "item_question": "Does the manuscript provide descriptive data for relevant demographic variables of the participants?",
+          "item_question_background": "ICMJE asks authors to report descriptive data for relevant demographic variables of the study population.",
+          "item_extraction_instruction": "Extract reported demographic/descriptive data for the participants (for example, age, sex, relevant baseline characteristics).",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Descriptive data for these and other relevant demographic variables",
+              "locator": "Manuscript Preparation > Methods > Selection and Description of Participants"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Selection and Description of Participants",
+          "item": "19",
+          "item_name": "Comment on representativeness of the sample",
+          "item_question": "Does the manuscript comment on how representative the study sample is of the larger population of interest?",
+          "item_question_background": "ICMJE asks authors to comment on the representativeness of the study sample relative to the larger population.",
+          "item_extraction_instruction": "Extract any statement about the representativeness or generalizability of the sample.",
+          "item_expected_location": "Methods / Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Comment on sample representativeness to larger population",
+              "locator": "Manuscript Preparation > Methods > Selection and Description of Participants"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Selection and Description of Participants",
+          "item": "20",
+          "item_name": "Sex and/or gender reported with method of determination",
+          "item_question": "Does the manuscript report the sex and/or gender of participants (or animals/cells) and the method used to determine it, using the terms sex and gender correctly?",
+          "item_question_background": "ICMJE asks authors to report the sex (biological) and/or gender (identity, psychosocial, cultural) of study participants, animals, or cells, to state how these were determined, and to use the terminology correctly.",
+          "item_extraction_instruction": "Extract how sex and/or gender are reported and any statement of how they were determined.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Sex and gender of study participants, animals, or cells with methods used to determine these",
+              "locator": "Manuscript Preparation > Methods > Selection and Description of Participants"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Selection and Description of Participants",
+          "item": "21",
+          "item_name": "Race or ethnicity determination and justification",
+          "item_question": "If race or ethnicity is reported, does the manuscript state how it was determined and justify its relevance — or explain why race/ethnicity was not collected?",
+          "item_question_background": "ICMJE asks authors to define how they determined race or ethnicity, justify its relevance, or explain if it was not collected.",
+          "item_extraction_instruction": "Extract how race or ethnicity was determined and any justification of relevance, or any explanation for not collecting it.",
+          "item_expected_location": "Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "How race or ethnicity were determined with justification for relevance",
+              "locator": "Manuscript Preparation > Methods > Selection and Description of Participants"
+            },
+            {
+              "page": null,
+              "quote": "Explanation if race/ethnicity not collected",
+              "locator": "Manuscript Preparation > Methods > Selection and Description of Participants"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Methods — Data Collection and Measurements",
+      "items": [
+        {
+          "section": "Methods — Data Collection and Measurements",
+          "item": "22",
+          "item_name": "Primary and secondary outcomes defined",
+          "item_question": "Does the methods section define the primary and secondary objectives or outcomes of the study?",
+          "item_question_background": "ICMJE asks authors to specify the primary and secondary objectives/outcomes so results can be assessed against prespecified aims.",
+          "item_extraction_instruction": "Extract the stated primary and secondary outcomes/objectives.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Primary and secondary objectives/outcomes",
+              "locator": "Manuscript Preparation > Methods > Data Collection and Measurements"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Data Collection and Measurements",
+          "item": "23",
+          "item_name": "Methods, equipment, and procedures in reproducible detail",
+          "item_question": "Does the manuscript describe the methods, equipment (with manufacturer name and address), and procedures in sufficient detail to allow others to reproduce the results?",
+          "item_question_background": "ICMJE asks authors to identify methods, equipment (including manufacturer name and address), and procedures in enough detail for reproduction.",
+          "item_extraction_instruction": "Extract the description of methods, equipment, and procedures, noting whether equipment manufacturers are identified and whether detail is sufficient for reproduction.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Methods, equipment (with manufacturer name and address), procedures in sufficient detail for reproduction",
+              "locator": "Manuscript Preparation > Methods > Data Collection and Measurements"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Data Collection and Measurements",
+          "item": "24",
+          "item_name": "References or descriptions for established and modified methods",
+          "item_question": "Does the manuscript give references for established methods, brief descriptions for published but lesser-known methods, and a description with rationale and limitations for new or substantially modified methods?",
+          "item_question_background": "ICMJE asks authors to reference established methods, describe lesser-known published methods, and describe new or modified methods together with the reasons for using them and their limitations.",
+          "item_extraction_instruction": "Extract references for established methods and any descriptions/rationale provided for lesser-known, new, or modified methods.",
+          "item_expected_location": "Methods",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "References to established methods",
+              "locator": "Manuscript Preparation > Methods > Data Collection and Measurements"
+            },
+            {
+              "page": null,
+              "quote": "Description of new or substantially modified methods with reasons and limitations",
+              "locator": "Manuscript Preparation > Methods > Data Collection and Measurements"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Data Collection and Measurements",
+          "item": "25",
+          "item_name": "Drugs and chemicals identified with generic names, doses, and routes",
+          "item_question": "Does the manuscript identify all drugs and chemicals used, including generic name(s), dose(s), and route(s) of administration?",
+          "item_question_background": "ICMJE asks authors to identify all drugs and chemicals used, including generic names, doses, and routes of administration.",
+          "item_extraction_instruction": "Extract the drugs/chemicals mentioned and note whether generic names, doses, and routes of administration are given.",
+          "item_expected_location": "Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "All drugs and chemicals used, including generic name(s), dose(s), and route(s) of administration",
+              "locator": "Manuscript Preparation > Methods > Data Collection and Measurements"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Data Collection and Measurements",
+          "item": "26",
+          "item_name": "AI-assisted technology described for replication",
+          "item_question": "If AI-assisted technology was used in the conduct or analysis of the study, does the manuscript describe its use in sufficient detail to enable replication, including the tool, version, and prompts?",
+          "item_question_background": "The 2026 ICMJE update asks that, when AI technology is used, its use be described in enough detail to enable replication, including the tool used, version, and prompts.",
+          "item_extraction_instruction": "Extract any description of AI-assisted technology used, including tool name, version, and prompts.",
+          "item_expected_location": "Methods",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "If AI technology was used, \"describe its use...in sufficient detail to enable replication...including the tool used, version, and prompts\"",
+              "locator": "Manuscript Preparation > Methods > Data Collection and Measurements"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Methods — Statistics",
+      "items": [
+        {
+          "section": "Methods — Statistics",
+          "item": "27",
+          "item_name": "Statistical methods described in sufficient detail",
+          "item_question": "Does the manuscript describe the statistical methods in enough detail to enable a knowledgeable reader with access to the original data to judge their appropriateness?",
+          "item_question_background": "ICMJE asks that statistical methods be described with enough detail for a knowledgeable reader with access to the data to judge appropriateness.",
+          "item_extraction_instruction": "Extract the description of statistical methods.",
+          "item_expected_location": "Methods / Statistics",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Statistical methods with \"enough detail to enable a knowledgeable reader...to judge its appropriateness\"",
+              "locator": "Manuscript Preparation > Methods > Statistics"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Statistics",
+          "item": "28",
+          "item_name": "Measures of uncertainty reported",
+          "item_question": "Are quantified findings accompanied by appropriate indicators of measurement error or uncertainty, such as confidence intervals, rather than relying solely on P values?",
+          "item_question_background": "ICMJE asks authors to quantify findings with appropriate indicators of uncertainty (such as confidence intervals) and to avoid relying solely on statistical hypothesis testing such as P values.",
+          "item_extraction_instruction": "Extract whether confidence intervals or other uncertainty measures accompany the main quantitative findings.",
+          "item_expected_location": "Methods / Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Quantified findings \"with appropriate indicators of measurement error or uncertainty (such as confidence intervals)\"",
+              "locator": "Manuscript Preparation > Methods > Statistics"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Statistics",
+          "item": "29",
+          "item_name": "Statistical software package and version stated",
+          "item_question": "Does the manuscript state the statistical software package(s) and version(s) used?",
+          "item_question_background": "ICMJE asks authors to specify the statistical software packages and versions used.",
+          "item_extraction_instruction": "Extract the named statistical software and any version information.",
+          "item_expected_location": "Methods / Statistics",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Statistical software package(s) and versions used",
+              "locator": "Manuscript Preparation > Methods > Statistics"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Statistics",
+          "item": "30",
+          "item_name": "Prespecified versus exploratory analyses distinguished",
+          "item_question": "Does the manuscript distinguish prespecified analyses from exploratory analyses, including subgroup analyses?",
+          "item_question_background": "ICMJE asks authors to distinguish prespecified from exploratory analyses, including subgroup analyses, to guard against over-interpretation.",
+          "item_extraction_instruction": "Extract any statement distinguishing prespecified from exploratory or subgroup analyses.",
+          "item_expected_location": "Methods / Statistics",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Prespecified from exploratory analyses, including subgroup analyses",
+              "locator": "Manuscript Preparation > Methods > Statistics"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        },
+        {
+          "section": "Methods — Statistics",
+          "item": "31",
+          "item_name": "Statistical terms, abbreviations, and symbols defined",
+          "item_question": "Does the manuscript define statistical terms, abbreviations, and most symbols used?",
+          "item_question_background": "ICMJE asks authors to define statistical terms, abbreviations, and most symbols.",
+          "item_extraction_instruction": "Extract whether statistical terms, abbreviations, and symbols are defined.",
+          "item_expected_location": "Methods / Statistics",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Definition of \"statistical terms, abbreviations, and most symbols\"",
+              "locator": "Manuscript Preparation > Methods > Statistics"
+            }
+          ],
+          "extraction_confidence": 0.87,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Results",
+      "items": [
+        {
+          "section": "Results",
+          "item": "32",
+          "item_name": "Results presented in logical sequence with main findings first",
+          "item_question": "Are the results presented in a logical sequence across text, tables, and figures, giving the main or most important findings first?",
+          "item_question_background": "ICMJE asks authors to present results in logical sequence in text, tables, and figures, giving the most important findings first and not repeating all tabulated data in the text.",
+          "item_extraction_instruction": "Extract whether the results are organized logically with the main findings emphasized first.",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Present \"in logical sequence in the text, tables, and figures\"",
+              "locator": "Manuscript Preparation > Results"
+            },
+            {
+              "page": null,
+              "quote": "Give \"main or most important findings first\"",
+              "locator": "Manuscript Preparation > Results"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        },
+        {
+          "section": "Results",
+          "item": "33",
+          "item_name": "Data reported on all primary and secondary outcomes",
+          "item_question": "Does the results section provide data on all primary and secondary outcomes identified in the methods section?",
+          "item_question_background": "ICMJE asks that results report data on all primary and secondary outcomes specified in the methods, to prevent selective outcome reporting.",
+          "item_extraction_instruction": "Extract reported outcomes and check them against the outcomes named in the methods.",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Data on all primary and secondary outcomes identified in the Methods Section",
+              "locator": "Manuscript Preparation > Results"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Results",
+          "item": "34",
+          "item_name": "Absolute numbers given alongside derivatives",
+          "item_question": "Are numeric results given not only as derivatives (for example, percentages) but also as the absolute numbers from which they were calculated?",
+          "item_question_background": "ICMJE asks that numeric results be presented as absolute numbers as well as derivatives such as percentages.",
+          "item_extraction_instruction": "Extract whether absolute numbers accompany reported percentages or other derived values.",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Numeric results presented \"not only as derivatives (for example, percentages) but also as the absolute numbers\"",
+              "locator": "Manuscript Preparation > Results"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Results",
+          "item": "35",
+          "item_name": "Results reported separately by demographic variables",
+          "item_question": "Where appropriate, are data reported separately by demographic variables such as age and sex?",
+          "item_question_background": "ICMJE asks for separate reporting of data by demographic variables such as age and sex where relevant.",
+          "item_extraction_instruction": "Extract any reporting of results disaggregated by demographic variables such as age or sex.",
+          "item_expected_location": "Results",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Separate reporting of data by demographic variables, such as age and sex",
+              "locator": "Manuscript Preparation > Results"
+            }
+          ],
+          "extraction_confidence": 0.87,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Discussion",
+      "items": [
+        {
+          "section": "Discussion",
+          "item": "36",
+          "item_name": "Summary of main findings",
+          "item_question": "Does the discussion provide a brief summary of the main findings?",
+          "item_question_background": "ICMJE asks the discussion to summarize the main findings before interpreting them.",
+          "item_extraction_instruction": "Extract the summary of main findings in the discussion.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Brief summary of main findings",
+              "locator": "Manuscript Preparation > Discussion"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Discussion",
+          "item": "37",
+          "item_name": "Possible mechanisms or explanations",
+          "item_question": "Does the discussion offer possible mechanisms or explanations for the findings?",
+          "item_question_background": "ICMJE asks authors to explore possible mechanisms or explanations for their findings.",
+          "item_extraction_instruction": "Extract any discussion of mechanisms or explanations for the findings.",
+          "item_expected_location": "Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Possible mechanisms or explanations for these findings",
+              "locator": "Manuscript Preparation > Discussion"
+            }
+          ],
+          "extraction_confidence": 0.87,
+          "needs_review": false
+        },
+        {
+          "section": "Discussion",
+          "item": "38",
+          "item_name": "Findings placed in context of the totality of evidence",
+          "item_question": "Does the discussion place the findings in the context of the totality of the relevant evidence and highlight new and important aspects?",
+          "item_question_background": "ICMJE asks authors to relate findings to the totality of relevant evidence and to emphasize the new and important aspects of the study.",
+          "item_extraction_instruction": "Extract how the discussion situates the findings within prior evidence and what it identifies as new.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Findings contextualized \"in the context of the totality of the relevant evidence\"",
+              "locator": "Manuscript Preparation > Discussion"
+            }
+          ],
+          "extraction_confidence": 0.89,
+          "needs_review": false
+        },
+        {
+          "section": "Discussion",
+          "item": "39",
+          "item_name": "Limitations of the study stated",
+          "item_question": "Does the discussion state the limitations of the study?",
+          "item_question_background": "ICMJE asks authors to state the limitations of their study.",
+          "item_extraction_instruction": "Extract the stated limitations in the discussion.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Limitations of your study",
+              "locator": "Manuscript Preparation > Discussion"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Discussion",
+          "item": "40",
+          "item_name": "Implications for research and practice",
+          "item_question": "Does the discussion explore the implications of the findings for future research and for clinical practice or policy?",
+          "item_question_background": "ICMJE asks authors to explore the implications of their findings for future research and for clinical practice or policy.",
+          "item_extraction_instruction": "Extract stated implications for future research and for practice or policy.",
+          "item_expected_location": "Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Implications of your findings for future research and for clinical practice or policy",
+              "locator": "Manuscript Preparation > Discussion"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Discussion",
+          "item": "41",
+          "item_name": "Influence of sex and/or gender on findings discussed",
+          "item_question": "Where relevant, does the discussion address the influence or association of variables such as sex and/or gender on the findings?",
+          "item_question_background": "ICMJE asks authors to discuss the influence or association of variables such as sex and/or gender on their findings.",
+          "item_extraction_instruction": "Extract any discussion of sex/gender influence on the findings.",
+          "item_expected_location": "Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Influence or association of variables, such as sex and/or gender, on your findings",
+              "locator": "Manuscript Preparation > Discussion"
+            }
+          ],
+          "extraction_confidence": 0.86,
+          "needs_review": false
+        },
+        {
+          "section": "Discussion",
+          "item": "42",
+          "item_name": "Clinical versus statistical significance distinguished and claims supported",
+          "item_question": "Does the discussion distinguish clinical from statistical significance and avoid unqualified statements or conclusions not adequately supported by the data?",
+          "item_question_background": "ICMJE asks authors to distinguish clinical from statistical significance, link conclusions to study goals, and avoid claims not supported by the data or claims of priority for incomplete work.",
+          "item_extraction_instruction": "Extract whether clinical versus statistical significance is distinguished and whether conclusions stay within the bounds of the data.",
+          "item_expected_location": "Discussion",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Distinguish between clinical and statistical significance",
+              "locator": "Manuscript Preparation > Discussion"
+            },
+            {
+              "page": null,
+              "quote": "Avoid claiming priority or alluding to work that has not been completed",
+              "locator": "Manuscript Preparation > Discussion"
+            }
+          ],
+          "extraction_confidence": 0.85,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "References",
+      "items": [
+        {
+          "section": "References",
+          "item": "43",
+          "item_name": "References numbered consecutively in order of citation",
+          "item_question": "Are references numbered consecutively in the order in which they are first mentioned in the text, and identified in text, tables, and legends by Arabic numerals in parentheses?",
+          "item_question_background": "ICMJE specifies that references be numbered consecutively in order of first mention and identified by Arabic numerals in parentheses in text, tables, and legends.",
+          "item_extraction_instruction": "Extract the reference numbering scheme and note whether numbering follows order of first mention.",
+          "item_expected_location": "References / In-text citations",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Numbered consecutively in the order in which they are first mentioned in the text",
+              "locator": "Manuscript Preparation > References"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "References",
+          "item": "44",
+          "item_name": "Direct references to original sources",
+          "item_question": "Does the manuscript cite original research sources directly wherever possible, preferring published articles over abstracts?",
+          "item_question_background": "ICMJE asks authors to give direct references to original research sources whenever possible and to avoid relying on abstracts as references.",
+          "item_extraction_instruction": "Extract whether references appear to be original sources and note any reliance on abstracts.",
+          "item_expected_location": "References",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Direct references to original research sources whenever possible",
+              "locator": "Manuscript Preparation > References"
+            }
+          ],
+          "extraction_confidence": 0.85,
+          "needs_review": false
+        },
+        {
+          "section": "References",
+          "item": "45",
+          "item_name": "Preprints clearly indicated",
+          "item_question": "Where preprints are cited, does the reference clearly indicate that the cited item is a preprint?",
+          "item_question_background": "ICMJE asks that preprint citations clearly indicate the reference is a preprint.",
+          "item_extraction_instruction": "Extract any preprint citations and note whether they are labeled as preprints.",
+          "item_expected_location": "References",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Preprint citations \"clearly indicate that the reference is a preprint\"",
+              "locator": "Manuscript Preparation > References"
+            }
+          ],
+          "extraction_confidence": 0.85,
+          "needs_review": false
+        },
+        {
+          "section": "References",
+          "item": "46",
+          "item_name": "Personal communications handled correctly",
+          "item_question": "If personal communications are cited, are they avoided unless essential and, where used, given with the name of the person and date of communication in parentheses in the text?",
+          "item_question_background": "ICMJE asks authors to avoid citing personal communications unless essential, and to include the name of the person and date of communication in parentheses in the text.",
+          "item_extraction_instruction": "Extract any personal communications cited and note whether name and date are given in the text.",
+          "item_expected_location": "References / In-text citations",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "name of the person and date of communication...in parentheses in the text",
+              "locator": "Manuscript Preparation > References"
+            }
+          ],
+          "extraction_confidence": 0.85,
+          "needs_review": false
+        },
+        {
+          "section": "References",
+          "item": "47",
+          "item_name": "No AI-generated material cited as primary source",
+          "item_question": "Does the manuscript avoid referencing AI-generated material as a primary source?",
+          "item_question_background": "ICMJE states that referencing AI-generated material as the primary source is not acceptable.",
+          "item_extraction_instruction": "Extract any citation that appears to be AI-generated material used as a primary source.",
+          "item_expected_location": "References",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Referencing AI-generated material as the primary source is not acceptable",
+              "locator": "Manuscript Preparation > References"
+            }
+          ],
+          "extraction_confidence": 0.84,
+          "needs_review": false
+        },
+        {
+          "section": "References",
+          "item": "48",
+          "item_name": "No retracted articles cited except as retractions",
+          "item_question": "Does the manuscript avoid citing retracted articles except in the context of referring to the retraction?",
+          "item_question_background": "ICMJE asks authors to verify that none of the references cite retracted articles except when referring to the retraction itself.",
+          "item_extraction_instruction": "Extract any references to articles that are known retractions and note the context of citation.",
+          "item_expected_location": "References",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Verify...that none of the references cite retracted articles except in the context of referring to the retraction",
+              "locator": "Manuscript Preparation > References"
+            }
+          ],
+          "extraction_confidence": 0.8,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Tables",
+      "items": [
+        {
+          "section": "Tables",
+          "item": "49",
+          "item_name": "Tables numbered consecutively and cited in text",
+          "item_question": "Are tables numbered consecutively in the order of their first citation in the text, and is each table cited in the text?",
+          "item_question_background": "ICMJE asks that tables be numbered consecutively in order of first citation and that each table be cited in the text.",
+          "item_extraction_instruction": "Extract table numbering and note whether each table is cited in the text.",
+          "item_expected_location": "Tables / Body text",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Numbered consecutively in the order of their first citation in the text",
+              "locator": "Manuscript Preparation > Tables"
+            },
+            {
+              "page": null,
+              "quote": "Each table is cited in the text",
+              "locator": "Manuscript Preparation > Tables"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Tables",
+          "item": "50",
+          "item_name": "Each table has a short, self-explanatory title",
+          "item_question": "Does each table have a short but self-explanatory title?",
+          "item_question_background": "ICMJE asks for a title for each table that is short but self-explanatory.",
+          "item_extraction_instruction": "Extract each table title and note whether it is self-explanatory.",
+          "item_expected_location": "Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Titles should be \"short but self-explanatory, containing information that allows readers to understand the table's content\"",
+              "locator": "Manuscript Preparation > Tables"
+            }
+          ],
+          "extraction_confidence": 0.88,
+          "needs_review": false
+        },
+        {
+          "section": "Tables",
+          "item": "51",
+          "item_name": "Column headings and footnoted abbreviations",
+          "item_question": "Does each table give a short or abbreviated heading for each column and explain all nonstandard abbreviations in footnotes?",
+          "item_question_background": "ICMJE asks for short column headings and explanation of all nonstandard abbreviations in table footnotes rather than in the headings.",
+          "item_extraction_instruction": "Extract table column headings and footnotes and note whether nonstandard abbreviations are explained.",
+          "item_expected_location": "Tables",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Each column a short or an abbreviated heading",
+              "locator": "Manuscript Preparation > Tables"
+            },
+            {
+              "page": null,
+              "quote": "Explain all nonstandard abbreviations in footnotes",
+              "locator": "Manuscript Preparation > Tables"
+            }
+          ],
+          "extraction_confidence": 0.86,
+          "needs_review": false
+        },
+        {
+          "section": "Tables",
+          "item": "52",
+          "item_name": "Statistical measures of variation identified in tables",
+          "item_question": "Do the tables identify the statistical measures of variation used, such as standard deviation and standard error of the mean?",
+          "item_question_background": "ICMJE asks authors to identify the statistical measures of variation, such as standard deviation and standard error of the mean, in tables.",
+          "item_extraction_instruction": "Extract whether tables identify the measures of variation reported.",
+          "item_expected_location": "Tables",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Identify statistical measures of variations, such as standard deviation and standard error of the mean",
+              "locator": "Manuscript Preparation > Tables"
+            }
+          ],
+          "extraction_confidence": 0.84,
+          "needs_review": false
+        },
+        {
+          "section": "Tables",
+          "item": "53",
+          "item_name": "Source acknowledged for reused table data",
+          "item_question": "If a table uses data from another published or unpublished source, is permission obtained and the source fully acknowledged?",
+          "item_question_background": "ICMJE asks authors to obtain permission and fully acknowledge the source when tables use external data.",
+          "item_extraction_instruction": "Extract any acknowledgment of external data sources used in tables.",
+          "item_expected_location": "Tables / Footnotes",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "If using external data: \"obtain permission and acknowledge that source fully\"",
+              "locator": "Manuscript Preparation > Tables"
+            }
+          ],
+          "extraction_confidence": 0.82,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Figures and Illustrations",
+      "items": [
+        {
+          "section": "Figures and Illustrations",
+          "item": "54",
+          "item_name": "Figures numbered consecutively and cited in text",
+          "item_question": "Are figures numbered consecutively according to the order in which they are cited in the text, and is each figure cited in the text?",
+          "item_question_background": "ICMJE asks that figures be numbered consecutively in citation order and that each figure be cited in the text.",
+          "item_extraction_instruction": "Extract figure numbering and note whether each figure is cited in the text.",
+          "item_expected_location": "Figures / Body text",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Numbered consecutively according to the order in which they have been cited in the text",
+              "locator": "Manuscript Preparation > Illustrations (Figures)"
+            }
+          ],
+          "extraction_confidence": 0.89,
+          "needs_review": false
+        },
+        {
+          "section": "Figures and Illustrations",
+          "item": "55",
+          "item_name": "Figure legends provided with explanations of symbols",
+          "item_question": "Does each figure have a legend (on a separate legends page) that explains the figure and identifies each symbol, arrow, number, or letter used?",
+          "item_question_background": "ICMJE asks that titles and detailed explanations belong in the legends, presented on a separate page with Arabic numerals corresponding to the illustrations, and that each symbol, arrow, number, or letter be identified and explained in the legend.",
+          "item_extraction_instruction": "Extract figure legends and note whether symbols/arrows/letters are explained.",
+          "item_expected_location": "Figure legends",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Titles and detailed explanations belong in the legends—not on the illustrations themselves",
+              "locator": "Manuscript Preparation > Illustrations (Figures)"
+            },
+            {
+              "page": null,
+              "quote": "Each symbol, arrow, number, letter \"clearly...identified and explained...in the legend\"",
+              "locator": "Manuscript Preparation > Illustrations (Figures)"
+            }
+          ],
+          "extraction_confidence": 0.86,
+          "needs_review": false
+        },
+        {
+          "section": "Figures and Illustrations",
+          "item": "56",
+          "item_name": "Photomicrographs include scale markers and staining method",
+          "item_question": "Do photomicrographs include internal scale markers and identify the method of staining?",
+          "item_question_background": "ICMJE asks that photomicrographs include internal scale markers and that the legend explain the internal scale and identify the method of staining.",
+          "item_extraction_instruction": "Extract whether photomicrographs report internal scale markers and staining method.",
+          "item_expected_location": "Figures / Figure legends",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Explain the internal scale and identify the method of staining in photomicrographs",
+              "locator": "Manuscript Preparation > Illustrations (Figures)"
+            }
+          ],
+          "extraction_confidence": 0.83,
+          "needs_review": false
+        },
+        {
+          "section": "Figures and Illustrations",
+          "item": "57",
+          "item_name": "Permission and source for previously published figures",
+          "item_question": "If a figure has been previously published, does the manuscript acknowledge the original source and indicate that written permission from the copyright holder was obtained?",
+          "item_question_background": "ICMJE asks authors to acknowledge the original source and submit written permission from the copyright holder for previously published illustrations.",
+          "item_extraction_instruction": "Extract any acknowledgment of original sources and permission statements for reused figures.",
+          "item_expected_location": "Figure legends / Acknowledgments",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "If previously published: \"acknowledge the original source and submit written permission from the copyright holder\"",
+              "locator": "Manuscript Preparation > Illustrations (Figures)"
+            }
+          ],
+          "extraction_confidence": 0.82,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Units, Abbreviations, and Symbols",
+      "items": [
+        {
+          "section": "Units, Abbreviations, and Symbols",
+          "item": "58",
+          "item_name": "Metric units for length, height, weight, and volume",
+          "item_question": "Are measurements of length, height, weight, and volume reported in metric units (meter, kilogram, or liter)?",
+          "item_question_background": "ICMJE asks that measurements of length, height, weight, and volume be reported in metric units.",
+          "item_extraction_instruction": "Extract the units used for length, height, weight, and volume measurements.",
+          "item_expected_location": "Methods / Results / Tables",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Measurements of length, height, weight, and volume...in metric units (meter, kilogram, or liter)",
+              "locator": "Manuscript Preparation > Units of Measurement"
+            }
+          ],
+          "extraction_confidence": 0.85,
+          "needs_review": false
+        },
+        {
+          "section": "Units, Abbreviations, and Symbols",
+          "item": "59",
+          "item_name": "Temperatures in Celsius and blood pressure in mmHg",
+          "item_question": "Are temperatures reported in degrees Celsius and blood pressures in millimeters of mercury?",
+          "item_question_background": "ICMJE asks that temperatures be given in degrees Celsius and blood pressures in millimeters of mercury.",
+          "item_extraction_instruction": "Extract the units used for any temperatures and blood pressures reported.",
+          "item_expected_location": "Methods / Results / Tables",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Temperatures...in degrees Celsius",
+              "locator": "Manuscript Preparation > Units of Measurement"
+            },
+            {
+              "page": null,
+              "quote": "Blood pressures...in millimeters of mercury",
+              "locator": "Manuscript Preparation > Units of Measurement"
+            }
+          ],
+          "extraction_confidence": 0.84,
+          "needs_review": false
+        },
+        {
+          "section": "Units, Abbreviations, and Symbols",
+          "item": "60",
+          "item_name": "Laboratory values in local and SI units",
+          "item_question": "Are laboratory measurements reported in both local units and International System of Units (SI)?",
+          "item_question_background": "ICMJE asks that laboratory information be reported in both local and SI units.",
+          "item_extraction_instruction": "Extract whether laboratory values are reported in both local and SI units.",
+          "item_expected_location": "Methods / Results / Tables",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Laboratory information in \"both local and International System of Units (SI)\"",
+              "locator": "Manuscript Preparation > Units of Measurement"
+            }
+          ],
+          "extraction_confidence": 0.82,
+          "needs_review": false
+        },
+        {
+          "section": "Units, Abbreviations, and Symbols",
+          "item": "61",
+          "item_name": "Standard abbreviations, none in the title, spelled out at first use",
+          "item_question": "Does the manuscript use only standard abbreviations, avoid abbreviations in the title, and spell out each abbreviation at first mention (except standard units of measurement)?",
+          "item_question_background": "ICMJE asks authors to use only standard abbreviations, avoid abbreviations in the title, and give the spelled-out form followed by the abbreviation in parentheses at first mention.",
+          "item_extraction_instruction": "Extract abbreviation usage: presence in the title, and whether abbreviations are spelled out at first mention.",
+          "item_expected_location": "Whole manuscript / Title",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "Avoid abbreviations in the title",
+              "locator": "Manuscript Preparation > Abbreviations and Symbols"
+            },
+            {
+              "page": null,
+              "quote": "Spelled-out abbreviation followed by the abbreviation in parentheses...on first mention unless the abbreviation is a standard unit of measurement",
+              "locator": "Manuscript Preparation > Abbreviations and Symbols"
+            }
+          ],
+          "extraction_confidence": 0.85,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Disclosures, Ethics, and Transparency Statements",
+      "items": [
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "62",
+          "item_name": "Conflict-of-interest / relationships disclosure",
+          "item_question": "Does the manuscript include a disclosure of authors' relevant financial and non-financial relationships and activities (or a statement that there are none)?",
+          "item_question_background": "ICMJE asks that articles be published with statements disclosing authors' relationships and activities, since trust in published work depends on transparent conflict-of-interest disclosure.",
+          "item_extraction_instruction": "Extract the conflict-of-interest / relationships-and-activities disclosure statement.",
+          "item_expected_location": "Disclosures / Title page / End matter",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Articles should be published with statements or supporting documents ... Authors' relationships and activities; and Sources of support for the work",
+              "locator": "Section II.B.2"
+            }
+          ],
+          "extraction_confidence": 0.95,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "63",
+          "item_name": "Funding / sources of support statement",
+          "item_question": "Does the manuscript identify the sources of support for the work (grants, equipment, drugs, or other support), distinguishing direct support from general institutional support, or state that none was received?",
+          "item_question_background": "ICMJE asks authors to report sources of support for the work and to distinguish direct support for the reported work from broader institutional support.",
+          "item_extraction_instruction": "Extract the funding/sources-of-support statement.",
+          "item_expected_location": "Funding / Title page / Acknowledgments",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": null,
+              "quote": "\"Sources of support\" including grants, equipment, drugs, other facilitating support",
+              "locator": "Manuscript Preparation > Title Page"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "64",
+          "item_name": "Sponsor role and author access to data",
+          "item_question": "Does the manuscript explain the role of the study sponsor (or state there was none) and, where relevant, state whether the authors had access to the study data?",
+          "item_question_background": "ICMJE distinguishes the sponsor's role from the work itself and asks for a statement about whether the authors had access to the study data, with an explanation of the nature and extent of access.",
+          "item_extraction_instruction": "Extract any statement of the sponsor's role and of author access to the study data.",
+          "item_expected_location": "Methods / Disclosures / End matter",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 4,
+              "quote": "Whether the authors had access to the study data, with an explanation of the nature and extent of access",
+              "locator": "Section II.B.2"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "65",
+          "item_name": "AI-use disclosure statement",
+          "item_question": "If AI-assisted technology was used, does the manuscript disclose which tool was used and for what purpose, without listing AI as an author?",
+          "item_question_background": "The 2026 ICMJE update requires that, when AI is used, authors disclose which tool was used and for what purpose, and do not list AI as an author.",
+          "item_extraction_instruction": "Extract any AI-use disclosure statement, including the tool and purpose.",
+          "item_expected_location": "Methods / Acknowledgments / Disclosures",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 20,
+              "quote": "When AI is used, users should disclose which tool was used, and for what purpose.",
+              "locator": "Section V"
+            },
+            {
+              "page": 20,
+              "quote": "Authors should not list or cite AI and AI-assisted technologies as an author.",
+              "locator": "Section V"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "66",
+          "item_name": "Ethics approval statement",
+          "item_question": "Does the manuscript state that the research received approval from an independent ethics committee or institutional review board (or that approval was not required), consistent with the Declaration of Helsinki for human research?",
+          "item_question_background": "ICMJE asks that human research align with the Helsinki Declaration and that authors report approval from an independent review body.",
+          "item_extraction_instruction": "Extract the ethics-approval / IRB statement.",
+          "item_expected_location": "Methods / Ethics statement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 7,
+              "quote": "All authors should seek approval to conduct research from an independent local, regional, or national review body",
+              "locator": "Section II.E"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "67",
+          "item_name": "Informed consent statement for identifiable material",
+          "item_question": "If identifying information about participants appears in the manuscript, does it state that written informed consent for publication was obtained?",
+          "item_question_background": "ICMJE states that identifying information should not be published without written informed consent for publication.",
+          "item_extraction_instruction": "Extract any informed-consent-for-publication statement and note whether identifiable material is present.",
+          "item_expected_location": "Methods / Consent statement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "Identifying information ... should not be published ... unless the information is essential for scientific purposes and the patient ... gives written informed consent for publication.",
+              "locator": "Section II.E"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "68",
+          "item_name": "Animal-care compliance statement",
+          "item_question": "For studies involving animals, does the manuscript indicate whether institutional and national standards for the care and use of laboratory animals were followed?",
+          "item_question_background": "ICMJE asks that, when reporting experiments on animals, authors indicate whether institutional and national care standards were followed.",
+          "item_extraction_instruction": "Extract any statement about animal-care standards compliance.",
+          "item_expected_location": "Methods / Ethics statement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 8,
+              "quote": "When reporting experiments on animals, authors should indicate whether institutional and national standards for the care and use of laboratory animals were followed.",
+              "locator": "Section II.E"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "69",
+          "item_name": "Clinical-trial registration number reported",
+          "item_question": "For clinical trials, does the manuscript report the trial registration number (and registry), including at the end of the abstract?",
+          "item_question_background": "ICMJE requires registration of clinical trials in a public registry at or before first patient consent and recommends publishing the trial registration number at the end of the abstract.",
+          "item_extraction_instruction": "Extract the trial registry name and registration number, and note whether it appears at the end of the abstract.",
+          "item_expected_location": "Abstract / Methods / Trial registration statement",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "The ICMJE recommends that journals publish the trial registration number at the end of the abstract.",
+              "locator": "Section III.L.1"
+            }
+          ],
+          "extraction_confidence": 0.93,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "70",
+          "item_name": "Clinical-trial data-sharing statement",
+          "item_question": "For clinical-trial reports, does the manuscript include a data-sharing statement covering whether deidentified participant data will be shared, what will be shared, related documents, timing, access criteria, and access mechanism?",
+          "item_question_background": "ICMJE requires clinical-trial reports to contain a data-sharing statement specifying whether and what deidentified participant data and related documents will be shared, when, for how long, by what access criteria, and by what mechanism.",
+          "item_extraction_instruction": "Extract the data-sharing statement and note which of the required elements it covers.",
+          "item_expected_location": "Data sharing statement / End matter / Abstract",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Data sharing statements must indicate the following: whether individual deidentified participant data ... will be shared",
+              "locator": "Section III.L.3"
+            }
+          ],
+          "extraction_confidence": 0.92,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "71",
+          "item_name": "Author contributions / contributorship statement",
+          "item_question": "Does the manuscript include an author-contributions or contributorship statement, and acknowledge non-author contributors where appropriate?",
+          "item_question_background": "ICMJE asks that author contributions be described and that contributors who do not meet authorship criteria be acknowledged rather than listed as authors.",
+          "item_extraction_instruction": "Extract the author-contributions statement and any acknowledgment of non-author contributors.",
+          "item_expected_location": "Author contributions / Acknowledgments",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 3,
+              "quote": "Contributors who meet fewer than all 4 of the above criteria for authorship should not be listed as authors, but they should be acknowledged.",
+              "locator": "Section II.A.3"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        },
+        {
+          "section": "Disclosures, Ethics, and Transparency Statements",
+          "item": "72",
+          "item_name": "Study-design reporting guideline indicated",
+          "item_question": "Does the manuscript indicate that it followed an appropriate study-design reporting guideline (for example, CONSORT, STROBE, PRISMA, STARD, or SAGER)?",
+          "item_question_background": "ICMJE tells authors to use study-type-specific reporting guidelines because its own recommendations are intentionally broad, pointing to EQUATOR and related resources.",
+          "item_extraction_instruction": "Extract any statement that a named design-specific reporting guideline was followed.",
+          "item_expected_location": "Methods / End matter",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 15,
+              "quote": "Reporting guidelines have been developed for different study designs",
+              "locator": "Section IV.A.2"
+            }
+          ],
+          "extraction_confidence": 0.9,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "ICMJE",
+      "ICMJE Recommendations",
+      "Recommendations for the Conduct, Reporting, Editing, and Publication of Scholarly Work in Medical Journals"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|journal|full_text",
+        "Patterns": [
+          "\\bmedical journal\\b",
+          "\\bclinical trial\\b",
+          "\\bICMJE\\b",
+          "\\btrial registration\\b",
+          "\\bdata sharing statement\\b",
+          "\\bconflict[s]? of interest\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|journal|full_text",
+        "Patterns": [
+          "\\bauthorship\\b",
+          "\\bcover letter\\b",
+          "\\bstructured abstract\\b",
+          "\\bHelsinki Declaration\\b",
+          "\\bClinicalTrials\\.gov\\b",
+          "\\bIMRAD\\b",
+          "\\bAI-assisted\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A clinical manuscript prepared for journal submission reports authorship roles, trial registration, conflicts disclosures, participant protection, structured abstract content, and a data-sharing statement.",
+      "A medical-journal submission describes IRB approval, sponsor role, statistical methods, funding, and AI-assisted writing disclosure under ICMJE-style editorial requirements."
+    ],
+    "EvidenceExamplesNegative": [
+      "A basic-science manuscript that only needs a narrow assay-specific reporting checklist and does not involve medical-journal publication expectations is not a strong ICMJE match on its own.",
+      "A purely internal memo or conference slide deck with no journal-style manuscript structure, disclosures, or publication context should not map to ICMJE."
+    ],
+    "Explain": "Use ICMJE as a broad medical-journal reporting and publication-ethics overlay when manuscripts need baseline expectations for authorship, disclosure, participant protection, trial transparency, manuscript preparation, and responsible AI use."
+  }
+}

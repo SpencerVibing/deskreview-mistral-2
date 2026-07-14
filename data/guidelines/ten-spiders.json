@@ -1,0 +1,382 @@
+{
+  "id": "ten-spiders",
+  "Name": "TEN-SPIDERS",
+  "LongName": "TEN-SPIDERS reporting tool for the proportion of days covered method",
+  "Description": "TEN-SPIDERS is a reporting tool for studies that calculate medication adherence using the proportion of days covered (PDC) method. It focuses on the PDC-specific parameters that often vary or go unreported, including threshold choice, sample eligibility, numerator and denominator definitions, survival handling, presupply, in-hospital supplies, dosing information, early refills, and switching.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Medication adherence and pharmacoepidemiology reporting",
+  "StandardizedTopDomain": "Medical and health",
+  "Aim": "To improve the transparent and systematic reporting of the proportion of days covered method so that medication-adherence estimates can be interpreted reliably and compared across studies using equivalent assumptions.",
+  "ManuscriptType": [
+    "Original research article",
+    "Observational study",
+    "Pharmacoepidemiology study",
+    "Medication adherence study"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Medication adherence study",
+    "Observational study",
+    "Secondary data analysis",
+    "Pharmacoepidemiology study"
+  ],
+  "Keywords": [
+    "TEN-SPIDERS",
+    "proportion of days covered",
+    "PDC",
+    "medication adherence",
+    "pharmacoepidemiology",
+    "early refills",
+    "switching",
+    "presupply",
+    "in-hospital supply",
+    "dosing information"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Medication adherence study",
+      "Observational study",
+      "Secondary data analysis",
+      "Pharmacoepidemiology study"
+    ],
+    "Disciplines": [
+      "Medical and health",
+      "Pharmacoepidemiology",
+      "Clinical pharmacology",
+      "Health services research"
+    ],
+    "Coverage": "Studies that assess medication adherence using the proportion of days covered method, especially those based on administrative or dispensing data for long-term medicines.",
+    "Focus": "Transparent reporting of PDC-specific design choices and assumptions, including threshold definition, eligibility criteria, numerator and denominator construction, handling of death, presupply, in-hospital supplies, dose imputation, stockpiling, and therapeutic switching.",
+    "ContrastWith": "TEN-SPIDERS is a method-specific reporting tool for the PDC adherence measure. It complements broader reporting frameworks such as EMERGE and RECORD-PE rather than replacing them."
+  },
+  "references": {
+    "primary": {
+      "description": "Dalli LL, Kilkenny MF, Arnet I, et al. Towards better reporting of the proportion of days covered method in cardiovascular medication adherence: A scoping review and new tool TEN-SPIDERS. British Journal of Clinical Pharmacology. 2022;88:4427-4442.",
+      "url": "https://doi.org/10.1111/bcp.15391"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Threshold and Sample Definition",
+      "items": [
+        {
+          "section": "Threshold and Sample Definition",
+          "item": "T",
+          "item_name": "Threshold",
+          "item_question": "Does the manuscript state whether the PDC was analysed as a dichotomous or continuous variable and, if dichotomized, explain the rationale for the selected threshold?",
+          "item_question_background": "The scoping review found that most studies used an 80% threshold, but many did not justify why. TEN-SPIDERS therefore begins with threshold reporting so readers can understand whether adherence was treated continuously or reduced to a cutoff and why that choice was made.",
+          "item_extraction_instruction": "Extract whether PDC was analysed continuously or dichotomized, the threshold used if dichotomized, the rationale for that threshold, and any sensitivity analyses using alternative cutoffs or continuous treatment.",
+          "item_expected_location": "Methods / Statistical analysis / Outcome definition",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "State whether the PDC was analysed as a dichotomous or continuous variable.",
+              "locator": "Table 3, Threshold"
+            },
+            {
+              "page": 10,
+              "quote": "If the PDC was dichotomized, provide a rationale for selecting this threshold.",
+              "locator": "Table 3, Threshold"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Threshold and Sample Definition",
+          "item": "E",
+          "item_name": "Eligibility criteria",
+          "item_question": "Does the manuscript define the eligibility criteria used for including individuals in the PDC analysis, such as the minimum number of dispensings required within a period?",
+          "item_question_background": "The review found substantial variation in who was eligible for PDC calculation, including differences in required numbers of dispensings and additional cohort restrictions. Those choices materially affect who enters the adherence analysis and how interpretable the estimates are.",
+          "item_extraction_instruction": "Extract the eligibility criteria for entry into the PDC analysis, including any minimum number of fills, washout rules, timing windows, or other cohort restrictions tied to PDC calculation.",
+          "item_expected_location": "Methods / Eligibility criteria / Cohort definition",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Define the eligibility criteria for assessing the PDC, e.g. minimum number of scripts required to be filled within a period.",
+              "locator": "Table 3, Eligibility criteria for inclusion in sample"
+            },
+            {
+              "page": 6,
+              "quote": "The PDC was calculated for individuals who filled 1 or more prescriptions during the observation period in 54 articles ... or 2 or more prescriptions in 21 articles.",
+              "locator": "Section 3.1"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Threshold and Sample Definition",
+          "item": "N",
+          "item_name": "Numerator and denominator",
+          "item_question": "Does the manuscript define the PDC numerator and denominator explicitly, including the start and end of the observation period?",
+          "item_question_background": "PDC estimates can differ substantially depending on how the observation window is anchored and how covered days are counted. TEN-SPIDERS therefore requires authors to state the numerator and denominator directly rather than assuming a conventional definition.",
+          "item_extraction_instruction": "Extract the explicit numerator and denominator definitions, the start date and end date of the observation period, and any operational description of how covered days were counted.",
+          "item_expected_location": "Methods / Outcome definition",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Define the numerator and denominator for the PDC",
+              "locator": "Table 3, Numerator and denominator"
+            },
+            {
+              "page": 6,
+              "quote": "The PDC denominator was 1 year in 37 (49%) articles ... The PDC was most commonly calculated from the first dispensing date in articles of primary prevention, or from the date of hospital discharge in articles of secondary prevention",
+              "locator": "Section 3.2"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Observation-Period Handling",
+      "items": [
+        {
+          "section": "Observation-Period Handling",
+          "item": "S1",
+          "item_name": "Survival",
+          "item_question": "Does the manuscript state whether PDC was assessed only among individuals surviving the full measurement period or was censored at the date of death for those who died during follow-up?",
+          "item_question_background": "The review showed that studies handled death in several different ways, including censoring at death, excluding decedents, or restricting the sample to those with continuous insurance. Because mortality changes the denominator and the eligible sample, survival handling must be explicit.",
+          "item_extraction_instruction": "Extract how deaths during follow-up were handled, including censoring at death, exclusion of decedents, use of continuous enrollment as a proxy restriction, or other survival-related rules.",
+          "item_expected_location": "Methods / Follow-up / Cohort handling",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "State whether the PDC was assessed among individuals surviving the entire measurement period or whether the PDC was measured until the date of death for those who died during the observation period.",
+              "locator": "Table 3, Survival"
+            },
+            {
+              "page": 6,
+              "quote": "In 41% of articles, PDC calculations were censored at an individual's date of death.",
+              "locator": "Section 3.3"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Observation-Period Handling",
+          "item": "P",
+          "item_name": "Presupply",
+          "item_question": "Does the manuscript state whether the analysis was limited to new users or explain how medication supplies available before the observation period were handled?",
+          "item_question_background": "Presupply is a hidden source of numerator variation because some cohorts start with medication already on hand. TEN-SPIDERS asks authors to say whether they avoided the issue by restricting to new users or carried forward presupply in another way.",
+          "item_extraction_instruction": "Extract whether analyses were limited to new users, prevalent users, or mixed users; any washout period; and any method used to carry presupply into the numerator.",
+          "item_expected_location": "Methods / Cohort definition / PDC calculation",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "State whether analyses were limited to new users or how presupply was handled if previous users of medication were included.",
+              "locator": "Table 3, Presupply"
+            },
+            {
+              "page": 6,
+              "quote": "Of the remaining 37 articles, 21 (28% of all articles) lacked information on whether medication presupply was considered in the PDC numerator.",
+              "locator": "Section 3.4"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Observation-Period Handling",
+          "item": "I",
+          "item_name": "In-hospital supply",
+          "item_question": "Does the manuscript state whether in-hospital medication dispensing information was available and, if not, explain how time spent in hospital was handled in the PDC calculation?",
+          "item_question_background": "The review identified in-hospital supply as one of the most commonly missing or unclear PDC parameters. Hospital days can either interrupt dispensing records or represent separately supplied medication, so the handling of these periods changes both numerator and denominator interpretation.",
+          "item_extraction_instruction": "Extract whether in-hospital dispensing data were available and how hospital days were treated, such as exclusion from numerator and denominator, addition to the numerator, censoring, or exclusion of readmitted or supported-care participants.",
+          "item_expected_location": "Methods / Data source limitations / PDC calculation",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "State whether information on in-hospital medication dispensing was available.",
+              "locator": "Table 3, In-hospital supply"
+            },
+            {
+              "page": 10,
+              "quote": "If unavailable, describe how periods of time spent in hospital were handled",
+              "locator": "Table 3, In-hospital supply"
+            },
+            {
+              "page": 7,
+              "quote": "Methods to account for in-hospital supplies were not reported in 45% of articles.",
+              "locator": "Section 3.5"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Dose and Supply Handling",
+      "items": [
+        {
+          "section": "Dose and Supply Handling",
+          "item": "D",
+          "item_name": "Dosing information",
+          "item_question": "Does the manuscript state whether dosing information was directly available or imputed and, if imputed, describe the approach and its limitations?",
+          "item_question_background": "Dose is fundamental to translating dispensings into covered days, yet the authors found dosing information was often unavailable and variably imputed. Reporting the imputation method is therefore necessary to interpret how the numerator was derived.",
+          "item_extraction_instruction": "Extract whether prescribed daily dose was available, any imputation strategy used when it was unavailable, and any discussion of the validity or limitations of that approach.",
+          "item_expected_location": "Methods / Data source / PDC calculation",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "State whether dosing information was available in the data or imputed.",
+              "locator": "Table 3, Dosing information"
+            },
+            {
+              "page": 10,
+              "quote": "If applicable, describe the approach used to impute doses and the validity and/or limitations of this method.",
+              "locator": "Table 3, Dosing information"
+            },
+            {
+              "page": 8,
+              "quote": "Among the remaining 46 articles, 27 (59%) contained information on the approach used to impute dosing information.",
+              "locator": "Section 3.6"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Dose and Supply Handling",
+          "item": "ER",
+          "item_name": "Early refills",
+          "item_question": "Does the manuscript describe how overlapping supplies created by early refills of the same medication were handled?",
+          "item_question_background": "Early refills create stockpiling that can inflate or shift days covered if overlapping supplies are not handled consistently. TEN-SPIDERS asks authors to disclose whether carry-over was granted, limited, or ignored.",
+          "item_extraction_instruction": "Extract how overlapping supplies for the same medication were treated, including carry-over rules, any cap on carry-over, no-adjustment approaches, or unclear handling.",
+          "item_expected_location": "Methods / PDC calculation",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Describe how overlapping supplies due to early refills of the same medication (i.e. stockpiling) were handled",
+              "locator": "Table 3, Early refills"
+            },
+            {
+              "page": 8,
+              "quote": "In 34 (45%) articles, overlapping days of supply were carried forward as individuals were assumed to finish any existing medication supply before commencing use of a refill of the same medication.",
+              "locator": "Section 3.7"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        },
+        {
+          "section": "Dose and Supply Handling",
+          "item": "S2",
+          "item_name": "Switching",
+          "item_question": "Does the manuscript describe how overlapping supplies of different medications within the same therapeutic class were handled when therapeutic switching occurred?",
+          "item_question_background": "Therapeutic switching is distinct from early refills because the overlap involves different agents within the same class. The review found many studies left this unclear, which undermines comparison of adherence estimates across drug-class-based analyses.",
+          "item_extraction_instruction": "Extract the handling of therapeutic switches, including whether carry-over was granted or not, whether the denominator was censored at switching, whether class-level PDCs were averaged, or whether switching was not reported clearly.",
+          "item_expected_location": "Methods / PDC calculation / Drug-class definition",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Describe how overlapping supplies of different medications within the same therapeutic class were handled (i.e. therapeutic switches)",
+              "locator": "Table 3, Switching"
+            },
+            {
+              "page": 8,
+              "quote": "Further, the approach used to account for therapeutic switching was unclear in 22 articles or was not reported in 18 articles.",
+              "locator": "Section 3.8"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Missingness and Interpretation",
+      "items": [
+        {
+          "section": "Missingness and Interpretation",
+          "item": "M1",
+          "item_name": "Explain unavailable parameters and imputation limits",
+          "item_question": "Does the manuscript describe in the methods and discussion when one or more TEN-SPIDERS parameters were unavailable or had to be imputed, and explain the implications of those limitations?",
+          "item_question_background": "The table's footnote makes clear that unavailable parameters should not simply disappear from the report. Because many PDC studies rely on incomplete administrative data, readers need to know what could not be observed directly and how that affects interpretation.",
+          "item_extraction_instruction": "Extract any statement that a TEN-SPIDERS parameter was unavailable, imputed, or approximated, and how the authors discussed the resulting limitation in methods or discussion.",
+          "item_expected_location": "Methods / Limitations / Discussion",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 10,
+              "quote": "Authors should describe in the methods and discussion if 1 or more parameters are unavailable (or require imputation).",
+              "locator": "Table 3 footnote"
+            },
+            {
+              "page": 9,
+              "quote": "This tool is complimentary to existing reporting guidelines ... and provides additional guidance for reporting parameters specific to the PDC.",
+              "locator": "Section 4"
+            }
+          ],
+          "extraction_confidence": 0.99,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Medical and health"
+    ],
+    "Aliases": [
+      "TEN-SPIDERS",
+      "PDC reporting tool",
+      "proportion of days covered reporting tool"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bproportion of days covered\\b",
+          "\\bPDC\\b",
+          "\\bmedication adherence\\b",
+          "\\bearly refills\\b",
+          "\\bswitching\\b",
+          "\\bpresupply\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bdays' supply\\b",
+          "\\bstockpiling\\b",
+          "\\btherapeutic switch\\b",
+          "\\bdispensing data\\b",
+          "\\bmedication adherence\\b",
+          "\\bthreshold\\b.*\\bPDC\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A pharmacoepidemiology study measures adherence using proportion of days covered and explains how stockpiling, therapeutic switching, hospital stays, and dose imputation were handled.",
+      "An administrative-data study of long-term cardiovascular medicines defines the PDC numerator and denominator, justifies its adherence threshold, and reports whether the cohort was limited to new users."
+    ],
+    "EvidenceExamplesNegative": [
+      "A medication-adherence paper using only self-report scales without any proportion-of-days-covered calculation is not a TEN-SPIDERS manuscript.",
+      "A general pharmacoepidemiology study that mentions adherence conceptually but does not derive or report PDC-specific parameters should not map strongly to TEN-SPIDERS."
+    ],
+    "Explain": "Use TEN-SPIDERS for studies that calculate medication adherence with the proportion of days covered method and need transparent reporting of the PDC-specific parameters that drive those estimates."
+  }
+}

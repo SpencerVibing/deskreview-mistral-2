@@ -1,0 +1,210 @@
+{
+  "id": "jars-single-case",
+  "Name": "JARS-Single-Case",
+  "LongName": "JARS-Quant Table 5: Reporting Standards for N-of-1 Studies",
+  "Description": "The JARS-Quant single-case table summarizes the psychology-specific reporting expectations for N-of-1 and related single-case experimental designs, drawing on SCRIBE 2016 for behavioral intervention contexts.",
+  "Category": "Reporting guidance",
+  "Subdomain": "Psychology single-case reporting",
+  "StandardizedTopDomain": "Social sciences",
+  "Aim": "To improve clarity and replicability of single-case experimental studies by specifying how design structure, procedural changes, randomization, sequence completion, and raw outcome data should be reported.",
+  "ManuscriptType": [
+    "Original research article",
+    "Single-case design report",
+    "Behavioral intervention report"
+  ],
+  "ManuscriptSubType": [
+    "N-of-1 study",
+    "Withdrawal-reversal design",
+    "Multiple-baseline design",
+    "Alternating-treatments design"
+  ],
+  "StudyType": [
+    "Single-case experimental study",
+    "N-of-1 study"
+  ],
+  "Keywords": [
+    "JARS single-case",
+    "N-of-1",
+    "single-case design",
+    "SCRIBE 2016",
+    "withdrawal-reversal",
+    "multiple baseline"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Single-case experimental study",
+      "N-of-1 study"
+    ],
+    "Disciplines": [
+      "Social sciences",
+      "Psychology",
+      "Behavioral intervention research"
+    ],
+    "Coverage": "Single-case and N-of-1 experimental studies in psychology and behavioral intervention research, especially designs such as withdrawal-reversal, multiple-baseline, alternating-treatments, and changing-criterion studies.",
+    "Focus": "Design type and phase structure, procedural changes, replication planning, randomization use, completed sequence reporting, stopping reasons, and raw participant-level outcomes.",
+    "ContrastWith": "Not for conventional group experiments or observational studies. This module is intended to be used alongside the JARS-Quant base table and relevant experimental modules."
+  },
+  "references": {
+    "primary": {
+      "description": "Appelbaum M, Cooper H, Kline RB, Mayo-Wilson E, Nezu AM, Rao SM. Journal Article Reporting Standards for Quantitative Research in Psychology: The APA Publications and Communications Board Task Force Report. American Psychologist. 2018. PMID: 29345484.",
+      "url": "https://psycnet.apa.org/fulltext/2018-00750-002.pdf"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Design and Procedure",
+      "items": [
+        {
+          "section": "Design and Procedure",
+          "item": "1",
+          "item_name": "Describe the single-case design structure",
+          "item_question": "Does the manuscript describe the design type, phases, phase sequence, and any criteria for phase change?",
+          "item_question_background": "Single-case designs are interpretable only when the logic of phases and their sequence are explicit, including whether changes were prespecified or data-driven.",
+          "item_extraction_instruction": "Extract the design type, phases, sequence, and any criteria for phase transitions.",
+          "item_expected_location": "Method / Design",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Describe the design, including ... Design type ... Phases and phase sequence ... criteria for phase change.",
+              "locator": "Table 5 design row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Procedure",
+          "item": "2",
+          "item_name": "Report procedural changes and planned replication",
+          "item_question": "Does the manuscript describe procedural changes after study start and any planned replication?",
+          "item_question_background": "Because single-case studies are highly procedural, post-start changes and replication plans materially affect how readers interpret evidential strength.",
+          "item_extraction_instruction": "Extract any procedural changes after study start and any statement about planned replication.",
+          "item_expected_location": "Method",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Describe any procedural changes that occurred during the course of the investigation ... Describe any planned replication.",
+              "locator": "Table 5 procedural changes and replication rows"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        },
+        {
+          "section": "Design and Procedure",
+          "item": "3",
+          "item_name": "Report randomization in single-case designs when used",
+          "item_question": "If randomization was used, does the manuscript describe the randomization method and which study elements were randomized?",
+          "item_question_background": "Randomization is optional in many single-case designs, so authors should be explicit when it is used and what exactly was randomized.",
+          "item_extraction_instruction": "Extract whether randomization was used, the randomization method, and the randomized phases or conditions.",
+          "item_expected_location": "Method",
+          "item_optional": true,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "State whether randomization was used, and if so, describe the randomization method and the elements of the study that were randomized.",
+              "locator": "Table 5 randomization row"
+            }
+          ],
+          "extraction_confidence": 0.97,
+          "needs_review": false
+        }
+      ]
+    },
+    {
+      "section": "Sequence and Outcomes",
+      "items": [
+        {
+          "section": "Sequence and Outcomes",
+          "item": "4",
+          "item_name": "Report the completed sequence and stopping reasons",
+          "item_question": "Does the manuscript report the sequence actually completed for each participant, including the number of trials per session and any stopping points or reasons for stopping?",
+          "item_question_background": "Single-case inference depends on the achieved sequence, not only the intended one, so readers need to know what was actually completed.",
+          "item_extraction_instruction": "Extract the achieved sequence, number of trials per session, and any stopping points or reasons for noncompletion.",
+          "item_expected_location": "Results",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Report for each participant the sequence actually completed ... State when participant(s) who did not complete the sequence stopped and the reason for stopping.",
+              "locator": "Table 5 sequence completed row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        },
+        {
+          "section": "Sequence and Outcomes",
+          "item": "5",
+          "item_name": "Report raw participant-level outcomes",
+          "item_question": "Does the manuscript report raw data for each participant and each target behavior or other outcome?",
+          "item_question_background": "Raw outcome traces are foundational for evaluating single-case studies and enabling reanalysis or visual inspection.",
+          "item_extraction_instruction": "Extract whether raw participant-level data are shown for each target behavior or outcome and how they are presented.",
+          "item_expected_location": "Results / Figures / Supplement",
+          "item_optional": false,
+          "source_page_refs": [
+            {
+              "page": 14,
+              "quote": "Report results for each participant, including raw data for each target behavior and other outcomes.",
+              "locator": "Table 5 outcomes and estimation row"
+            }
+          ],
+          "extraction_confidence": 0.98,
+          "needs_review": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Axis": "reporting_overlay",
+    "Domains": [
+      "Social sciences"
+    ],
+    "Aliases": [
+      "JARS single-case",
+      "JARS-Quant Table 5",
+      "Reporting Standards for N-of-1 Studies",
+      "N-of-1 reporting standards"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bN-of-1\\b",
+          "\\bsingle-case\\b",
+          "\\bwithdrawal[-–]reversal\\b",
+          "\\bmultiple baseline\\b",
+          "\\bchanging-criterion\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords|full_text",
+        "Patterns": [
+          "\\bphase sequence\\b",
+          "\\braw data\\b",
+          "\\bsingle-case\\b",
+          "\\bSCRIBE\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "A behavioral intervention paper reports a multiple-baseline N-of-1 design, achieved phase sequence, randomization, and raw participant traces.",
+      "A single-case psychology article explicitly references SCRIBE and provides participant-level outcome data."
+    ],
+    "EvidenceExamplesNegative": [
+      "A standard group randomized trial is not a JARS-Single-Case manuscript.",
+      "A meta-analysis or observational cohort with no phase-based single-case design should not map here."
+    ],
+    "Explain": "Use this module for psychology manuscripts reporting N-of-1 or other single-case experimental designs."
+  }
+}

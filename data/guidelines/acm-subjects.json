@@ -1,0 +1,219 @@
+{
+  "id": "acm-subjects",
+  "Name": "ACM Subjects",
+  "LongName": "ACM Policy for Research Involving Human Participants and Subjects",
+  "Description": "Checklist for verifying ethical compliance in computing research involving human participants, including ethical review, consent, participant protection, privacy, and disclosure.",
+  "Category": "Research ethics",
+  "Subdomain": "Human-computer interaction and computing research",
+  "StandardizedTopDomain": "Engineering & Technology",
+  "Aim": "To help editors and reviewers verify that research involving human participants or identifiable participant data meets ACM's expectations for ethical oversight, informed consent, privacy protection, and transparent disclosure.",
+  "ManuscriptType": [
+    "Original research article",
+    "User study report",
+    "Human-subjects study"
+  ],
+  "ManuscriptSubType": [],
+  "StudyType": [
+    "Human-participant study"
+  ],
+  "Keywords": [
+    "human participants",
+    "human subjects",
+    "research ethics",
+    "ethical review",
+    "IRB",
+    "REC",
+    "informed consent",
+    "privacy",
+    "data protection",
+    "HCI",
+    "CSCW",
+    "user study",
+    "survey",
+    "interview",
+    "experiment"
+  ],
+  "Scope": {
+    "StudyTypes": [
+      "Human-participant study",
+      "User study report",
+      "Original research article"
+    ],
+    "Disciplines": [
+      "Engineering & Technology",
+      "Computer science",
+      "Human-computer interaction"
+    ],
+    "Coverage": "Computing and HCI manuscripts that involve living human participants or identifiable participant data, including user studies, surveys, interviews, observational fieldwork, and experiments.",
+    "Focus": "Ethical oversight, consent procedures, participant welfare, privacy and data handling, protections for vulnerable groups, and transparency about data sharing and conflicts of interest.",
+    "ContrastWith": "This is an ethics-compliance guide rather than a study-design reporting guideline. It complements technical reporting guides by adding a human-subjects ethics layer for computing research."
+  },
+  "references": {
+    "primary": {
+      "description": "ACM Publications Board. Policy on Research Involving Human Participants and Subjects.",
+      "url": "https://www.acm.org/publications/policies/research-involving-human-participants-and-subjects"
+    }
+  },
+  "Checklist": [
+    {
+      "section": "Ethical oversight",
+      "items": [
+        {
+          "section": "Ethical oversight",
+          "item": "EO1",
+          "item_name": "Ethics approval or exemption",
+          "item_question": "Does the manuscript report ethics-board approval details, or clearly justify why formal review was not required?",
+          "item_question_background": "Human-participant research should state whether an IRB, REC, or equivalent body reviewed the study, or explain a justified exemption.",
+          "item_extraction_instruction": "Extract the name of the ethics board, approval number, approval date, or the stated exemption rationale if formal review was not required.",
+          "item_expected_location": "Methods / Ethics statement / Back matter",
+          "item_optional": false
+        },
+        {
+          "section": "Ethical oversight",
+          "item": "EO2",
+          "item_name": "Informed consent process",
+          "item_question": "Is the participant consent process described and appropriate for the study context?",
+          "item_question_background": "Readers should be able to understand whether consent was written, verbal, implied, waived, or otherwise handled appropriately for the participant population.",
+          "item_extraction_instruction": "Extract how consent was obtained, whether it was written, verbal, implied, waived, or otherwise adapted for the study.",
+          "item_expected_location": "Methods / Ethics statement",
+          "item_optional": false
+        }
+      ]
+    },
+    {
+      "section": "Participant welfare",
+      "items": [
+        {
+          "section": "Participant welfare",
+          "item": "PW1",
+          "item_name": "Risk and harm minimization",
+          "item_question": "Does the manuscript describe how risks to participants were minimized or managed?",
+          "item_question_background": "Even low-risk participant studies should indicate how discomfort, burden, or potential harm was anticipated and reduced.",
+          "item_extraction_instruction": "Extract statements about participant risks, burden, safeguards, debriefing, or other harm-reduction measures.",
+          "item_expected_location": "Methods / Ethics statement",
+          "item_optional": false
+        },
+        {
+          "section": "Participant welfare",
+          "item": "PW2",
+          "item_name": "Safeguards for vulnerable groups",
+          "item_question": "If vulnerable populations are involved, does the manuscript describe additional safeguards or justification?",
+          "item_question_background": "Studies involving children, patients, dependent populations, or other vulnerable groups should explain extra protections.",
+          "item_extraction_instruction": "Extract any mention of vulnerable populations and the specific added protections, permissions, or justification provided.",
+          "item_expected_location": "Methods / Ethics statement",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Privacy and data protection",
+      "items": [
+        {
+          "section": "Privacy and data protection",
+          "item": "PD1",
+          "item_name": "Handling of identifiable data",
+          "item_question": "Does the manuscript explain how participant data were anonymized, secured, or otherwise protected?",
+          "item_question_background": "Human-subjects reports should explain how participant privacy was protected, especially when collecting recordings, behavioral traces, or other identifiable data.",
+          "item_extraction_instruction": "Extract statements about anonymization, pseudonymization, secure storage, access controls, retention, or deletion of participant data.",
+          "item_expected_location": "Methods / Data handling / Ethics statement",
+          "item_optional": false
+        },
+        {
+          "section": "Privacy and data protection",
+          "item": "PD2",
+          "item_name": "Regulatory or policy compliance",
+          "item_question": "Does the manuscript state compliance with relevant privacy or data-protection requirements where applicable?",
+          "item_question_background": "When participant data are collected, the manuscript should indicate relevant compliance frameworks if they materially shaped the study.",
+          "item_extraction_instruction": "Extract mentions of GDPR, institutional data policies, privacy regulations, or equivalent compliance statements if present.",
+          "item_expected_location": "Methods / Ethics statement / Data management",
+          "item_optional": true
+        }
+      ]
+    },
+    {
+      "section": "Transparency and disclosure",
+      "items": [
+        {
+          "section": "Transparency and disclosure",
+          "item": "TD1",
+          "item_name": "Data sharing or restriction statement",
+          "item_question": "Does the manuscript state whether participant data can be shared, or explain why sharing is restricted?",
+          "item_question_background": "Human-subjects studies should be transparent about whether data can be shared and whether privacy or consent constraints limit sharing.",
+          "item_extraction_instruction": "Extract any data availability statement, sharing conditions, or explanation for non-sharing due to privacy, ethics, or consent restrictions.",
+          "item_expected_location": "Data availability / Back matter / Methods",
+          "item_optional": true
+        },
+        {
+          "section": "Transparency and disclosure",
+          "item": "TD2",
+          "item_name": "Funding and conflicts disclosure",
+          "item_question": "Are relevant funding sources and potential conflicts of interest disclosed?",
+          "item_question_background": "Transparent disclosure helps readers assess whether sponsor relationships or other conflicts could influence participant-facing research.",
+          "item_extraction_instruction": "Extract funding disclosures, sponsor statements, and conflict-of-interest declarations.",
+          "item_expected_location": "Funding / Conflicts of interest / Back matter",
+          "item_optional": false
+        }
+      ]
+    }
+  ],
+  "Matching": {
+    "Version": "1.0.0",
+    "Enabled": true,
+    "Role": "secondary",
+    "Domains": [
+      "Engineering & Technology"
+    ],
+    "Aliases": [
+      "ACM human subjects policy",
+      "ACM subjects",
+      "ACM research involving human participants and subjects"
+    ],
+    "RequiredAny": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\buser study\\b",
+          "\\busability study\\b",
+          "\\bhci\\b",
+          "\\bhuman computer interaction\\b",
+          "\\bcscw\\b",
+          "\\buser experience\\b",
+          "\\buser interface\\b",
+          "\\binteractive system\\b",
+          "\\bprototype\\b",
+          "\\bsoftware\\b",
+          "\\bcomputing\\b",
+          "\\bcomputer science\\b",
+          "\\bsurvey\\b",
+          "\\binterviews?\\b"
+        ]
+      }
+    ],
+    "RequiredAll": [],
+    "Negative": [],
+    "StrongPositive": [
+      {
+        "Field": "title|abstract|study_type|keywords",
+        "Patterns": [
+          "\\birb\\b",
+          "\\bethics approval\\b",
+          "\\binformed consent\\b",
+          "\\binstitutional review board\\b",
+          "\\bresearch ethics committee\\b",
+          "\\bprivacy\\b"
+        ]
+      }
+    ],
+    "StrongNegative": [],
+    "EvidenceExamplesPositive": [
+      "We conducted a user study with 24 participants after institutional review board approval and informed consent.",
+      "This HCI experiment involved human participants and includes an ethics statement and consent procedures."
+    ],
+    "EvidenceExamplesNegative": [
+      "The manuscript is purely computational and does not involve any human participants or participant data.",
+      "This paper reports a systems benchmark with no user study, survey, interview, or participant-facing experiment.",
+      "This clinical manuscript reports patients and informed consent, but has no computing, software, HCI, interface, or user-study component."
+    ],
+    "Explain": "Adds a supporting human-subjects ethics guide for computing manuscripts that involve participant studies or identifiable participant data."
+  }
+}
