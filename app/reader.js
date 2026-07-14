@@ -1499,12 +1499,30 @@ function renderLoadingToc() {
 }
 
 function renderEmptyCounts(message = 'OCR4 summary counts will appear here.') {
+  disposeCountTooltips();
   els.countsGrid.innerHTML = `
     <div class="empty-state counts-empty">
       <i class="bi bi-grid-3x2-gap"></i>
       <div>${escapeHtml(message)}</div>
     </div>
   `;
+}
+
+function disposeCountTooltips() {
+  if (!els.countsGrid || !window.bootstrap?.Tooltip) return;
+  els.countsGrid.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((node) => {
+    window.bootstrap.Tooltip.getInstance(node)?.dispose();
+  });
+}
+
+function initializeCountTooltips() {
+  if (!els.countsGrid || !window.bootstrap?.Tooltip) return;
+  els.countsGrid.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((node) => {
+    window.bootstrap.Tooltip.getOrCreateInstance(node, {
+      container: 'body',
+      trigger: 'hover focus'
+    });
+  });
 }
 
 function renderProgressCard({ title = '', message = '', progress = null, eta = '', tone = 'primary' } = {}) {
@@ -1530,6 +1548,7 @@ function renderProgressCard({ title = '', message = '', progress = null, eta = '
 }
 
 function renderLoadingCounts() {
+  disposeCountTooltips();
   const elapsed = state.ocrProgress.startedAt ? performance.now() - state.ocrProgress.startedAt : 0;
   const progress = boundedProgress(elapsed, state.ocrProgress.estimateMs);
   const eta = formatEta(Math.max(0, state.ocrProgress.estimateMs - elapsed));
@@ -1640,7 +1659,7 @@ function countTileTooltip({ kind = '', label = '', value = null, unit = '', isBu
 function renderCountResultBar(resultBar = null, label = '') {
   if (!Array.isArray(resultBar?.segments) || !resultBar.segments.length) return '';
   return `
-    <div class="count-result-bar progress mt-1" role="progressbar" aria-label="${escapeHtml(label || 'Count benchmark')}" title="${escapeHtml(resultBar.tooltip || '')}">
+    <div class="count-result-bar progress mt-1" role="progressbar" aria-label="${escapeHtml(label || 'Count benchmark')}">
       ${resultBar.segments.map((segment) => `
         <div class="progress-bar ${escapeHtml(segment.className || 'bg-body-secondary')}" style="width: ${escapeHtml(segment.width)}%;" aria-label="${escapeHtml(segment.label || '')}"></div>
       `).join('')}
@@ -1658,7 +1677,7 @@ function renderCountTile({ kind = '', label = '', value = null, unit = '', statu
   const tooltip = countTileTooltip({ kind, label, value, unit, isBusy, resultBar });
   const barLabel = `${displayLabel} benchmark`;
   return `
-    <button type="button" class="count-tile ${isBusy ? 'is-busy' : ''}${pulseClass}${revealClass}" data-count-kind="${escapeHtml(kind)}" style="--tile-index: ${escapeHtml(tileIndex)};" title="${escapeHtml(tooltip)}" aria-label="${escapeHtml(tooltip)}" ${isBusy ? 'aria-busy="true"' : ''}>
+    <button type="button" class="count-tile ${isBusy ? 'is-busy' : ''}${pulseClass}${revealClass}" data-count-kind="${escapeHtml(kind)}" style="--tile-index: ${escapeHtml(tileIndex)};" data-bs-toggle="tooltip" data-bs-custom-class="count-tile-tooltip" data-bs-placement="top" data-bs-title="${escapeHtml(tooltip)}" aria-label="${escapeHtml(tooltip)}" ${isBusy ? 'aria-busy="true"' : ''}>
       <div class="count-label">
         <span class="text-truncate">${escapeHtml(displayLabel)}</span>
         ${isBusy ? statusSpinner() : ''}
@@ -1676,6 +1695,7 @@ function renderCountTile({ kind = '', label = '', value = null, unit = '', statu
 }
 
 function renderCounts() {
+  disposeCountTooltips();
   if (!state.pages.length) {
     renderEmptyCounts();
     return;
@@ -1732,6 +1752,7 @@ function renderCounts() {
       message: 'Checks will appear here shortly.',
       progress: null
     });
+  initializeCountTooltips();
   maybeQueueResultReveal();
 }
 

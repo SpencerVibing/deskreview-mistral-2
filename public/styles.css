@@ -730,6 +730,19 @@ body {
   animation: tile-arrived 1400ms ease-out;
 }
 
+/* Bootstrap's default tooltip width is tight for count benchmark explanations. */
+.count-tile-tooltip {
+  --bs-tooltip-max-width: 18rem;
+  --bs-tooltip-opacity: 0.98;
+  --bs-tooltip-padding-x: 0.65rem;
+  --bs-tooltip-padding-y: 0.5rem;
+}
+
+.count-tile-tooltip .tooltip-inner {
+  line-height: 1.35;
+  text-align: left;
+}
+
 .guide-card {
   appearance: none;
 }

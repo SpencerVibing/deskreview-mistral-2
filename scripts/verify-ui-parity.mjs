@@ -89,6 +89,7 @@ async function main() {
     await assertCountTile(page, 'references', /Refs\s+22/i);
     await assertCountTile(page, 'tables', /Tables\s+3/i);
     await assertCountTile(page, 'figures', /Figures\s+1/i);
+    await assertCountTileBootstrapTooltips(page);
     await assertReaderUiRegressionFixes(page);
     await assertChecksSectionCards(page);
     await assertGuidelineSelectorModal(page);
@@ -221,6 +222,26 @@ async function assertText(page, selector, pattern) {
 
 async function assertCountTile(page, kind, pattern) {
   await assertText(page, `[data-count-kind="${kind}"]`, pattern);
+}
+
+async function assertCountTileBootstrapTooltips(page) {
+  const countTiles = page.locator('[data-count-kind]');
+  const tileCount = await countTiles.count();
+  assert.ok(tileCount >= 7, 'Count tiles should render before checking tooltips.');
+  assert.equal(await page.locator('[data-count-kind][title]').count(), 0, 'Count tiles should not use native title tooltips.');
+  assert.equal(await page.locator('.count-result-bar[title]').count(), 0, 'Count result bars should not use native title tooltips.');
+  assert.equal(
+    await page.locator('[data-count-kind][data-bs-toggle="tooltip"][data-bs-custom-class="count-tile-tooltip"]').count(),
+    tileCount,
+    'Every count tile should use a Bootstrap tooltip.'
+  );
+  await page.locator('[data-count-kind="article"]').hover();
+  await page.waitForSelector('.tooltip.count-tile-tooltip.show', { timeout: 10000 });
+  const tooltipText = await page.locator('.tooltip.count-tile-tooltip.show').innerText();
+  assert.match(tooltipText, /Article:\s+2[,.]403 words/i);
+  assert.match(tooltipText, /Click to view source-linked details/i);
+  await page.mouse.move(5, 5);
+  await page.waitForSelector('.tooltip.count-tile-tooltip.show', { state: 'detached', timeout: 10000 });
 }
 
 async function assertChecksSectionCards(page) {
