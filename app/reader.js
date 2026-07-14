@@ -1817,19 +1817,6 @@ function aggregateGuideSummaries(guides = []) {
   }, { present: 0, warning: 0, absent: 0, optional: 0, skipped: 0, na: 0, pending: 0 });
 }
 
-function renderGuideStatusBadges(summary = {}) {
-  return `
-    <div class="d-flex flex-wrap gap-1 mt-2">
-      <span class="badge bg-success-subtle text-success-emphasis">${escapeHtml(summary.present || 0)} present</span>
-      <span class="badge bg-warning-subtle text-warning-emphasis">${escapeHtml(summary.warning || 0)} warning</span>
-      <span class="badge bg-danger-subtle text-danger-emphasis">${escapeHtml(summary.absent || 0)} absent</span>
-      <span class="badge bg-info-subtle text-info-emphasis">${escapeHtml(summary.optional || 0)} optional</span>
-      <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.skipped || 0)} skipped</span>
-      <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.na || 0)} n/a</span>
-    </div>
-  `;
-}
-
 function renderGuidelineSelectorTitle(guideId = '', label = 'Guideline') {
   const id = String(guideId || '').trim();
   return `<span class="d-inline-block small fw-semibold text-body" data-guideline-selector-open="${escapeHtml(id)}">${escapeHtml(label || 'Guideline')}</span>`;
@@ -1891,7 +1878,7 @@ function guideDonutGradient(summary = {}) {
     .join(', ') || 'var(--bs-secondary-bg-subtle) 0deg 360deg';
 }
 
-function renderGuideAggregateCard({ lane = 'essential', title = 'All guideline items', guides = [] } = {}) {
+function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   const results = guideResultsAcrossGuides(guides);
   if (!results.length) return '';
   const summary = summarizeGuideResults(results);
@@ -1911,7 +1898,6 @@ function renderGuideAggregateCard({ lane = 'essential', title = 'All guideline i
           </div>
           <div class="min-w-0 flex-grow-1">
             <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Combined results</div>
-            <div class="small fw-semibold text-body">${escapeHtml(title)}</div>
             <div class="d-flex flex-wrap gap-1 mt-2">
               ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
                 <span class="badge ${item.badgeClass}">${escapeHtml(summary[item.key] || 0)} ${escapeHtml(item.label.toLowerCase())}</span>
@@ -2039,24 +2025,15 @@ function renderEssentialGuidelines() {
   }
   const aggregateCard = renderGuideAggregateCard({
     lane: 'essential',
-    title: 'All Essential guideline items',
     guides: state.essentialResults
   });
   const guideCards = state.essentialResults.map((guide) => {
-    const tone = guidelineStatusTone(guide.status);
     const summary = guide.summary || {};
     return `
       <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-essential-guide-id="${escapeHtml(guide.id)}">
-        <div class="card-body p-3">
-          <div class="d-flex align-items-start justify-content-between gap-2">
-            <div class="min-w-0">
-              <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Essential')}</div>
-              <div>${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
-            </div>
-            <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
-          </div>
-          <div class="mt-3">${renderGuideProgress(summary, guide.status)}</div>
-          ${renderGuideStatusBadges(summary)}
+        <div class="card-body p-2">
+          <div>${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
+          <div class="mt-2">${renderGuideProgress(summary, guide.status)}</div>
         </div>
       </button>
     `;
@@ -2140,21 +2117,13 @@ function renderReportingGuidelines() {
     }
     const aggregateCard = renderGuideAggregateCard({
       lane: 'matched',
-      title: 'All matched guideline items',
       guides: state.reportingGuideResults
     });
     const guideCards = state.reportingGuideResults.map((guide) => `
       <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-reporting-guide-id="${escapeHtml(guide.id)}">
-        <div class="card-body p-3">
-          <div class="d-flex align-items-start justify-content-between gap-2">
-            <div class="min-w-0">
-              <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Matched guideline')}</div>
-              <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
-            </div>
-            <span class="badge text-bg-${guidelineStatusTone(guide.status)}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
-          </div>
-          <div class="mt-3">${renderGuideProgress(guide.summary || {}, guide.status)}</div>
-          ${renderGuideStatusBadges(guide.summary || {})}
+        <div class="card-body p-2">
+          <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
+          <div class="mt-2">${renderGuideProgress(guide.summary || {}, guide.status)}</div>
         </div>
       </button>
     `).join('');
@@ -2195,16 +2164,9 @@ function renderReportingGuidelines() {
     ${warnings.length ? `<div class="alert alert-light border small mb-2">${warnings.map(escapeHtml).join('<br>')}</div>` : ''}
     ${matches.map((match) => `
       <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-reporting-match-id="${escapeHtml(match.guidelineId)}">
-        <div class="card-body p-3">
-          <div class="d-flex align-items-start justify-content-between gap-2">
-            <div class="min-w-0">
-              <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Matched guideline</div>
-              <div>${renderGuidelineSelectorTitle(match.guidelineId, match.label)}</div>
-              <div class="small text-secondary">${escapeHtml(match.rationale || '')}</div>
-            </div>
-            <span class="badge text-bg-primary">${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%</span>
-          </div>
-          <div class="progress mt-3 rounded-pill" role="progressbar" aria-label="${escapeHtml(match.label)} confidence" aria-valuenow="${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}" aria-valuemin="0" aria-valuemax="100">
+        <div class="card-body p-2">
+          <div>${renderGuidelineSelectorTitle(match.guidelineId, match.label)}</div>
+          <div class="progress mt-2 rounded-pill" role="progressbar" aria-label="${escapeHtml(match.label)} confidence" aria-valuenow="${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}" aria-valuemin="0" aria-valuemax="100">
             <div class="progress-bar bg-primary-subtle" style="width: ${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%;"></div>
           </div>
           ${match.anchorQuote ? `<div class="small text-secondary mt-2 text-truncate">${escapeHtml(match.anchorQuote)}</div>` : ''}
@@ -2231,15 +2193,8 @@ function renderRecommendedGuidelines() {
   }
   els.recommendedGuideList.innerHTML = guides.map((guide) => `
     <div class="card border shadow-sm guide-card">
-      <div class="card-body p-3">
-        <div class="d-flex align-items-start justify-content-between gap-2">
-          <div class="min-w-0">
-            <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Recommended')}</div>
-            <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
-            <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
-          </div>
-          <span class="badge text-bg-light">Recommended</span>
-        </div>
+      <div class="card-body p-2">
+        <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
       </div>
     </div>
   `).join('') || '<div class="small text-secondary">No recommended guidelines configured.</div>';
@@ -2266,15 +2221,8 @@ function renderCustomGuidelines() {
   }
   els.customGuideList.innerHTML = customGuides.map((guide) => `
     <div class="card border shadow-sm guide-card">
-      <div class="card-body p-3">
-        <div class="d-flex align-items-start justify-content-between gap-2">
-          <div class="min-w-0">
-            <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Custom guideline</div>
-            <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
-            <div class="small text-secondary">${escapeHtml(guide.description || 'Custom guide definition')}</div>
-          </div>
-          <span class="badge text-bg-secondary">Custom</span>
-        </div>
+      <div class="card-body p-2">
+        <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
       </div>
     </div>
   `).join('') || `

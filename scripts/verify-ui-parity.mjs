@@ -110,9 +110,11 @@ async function main() {
       status: 'skipped',
       titlePattern: /All Essential guideline items/i
     });
+    await assertCompactGuidelineCards(page, '#essentialGuideList [data-essential-guide-id]');
     const essentialListText = await page.locator('#essentialGuideList').innerText();
     assert.doesNotMatch(essentialListText, /Guidelines developed by the European Association of Science Editors/i);
-    await page.click('#essentialGuideList [data-essential-guide-id="ease-abstract-page"]');
+    assert.doesNotMatch(essentialListText, /EASE Essential guidelines/i);
+    await page.click('#essentialGuideList [data-essential-guide-id="ease-abstract-page"] .guide-progress-mini');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /Optional/i);
     await assertText(page, '#detailsPanel', /N\/A/i);
@@ -134,10 +136,12 @@ async function main() {
       status: 'absent',
       titlePattern: /All matched guideline items/i
     });
+    await assertCompactGuidelineCards(page, '#reportingGuideList [data-reporting-guide-id]');
     const reportingListText = await page.locator('#reportingGuideList').innerText();
     assert.doesNotMatch(reportingListText, /randomized trials/i);
+    assert.doesNotMatch(reportingListText, /Matched guideline/i);
     await assertGuidelineTitleOpensSelector(page, 'cert', /CERT/i);
-    await page.click('#reportingGuideList [data-reporting-guide-id="consort"]');
+    await page.click('#reportingGuideList [data-reporting-guide-id="consort"] .guide-progress-mini');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /CONSORT/i);
     await assertText(page, '#detailsPanel', /Optional/i);
@@ -309,7 +313,7 @@ async function assertGuidelineSelectorModal(page) {
 async function assertGuideAggregateCard(page, { rootSelector, status, titlePattern }) {
   await assertVisible(page, rootSelector);
   await assertText(page, rootSelector, /Combined results/i);
-  await assertText(page, rootSelector, titlePattern);
+  assert.doesNotMatch(await page.locator(rootSelector).innerText(), titlePattern, 'Combined results card should not repeat the full aggregate title.');
   await assertText(page, rootSelector, /Present/i);
   await assertText(page, rootSelector, /Absent/i);
   await page.click(`${rootSelector} .dropdown-toggle`);
@@ -318,6 +322,14 @@ async function assertGuideAggregateCard(page, { rootSelector, status, titlePatte
   await assertText(page, '#detailsPanel', titlePattern);
   await waitForVisibleGuideResult(page, status);
   await page.click('#detailsPanelClose');
+}
+
+async function assertCompactGuidelineCards(page, cardSelector) {
+  await page.locator(cardSelector).first().waitFor({ state: 'visible', timeout: 10000 });
+  assert.equal(await page.locator(`${cardSelector} .guide-card-kicker`).count(), 0, 'Guideline cards should not show source/kicker headers.');
+  assert.equal(await page.locator(`${cardSelector} .badge`).count(), 0, 'Guideline cards should not show status badge grids or status badges.');
+  const firstHeight = await page.locator(cardSelector).first().evaluate((node) => node.getBoundingClientRect().height);
+  assert.ok(firstHeight <= 78, `Guideline cards should be compact; first card was ${firstHeight}px tall.`);
 }
 
 async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
