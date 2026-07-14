@@ -4,6 +4,7 @@ import {
   buildDocumentAnnotationRequest,
   normalizeDocumentAnnotation
 } from '/core/document-annotation.js';
+import { evaluateEssentialGuides } from '/core/essential-guidelines.js';
 import { projectTocEntries } from '/core/toc.js';
 import {
   deleteStoredReview,
@@ -11,6 +12,7 @@ import {
   listStoredReviews,
   putStoredReview
 } from '/services/browser-library.js';
+import { loadEssentialGuides } from '/services/guideline-data.js';
 import {
   annotateDocument,
   requestOcr,
@@ -96,6 +98,9 @@ const state = {
     startedAt: 0
   },
   documentAnnotationPromise: null,
+  essentialGuides: [],
+  essentialResults: [],
+  essentialStatus: 'idle',
   pdfSearch: {
     query: '',
     matches: [],
@@ -131,6 +136,8 @@ const els = {
   sizeBadge: document.getElementById('sizeBadge'),
   libraryBack: document.getElementById('libraryBack'),
   countsGrid: document.getElementById('countsGrid'),
+  essentialGuideList: document.getElementById('essentialGuideList'),
+  essentialGuidelineSummary: document.getElementById('essentialGuidelineSummary'),
   tocList: document.getElementById('tocList'),
   pdfScroll: document.getElementById('pdfScroll'),
   pdfDocument: document.getElementById('pdfDocument'),
@@ -1381,13 +1388,129 @@ function renderCounts() {
   maybeQueueResultReveal();
 }
 
+function guidelineStatusTone(status = '') {
+  return {
+    present: 'success',
+    warning: 'warning',
+    absent: 'danger',
+    na: 'secondary',
+    pending: 'secondary',
+    failed: 'danger'
+  }[status] || 'secondary';
+}
+
+function guidelineStatusLabel(status = '') {
+  return {
+    present: 'Ready',
+    warning: 'Review',
+    absent: 'Missing',
+    na: 'N/A',
+    pending: 'Pending',
+    failed: 'Failed'
+  }[status] || 'Pending';
+}
+
+function updateEssentialResults() {
+  if (!state.essentialGuides.length) {
+    state.essentialResults = [];
+    return;
+  }
+  state.essentialResults = evaluateEssentialGuides(
+    state.essentialGuides,
+    state.documentAnnotation.status === 'ready' ? state.documentAnnotation.result : null
+  );
+}
+
+function renderEssentialGuidelines() {
+  if (!els.essentialGuideList) return;
+  if (!state.essentialGuides.length) {
+    els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are loading.</div>';
+    if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Loading';
+    return;
+  }
+  updateEssentialResults();
+  if (state.documentAnnotation.status === 'failed') {
+    els.essentialGuideList.innerHTML = `
+      <div class="alert alert-light border small mb-0">${escapeHtml(state.documentAnnotation.error || 'Document annotation is unavailable.')}</div>
+    `;
+    if (els.essentialGuidelineSummary) {
+      els.essentialGuidelineSummary.className = 'badge text-bg-danger ms-auto';
+      els.essentialGuidelineSummary.textContent = 'Failed';
+    }
+    return;
+  }
+  const aggregate = state.essentialResults.reduce((total, guide) => {
+    Object.entries(guide.summary || {}).forEach(([key, value]) => {
+      total[key] = (total[key] || 0) + Number(value || 0);
+    });
+    return total;
+  }, { present: 0, warning: 0, absent: 0, na: 0 });
+  const summaryText = state.documentAnnotation.status === 'ready'
+    ? `${aggregate.present}/${Math.max(1, aggregate.present + aggregate.warning + aggregate.absent)}`
+    : 'Pending';
+  if (els.essentialGuidelineSummary) {
+    els.essentialGuidelineSummary.className = `badge text-bg-${guidelineStatusTone(state.documentAnnotation.status === 'ready' ? 'present' : 'pending')} ms-auto`;
+    els.essentialGuidelineSummary.textContent = summaryText;
+  }
+  els.essentialGuideList.innerHTML = state.essentialResults.map((guide) => {
+    const tone = guidelineStatusTone(guide.status);
+    const summary = guide.summary || {};
+    return `
+      <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-essential-guide-id="${escapeHtml(guide.id)}">
+        <div class="card-body p-3">
+          <div class="d-flex align-items-start justify-content-between gap-2">
+            <div class="min-w-0">
+              <div class="small fw-semibold text-body">${escapeHtml(guide.name || 'Essential guide')}</div>
+              <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
+            </div>
+            <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
+          </div>
+          <div class="d-flex flex-wrap gap-1 mt-2">
+            <span class="badge bg-success-subtle text-success-emphasis">${escapeHtml(summary.present || 0)} present</span>
+            <span class="badge bg-warning-subtle text-warning-emphasis">${escapeHtml(summary.warning || 0)} review</span>
+            <span class="badge bg-danger-subtle text-danger-emphasis">${escapeHtml(summary.absent || 0)} missing</span>
+            <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.na || 0)} n/a</span>
+          </div>
+        </div>
+      </button>
+    `;
+  }).join('');
+}
+
+function renderEssentialGuideDetails(guideId = '') {
+  updateEssentialResults();
+  const guide = state.essentialResults.find((item) => item.id === guideId);
+  if (!guide) return;
+  openDetails('essential-guidelines', `
+    <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
+    ${guide.results.map((item) => {
+      const tone = guidelineStatusTone(item.status);
+      const clickable = item.sourceBlockKey ? ' detail-clickable' : '';
+      return `
+        <div class="detail-card">
+          <div class="detail-card-title">
+            <span>${escapeHtml(item.label || item.id)}</span>
+            <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
+          </div>
+          <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
+          <div class="small mb-2">${escapeHtml(item.message || '')}</div>
+          ${item.evidenceQuote ? `
+            <div class="small text-secondary${clickable}"${detailLinkAttributes(item.sourceBlockKey)}>${escapeHtml(item.evidenceQuote)}</div>
+          ` : ''}
+        </div>
+      `;
+    }).join('')}
+  `);
+}
+
 function detailTitle(kind = '') {
   return {
     abstract: 'Abstract Details',
     article: 'Article Details',
     tables: 'Tables',
     figures: 'Figures',
-    references: 'References'
+    references: 'References',
+    'essential-guidelines': 'Essential Guidelines'
   }[kind] || 'Details';
 }
 
@@ -2679,6 +2802,7 @@ function scheduleDocumentAnnotation(blocks = flatBlocks()) {
   });
   if (!payload.blocks.length) {
     state.documentAnnotation = { status: 'failed', result: null, error: 'No OCR blocks were available for document annotation.', startedAt: 0 };
+    renderEssentialGuidelines();
     return;
   }
   markRuntime('Document annotation started', { blocks: payload.blocks.length });
@@ -2691,6 +2815,7 @@ function scheduleDocumentAnnotation(blocks = flatBlocks()) {
         quoteAnchors: result.quoteAnchors.length,
         warnings: result.warnings.length
       });
+      renderEssentialGuidelines();
       updateStoredReviewDocumentAnnotation(result).catch(() => {});
     })
     .catch((error) => {
@@ -2701,6 +2826,7 @@ function scheduleDocumentAnnotation(blocks = flatBlocks()) {
         startedAt: 0
       };
       markRuntime('Document annotation failed', { error: state.documentAnnotation.error });
+      renderEssentialGuidelines();
       updateStoredReviewDocumentAnnotationFailure(state.documentAnnotation.error).catch(() => {});
     })
     .finally(() => {
@@ -3374,6 +3500,7 @@ function resetReaderState(file = null) {
   state.displayResolverPromise = null;
   state.documentAnnotation = { status: 'idle', result: null, error: '', startedAt: 0 };
   state.documentAnnotationPromise = null;
+  state.essentialResults = [];
   state.pdfSearch = { query: '', matches: [], index: -1 };
   state.ocrProgress = { status: 'idle', startedAt: 0, estimateMs: 18000 };
   state.checkReveal = { phase: 'idle', startedAt: 0, visibleKinds: [], resultKinds: [], lastResultAt: 0, resultTimer: 0, timers: [] };
@@ -3381,6 +3508,7 @@ function resetReaderState(file = null) {
   state.tilePulseUntil = {};
   stopProgressTicker();
   closeDetails();
+  renderEssentialGuidelines();
   resetPdfSearch();
   if (state.pdfUrl) URL.revokeObjectURL(state.pdfUrl);
 }
@@ -3500,6 +3628,7 @@ async function renderReviewFromRecord(review = {}) {
       startedAt: 0
     };
   }
+  renderEssentialGuidelines();
   state.pdfUrl = URL.createObjectURL(review.pdfBlob);
   state.pages = Array.isArray(review.ocr.pages) ? review.ocr.pages : [];
   state.semanticCounts = review.ocr.semanticCounts || null;
@@ -3774,6 +3903,12 @@ els.countsGrid.addEventListener('click', (event) => {
   });
 });
 
+els.essentialGuideList?.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-essential-guide-id]');
+  if (!button) return;
+  renderEssentialGuideDetails(button.dataset.essentialGuideId);
+});
+
 els.runtimeSummaryModal?.addEventListener('show.bs.modal', renderRuntimeSummary);
 els.runtimeSummaryButton?.addEventListener('click', renderRuntimeSummary);
 els.runtimeSummaryCopy?.addEventListener('click', () => {
@@ -3830,4 +3965,20 @@ initSplitter(els.tocSplitter, 'toc');
 initSplitter(els.countsSplitter, 'counts');
 initPdfResizeObserver();
 showHome();
+loadEssentialGuides()
+  .then((guides) => {
+    state.essentialGuides = guides;
+    state.essentialStatus = 'ready';
+    renderEssentialGuidelines();
+  })
+  .catch((error) => {
+    state.essentialStatus = 'failed';
+    if (els.essentialGuideList) {
+      els.essentialGuideList.innerHTML = `<div class="alert alert-light border small mb-0">${escapeHtml(error?.message || error || 'Essential guidelines could not be loaded.')}</div>`;
+    }
+    if (els.essentialGuidelineSummary) {
+      els.essentialGuidelineSummary.className = 'badge text-bg-danger ms-auto';
+      els.essentialGuidelineSummary.textContent = 'Failed';
+    }
+  });
 refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));

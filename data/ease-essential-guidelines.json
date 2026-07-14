@@ -1,0 +1,62 @@
+{
+  "guides": [
+    {
+      "id": "ease-essential",
+      "name": "EASE Essentials",
+      "description": "Core cross-disciplinary manuscript checks inspired by EASE author guidance.",
+      "sourceLabel": "EASE author guidance",
+      "items": [
+        {
+          "id": "title",
+          "label": "Informative title",
+          "requirement": "The manuscript has a clear title that can be used as source-grounded front matter.",
+          "type": "title"
+        },
+        {
+          "id": "authors",
+          "label": "Authors and affiliations",
+          "requirement": "Author names and affiliation metadata are available in the annotated front matter.",
+          "type": "authors"
+        },
+        {
+          "id": "abstract",
+          "label": "Abstract available",
+          "requirement": "An abstract or summary is identified and available for later checks.",
+          "type": "abstract"
+        },
+        {
+          "id": "keywords",
+          "label": "Keywords",
+          "requirement": "Keywords are available when the manuscript provides a keyword list.",
+          "type": "keywords",
+          "optional": true
+        },
+        {
+          "id": "article",
+          "label": "Article text",
+          "requirement": "Main article sections are identified for guideline checks and reports.",
+          "type": "article"
+        },
+        {
+          "id": "references",
+          "label": "Reference list",
+          "requirement": "Reference-list entries are identified with source anchors.",
+          "type": "references"
+        },
+        {
+          "id": "display-items",
+          "label": "Tables and figures",
+          "requirement": "Tables and figures are annotated with source anchors when present.",
+          "type": "displayItems",
+          "optional": true
+        },
+        {
+          "id": "quote-anchors",
+          "label": "Source quotes",
+          "requirement": "Source-grounded quote anchors are available for jump links.",
+          "type": "quoteAnchors"
+        }
+      ]
+    }
+  ]
+}

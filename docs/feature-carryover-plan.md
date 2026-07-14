@@ -76,3 +76,4 @@ This project should carry forward the useful DeskReview feature set by reimpleme
 - Milestone 2 complete: browser app moved behind `/app/reader.js`, ToC projection extracted to `/core/toc.js`, browser storage and Mistral API calls extracted to `/services`, and ToC projection unit coverage added.
 - Milestone 3 complete: count-tile benchmark progress bars added through `/core/count-progress.js`, rendered in released count tiles, and covered by unit/baseline tests.
 - Milestone 4 complete: background Mistral document annotation endpoint, client scheduler, normalized `/core/document-annotation.js` contract, storage persistence, and validation tests added without blocking OCR-to-reader readiness.
+- Milestone 5 complete: static EASE Essentials guide data, annotation-based guide evaluator, Essential guidelines side-pane cards, detail rendering, and unit/baseline coverage added.

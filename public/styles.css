@@ -318,6 +318,17 @@ body {
   animation: tile-arrived 1400ms ease-out;
 }
 
+.guide-card {
+  appearance: none;
+}
+
+.guide-card:hover,
+.guide-card:focus {
+  border-color: #a1a1aa !important;
+  box-shadow: 0 0.35rem 1rem rgba(24, 24, 27, 0.08) !important;
+  outline: none;
+}
+
 @keyframes tile-arrived {
   0% { transform: scale(1); }
   35% { transform: scale(1.1); }

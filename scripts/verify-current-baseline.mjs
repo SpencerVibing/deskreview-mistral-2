@@ -41,6 +41,7 @@ async function main() {
   assert(indexHtml.includes('id="reader"'), 'Reader shell is missing.');
   assert(indexHtml.includes('id="tocList"'), 'ToC list is missing.');
   assert(indexHtml.includes('id="countsGrid"'), 'Counts grid is missing.');
+  assert(indexHtml.includes('id="essentialGuideList"'), 'Essential guide list is missing.');
   assert(indexHtml.includes('id="detailsPanel"'), 'Details panel is missing.');
 
   const child = spawn(process.execPath, ['server/index.js'], {
@@ -85,6 +86,14 @@ async function main() {
     const documentAnnotationCore = await request('/core/document-annotation.js');
     assert(documentAnnotationCore.response.status === 200, `Expected /core/document-annotation.js to return 200, got ${documentAnnotationCore.response.status}.`);
     assert(documentAnnotationCore.text.includes('normalizeDocumentAnnotation'), 'Document annotation core module is missing.');
+
+    const essentialCore = await request('/core/essential-guidelines.js');
+    assert(essentialCore.response.status === 200, `Expected /core/essential-guidelines.js to return 200, got ${essentialCore.response.status}.`);
+    assert(essentialCore.text.includes('evaluateEssentialGuides'), 'Essential guideline core module is missing.');
+
+    const essentialData = await request('/data/ease-essential-guidelines.json');
+    assert(essentialData.response.status === 200, `Expected /data/ease-essential-guidelines.json to return 200, got ${essentialData.response.status}.`);
+    assert(essentialData.text.includes('EASE Essentials'), 'Essential guideline data is missing.');
 
     const libraryService = await request('/services/browser-library.js');
     assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);
