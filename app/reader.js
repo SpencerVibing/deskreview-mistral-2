@@ -10,6 +10,7 @@ import {
   filterGuideResults,
   summarizeGuideResults
 } from '/core/guideline-detail.js';
+import { adaptPrecomputedExampleSnapshot } from '/core/precomputed-example.js';
 import {
   buildGuidelineMatchRequest,
   normalizeReportingMatches
@@ -36,6 +37,10 @@ import {
 } from '/services/plugin-preferences.js';
 import { summarizeHome } from '/core/home-summary.js';
 import { loadExampleManuscripts } from '/services/example-data.js';
+import {
+  loadPrecomputedExamplePayload,
+  loadPrecomputedExamplePdf
+} from '/services/precomputed-examples.js';
 import {
   annotateDocument,
   matchReportingGuidelines,
@@ -134,6 +139,12 @@ const state = {
     result: null,
     error: '',
     startedAt: 0
+  },
+  reportingGuideResults: [],
+  precomputedExample: {
+    active: false,
+    id: '',
+    title: ''
   },
   recommendedGuides: [
     {
@@ -418,6 +429,7 @@ function feedbackReportHtml() {
   updateEssentialResults();
   const reportModel = buildFeedbackReportModel({
     essentialResults: state.essentialResults,
+    reportingGuideResults: state.reportingGuideResults,
     reportingMatches: state.reportingMatches.result,
     annotation: state.documentAnnotation.result
   });
@@ -555,7 +567,7 @@ function feedbackReportHtml() {
                     <span class="badge text-bg-${escapeHtml(guidelineStatusTone(item.status))}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
                   </div>
                   <div class="small text-secondary">${escapeHtml(item.message || '')}</div>
-                  ${item.evidenceQuote ? `<div class="small text-secondary mt-1${detailClickableClass(item.sourceBlockKey)}"${detailLinkAttributes(item.sourceBlockKey)}>${escapeHtml(item.evidenceQuote)}</div>` : ''}
+                  ${renderGuideEvidenceQuotes(item)}
                 </div>
               `).join('')}
             </div>
@@ -566,7 +578,26 @@ function feedbackReportHtml() {
       <div class="card border-0 shadow-sm mb-3">
         <div class="card-body p-3">
           <div class="small fw-bold text-body mb-2">Matched reporting guidelines</div>
-          ${reportModel.reportingMatches.length ? `
+          ${reportModel.reportingGuides.length ? reportModel.reportingGuides.map((guide) => `
+            <div class="border rounded p-3 mb-2">
+              <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                <div class="small fw-semibold">${escapeHtml(guide.name)}</div>
+                <span class="badge text-bg-light">${escapeHtml(guide.summary.present)}/${escapeHtml(guide.summary.total)} present</span>
+              </div>
+              ${guide.description ? `<div class="small text-secondary mb-2">${escapeHtml(guide.description)}</div>` : ''}
+              ${guide.results.map((item) => `
+                <div class="border-top py-2">
+                  <div class="d-flex align-items-center justify-content-between gap-2">
+                    <div class="small fw-medium">${escapeHtml(item.label)}</div>
+                    <span class="badge text-bg-${escapeHtml(guidelineStatusTone(item.status))}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
+                  </div>
+                  ${item.section ? `<div class="small text-uppercase text-secondary guide-card-kicker mt-1">${escapeHtml(item.section)}</div>` : ''}
+                  <div class="small text-secondary">${escapeHtml(item.message || item.requirement || '')}</div>
+                  ${renderGuideEvidenceQuotes(item)}
+                </div>
+              `).join('')}
+            </div>
+          `).join('') : (reportModel.reportingMatches.length ? `
             <div class="list-group list-group-flush">
               ${reportModel.reportingMatches.map((match) => `
                 <div class="list-group-item px-0">
@@ -579,7 +610,7 @@ function feedbackReportHtml() {
                 </div>
               `).join('')}
             </div>
-          ` : '<div class="text-secondary small">No reporting guideline matches are available yet.</div>'}
+          ` : '<div class="text-secondary small">No reporting guideline matches are available yet.</div>')}
         </div>
       </div>
 
@@ -877,7 +908,7 @@ function renderExampleManuscripts() {
     return;
   }
   els.exampleManuscriptList.innerHTML = state.examples.map((example) => `
-    <div class="card example-card border shadow-sm flex-shrink-0">
+    <${example.precomputedPath ? 'button' : 'div'} ${example.precomputedPath ? `type="button" data-example-id="${escapeHtml(example.id)}"` : ''} class="card example-card border shadow-sm flex-shrink-0 text-start ${example.precomputedPath ? 'example-card-button' : ''}">
       <div class="card-body p-3 d-flex flex-column">
         <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
           <div class="example-title small fw-semibold text-body">${escapeHtml(example.title || 'Example manuscript')}</div>
@@ -888,7 +919,7 @@ function renderExampleManuscripts() {
           ${(Array.isArray(example.tags) ? example.tags : []).map((tag) => `<span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(tag)}</span>`).join('')}
         </div>
       </div>
-    </div>
+    </${example.precomputedPath ? 'button' : 'div'}>
   `).join('');
   renderHomeStats();
 }
@@ -1579,6 +1610,7 @@ function guidelineStatusTone(status = '') {
     present: 'success',
     warning: 'warning',
     absent: 'danger',
+    optional: 'info',
     na: 'secondary',
     pending: 'secondary',
     failed: 'danger'
@@ -1590,6 +1622,7 @@ function guidelineStatusLabel(status = '') {
     present: 'Ready',
     warning: 'Review',
     absent: 'Missing',
+    optional: 'Optional',
     na: 'N/A',
     pending: 'Pending',
     failed: 'Failed'
@@ -1600,10 +1633,11 @@ function guideSummaryTotals(summary = {}) {
   const present = Number(summary.present || 0);
   const warning = Number(summary.warning || 0);
   const absent = Number(summary.absent || 0);
+  const optional = Number(summary.optional || 0);
   const na = Number(summary.na || 0);
   const actionable = Math.max(0, present + warning + absent);
-  const total = actionable + Math.max(0, na);
-  return { present, warning, absent, na, actionable, total };
+  const total = actionable + Math.max(0, optional) + Math.max(0, na);
+  return { present, warning, absent, optional, na, actionable, total };
 }
 
 function renderGuideProgress(summary = {}, status = '') {
@@ -1634,7 +1668,7 @@ function aggregateGuideSummaries(guides = []) {
       total[key] = (total[key] || 0) + Number(value || 0);
     });
     return total;
-  }, { present: 0, warning: 0, absent: 0, na: 0 });
+  }, { present: 0, warning: 0, absent: 0, optional: 0, na: 0, pending: 0 });
 }
 
 function renderGuideStatusBadges(summary = {}) {
@@ -1643,12 +1677,16 @@ function renderGuideStatusBadges(summary = {}) {
       <span class="badge bg-success-subtle text-success-emphasis">${escapeHtml(summary.present || 0)} present</span>
       <span class="badge bg-warning-subtle text-warning-emphasis">${escapeHtml(summary.warning || 0)} review</span>
       <span class="badge bg-danger-subtle text-danger-emphasis">${escapeHtml(summary.absent || 0)} missing</span>
+      <span class="badge bg-info-subtle text-info-emphasis">${escapeHtml(summary.optional || 0)} optional</span>
       <span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(summary.na || 0)} n/a</span>
     </div>
   `;
 }
 
 function updateEssentialResults() {
+  if (state.precomputedExample.active && state.essentialResults.length) {
+    return;
+  }
   if (!state.essentialGuides.length) {
     state.essentialResults = [];
     return;
@@ -1667,7 +1705,7 @@ function renderEssentialGuidelines() {
     if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = '';
     return;
   }
-  if (!state.essentialGuides.length) {
+  if (!state.essentialGuides.length && !state.precomputedExample.active) {
     els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are loading.</div>';
     if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Loading';
     if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
@@ -1722,6 +1760,33 @@ function renderEssentialGuidelines() {
   renderCustomGuidelines();
 }
 
+function renderGuideEvidenceQuotes(item = {}) {
+  const quotes = Array.isArray(item.evidenceQuotes) && item.evidenceQuotes.length
+    ? item.evidenceQuotes
+    : (item.evidenceQuote ? [{ quote: item.evidenceQuote, sourceBlockKey: item.sourceBlockKey || '' }] : []);
+  if (!quotes.length) return '';
+  return `
+    <div class="vstack gap-2">
+      ${quotes.map((entry, index) => {
+        const quote = String(entry.quote || '').trim();
+        const blockKey = String(entry.sourceBlockKey || item.sourceBlockKey || '').trim();
+        if (!quote) return '';
+        return `
+          <div class="d-flex align-items-start gap-2">
+            <div class="small text-secondary flex-grow-1${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey)}>
+              ${quotes.length > 1 ? `<span class="badge text-bg-light me-1">Quote ${escapeHtml(index + 1)}</span>` : ''}
+              ${escapeHtml(quote)}
+            </div>
+            <button class="btn btn-sm btn-light border flex-shrink-0" type="button" data-copy-quote="${escapeHtml(quote)}" aria-label="Copy quote">
+              <i class="bi bi-copy"></i>
+            </button>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
 function renderEssentialGuideDetails(guideId = '') {
   updateEssentialResults();
   const guide = state.essentialResults.find((item) => item.id === guideId);
@@ -1733,6 +1798,7 @@ function renderEssentialGuideDetails(guideId = '') {
     ['present', 'Present', summary.present],
     ['warning', 'Review', summary.warning],
     ['absent', 'Missing', summary.absent],
+    ['optional', 'Optional', summary.optional],
     ['na', 'N/A', summary.na]
   ];
   const visibleResults = filterGuideResults(guide.results, 'all');
@@ -1757,14 +1823,7 @@ function renderEssentialGuideDetails(guideId = '') {
           </div>
           <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
           <div class="small mb-2">${escapeHtml(item.message || '')}</div>
-          ${item.evidenceQuote ? `
-            <div class="d-flex align-items-start gap-2">
-              <div class="small text-secondary flex-grow-1${clickable}"${detailLinkAttributes(item.sourceBlockKey)}>${escapeHtml(item.evidenceQuote)}</div>
-              <button class="btn btn-sm btn-light border flex-shrink-0" type="button" data-copy-quote="${escapeHtml(item.evidenceQuote)}" aria-label="Copy quote">
-                <i class="bi bi-copy"></i>
-              </button>
-            </div>
-          ` : ''}
+          ${renderGuideEvidenceQuotes(item)}
         </div>
       `;
     }).join('')}
@@ -1793,6 +1852,33 @@ function renderReportingGuidelines() {
     els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guidelines are disabled.</div>';
     if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Off';
     if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = '';
+    return;
+  }
+  if (state.reportingGuideResults.length) {
+    const aggregate = aggregateGuideSummaries(state.reportingGuideResults);
+    const aggregateStatus = aggregate.absent ? 'absent' : aggregate.warning ? 'warning' : 'present';
+    if (els.matchedGuidelineSummary) {
+      els.matchedGuidelineSummary.textContent = `${state.reportingGuideResults.length} matched`;
+    }
+    if (els.matchedLaneProgress) {
+      els.matchedLaneProgress.innerHTML = renderGuideProgress(aggregate, aggregateStatus);
+    }
+    els.reportingGuideList.innerHTML = state.reportingGuideResults.map((guide) => `
+      <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-reporting-guide-id="${escapeHtml(guide.id)}">
+        <div class="card-body p-3">
+          <div class="d-flex align-items-start justify-content-between gap-2">
+            <div class="min-w-0">
+              <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Matched guideline')}</div>
+              <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
+              <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
+            </div>
+            <span class="badge text-bg-${guidelineStatusTone(guide.status)}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
+          </div>
+          <div class="mt-3">${renderGuideProgress(guide.summary || {}, guide.status)}</div>
+          ${renderGuideStatusBadges(guide.summary || {})}
+        </div>
+      </button>
+    `).join('');
     return;
   }
   if (!state.reportingGuidelineCatalog.length) {
@@ -2034,7 +2120,7 @@ function generateChatReply(question = '') {
     return 'The annotation has not returned abstract text yet.';
   }
   if (query.includes('count') || query.includes('word') || query.includes('reference')) {
-    const counts = state.semanticCounts || getOcrCounts();
+    const counts = { ...getOcrCounts(), ...(state.semanticCounts || {}) };
     return [
       `Pages: ${state.pages.length}`,
       `Article words: ${formatInteger(counts.articleWordCount || counts.words || 0)}`,
@@ -2098,6 +2184,49 @@ function renderReportingMatchDetails(guidelineId = '') {
   `);
 }
 
+function renderReportingGuideResultDetails(guideId = '') {
+  const guide = state.reportingGuideResults.find((item) => item.id === guideId);
+  if (!guide) return;
+  state.activeGuideFilter = 'all';
+  const summary = summarizeGuideResults(guide.results);
+  const filters = [
+    ['all', 'All', summary.total],
+    ['present', 'Present', summary.present],
+    ['warning', 'Review', summary.warning],
+    ['absent', 'Missing', summary.absent],
+    ['optional', 'Optional', summary.optional],
+    ['na', 'N/A', summary.na]
+  ];
+  const visibleResults = filterGuideResults(guide.results, 'all');
+  openDetails('reporting-guidelines', `
+    <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
+    <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
+      ${filters.map(([status, label, count]) => `
+        <button type="button" class="btn ${status === 'all' ? 'btn-dark active' : 'btn-light border'}" data-guide-detail-filter="${escapeHtml(status)}">
+          ${escapeHtml(label)} <span class="badge text-bg-light">${escapeHtml(count)}</span>
+        </button>
+      `).join('')}
+    </div>
+    <div class="vstack gap-2" data-guide-results>
+      ${visibleResults.map((item) => {
+        const tone = guidelineStatusTone(item.status);
+        return `
+          <div class="detail-card" data-guide-result-status="${escapeHtml(item.status)}">
+            <div class="detail-card-title">
+              <span>${escapeHtml(item.label || item.id)}</span>
+              <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
+            </div>
+            ${item.section ? `<div class="small text-uppercase text-secondary guide-card-kicker mb-2">${escapeHtml(item.section)}</div>` : ''}
+            <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
+            <div class="small mb-2">${escapeHtml(item.message || '')}</div>
+            ${renderGuideEvidenceQuotes(item)}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `);
+}
+
 async function updateStoredReviewReportingMatches(result = null) {
   if (!state.currentReview?.id || !result) return;
   try {
@@ -2118,6 +2247,7 @@ async function updateStoredReviewReportingMatches(result = null) {
 }
 
 function scheduleReportingGuidelineMatching() {
+  if (state.precomputedExample.active) return;
   if (state.loadedFromLibrary) return;
   if (!pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines')) return;
   if (state.reportingMatches.status === 'ready' || state.reportingMatches.status === 'running') return;
@@ -2795,6 +2925,11 @@ function buildMetadataDetail(kind = '', label = '', items = [], warnings = [], a
   };
 }
 
+function resolvedCount(value, fallbackText = '') {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : countWords(fallbackText);
+}
+
 function buildCountsDetailsFromResolvedMap(result = {}, blocks = flatBlocks()) {
   const textByKey = blockTextByKey(blocks);
   const abstractText = String(result.abstract?.countedText || '').trim();
@@ -2831,7 +2966,7 @@ function buildCountsDetailsFromResolvedMap(result = {}, blocks = flatBlocks()) {
     abstract: {
       kind: 'abstract',
       detail: {
-        count: countWords(abstractText),
+        count: resolvedCount(result.abstract?.wordCount ?? result.abstract?.count, abstractText),
         countedText: abstractText,
         excludedText: Array.isArray(result.abstract?.excludedText) ? result.abstract.excludedText : [],
         warnings: [
@@ -4225,6 +4360,8 @@ function resetReaderState(file = null) {
   state.documentAnnotationPromise = null;
   state.essentialResults = [];
   state.reportingMatches = { status: 'idle', result: null, error: '', startedAt: 0 };
+  state.reportingGuideResults = [];
+  state.precomputedExample = { active: false, id: '', title: '' };
   state.chatMessages = [];
   state.comments = [];
   state.pdfSearch = { query: '', matches: [], index: -1 };
@@ -4309,12 +4446,30 @@ async function renderReviewFromRecord(review = {}) {
   });
   resetReaderState(file);
   resetRuntime(review.fileName || 'stored review');
-  markRuntime('Loaded from library', {
+  const precomputedActive = Boolean(review.precomputedExample?.active);
+  markRuntime(precomputedActive ? 'Loaded precomputed example' : 'Loaded from library', {
     pages: Array.isArray(review.ocr.pages) ? review.ocr.pages.length : 0
   });
   state.currentReviewId = review.id || '';
   state.currentReview = review;
   state.loadedFromLibrary = true;
+  if (review.precomputedExample?.active) {
+    state.precomputedExample = {
+      active: true,
+      id: String(review.precomputedExample.id || review.id || ''),
+      title: String(review.precomputedExample.title || review.fileName || 'Precomputed example')
+    };
+    state.essentialResults = Array.isArray(review.precomputedExample.essentialResults)
+      ? review.precomputedExample.essentialResults
+      : [];
+    state.reportingGuideResults = Array.isArray(review.precomputedExample.reportingGuideResults)
+      ? review.precomputedExample.reportingGuideResults
+      : [];
+    markRuntime('Precomputed guide results loaded', {
+      essentialGuides: state.essentialResults.length,
+      matchedGuides: state.reportingGuideResults.length
+    });
+  }
   loadReviewComments();
   renderComments();
   renderChatMessages();
@@ -4394,7 +4549,7 @@ async function renderReviewFromRecord(review = {}) {
   setBadge(els.pagesBadge, '');
   setBadge(els.charsBadge, '');
   setBadge(els.sizeBadge, formatBytes(review.size || file.size));
-  setStatus('Loaded from library', 'done');
+  setStatus(precomputedActive ? 'Precomputed example loaded' : 'Loaded from library', 'done');
   renderLoadingHtml();
   const pdfPromise = renderPdfDocument().catch((error) => {
     console.warn('[deskreview-mistral-2] stored PDF render failed', error);
@@ -4466,6 +4621,89 @@ async function handleFile(file = null) {
     pages: Number(state.pdfDoc?.numPages || 0)
   });
   renderAllRegions();
+}
+
+async function openPrecomputedExample(exampleId = '') {
+  const example = state.examples.find((item) => item.id === exampleId);
+  if (!example?.precomputedPath || !example?.pdfPath) return;
+  const button = els.exampleManuscriptList?.querySelector(`[data-example-id="${CSS.escape(exampleId)}"]`);
+  if (button) {
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+  }
+  try {
+    const [payload, pdfBlob] = await Promise.all([
+      loadPrecomputedExamplePayload(example),
+      loadPrecomputedExamplePdf(example)
+    ]);
+    const adapted = adaptPrecomputedExampleSnapshot(payload);
+    const now = new Date().toISOString();
+    const title = example.description || example.title || 'medRxiv example';
+    const review = {
+      id: `example-${example.id}`,
+      fileName: `${title}.pdf`,
+      mimeType: 'application/pdf',
+      size: pdfBlob.size,
+      createdAt: now,
+      updatedAt: now,
+      pageCount: adapted.pages.length,
+      model: 'precomputed',
+      pdfBlob,
+      ocr: {
+        elapsedMs: 0,
+        model: 'precomputed',
+        pages: adapted.pages,
+        semanticCounts: adapted.semanticCounts,
+        usage_info: null
+      },
+      referenceResolver: {
+        status: 'ready',
+        result: adapted.referenceResolver,
+        updatedAt: now
+      },
+      countResolver: {
+        status: 'ready',
+        result: adapted.countResolver,
+        updatedAt: now
+      },
+      displayResolver: {
+        status: 'ready',
+        result: adapted.displayResolver,
+        updatedAt: now
+      },
+      documentAnnotation: {
+        status: 'ready',
+        result: adapted.documentAnnotation,
+        updatedAt: now
+      },
+      reportingMatches: {
+        status: 'ready',
+        result: adapted.reportingMatches,
+        updatedAt: now
+      },
+      precomputedExample: {
+        active: true,
+        id: example.id,
+        title,
+        essentialResults: adapted.essentialResults,
+        reportingGuideResults: adapted.reportingGuideResults
+      }
+    };
+    await renderReviewFromRecord(review);
+    markRuntime('Example opened', {
+      exampleId: example.id,
+      source: 'precomputed'
+    });
+  } catch (error) {
+    console.warn('[deskreview-mistral-2] example failed', error);
+    const message = escapeHtml(error?.message || error || 'Example could not be opened.');
+    els.exampleManuscriptList?.insertAdjacentHTML('afterbegin', `<div class="alert alert-danger small me-3 mb-0 flex-shrink-0">${message}</div>`);
+  } finally {
+    if (button) {
+      button.disabled = false;
+      button.removeAttribute('aria-busy');
+    }
+  }
 }
 
 function pageText(number = 1) {
@@ -4584,6 +4822,14 @@ els.homeInput.addEventListener('change', async () => {
   }
 });
 
+els.exampleManuscriptList?.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-example-id]');
+  if (!button) return;
+  openPrecomputedExample(button.dataset.exampleId).catch((error) => {
+    console.warn('[deskreview-mistral-2] example open failed', error);
+  });
+});
+
 document.querySelectorAll('[data-scroll-target]').forEach((button) => {
   button.addEventListener('click', () => {
     const target = document.querySelector(button.dataset.scrollTarget || '');
@@ -4673,6 +4919,11 @@ els.essentialGuideList?.addEventListener('click', (event) => {
 });
 
 els.reportingGuideList?.addEventListener('click', (event) => {
+  const guideButton = event.target.closest('[data-reporting-guide-id]');
+  if (guideButton) {
+    renderReportingGuideResultDetails(guideButton.dataset.reportingGuideId);
+    return;
+  }
   const button = event.target.closest('[data-reporting-match-id]');
   if (!button) return;
   renderReportingMatchDetails(button.dataset.reportingMatchId);

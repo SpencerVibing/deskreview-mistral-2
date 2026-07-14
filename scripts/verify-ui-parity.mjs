@@ -13,7 +13,7 @@ const BASE_URL = `http://127.0.0.1:${PORT}`;
 async function waitForServer(child) {
   const started = Date.now();
   let lastError = null;
-  while (Date.now() - started < 12000) {
+  while (Date.now() - started < 15000) {
     if (child.exitCode !== null) {
       throw new Error(`Server exited before UI check could start (${child.exitCode}).`);
     }
@@ -33,66 +33,128 @@ async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   const child = spawn(process.execPath, ['server/index.js'], {
     cwd: ROOT,
-    env: { ...process.env, PORT: String(PORT) },
+    env: {
+      ...process.env,
+      PORT: String(PORT),
+      DESKREVIEW_ENV_FILE: '/dev/null',
+      MISTRAL_API_KEY: process.env.MISTRAL_API_KEY || 'ui-parity-test-key'
+    },
     stdio: ['ignore', 'pipe', 'pipe']
   });
   const stderr = [];
   child.stderr.on('data', (chunk) => stderr.push(String(chunk)));
+  const browserErrors = [];
+  let browser = null;
   try {
     await waitForServer(child);
-    const browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({ headless: true });
     const page = await browser.newPage({ viewport: { width: 1440, height: 980 } });
+    page.on('pageerror', (error) => browserErrors.push(error.message));
+    page.on('console', (message) => {
+      if (message.type() === 'error') browserErrors.push(message.text());
+    });
     await page.goto(BASE_URL, { waitUntil: 'networkidle' });
 
     await page.waitForSelector('#homeView');
-    await page.waitForSelector('#exampleManuscriptList .example-card', { timeout: 5000 });
+    await page.waitForSelector('#exampleManuscriptList .example-card', { timeout: 10000 });
     const heading = await page.locator('#heroHeadline').innerText();
     assert.match(heading, /Is your paper\s+ready to submit\?/i);
     await assertVisible(page, '.landing-brand-mark');
     await assertVisible(page, '.empty-hero-shot');
     await assertVisible(page, '#storedReviewsSection');
     await assertVisible(page, '#integrationsSection');
+    const homeText = await page.locator('#homeView').innerText();
+    assert.doesNotMatch(homeText, /Mistral OCR\s*\/\s*ChatGPT|ChatGPT/i, 'Home page should not expose a ChatGPT/Mistral provider toggle.');
     const imageWidth = await page.locator('.empty-hero-shot').evaluate((img) => img.naturalWidth);
     assert.ok(imageWidth > 100, 'homepage screenshot asset should load');
     await page.screenshot({ path: join(OUT_DIR, 'homepage.png'), fullPage: true });
 
-    await page.evaluate(() => {
-      document.getElementById('homeView')?.classList.add('d-none');
-      document.getElementById('reader')?.classList.remove('d-none');
-    });
-    await page.waitForSelector('#checks-tab');
-    await page.waitForSelector('#chat-tab');
-    await page.waitForSelector('#comment-tab');
+    const medrxivCard = page.locator('[data-example-id="medrxiv-baseline"]');
+    await medrxivCard.waitFor({ state: 'visible', timeout: 10000 });
+    await assertText(page, '[data-example-id="medrxiv-baseline"]', /medRxiv \(2021 preprint\)/i);
+    await assertText(page, '[data-example-id="medrxiv-baseline"]', /CONSORT/i);
+    await medrxivCard.click();
+
+    await page.waitForSelector('#reader:not(.d-none)', { timeout: 45000 });
     await page.waitForFunction(() => {
-      const text = document.getElementById('essentialGuideList')?.textContent || '';
-      return text.includes('Abstract page') && text.includes('IMRaD') && text.includes('Declarations');
+      const html = document.getElementById('htmlDocument')?.textContent || '';
+      return html.includes('Combined Exercise Training') && document.querySelectorAll('.ocr-block').length >= 8;
+    }, null, { timeout: 45000 });
+    await assertText(page, '#tocList', /Title/i);
+    await assertText(page, '#tocList', /Abstract/i);
+    await assertCountTile(page, 'authors', /22\s+authors/i);
+    await assertCountTile(page, 'affiliations', /11\s+affiliations/i);
+    await assertCountTile(page, 'abstract', /404\s+words/i);
+    await assertCountTile(page, 'article', /2[,.]403\s+words/i);
+    await assertCountTile(page, 'references', /22\s+refs/i);
+    await assertCountTile(page, 'tables', /3\s+tables/i);
+    await assertCountTile(page, 'figures', /1\s+figures/i);
+    await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
+    await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reader-checks.png'), fullPage: true });
+
+    await openAccordion(page, '#essentialGuidelinesHeading button', '#essentialGuidelinesPanel');
+    await assertText(page, '#essentialGuideList', /Abstract page/i);
+    await assertText(page, '#essentialGuideList', /IMRaD structure/i);
+    await assertText(page, '#essentialGuideList', /Declarations/i);
+    await page.click('#essentialGuideList [data-essential-guide-id="ease-abstract-page"]');
+    await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
+    await assertText(page, '#detailsPanel', /Optional/i);
+    await assertText(page, '#detailsPanel', /N\/A/i);
+    await page.click('#detailsPanel [data-guide-detail-filter="optional"]');
+    await waitForVisibleGuideResult(page, 'optional');
+    await page.click('#detailsPanel [data-guide-detail-filter="all"]');
+    await assertActiveJumpFromDetails(page);
+    await page.screenshot({ path: join(OUT_DIR, 'medrxiv-essential-detail.png'), fullPage: true });
+    await page.click('#detailsPanelClose');
+
+    await openAccordion(page, '#matchedGuidelinesHeading button', '#matchedGuidelinesPanel');
+    await assertText(page, '#reportingGuideList', /CONSORT/i);
+    await assertText(page, '#reportingGuideList', /CERT/i);
+    await assertText(page, '#reportingGuideList', /SAMPL/i);
+    await assertText(page, '#reportingGuideList', /TIDieR/i);
+    await assertText(page, '#reportingGuideList', /ICMJE Recommendations/i);
+    await page.click('#reportingGuideList [data-reporting-guide-id="consort"]');
+    await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
+    await assertText(page, '#detailsPanel', /CONSORT/i);
+    await assertText(page, '#detailsPanel', /Optional/i);
+    await page.click('#detailsPanel [data-guide-detail-filter="warning"]');
+    await waitForVisibleGuideResult(page, 'warning');
+    await page.click('#detailsPanel [data-guide-detail-filter="all"]');
+    await assertActiveJumpFromDetails(page);
+    await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reporting-detail.png'), fullPage: true });
+    await page.click('#detailsPanelClose');
+
+    await page.click('#feedbackReportButton');
+    await page.waitForSelector('#feedbackReportModal.show', { timeout: 10000 });
+    await assertText(page, '#feedbackReportModal', /Essential guidelines/i);
+    await assertText(page, '#feedbackReportModal', /Matched reporting guidelines/i);
+    await assertText(page, '#feedbackReportModal', /CONSORT/i);
+    await assertText(page, '#feedbackReportModal', /ICMJE Recommendations/i);
+    await assertActiveJumpFromFeedbackReport(page);
+    await page.keyboard.press('Escape');
+    await page.waitForSelector('#feedbackReportModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+      await page.locator('#feedbackReportModal .btn-close').click();
+      await page.waitForSelector('#feedbackReportModal.show', { state: 'detached', timeout: 10000 });
     });
-    const sideText = await page.locator('.studio-counts-pane').innerText();
-    assert.match(sideText, /Essential guidelines/);
-    assert.match(sideText, /Matched guidelines/);
-    assert.match(sideText, /Open Science guidelines/);
-    assert.match(sideText, /Custom guidelines/);
-    await page.click('#essentialGuidelinesHeading button');
-    await page.waitForSelector('#essentialGuideList .guide-card', { state: 'visible' });
-    await page.waitForFunction(() => document.getElementById('essentialGuidelinesPanel')?.classList.contains('show'));
-    await page.waitForTimeout(450);
-    await page.screenshot({ path: join(OUT_DIR, 'reader-checks-pane.png'), fullPage: true });
 
     await page.click('#chat-tab');
     await assertVisible(page, '#chatInput');
     await page.fill('#chatInput', 'What are the counts?');
     await page.click('#chatSendButton');
-    await page.waitForFunction(() => (document.getElementById('chatMessageList')?.textContent || '').includes('No manuscript is open'));
+    await assertText(page, '#chatMessageList', /References:\s+22/i);
+    await assertText(page, '#chatMessageList', /Tables:\s+3/i);
+    await assertText(page, '#chatMessageList', /Figures:\s+1/i);
 
     await page.click('#comment-tab');
     await assertVisible(page, '#commentInput');
     await page.fill('#commentInput', 'UI parity smoke comment');
     await page.click('#commentAddButton');
-    await page.waitForFunction(() => (document.getElementById('commentList')?.textContent || '').includes('UI parity smoke comment'));
-    await page.screenshot({ path: join(OUT_DIR, 'reader-side-panel.png'), fullPage: true });
+    await assertText(page, '#commentList', /UI parity smoke comment/i);
+    await page.screenshot({ path: join(OUT_DIR, 'medrxiv-chat-comments.png'), fullPage: true });
 
-    await browser.close();
+    assert.deepEqual(browserErrors, [], `Browser errors were emitted:\n${browserErrors.join('\n')}`);
   } finally {
+    if (browser) await browser.close();
     child.kill('SIGTERM');
     await delay(100);
     if (child.exitCode === null) child.kill('SIGKILL');
@@ -104,8 +166,58 @@ async function main() {
 
 async function assertVisible(page, selector) {
   const locator = page.locator(selector).first();
-  await locator.waitFor({ state: 'visible', timeout: 5000 });
+  await locator.waitFor({ state: 'visible', timeout: 10000 });
   assert.equal(await locator.isVisible(), true, `${selector} should be visible`);
+}
+
+async function assertText(page, selector, pattern) {
+  await page.waitForFunction(({ selector: innerSelector, source, flags }) => {
+    const text = document.querySelector(innerSelector)?.innerText || '';
+    return new RegExp(source, flags).test(text);
+  }, { selector, source: pattern.source, flags: pattern.flags }, { timeout: 15000 });
+  const text = await page.locator(selector).first().innerText();
+  assert.match(text, pattern);
+}
+
+async function assertCountTile(page, kind, pattern) {
+  await assertText(page, `[data-count-kind="${kind}"]`, pattern);
+}
+
+async function openAccordion(page, buttonSelector, panelSelector) {
+  const isOpen = await page.locator(panelSelector).evaluate((node) => node.classList.contains('show'));
+  if (!isOpen) await page.click(buttonSelector);
+  await page.locator(panelSelector).waitFor({ state: 'visible', timeout: 10000 });
+}
+
+async function waitForVisibleGuideResult(page, status) {
+  await page.waitForFunction((selectedStatus) => {
+    return [...document.querySelectorAll('#detailsPanel [data-guide-result-status]')]
+      .some((node) => node.dataset.guideResultStatus === selectedStatus && !node.classList.contains('d-none'));
+  }, status, { timeout: 10000 });
+}
+
+async function assertActiveJumpFromDetails(page) {
+  const link = page.locator('#detailsPanel [data-detail-block-key]').first();
+  await link.waitFor({ state: 'visible', timeout: 10000 });
+  const blockKey = await link.getAttribute('data-detail-block-key');
+  assert.ok(blockKey, 'Detail jump link should carry a block key.');
+  await link.click();
+  await assertBlockActive(page, blockKey);
+}
+
+async function assertActiveJumpFromFeedbackReport(page) {
+  const link = page.locator('#feedbackReportBody [data-detail-block-key]').first();
+  await link.waitFor({ state: 'visible', timeout: 10000 });
+  const blockKey = await link.getAttribute('data-detail-block-key');
+  assert.ok(blockKey, 'Feedback report jump link should carry a block key.');
+  await link.click();
+  await assertBlockActive(page, blockKey);
+}
+
+async function assertBlockActive(page, blockKey) {
+  await page.waitForFunction((key) => {
+    return document.querySelector(`[data-block-id="${key}"]`)?.classList.contains('active');
+  }, blockKey, { timeout: 10000 });
 }
 
 main().catch((error) => {

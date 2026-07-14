@@ -201,6 +201,10 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
+.example-card-button {
+  appearance: none;
+}
+
 .example-card:hover,
 .example-card:focus-visible {
   transform: translateY(-3px);
@@ -242,7 +246,6 @@ body {
 .integration-logo-orcid { max-height: 1.55rem; max-width: 5.5rem; }
 .integration-logo-retraction-watch { max-height: 1.65rem; max-width: 6.25rem; }
 .integration-logo-semantic-scholar { max-height: 1.45rem; max-width: 7.75rem; }
-.integration-logo-chatgpt { max-height: 1.5625rem; max-width: 6.25rem; }
 .integration-logo-deepinfra { max-height: 1.55rem; max-width: 6.75rem; }
 
 .stored-reviews-table-wrap {

@@ -12,23 +12,51 @@ export function summarizeStatuses(results = []) {
     summary[status] = (summary[status] || 0) + 1;
     summary.total += 1;
     return summary;
-  }, { total: 0, present: 0, warning: 0, absent: 0, na: 0 });
+  }, { total: 0, present: 0, warning: 0, absent: 0, optional: 0, na: 0, pending: 0 });
 }
 
-export function buildFeedbackReportModel({ essentialResults = [], reportingMatches = null, annotation = null } = {}) {
-  const essentialGuides = array(essentialResults).map((guide) => ({
+function guideResultItem(item = {}) {
+  const evidenceQuotes = array(item.evidenceQuotes)
+    .map((entry) => ({
+      quote: text(entry.quote),
+      sourceBlockKey: text(entry.sourceBlockKey || item.sourceBlockKey)
+    }))
+    .filter((entry) => entry.quote);
+  const fallbackQuote = text(item.evidenceQuote);
+  return {
+    id: text(item.id),
+    label: text(item.label || item.id),
+    section: text(item.section),
+    requirement: text(item.requirement),
+    status: text(item.status),
+    message: text(item.message),
+    evidenceQuote: fallbackQuote || evidenceQuotes[0]?.quote || '',
+    evidenceQuotes: evidenceQuotes.length
+      ? evidenceQuotes
+      : (fallbackQuote ? [{ quote: fallbackQuote, sourceBlockKey: text(item.sourceBlockKey) }] : []),
+    sourceBlockKey: text(item.sourceBlockKey || evidenceQuotes[0]?.sourceBlockKey)
+  };
+}
+
+function guideModel(guide = {}) {
+  return {
     id: text(guide.id),
     name: text(guide.name),
+    description: text(guide.description),
+    sourceLabel: text(guide.sourceLabel),
     summary: summarizeStatuses(guide.results),
-    results: array(guide.results).map((item) => ({
-      id: text(item.id),
-      label: text(item.label || item.id),
-      status: text(item.status),
-      message: text(item.message),
-      evidenceQuote: text(item.evidenceQuote),
-      sourceBlockKey: text(item.sourceBlockKey)
-    }))
-  }));
+    results: array(guide.results).map(guideResultItem)
+  };
+}
+
+export function buildFeedbackReportModel({
+  essentialResults = [],
+  reportingGuideResults = [],
+  reportingMatches = null,
+  annotation = null
+} = {}) {
+  const essentialGuides = array(essentialResults).map(guideModel);
+  const reportingGuides = array(reportingGuideResults).map(guideModel);
   const matches = array(reportingMatches?.matches).map((match) => ({
     guidelineId: text(match.guidelineId),
     label: text(match.label),
@@ -43,5 +71,5 @@ export function buildFeedbackReportModel({ essentialResults = [], reportingMatch
     quote: text(anchor.quote),
     sourceBlockKey: text(anchor.sourceBlockKey)
   })).filter((anchor) => anchor.quote);
-  return { essentialGuides, reportingMatches: matches, quoteAnchors };
+  return { essentialGuides, reportingGuides, reportingMatches: matches, quoteAnchors };
 }

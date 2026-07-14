@@ -103,6 +103,10 @@ async function main() {
     assert(feedbackReportCore.response.status === 200, `Expected /core/feedback-report.js to return 200, got ${feedbackReportCore.response.status}.`);
     assert(feedbackReportCore.text.includes('buildFeedbackReportModel'), 'Feedback report core module is missing.');
 
+    const precomputedCore = await request('/core/precomputed-example.js');
+    assert(precomputedCore.response.status === 200, `Expected /core/precomputed-example.js to return 200, got ${precomputedCore.response.status}.`);
+    assert(precomputedCore.text.includes('adaptPrecomputedExampleSnapshot'), 'Precomputed example adapter is missing.');
+
     const pluginConfigCore = await request('/core/plugin-config.js');
     assert(pluginConfigCore.response.status === 200, `Expected /core/plugin-config.js to return 200, got ${pluginConfigCore.response.status}.`);
     assert(pluginConfigCore.text.includes('normalizePluginPreferences'), 'Plugin config core module is missing.');
@@ -135,10 +139,27 @@ async function main() {
     const exampleData = await request('/data/example-manuscripts.json');
     assert(exampleData.response.status === 200, `Expected /data/example-manuscripts.json to return 200, got ${exampleData.response.status}.`);
     assert(exampleData.text.includes('medRxiv'), 'Example manuscript data is missing.');
+    assert(exampleData.text.includes('/data/examples/precomputed/medRxivPDF.json'), 'Precomputed medRxiv example path is missing.');
+
+    const precomputedData = await request('/data/examples/precomputed/medRxivPDF.json');
+    assert(precomputedData.response.status === 200, `Expected precomputed medRxiv data to return 200, got ${precomputedData.response.status}.`);
+    assert(
+      precomputedData.text.includes('"guideId": "ease_front_matter"')
+        && precomputedData.text.includes('"guideId": "consort"'),
+      'Precomputed medRxiv data is missing Essential or matched guideline results.'
+    );
+
+    const medrxivPdf = await request('/assets/pdfs/medRxiv.pdf');
+    assert(medrxivPdf.response.status === 200, `Expected medRxiv PDF asset to return 200, got ${medrxivPdf.response.status}.`);
+    assert(medrxivPdf.text.length > 1000, 'medRxiv PDF asset response is unexpectedly small.');
 
     const libraryService = await request('/services/browser-library.js');
     assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);
     assert(libraryService.text.includes('listStoredReviews'), 'Browser library service is missing.');
+
+    const precomputedService = await request('/services/precomputed-examples.js');
+    assert(precomputedService.response.status === 200, `Expected /services/precomputed-examples.js to return 200, got ${precomputedService.response.status}.`);
+    assert(precomputedService.text.includes('loadPrecomputedExamplePayload'), 'Precomputed example service is missing.');
 
     const annotation = await request('/api/annotate-document', {
       method: 'POST',

@@ -2,10 +2,12 @@
   "examples": [
     {
       "id": "medrxiv-baseline",
-      "title": "medRxiv OCR4 baseline",
-      "description": "Performance benchmark manuscript used to protect fast OCR-to-reader readiness.",
-      "tags": ["Benchmark", "OCR4", "Jump links"],
-      "status": "Reference example"
+      "title": "medRxiv (2021 preprint)",
+      "description": "Combined Exercise Training vs Health Education for Older Adults with Hypertension: The HAEL Randomized Clinical Trial.",
+      "tags": ["EASE Essentials", "CONSORT", "Precomputed"],
+      "status": "Open example",
+      "pdfPath": "/assets/pdfs/medRxiv.pdf",
+      "precomputedPath": "/data/examples/precomputed/medRxivPDF.json"
     },
     {
       "id": "humpback-whale",

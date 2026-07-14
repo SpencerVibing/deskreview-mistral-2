@@ -16,6 +16,7 @@ assert.deepEqual(summarizeGuideResults(results), {
   present: 2,
   warning: 1,
   absent: 1,
+  optional: 0,
   na: 0,
   pending: 0
 });
