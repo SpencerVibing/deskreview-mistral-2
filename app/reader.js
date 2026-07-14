@@ -5,6 +5,7 @@ import {
   normalizeDocumentAnnotation
 } from '/core/document-annotation.js';
 import { evaluateEssentialGuides } from '/core/essential-guidelines.js';
+import { buildFeedbackReportModel } from '/core/feedback-report.js';
 import {
   filterGuideResults,
   summarizeGuideResults
@@ -377,6 +378,12 @@ function feedbackReportHtml() {
   const generatedAt = new Date().toLocaleString();
   const countStatus = state.countResolver.status === 'ready' ? 'Complete' : state.countResolver.status === 'running' ? 'Still preparing' : 'Not available';
   const referenceStatus = state.referenceResolver.status === 'ready' ? 'Complete' : state.referenceResolver.status === 'running' ? 'Still preparing' : 'Not available';
+  updateEssentialResults();
+  const reportModel = buildFeedbackReportModel({
+    essentialResults: state.essentialResults,
+    reportingMatches: state.reportingMatches.result,
+    annotation: state.documentAnnotation.result
+  });
 
   return `
     <div class="text-body">
@@ -495,10 +502,63 @@ function feedbackReportHtml() {
         </div>
       </div>
 
+      <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body p-3">
+          <div class="small fw-bold text-body mb-2">Essential guidelines</div>
+          ${reportModel.essentialGuides.length ? reportModel.essentialGuides.map((guide) => `
+            <div class="border rounded p-3 mb-2">
+              <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                <div class="small fw-semibold">${escapeHtml(guide.name)}</div>
+                <span class="badge text-bg-light">${escapeHtml(guide.summary.present)}/${escapeHtml(guide.summary.total)} present</span>
+              </div>
+              ${guide.results.map((item) => `
+                <div class="border-top py-2">
+                  <div class="d-flex align-items-center justify-content-between gap-2">
+                    <div class="small fw-medium">${escapeHtml(item.label)}</div>
+                    <span class="badge text-bg-${escapeHtml(guidelineStatusTone(item.status))}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
+                  </div>
+                  <div class="small text-secondary">${escapeHtml(item.message || '')}</div>
+                  ${item.evidenceQuote ? `<div class="small text-secondary mt-1${detailClickableClass(item.sourceBlockKey)}"${detailLinkAttributes(item.sourceBlockKey)}>${escapeHtml(item.evidenceQuote)}</div>` : ''}
+                </div>
+              `).join('')}
+            </div>
+          `).join('') : '<div class="text-secondary small">Essential guideline results are not available yet.</div>'}
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mb-3">
+        <div class="card-body p-3">
+          <div class="small fw-bold text-body mb-2">Matched reporting guidelines</div>
+          ${reportModel.reportingMatches.length ? `
+            <div class="list-group list-group-flush">
+              ${reportModel.reportingMatches.map((match) => `
+                <div class="list-group-item px-0">
+                  <div class="d-flex align-items-center justify-content-between gap-2">
+                    <div class="small fw-semibold">${escapeHtml(match.label)}</div>
+                    <span class="badge text-bg-primary">${escapeHtml(Math.round(match.confidence * 100))}%</span>
+                  </div>
+                  <div class="small text-secondary">${escapeHtml(match.rationale || '')}</div>
+                  ${match.anchorQuote ? `<div class="small text-secondary mt-1${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey)}>${escapeHtml(match.anchorQuote)}</div>` : ''}
+                </div>
+              `).join('')}
+            </div>
+          ` : '<div class="text-secondary small">No reporting guideline matches are available yet.</div>'}
+        </div>
+      </div>
+
       <div class="card border-0 shadow-sm">
         <div class="card-body p-3">
-          <div class="small fw-bold text-body mb-2">Reporting guidelines</div>
-          <div class="text-secondary small">Reporting guideline checks will be added to this report when that section is available.</div>
+          <div class="small fw-bold text-body mb-2">Source anchors</div>
+          ${reportModel.quoteAnchors.length ? `
+            <div class="list-group list-group-flush">
+              ${reportModel.quoteAnchors.slice(0, 12).map((anchor) => `
+                <div class="list-group-item px-0">
+                  <div class="small fw-medium">${escapeHtml(anchor.label || anchor.kind || 'Source quote')}</div>
+                  <div class="small text-secondary${detailClickableClass(anchor.sourceBlockKey)}"${detailLinkAttributes(anchor.sourceBlockKey)}>${escapeHtml(anchor.quote)}</div>
+                </div>
+              `).join('')}
+            </div>
+          ` : '<div class="text-secondary small">No source quote anchors are available yet.</div>'}
         </div>
       </div>
     </div>
@@ -4300,6 +4360,12 @@ els.deleteReviewModal?.addEventListener('hidden.bs.modal', () => {
 els.feedbackReportModal?.addEventListener('show.bs.modal', renderFeedbackReport);
 els.feedbackReportButton?.addEventListener('click', renderFeedbackReport);
 els.feedbackReportPdf?.addEventListener('click', openFeedbackReportPdf);
+els.feedbackReportBody?.addEventListener('click', (event) => {
+  const target = event.target.closest('[data-detail-block-key]');
+  if (!target) return;
+  event.preventDefault();
+  focusBlock(target.dataset.detailBlockKey, 'feedback-report');
+});
 
 els.customizeChecksModal?.addEventListener('show.bs.modal', renderCustomizeChecks);
 els.customizeChecksBody?.addEventListener('change', (event) => {

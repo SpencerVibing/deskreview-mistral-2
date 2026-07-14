@@ -99,6 +99,10 @@ async function main() {
     assert(guidelineDetailCore.response.status === 200, `Expected /core/guideline-detail.js to return 200, got ${guidelineDetailCore.response.status}.`);
     assert(guidelineDetailCore.text.includes('filterGuideResults'), 'Guideline detail core module is missing.');
 
+    const feedbackReportCore = await request('/core/feedback-report.js');
+    assert(feedbackReportCore.response.status === 200, `Expected /core/feedback-report.js to return 200, got ${feedbackReportCore.response.status}.`);
+    assert(feedbackReportCore.text.includes('buildFeedbackReportModel'), 'Feedback report core module is missing.');
+
     const pluginConfigCore = await request('/core/plugin-config.js');
     assert(pluginConfigCore.response.status === 200, `Expected /core/plugin-config.js to return 200, got ${pluginConfigCore.response.status}.`);
     assert(pluginConfigCore.text.includes('normalizePluginPreferences'), 'Plugin config core module is missing.');
