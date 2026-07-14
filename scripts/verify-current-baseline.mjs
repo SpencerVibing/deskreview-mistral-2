@@ -82,9 +82,21 @@ async function main() {
     assert(countProgressCore.response.status === 200, `Expected /core/count-progress.js to return 200, got ${countProgressCore.response.status}.`);
     assert(countProgressCore.text.includes('buildCountProgress'), 'Count progress core module is missing.');
 
+    const documentAnnotationCore = await request('/core/document-annotation.js');
+    assert(documentAnnotationCore.response.status === 200, `Expected /core/document-annotation.js to return 200, got ${documentAnnotationCore.response.status}.`);
+    assert(documentAnnotationCore.text.includes('normalizeDocumentAnnotation'), 'Document annotation core module is missing.');
+
     const libraryService = await request('/services/browser-library.js');
     assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);
     assert(libraryService.text.includes('listStoredReviews'), 'Browser library service is missing.');
+
+    const annotation = await request('/api/annotate-document', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: '{}'
+    });
+    assert(annotation.response.status === 400, `Expected empty annotation request to return 400, got ${annotation.response.status}.`);
+    assert(annotation.text.includes('Missing OCR blocks'), 'Annotation validation response changed unexpectedly.');
 
     const styles = await request('/styles.css');
     assert(styles.response.status === 200, `Expected /styles.css to return 200, got ${styles.response.status}.`);

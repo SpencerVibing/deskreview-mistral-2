@@ -1,5 +1,9 @@
 import * as pdfjsLib from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs';
 import { buildCountProgress, countBenchmarkForKind } from '/core/count-progress.js';
+import {
+  buildDocumentAnnotationRequest,
+  normalizeDocumentAnnotation
+} from '/core/document-annotation.js';
 import { projectTocEntries } from '/core/toc.js';
 import {
   deleteStoredReview,
@@ -8,6 +12,7 @@ import {
   putStoredReview
 } from '/services/browser-library.js';
 import {
+  annotateDocument,
   requestOcr,
   resolveCounts,
   resolveDisplayItems,
@@ -84,6 +89,13 @@ const state = {
     startedAt: 0
   },
   displayResolverPromise: null,
+  documentAnnotation: {
+    status: 'idle',
+    result: null,
+    error: '',
+    startedAt: 0
+  },
+  documentAnnotationPromise: null,
   pdfSearch: {
     query: '',
     matches: [],
@@ -865,6 +877,17 @@ async function resolveDisplayItemsWithCompletion(displayItems = [], bodyBlocks =
     apiMs: Number(data.elapsedMs || 0),
     displayItems: displayItems.length,
     bodyBlocks: bodyBlocks.length
+  });
+  return data;
+}
+
+async function annotateDocumentWithCompletion(payload = {}) {
+  const started = runtimeNow();
+  const data = await annotateDocument(payload);
+  markRuntime('Document annotation finished', {
+    wallMs: Math.round(runtimeNow() - started),
+    apiMs: Number(data.elapsedMs || 0),
+    blocks: Array.isArray(payload.blocks) ? payload.blocks.length : 0
   });
   return data;
 }
@@ -2606,6 +2629,85 @@ async function updateStoredReviewSemanticCounts(partialCounts = {}) {
   }
 }
 
+async function updateStoredReviewDocumentAnnotation(result = null) {
+  if (!state.currentReview?.id || !result) return;
+  try {
+    const existing = await getStoredReview(state.currentReview.id);
+    if (!existing) return;
+    existing.documentAnnotation = {
+      status: 'ready',
+      result,
+      updatedAt: new Date().toISOString()
+    };
+    existing.updatedAt = new Date().toISOString();
+    await putStoredReview(existing);
+    state.currentReview = existing;
+    refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
+  } catch (error) {
+    console.warn('[deskreview-mistral-2] could not store document annotation', error);
+  }
+}
+
+async function updateStoredReviewDocumentAnnotationFailure(error = '') {
+  if (!state.currentReview?.id) return;
+  try {
+    const existing = await getStoredReview(state.currentReview.id);
+    if (!existing) return;
+    existing.documentAnnotation = {
+      status: 'failed',
+      result: null,
+      error: String(error || 'Document annotation unavailable.'),
+      updatedAt: new Date().toISOString()
+    };
+    existing.updatedAt = new Date().toISOString();
+    await putStoredReview(existing);
+    state.currentReview = existing;
+    refreshLibrary().catch((refreshError) => console.warn('[deskreview-mistral-2] library refresh failed', refreshError));
+  } catch (storeError) {
+    console.warn('[deskreview-mistral-2] could not store document annotation failure', storeError);
+  }
+}
+
+function scheduleDocumentAnnotation(blocks = flatBlocks()) {
+  if (state.loadedFromLibrary) return;
+  if (state.documentAnnotation.status === 'ready' || state.documentAnnotation.status === 'running') return;
+  const payload = buildDocumentAnnotationRequest({
+    blocks,
+    countResolver: state.countResolver,
+    referenceResolver: state.referenceResolver,
+    displayResolver: state.displayResolver
+  });
+  if (!payload.blocks.length) {
+    state.documentAnnotation = { status: 'failed', result: null, error: 'No OCR blocks were available for document annotation.', startedAt: 0 };
+    return;
+  }
+  markRuntime('Document annotation started', { blocks: payload.blocks.length });
+  state.documentAnnotation = { status: 'running', result: null, error: '', startedAt: performance.now() };
+  state.documentAnnotationPromise = annotateDocumentWithCompletion(payload)
+    .then((response) => {
+      const result = normalizeDocumentAnnotation(response.result || {});
+      state.documentAnnotation = { status: 'ready', result, error: '', startedAt: state.documentAnnotation.startedAt || 0 };
+      markRuntime('Document annotation ready', {
+        quoteAnchors: result.quoteAnchors.length,
+        warnings: result.warnings.length
+      });
+      updateStoredReviewDocumentAnnotation(result).catch(() => {});
+    })
+    .catch((error) => {
+      state.documentAnnotation = {
+        status: 'failed',
+        result: null,
+        error: String(error?.message || error || 'Document annotation failed.'),
+        startedAt: 0
+      };
+      markRuntime('Document annotation failed', { error: state.documentAnnotation.error });
+      updateStoredReviewDocumentAnnotationFailure(state.documentAnnotation.error).catch(() => {});
+    })
+    .finally(() => {
+      state.documentAnnotationPromise = null;
+    });
+}
+
 async function scheduleReferenceResolver(blocks = flatBlocks(), positions = blockPositionMap(blocks)) {
   if (state.referenceResolver.status === 'ready' || state.referenceResolver.status === 'running') return;
   const referenceContext = collectReferenceContext(blocks, positions);
@@ -2888,6 +2990,14 @@ function scheduleDetailBuild() {
     window.requestIdleCallback(run, { timeout: 1200 });
   } else {
     window.setTimeout(run, 0);
+  }
+  if (allowResolverWork) {
+    const annotate = () => scheduleDocumentAnnotation(blocks);
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(annotate, { timeout: 1800 });
+    } else {
+      window.setTimeout(annotate, 0);
+    }
   }
 }
 
@@ -3262,6 +3372,8 @@ function resetReaderState(file = null) {
   state.countResolver = { status: 'idle', result: null, error: '', startedAt: 0 };
   state.displayResolver = { status: 'idle', result: null, error: '', startedAt: 0 };
   state.displayResolverPromise = null;
+  state.documentAnnotation = { status: 'idle', result: null, error: '', startedAt: 0 };
+  state.documentAnnotationPromise = null;
   state.pdfSearch = { query: '', matches: [], index: -1 };
   state.ocrProgress = { status: 'idle', startedAt: 0, estimateMs: 18000 };
   state.checkReveal = { phase: 'idle', startedAt: 0, visibleKinds: [], resultKinds: [], lastResultAt: 0, resultTimer: 0, timers: [] };
@@ -3296,7 +3408,8 @@ async function saveReviewToLibrary(file = null, ocr = {}) {
     },
     referenceResolver: null,
     countResolver: null,
-    displayResolver: null
+    displayResolver: null,
+    documentAnnotation: null
   };
   await putStoredReview(review);
   state.currentReviewId = id;
@@ -3369,6 +3482,21 @@ async function renderReviewFromRecord(review = {}) {
       status: 'failed',
       result: null,
       error: String(review.displayResolver.error || 'Table/figure details were not available in this stored review.'),
+      startedAt: 0
+    };
+  }
+  if (review.documentAnnotation?.status === 'ready' && review.documentAnnotation.result) {
+    state.documentAnnotation = {
+      status: 'ready',
+      result: normalizeDocumentAnnotation(review.documentAnnotation.result),
+      error: '',
+      startedAt: 0
+    };
+  } else if (review.documentAnnotation?.status === 'failed') {
+    state.documentAnnotation = {
+      status: 'failed',
+      result: null,
+      error: String(review.documentAnnotation.error || 'Document annotation was not available in this stored review.'),
       startedAt: 0
     };
   }

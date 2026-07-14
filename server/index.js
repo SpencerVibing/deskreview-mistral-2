@@ -325,6 +325,157 @@ function displayItemResolverSchema() {
   };
 }
 
+function documentAnnotationSchema() {
+  const textItem = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['text', 'sourceBlockKeys'],
+    properties: {
+      text: { type: 'string' },
+      sourceBlockKeys: { type: 'array', items: { type: 'string' } }
+    }
+  };
+  const citationOccurrence = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['citationText', 'contextQuote', 'blockKey'],
+    properties: {
+      citationText: { type: 'string' },
+      contextQuote: { type: 'string' },
+      blockKey: { type: 'string' }
+    }
+  };
+  return {
+    type: 'json_schema',
+    json_schema: {
+      name: 'deskreview_document_annotation',
+      strict: true,
+      schema: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['title', 'frontMatter', 'abstract', 'article', 'references', 'displayItems', 'quoteAnchors', 'warnings'],
+        properties: {
+          title: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['text', 'sourceBlockKey', 'anchorQuote'],
+            properties: {
+              text: { type: 'string' },
+              sourceBlockKey: { type: 'string' },
+              anchorQuote: { type: 'string' }
+            }
+          },
+          frontMatter: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['authors', 'affiliations', 'keywords'],
+            properties: {
+              authors: { type: 'array', items: textItem },
+              affiliations: { type: 'array', items: textItem },
+              keywords: { type: 'array', items: textItem }
+            }
+          },
+          abstract: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['countedText', 'wordCount', 'sourceBlockKeys', 'warnings'],
+            properties: {
+              countedText: { type: 'string' },
+              wordCount: { type: 'integer', minimum: 0 },
+              sourceBlockKeys: { type: 'array', items: { type: 'string' } },
+              warnings: { type: 'array', items: { type: 'string' } }
+            }
+          },
+          article: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['wordCount', 'sections', 'warnings'],
+            properties: {
+              wordCount: { type: 'integer', minimum: 0 },
+              sections: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  additionalProperties: false,
+                  required: ['title', 'countedText', 'sourceBlockKeys'],
+                  properties: {
+                    title: { type: 'string' },
+                    countedText: { type: 'string' },
+                    sourceBlockKeys: { type: 'array', items: { type: 'string' } }
+                  }
+                }
+              },
+              warnings: { type: 'array', items: { type: 'string' } }
+            }
+          },
+          references: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['entries', 'warnings'],
+            properties: {
+              entries: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  additionalProperties: false,
+                  required: ['number', 'rawReferenceText', 'sourceBlockKey', 'bibliographyAnchorQuote', 'citationOccurrences'],
+                  properties: {
+                    number: { type: 'integer', minimum: 1 },
+                    rawReferenceText: { type: 'string' },
+                    sourceBlockKey: { type: 'string' },
+                    bibliographyAnchorQuote: { type: 'string' },
+                    citationOccurrences: { type: 'array', items: citationOccurrence }
+                  }
+                }
+              },
+              warnings: { type: 'array', items: { type: 'string' } }
+            }
+          },
+          displayItems: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['items', 'warnings'],
+            properties: {
+              items: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  additionalProperties: false,
+                  required: ['itemId', 'kind', 'label', 'sourceBlockKey', 'anchorQuote', 'citationOccurrences'],
+                  properties: {
+                    itemId: { type: 'string' },
+                    kind: { type: 'string', enum: ['table', 'figure'] },
+                    label: { type: 'string' },
+                    sourceBlockKey: { type: 'string' },
+                    anchorQuote: { type: 'string' },
+                    citationOccurrences: { type: 'array', items: citationOccurrence }
+                  }
+                }
+              },
+              warnings: { type: 'array', items: { type: 'string' } }
+            }
+          },
+          quoteAnchors: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              required: ['kind', 'label', 'sourceBlockKey', 'quote'],
+              properties: {
+                kind: { type: 'string' },
+                label: { type: 'string' },
+                sourceBlockKey: { type: 'string' },
+                quote: { type: 'string' }
+              }
+            }
+          },
+          warnings: { type: 'array', items: { type: 'string' } }
+        }
+      }
+    }
+  };
+}
+
 function parseAnnotation(value) {
   if (!value) return null;
   if (typeof value === 'object') return value;
@@ -762,6 +913,106 @@ async function handleResolveDisplayItems(req, res) {
   });
 }
 
+async function handleAnnotateDocument(req, res) {
+  const apiKey = String(process.env.MISTRAL_API_KEY || '').trim();
+  if (!apiKey) {
+    jsonResponse(res, { error: 'MISTRAL_API_KEY is required to annotate the document.' }, 500);
+    return;
+  }
+
+  let body;
+  try {
+    body = await readJsonBody(req);
+  } catch (error) {
+    jsonResponse(res, { error: String(error?.message || error || 'Invalid request body.') }, 400);
+    return;
+  }
+
+  const blocks = Array.isArray(body.blocks) ? body.blocks : [];
+  if (!blocks.length) {
+    jsonResponse(res, { error: 'Missing OCR blocks for document annotation.' }, 400);
+    return;
+  }
+
+  const startedAt = Date.now();
+  const requestBody = {
+    model: MISTRAL_CHAT_MODEL,
+    temperature: 0,
+    response_format: documentAnnotationSchema(),
+    messages: [
+      {
+        role: 'system',
+        content: [
+          'You create a source-grounded manuscript annotation from OCR blocks.',
+          'Return JSON only, conforming exactly to the schema.',
+          'Use only supplied OCR block text and resolver context. Do not invent manuscript content.',
+          'For title, front matter, abstract, article sections, references, tables, and figures, copy exact source text snippets and block keys when available.',
+          'Use resolver context as supporting evidence when it is supplied, but if it conflicts with OCR text, prefer exact OCR source text and add a short warning.',
+          'quoteAnchors should contain concise exact quotes that later checks can use for PDF/HTML jump links.',
+          'Warnings must be short and user-friendly. Do not mention schemas, prompts, or implementation details.'
+        ].join(' ')
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          task: 'Annotate this manuscript for later guideline checks and source-grounded navigation.',
+          blocks: blocks.slice(0, 220).map((block) => ({
+            blockKey: String(block.blockKey || ''),
+            pageNumber: Number(block.pageNumber || 0) || 0,
+            type: String(block.type || ''),
+            text: String(block.text || '').slice(0, 2500)
+          })),
+          resolverContext: body.resolverContext || {}
+        })
+      }
+    ]
+  };
+
+  let response;
+  try {
+    const signal = AbortSignal.timeout ? AbortSignal.timeout(120000) : undefined;
+    response = await fetch(`${MISTRAL_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(requestBody),
+      signal
+    });
+  } catch (error) {
+    const message = error?.name === 'TimeoutError'
+      ? 'Mistral document annotation timed out.'
+      : String(error?.message || error || 'Mistral document annotation request failed.');
+    jsonResponse(res, { error: message }, error?.name === 'TimeoutError' ? 504 : 502);
+    return;
+  }
+
+  const text = await response.text();
+  let raw = null;
+  try {
+    raw = text ? JSON.parse(text) : {};
+  } catch {
+    raw = null;
+  }
+
+  if (!response.ok) {
+    jsonResponse(res, {
+      error: raw?.error?.message || raw?.message || text || `Mistral document annotation failed (${response.status}).`,
+      elapsedMs: Date.now() - startedAt,
+      model: MISTRAL_CHAT_MODEL
+    }, response.status);
+    return;
+  }
+
+  jsonResponse(res, {
+    elapsedMs: Date.now() - startedAt,
+    model: raw?.model || MISTRAL_CHAT_MODEL,
+    usage: raw?.usage || null,
+    result: parseJsonContent(raw?.choices?.[0]?.message?.content)
+  });
+}
+
 async function serveStatic(req, res) {
   const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname === '/' ? '/index.html' : decodeURIComponent(url.pathname);
@@ -802,6 +1053,10 @@ const server = createServer(async (req, res) => {
     }
     if (req.method === 'POST' && req.url === '/api/resolve-display-items') {
       await handleResolveDisplayItems(req, res);
+      return;
+    }
+    if (req.method === 'POST' && req.url === '/api/annotate-document') {
+      await handleAnnotateDocument(req, res);
       return;
     }
     if (req.method === 'GET' || req.method === 'HEAD') {

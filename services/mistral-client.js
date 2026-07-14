@@ -30,3 +30,7 @@ export function resolveCounts(blocks = []) {
 export function resolveDisplayItems(displayItems = [], bodyBlocks = []) {
   return postJson('/api/resolve-display-items', { displayItems, bodyBlocks });
 }
+
+export function annotateDocument(payload = {}) {
+  return postJson('/api/annotate-document', payload);
+}
