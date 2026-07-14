@@ -5,6 +5,10 @@ import {
   normalizeDocumentAnnotation
 } from '/core/document-annotation.js';
 import { evaluateEssentialGuides } from '/core/essential-guidelines.js';
+import {
+  filterGuideResults,
+  summarizeGuideResults
+} from '/core/guideline-detail.js';
 import { projectTocEntries } from '/core/toc.js';
 import {
   deleteStoredReview,
@@ -101,6 +105,7 @@ const state = {
   essentialGuides: [],
   essentialResults: [],
   essentialStatus: 'idle',
+  activeGuideFilter: 'all',
   pdfSearch: {
     query: '',
     matches: [],
@@ -1481,13 +1486,31 @@ function renderEssentialGuideDetails(guideId = '') {
   updateEssentialResults();
   const guide = state.essentialResults.find((item) => item.id === guideId);
   if (!guide) return;
+  state.activeGuideFilter = 'all';
+  const summary = summarizeGuideResults(guide.results);
+  const filters = [
+    ['all', 'All', summary.total],
+    ['present', 'Present', summary.present],
+    ['warning', 'Review', summary.warning],
+    ['absent', 'Missing', summary.absent],
+    ['na', 'N/A', summary.na]
+  ];
+  const visibleResults = filterGuideResults(guide.results, 'all');
   openDetails('essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
-    ${guide.results.map((item) => {
+    <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
+      ${filters.map(([status, label, count]) => `
+        <button type="button" class="btn ${status === 'all' ? 'btn-dark active' : 'btn-light border'}" data-guide-detail-filter="${escapeHtml(status)}">
+          ${escapeHtml(label)} <span class="badge text-bg-light">${escapeHtml(count)}</span>
+        </button>
+      `).join('')}
+    </div>
+    <div class="vstack gap-2" data-guide-results>
+    ${visibleResults.map((item) => {
       const tone = guidelineStatusTone(item.status);
       const clickable = item.sourceBlockKey ? ' detail-clickable' : '';
       return `
-        <div class="detail-card">
+        <div class="detail-card" data-guide-result-status="${escapeHtml(item.status)}">
           <div class="detail-card-title">
             <span>${escapeHtml(item.label || item.id)}</span>
             <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
@@ -1495,12 +1518,33 @@ function renderEssentialGuideDetails(guideId = '') {
           <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
           <div class="small mb-2">${escapeHtml(item.message || '')}</div>
           ${item.evidenceQuote ? `
-            <div class="small text-secondary${clickable}"${detailLinkAttributes(item.sourceBlockKey)}>${escapeHtml(item.evidenceQuote)}</div>
+            <div class="d-flex align-items-start gap-2">
+              <div class="small text-secondary flex-grow-1${clickable}"${detailLinkAttributes(item.sourceBlockKey)}>${escapeHtml(item.evidenceQuote)}</div>
+              <button class="btn btn-sm btn-light border flex-shrink-0" type="button" data-copy-quote="${escapeHtml(item.evidenceQuote)}" aria-label="Copy quote">
+                <i class="bi bi-copy"></i>
+              </button>
+            </div>
           ` : ''}
         </div>
       `;
     }).join('')}
+    </div>
   `);
+}
+
+function applyGuideDetailFilter(status = 'all') {
+  state.activeGuideFilter = status || 'all';
+  els.detailsPanelBody.querySelectorAll('[data-guide-detail-filter]').forEach((button) => {
+    const active = button.dataset.guideDetailFilter === state.activeGuideFilter;
+    button.classList.toggle('btn-dark', active);
+    button.classList.toggle('active', active);
+    button.classList.toggle('btn-light', !active);
+    button.classList.toggle('border', !active);
+  });
+  els.detailsPanelBody.querySelectorAll('[data-guide-result-status]').forEach((node) => {
+    const visible = state.activeGuideFilter === 'all' || node.dataset.guideResultStatus === state.activeGuideFilter;
+    node.classList.toggle('d-none', !visible);
+  });
 }
 
 function detailTitle(kind = '') {
@@ -3942,6 +3986,20 @@ els.feedbackReportPdf?.addEventListener('click', openFeedbackReportPdf);
 els.detailsPanelClose.addEventListener('click', closeDetails);
 
 els.detailsPanelBody.addEventListener('click', (event) => {
+  const filterButton = event.target.closest('[data-guide-detail-filter]');
+  if (filterButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    applyGuideDetailFilter(filterButton.dataset.guideDetailFilter || 'all');
+    return;
+  }
+  const copyButton = event.target.closest('[data-copy-quote]');
+  if (copyButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    navigator.clipboard?.writeText(copyButton.dataset.copyQuote || '').catch(() => {});
+    return;
+  }
   const button = event.target.closest('[data-detail-block-key]');
   if (!button) return;
   event.preventDefault();

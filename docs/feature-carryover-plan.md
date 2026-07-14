@@ -77,3 +77,4 @@ This project should carry forward the useful DeskReview feature set by reimpleme
 - Milestone 3 complete: count-tile benchmark progress bars added through `/core/count-progress.js`, rendered in released count tiles, and covered by unit/baseline tests.
 - Milestone 4 complete: background Mistral document annotation endpoint, client scheduler, normalized `/core/document-annotation.js` contract, storage persistence, and validation tests added without blocking OCR-to-reader readiness.
 - Milestone 5 complete: static EASE Essentials guide data, annotation-based guide evaluator, Essential guidelines side-pane cards, detail rendering, and unit/baseline coverage added.
+- Milestone 6 complete: guideline details slider filters, status summaries, source quotes, quote copy actions, and jump-link-ready evidence rows added with `/core/guideline-detail.js` coverage.
