@@ -245,28 +245,37 @@
                     </div>
                   </div>
 
-                  <section class="side-group-card mb-4" id="articleCountsPluginPanel">
-                    <div class="side-group-header d-flex align-items-center justify-content-between gap-2 mb-2">
-                      <div class="fw-semibold text-uppercase small text-body-tertiary">Article element counts</div>
-                    </div>
-                    <hr class="border-secondary-subtle mt-0 mb-3">
-                    <div id="countsGrid" class="counts-grid">
-                      <div class="empty-state counts-empty">
-                        <i class="bi bi-grid-3x2-gap"></i>
-                        <div>OCR4 summary counts will appear here.</div>
+                  <div class="accordion accordion-flush checks-accordion vstack gap-3" id="checksContentAccordion">
+                    <section class="accordion-item side-group-card" id="articleCountsPluginPanel">
+                      <h2 class="accordion-header" id="articleCountsHeading">
+                        <button class="accordion-button bg-transparent shadow-none px-0 py-0" type="button" data-bs-toggle="collapse" data-bs-target="#articleCountsPanel" aria-expanded="true" aria-controls="articleCountsPanel">
+                          <span class="fw-semibold text-uppercase small text-body-tertiary">Article element counts</span>
+                        </button>
+                      </h2>
+                      <div id="articleCountsPanel" class="accordion-collapse collapse show" aria-labelledby="articleCountsHeading">
+                        <div class="accordion-body px-0 pt-3 pb-0">
+                          <div id="countsGrid" class="counts-grid">
+                            <div class="empty-state counts-empty">
+                              <i class="bi bi-grid-3x2-gap"></i>
+                              <div>OCR4 summary counts will appear here.</div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </section>
+                    </section>
 
-                  <section class="side-group-card mb-4" id="guidelinesScoreContainer" data-guide-lane-group>
-                    <div class="side-group-header d-flex align-items-center justify-content-between gap-2 mb-2">
-                      <div class="fw-semibold text-uppercase small text-body-tertiary">Reporting quality guidelines</div>
-                      <button id="openGuidelineCatalogButton" class="btn btn-sm border-0 text-secondary reader-kebab-btn" type="button" aria-label="Guideline catalog" data-bs-toggle="modal" data-bs-target="#customizeChecksModal">
-                        <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                    <hr class="border-secondary-subtle mt-0 mb-3">
-                    <div class="accordion accordion-flush guide-lane-accordion" id="guidelineChecksAccordion">
+                    <section class="accordion-item side-group-card" id="guidelinesScoreContainer" data-guide-lane-group>
+                      <div class="accordion-header d-flex align-items-center gap-2" id="reportingQualityHeading">
+                        <button class="accordion-button bg-transparent shadow-none px-0 py-0" type="button" data-bs-toggle="collapse" data-bs-target="#reportingQualityPanel" aria-expanded="true" aria-controls="reportingQualityPanel">
+                          <span class="fw-semibold text-uppercase small text-body-tertiary">Reporting quality guidelines</span>
+                        </button>
+                        <button id="openGuidelineCatalogButton" class="btn btn-sm border-0 text-secondary reader-kebab-btn flex-shrink-0" type="button" aria-label="Guideline catalog" data-bs-toggle="modal" data-bs-target="#customizeChecksModal">
+                          <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                      <div id="reportingQualityPanel" class="accordion-collapse collapse show" aria-labelledby="reportingQualityHeading">
+                        <div class="accordion-body px-0 pt-3 pb-0">
+                          <div class="accordion accordion-flush guide-lane-accordion" id="guidelineChecksAccordion">
                       <div id="essentialGuidelinesPluginPanel" class="accordion-item bg-transparent border-0" data-guide-lane-container="essential">
                         <h2 class="accordion-header" id="essentialGuidelinesHeading">
                           <button class="accordion-button collapsed bg-transparent border-0 px-0 py-0 shadow-none guideline-lane-accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#essentialGuidelinesPanel" aria-expanded="false" aria-controls="essentialGuidelinesPanel">
@@ -338,8 +347,11 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </section>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
                 </div>
               </section>
 

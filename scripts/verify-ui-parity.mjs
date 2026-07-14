@@ -89,6 +89,7 @@ async function main() {
     await assertCountTile(page, 'references', /22\s+refs/i);
     await assertCountTile(page, 'tables', /3\s+tables/i);
     await assertCountTile(page, 'figures', /1\s+figures/i);
+    await assertChecksAccordion(page);
     await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reader-checks.png'), fullPage: true });
 
@@ -193,6 +194,33 @@ async function assertText(page, selector, pattern) {
 
 async function assertCountTile(page, kind, pattern) {
   await assertText(page, `[data-count-kind="${kind}"]`, pattern);
+}
+
+async function assertChecksAccordion(page) {
+  await page.waitForSelector('#checksContentAccordion', { timeout: 10000 });
+  const directItems = await page.locator('#checksContentAccordion > .accordion-item').count();
+  assert.equal(directItems, 2, 'Checks content should have exactly two top-level accordion items.');
+  await assertText(page, '#articleCountsHeading', /Article element counts/i);
+  await assertText(page, '#reportingQualityHeading', /Reporting quality guidelines/i);
+  await assertPanelState(page, '#articleCountsPanel', true);
+  await assertPanelState(page, '#reportingQualityPanel', true);
+  await page.click('#articleCountsHeading button');
+  await assertPanelState(page, '#articleCountsPanel', false);
+  await page.click('#articleCountsHeading button');
+  await assertPanelState(page, '#articleCountsPanel', true);
+  await page.click('#reportingQualityHeading [data-bs-toggle="collapse"]');
+  await assertPanelState(page, '#reportingQualityPanel', false);
+  await page.click('#reportingQualityHeading [data-bs-toggle="collapse"]');
+  await assertPanelState(page, '#reportingQualityPanel', true);
+}
+
+async function assertPanelState(page, selector, expectedOpen) {
+  await page.waitForFunction(({ selector: innerSelector, expected }) => {
+    const panel = document.querySelector(innerSelector);
+    return panel
+      && !panel.classList.contains('collapsing')
+      && panel.classList.contains('show') === expected;
+  }, { selector, expected: expectedOpen }, { timeout: 10000 });
 }
 
 async function openAccordion(page, buttonSelector, panelSelector) {
