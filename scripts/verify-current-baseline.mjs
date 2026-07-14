@@ -78,6 +78,10 @@ async function main() {
     assert(tocCore.response.status === 200, `Expected /core/toc.js to return 200, got ${tocCore.response.status}.`);
     assert(tocCore.text.includes('projectTocEntries'), 'ToC core module is missing.');
 
+    const countProgressCore = await request('/core/count-progress.js');
+    assert(countProgressCore.response.status === 200, `Expected /core/count-progress.js to return 200, got ${countProgressCore.response.status}.`);
+    assert(countProgressCore.text.includes('buildCountProgress'), 'Count progress core module is missing.');
+
     const libraryService = await request('/services/browser-library.js');
     assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);
     assert(libraryService.text.includes('listStoredReviews'), 'Browser library service is missing.');

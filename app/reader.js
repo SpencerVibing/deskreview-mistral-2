@@ -1,4 +1,5 @@
 import * as pdfjsLib from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs';
+import { buildCountProgress, countBenchmarkForKind } from '/core/count-progress.js';
 import { projectTocEntries } from '/core/toc.js';
 import {
   deleteStoredReview,
@@ -1258,12 +1259,24 @@ function metricValue(value) {
   return Number.isFinite(Number(value)) ? formatInteger(value) : '-';
 }
 
-function renderCountTile({ kind = '', label = '', value = null, unit = '', status = 'ready', progress = null, tileIndex = 0 } = {}) {
+function renderCountResultBar(resultBar = null, label = '') {
+  if (!Array.isArray(resultBar?.segments) || !resultBar.segments.length) return '';
+  return `
+    <div class="count-result-bar progress mt-2" role="progressbar" aria-label="${escapeHtml(label || 'Count benchmark')}" title="${escapeHtml(resultBar.tooltip || '')}">
+      ${resultBar.segments.map((segment) => `
+        <div class="progress-bar ${escapeHtml(segment.className || 'bg-body-secondary')}" style="width: ${escapeHtml(segment.width)}%;" aria-label="${escapeHtml(segment.label || '')}"></div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderCountTile({ kind = '', label = '', value = null, unit = '', status = 'ready', progress = null, resultBar = null, tileIndex = 0 } = {}) {
   const isBusy = status === 'running' || status === 'pending';
   const hasProgress = Number.isFinite(Number(progress));
   const progressWidth = hasProgress ? Math.max(4, Math.min(100, Number(progress))) : 100;
   const pulseClass = tilePulseClass(kind, !isBusy && value !== null && value !== undefined);
   const revealClass = state.checkReveal.phase === 'revealing' ? ' tile-revealing' : '';
+  const barLabel = `${label || kind || 'Count'} benchmark`;
   return `
     <button type="button" class="count-tile ${isBusy ? 'is-busy' : ''}${pulseClass}${revealClass}" data-count-kind="${escapeHtml(kind)}" style="--tile-index: ${escapeHtml(tileIndex)};" ${isBusy ? 'aria-busy="true"' : ''}>
       ${(label || isBusy) ? `
@@ -1280,7 +1293,7 @@ function renderCountTile({ kind = '', label = '', value = null, unit = '', statu
         <div class="progress mt-2" role="progressbar" aria-label="${escapeHtml(label)} progress" style="height: 0.28rem;">
           <div class="progress-bar soft-progress ${hasProgress ? '' : 'progress-bar-striped progress-bar-animated'}" style="width: ${escapeHtml(progressWidth)}%;"></div>
         </div>
-      ` : ''}
+      ` : renderCountResultBar(resultBar, barLabel)}
     </button>
   `;
 }
@@ -1305,11 +1318,22 @@ function renderCounts() {
   const referenceProgress = referenceTotal ? Math.round((referenceCompleted / referenceTotal) * 100) : null;
   const releasedValue = (kind, value) => (resultIsReleased(kind) ? value : null);
   const releasedStatus = (kind) => (resultIsReleased(kind) ? 'ready' : 'running');
+  const releasedResultBar = (kind, value, unit) => {
+    const benchmark = countBenchmarkForKind(kind);
+    const count = releasedValue(kind, value);
+    if (!benchmark || count === null || count === undefined) return null;
+    return buildCountProgress({
+      count,
+      limit: benchmark.limit,
+      unit: unit || benchmark.unit,
+      sourceLabel: benchmark.sourceLabel
+    });
+  };
   const tiles = [
     ['authors', renderCountTile({ kind: 'authors', value: releasedValue('authors', semantic.authorCount), unit: 'authors', status: releasedStatus('authors'), tileIndex: 0 })],
     ['affiliations', renderCountTile({ kind: 'affiliations', value: releasedValue('affiliations', semantic.affiliationCount), unit: 'affiliations', status: releasedStatus('affiliations'), tileIndex: 1 })],
-    ['abstract', renderCountTile({ kind: 'abstract', label: 'Abstract', value: releasedValue('abstract', semantic.abstractWordCount), unit: 'words', status: releasedStatus('abstract'), tileIndex: 2 })],
-    ['article', renderCountTile({ kind: 'article', label: 'Article', value: releasedValue('article', semantic.articleWordCount), unit: 'words', status: releasedStatus('article'), tileIndex: 3 })],
+    ['abstract', renderCountTile({ kind: 'abstract', label: 'Abstract', value: releasedValue('abstract', semantic.abstractWordCount), unit: 'words', status: releasedStatus('abstract'), resultBar: releasedResultBar('abstract', semantic.abstractWordCount, 'words'), tileIndex: 2 })],
+    ['article', renderCountTile({ kind: 'article', label: 'Article', value: releasedValue('article', semantic.articleWordCount), unit: 'words', status: releasedStatus('article'), resultBar: releasedResultBar('article', semantic.articleWordCount, 'words'), tileIndex: 3 })],
     ['keywords', renderCountTile({ kind: 'keywords', value: releasedValue('keywords', semantic.keywordCount), unit: 'keywords', status: releasedStatus('keywords'), tileIndex: 4 })],
     ['references', renderCountTile({
       kind: 'references',
@@ -1317,10 +1341,11 @@ function renderCounts() {
       unit: 'refs',
       status: releasedStatus('references'),
       progress: resultIsReleased('references') ? null : referenceProgress,
+      resultBar: releasedResultBar('references', semantic.referenceCount, 'refs'),
       tileIndex: 5
     })],
-    ['tables', renderCountTile({ kind: 'tables', value: releasedValue('tables', counts.tables), unit: 'tables', status: releasedStatus('tables'), tileIndex: 6 })],
-    ['figures', renderCountTile({ kind: 'figures', value: releasedValue('figures', counts.figures), unit: 'figures', status: releasedStatus('figures'), tileIndex: 7 })]
+    ['tables', renderCountTile({ kind: 'tables', value: releasedValue('tables', counts.tables), unit: 'tables', status: releasedStatus('tables'), resultBar: releasedResultBar('tables', counts.tables, 'tables'), tileIndex: 6 })],
+    ['figures', renderCountTile({ kind: 'figures', value: releasedValue('figures', counts.figures), unit: 'figures', status: releasedStatus('figures'), resultBar: releasedResultBar('figures', counts.figures, 'figures'), tileIndex: 7 })]
   ];
   els.countsGrid.innerHTML = tiles
     .filter(([kind]) => tileIsVisible(kind))

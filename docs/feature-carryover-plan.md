@@ -74,3 +74,4 @@ This project should carry forward the useful DeskReview feature set by reimpleme
 
 - Milestone 1 complete in `299c5eb`: baseline checkpoint, plan, and local smoke test.
 - Milestone 2 complete: browser app moved behind `/app/reader.js`, ToC projection extracted to `/core/toc.js`, browser storage and Mistral API calls extracted to `/services`, and ToC projection unit coverage added.
+- Milestone 3 complete: count-tile benchmark progress bars added through `/core/count-progress.js`, rendered in released count tiles, and covered by unit/baseline tests.

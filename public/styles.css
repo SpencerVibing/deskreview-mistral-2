@@ -304,6 +304,16 @@ body {
   opacity: 0.55;
 }
 
+.count-result-bar {
+  height: 0.3rem;
+  overflow: hidden;
+  background: #e4e4e7;
+}
+
+.count-result-bar .progress-bar {
+  min-width: 0;
+}
+
 .count-tile.tile-arrived {
   animation: tile-arrived 1400ms ease-out;
 }
