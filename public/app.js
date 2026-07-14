@@ -1255,8 +1255,79 @@ function renderLoadingCounts() {
   `;
 }
 
+function normalizeTocLabel(value = '') {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isBodyTocLabel(label = '') {
+  return /^(abstract|summary|keywords?|introduction|background|methods?|materials?|results?|discussion|conclusions?|references?|bibliography|acknowledg)/i.test(String(label || '').trim())
+    || /^[ivxlcdm]+\.\s+\S/i.test(String(label || '').trim())
+    || /^\d+(?:\.\d+)*\.?\s+\S/.test(String(label || '').trim());
+}
+
+function titleLikeTocEntry(entry = {}) {
+  const label = String(entry.label || '').trim();
+  if (!label || isBodyTocLabel(label)) return false;
+  const normalized = normalizeTocLabel(label);
+  if (!normalized || normalized === 'title') return false;
+  return countWords(label) >= 4 || label.length >= 24;
+}
+
+function firstBodyTocIndex(entries = []) {
+  const index = entries.findIndex((entry) => isBodyTocLabel(entry.label));
+  return index >= 0 ? index : entries.length;
+}
+
+function projectTocEntries(entries = []) {
+  const projected = entries.map((entry) => ({
+    ...entry,
+    normalizedLabel: normalizeTocLabel(entry.label),
+    displayLabel: entry.label
+  }));
+  const bodyStart = firstBodyTocIndex(projected);
+  const preBody = projected.slice(0, bodyStart);
+  const titleCounts = new Map();
+  preBody
+    .filter(titleLikeTocEntry)
+    .forEach((entry) => {
+      titleCounts.set(entry.normalizedLabel, (titleCounts.get(entry.normalizedLabel) || 0) + 1);
+    });
+
+  let titleIndex = -1;
+  for (let index = preBody.length - 1; index >= 0; index -= 1) {
+    const entry = preBody[index];
+    if (titleLikeTocEntry(entry) && titleCounts.get(entry.normalizedLabel) > 1) {
+      titleIndex = index;
+      break;
+    }
+  }
+  if (titleIndex < 0) {
+    titleIndex = preBody.findIndex(titleLikeTocEntry);
+  }
+  if (titleIndex < 0 && preBody[0]?.normalizedLabel === 'title') {
+    titleIndex = 0;
+  }
+  if (titleIndex >= 0) {
+    projected[titleIndex].displayLabel = 'Title';
+  }
+
+  const titleNorm = titleIndex >= 0 ? projected[titleIndex].normalizedLabel : '';
+  return projected
+    .filter((entry, index) => {
+      if (titleIndex < 0 || index >= bodyStart) return true;
+      if (index >= titleIndex) return true;
+      if (entry.normalizedLabel === 'title') return false;
+      return !(titleNorm && entry.normalizedLabel === titleNorm);
+    })
+    .map(({ normalizedLabel, ...entry }) => entry);
+}
+
 function collectTocEntries() {
-  return [...els.htmlDocument.querySelectorAll('.ocr-block h1, .ocr-block h2, .ocr-block h3, .ocr-block h4, .ocr-block h5, .ocr-block h6')]
+  const entries = [...els.htmlDocument.querySelectorAll('.ocr-block h1, .ocr-block h2, .ocr-block h3, .ocr-block h4, .ocr-block h5, .ocr-block h6')]
     .map((heading, index) => {
       const block = heading.closest('[data-block-id]');
       const blockKey = block?.dataset.blockId || '';
@@ -1270,6 +1341,7 @@ function collectTocEntries() {
       };
     })
     .filter((entry) => entry.blockKey && entry.label);
+  return projectTocEntries(entries);
 }
 
 function renderToc() {
@@ -1280,7 +1352,7 @@ function renderToc() {
   }
   els.tocList.innerHTML = state.tocEntries.map((entry, index) => {
     const padding = Math.min(2.5, Math.max(0, entry.level - 1) * 0.7);
-    const label = index === 0 ? 'Title' : entry.label;
+    const label = entry.displayLabel || entry.label;
     return `
       <button type="button" class="toc-button" data-toc-block-key="${escapeHtml(entry.blockKey)}" style="padding-left: ${0.5 + padding}rem;">
         <span class="toc-label">${escapeHtml(label)}</span>
@@ -3059,7 +3131,7 @@ function renderSemanticDetail(kind = '', payload = {}) {
     openDetails(kind, `
       ${renderWarnings(detail.warnings)}
       <div class="detail-card mb-2">
-        <div class="detail-card-title"><span>References counted by OCR4</span><span class="badge text-bg-light">${escapeHtml(metricValue(detail.count))}</span></div>
+        <div class="detail-card-title"><span>References counted</span><span class="badge text-bg-light">${escapeHtml(metricValue(detail.count))}</span></div>
       </div>
       ${entries.map((entry) => {
         const refBlockKey = entry.sourceBlockKey || findBlockKeyForQuote(entry.bibliographyAnchorQuote || entry.rawText || '');

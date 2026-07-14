@@ -443,11 +443,9 @@ body {
 .pdf-active-region {
   position: absolute;
   pointer-events: none;
+  padding: 2px;
+  margin: -2px;
   border-radius: 0.125rem;
-}
-
-.pdf-active-region {
-  border: 2px solid rgba(59, 130, 246, 0.92);
   background: rgba(59, 130, 246, 0.14);
   z-index: 3;
 }

@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node server/index.js",
-    "check": "node --check server/index.js && node --check public/app.js"
+    "check:syntax": "node --check server/index.js && node --check public/app.js && node --check scripts/verify-current-baseline.mjs",
+    "check:baseline": "node scripts/verify-current-baseline.mjs",
+    "check": "npm run check:syntax && npm run check:baseline"
   }
 }
