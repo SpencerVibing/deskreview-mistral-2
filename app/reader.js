@@ -1612,10 +1612,35 @@ function metricValue(value) {
   return Number.isFinite(Number(value)) ? formatInteger(value) : '-';
 }
 
+function countTileDisplayLabel(kind = '', label = '', unit = '') {
+  return label || {
+    authors: 'Authors',
+    affiliations: 'Affiliations',
+    abstract: 'Abstract',
+    article: 'Article',
+    keywords: 'Keywords',
+    references: 'Refs',
+    tables: 'Tables',
+    figures: 'Figures'
+  }[kind] || unit || kind || 'Count';
+}
+
+function countTileTooltip({ kind = '', label = '', value = null, unit = '', isBusy = false, resultBar = null } = {}) {
+  const displayLabel = countTileDisplayLabel(kind, label, unit);
+  if (isBusy) return `${displayLabel} is still being prepared. Click after it resolves to view details.`;
+  const valueText = metricValue(value);
+  const unitText = unit ? ` ${unit}` : '';
+  return [
+    `${displayLabel}: ${valueText}${unitText}.`,
+    resultBar?.tooltip || '',
+    'Click to view source-linked details.'
+  ].filter(Boolean).join(' ');
+}
+
 function renderCountResultBar(resultBar = null, label = '') {
   if (!Array.isArray(resultBar?.segments) || !resultBar.segments.length) return '';
   return `
-    <div class="count-result-bar progress mt-2" role="progressbar" aria-label="${escapeHtml(label || 'Count benchmark')}" title="${escapeHtml(resultBar.tooltip || '')}">
+    <div class="count-result-bar progress mt-1" role="progressbar" aria-label="${escapeHtml(label || 'Count benchmark')}" title="${escapeHtml(resultBar.tooltip || '')}">
       ${resultBar.segments.map((segment) => `
         <div class="progress-bar ${escapeHtml(segment.className || 'bg-body-secondary')}" style="width: ${escapeHtml(segment.width)}%;" aria-label="${escapeHtml(segment.label || '')}"></div>
       `).join('')}
@@ -1629,21 +1654,20 @@ function renderCountTile({ kind = '', label = '', value = null, unit = '', statu
   const progressWidth = hasProgress ? Math.max(4, Math.min(100, Number(progress))) : 100;
   const pulseClass = tilePulseClass(kind, !isBusy && value !== null && value !== undefined);
   const revealClass = state.checkReveal.phase === 'revealing' ? ' tile-revealing' : '';
-  const barLabel = `${label || kind || 'Count'} benchmark`;
+  const displayLabel = countTileDisplayLabel(kind, label, unit);
+  const tooltip = countTileTooltip({ kind, label, value, unit, isBusy, resultBar });
+  const barLabel = `${displayLabel} benchmark`;
   return `
-    <button type="button" class="count-tile ${isBusy ? 'is-busy' : ''}${pulseClass}${revealClass}" data-count-kind="${escapeHtml(kind)}" style="--tile-index: ${escapeHtml(tileIndex)};" ${isBusy ? 'aria-busy="true"' : ''}>
-      ${(label || isBusy) ? `
-        <div class="count-label">
-          ${label ? `<span>${escapeHtml(label)}</span>` : '<span></span>'}
-          ${isBusy ? statusSpinner() : ''}
-        </div>
-      ` : ''}
-      <div class="d-flex align-items-baseline gap-2">
+    <button type="button" class="count-tile ${isBusy ? 'is-busy' : ''}${pulseClass}${revealClass}" data-count-kind="${escapeHtml(kind)}" style="--tile-index: ${escapeHtml(tileIndex)};" title="${escapeHtml(tooltip)}" aria-label="${escapeHtml(tooltip)}" ${isBusy ? 'aria-busy="true"' : ''}>
+      <div class="count-label">
+        <span class="text-truncate">${escapeHtml(displayLabel)}</span>
+        ${isBusy ? statusSpinner() : ''}
+      </div>
+      <div class="d-flex align-items-baseline">
         <div class="count-value ${isBusy && value === null ? 'count-value-pending' : ''}">${escapeHtml(metricValue(value))}</div>
-        ${unit ? `<div class="small text-secondary">${escapeHtml(unit)}</div>` : ''}
       </div>
       ${isBusy ? `
-        <div class="progress mt-2" role="progressbar" aria-label="${escapeHtml(label)} progress" style="height: 0.28rem;">
+        <div class="progress mt-1" role="progressbar" aria-label="${escapeHtml(displayLabel)} progress" style="height: 0.22rem;">
           <div class="progress-bar soft-progress ${hasProgress ? '' : 'progress-bar-striped progress-bar-animated'}" style="width: ${escapeHtml(progressWidth)}%;"></div>
         </div>
       ` : renderCountResultBar(resultBar, barLabel)}

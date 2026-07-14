@@ -82,15 +82,15 @@ async function main() {
     }, null, { timeout: 45000 });
     await assertText(page, '#tocList', /Title/i);
     await assertText(page, '#tocList', /Abstract/i);
-    await assertCountTile(page, 'authors', /22\s+authors/i);
-    await assertCountTile(page, 'affiliations', /11\s+affiliations/i);
-    await assertCountTile(page, 'abstract', /404\s+words/i);
-    await assertCountTile(page, 'article', /2[,.]403\s+words/i);
-    await assertCountTile(page, 'references', /22\s+refs/i);
-    await assertCountTile(page, 'tables', /3\s+tables/i);
-    await assertCountTile(page, 'figures', /1\s+figures/i);
+    await assertCountTile(page, 'authors', /Authors\s+22/i);
+    await assertCountTile(page, 'affiliations', /Affiliations\s+11/i);
+    await assertCountTile(page, 'abstract', /Abstract\s+404/i);
+    await assertCountTile(page, 'article', /Article\s+2[,.]403/i);
+    await assertCountTile(page, 'references', /Refs\s+22/i);
+    await assertCountTile(page, 'tables', /Tables\s+3/i);
+    await assertCountTile(page, 'figures', /Figures\s+1/i);
     await assertReaderUiRegressionFixes(page);
-    await assertChecksAccordion(page);
+    await assertChecksSectionCards(page);
     await assertGuidelineSelectorModal(page);
     await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
     await page.waitForFunction(() => {
@@ -219,22 +219,29 @@ async function assertCountTile(page, kind, pattern) {
   await assertText(page, `[data-count-kind="${kind}"]`, pattern);
 }
 
-async function assertChecksAccordion(page) {
-  await page.waitForSelector('#checksContentAccordion', { timeout: 10000 });
-  const directItems = await page.locator('#checksContentAccordion > .accordion-item').count();
-  assert.equal(directItems, 2, 'Checks content should have exactly two top-level accordion items.');
+async function assertChecksSectionCards(page) {
+  await page.waitForSelector('#checksContentSections', { timeout: 10000 });
+  assert.equal(await page.locator('#checksContentAccordion').count(), 0, 'Checks content should not use a top-level accordion.');
+  const directItems = await page.locator('#checksContentSections > .side-group-card').count();
+  assert.equal(directItems, 2, 'Checks content should have exactly two top-level section cards.');
   await assertText(page, '#articleCountsHeading', /Article element counts/i);
   await assertText(page, '#reportingQualityHeading', /Reporting quality guidelines/i);
-  await assertPanelState(page, '#articleCountsPanel', true);
-  await assertPanelState(page, '#reportingQualityPanel', true);
-  await page.click('#articleCountsHeading button');
-  await assertPanelState(page, '#articleCountsPanel', false);
-  await page.click('#articleCountsHeading button');
-  await assertPanelState(page, '#articleCountsPanel', true);
-  await page.click('#reportingQualityHeading [data-bs-toggle="collapse"]');
-  await assertPanelState(page, '#reportingQualityPanel', false);
-  await page.click('#reportingQualityHeading [data-bs-toggle="collapse"]');
-  await assertPanelState(page, '#reportingQualityPanel', true);
+  await assertVisible(page, '#articleCountsPanel');
+  await assertVisible(page, '#reportingQualityPanel');
+  const paneBackgrounds = await page.evaluate(() => {
+    const countsPane = document.querySelector('.studio-counts-pane');
+    const tocPane = document.querySelector('.studio-toc-pane');
+    const articleCard = document.querySelector('#articleCountsPluginPanel');
+    return {
+      countsPane: getComputedStyle(countsPane).backgroundColor,
+      tocPane: getComputedStyle(tocPane).backgroundColor,
+      articleCard: getComputedStyle(articleCard).backgroundColor
+    };
+  });
+  assert.equal(paneBackgrounds.countsPane, paneBackgrounds.tocPane, 'Right side pane should match the ToC background.');
+  assert.match(paneBackgrounds.articleCard, /rgb\(255, 255, 255\)/, 'Checks section cards should be white.');
+  const firstTileHeight = await page.locator('[data-count-kind="authors"]').evaluate((node) => node.getBoundingClientRect().height);
+  assert.ok(firstTileHeight <= 62, `Count tiles should be compact; first tile was ${firstTileHeight}px tall.`);
 }
 
 async function assertReaderUiRegressionFixes(page) {

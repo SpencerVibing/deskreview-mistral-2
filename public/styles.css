@@ -343,7 +343,7 @@ body {
 
 .studio-counts-pane {
   position: relative;
-  background: #fff;
+  background: var(--studio-panel-bg);
 }
 
 .min-h-0 {
@@ -420,10 +420,10 @@ body {
   padding: 0;
   background: transparent;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: minmax(4.9rem, auto);
+  grid-template-columns: repeat(auto-fit, minmax(4.85rem, 1fr));
+  grid-auto-rows: minmax(3.35rem, auto);
   align-content: start;
-  gap: 0.45rem;
+  gap: 0.35rem;
 }
 
 .center-tabs {
@@ -444,14 +444,6 @@ body {
   overflow: hidden;
 }
 
-.checks-accordion {
-  --bs-accordion-bg: transparent;
-  --bs-accordion-btn-bg: transparent;
-  --bs-accordion-active-bg: transparent;
-  --bs-accordion-active-color: var(--bs-body-color);
-  --bs-accordion-btn-focus-box-shadow: none;
-}
-
 .side-tabs .nav-link {
   min-height: 3.2rem;
   color: #71717a;
@@ -464,10 +456,11 @@ body {
 }
 
 .side-group-card {
-  padding: 1rem;
-  border: 0;
-  border-radius: 0;
+  padding: 0.9rem;
+  border: 1px solid rgba(212, 212, 216, 0.78);
+  border-radius: 0.65rem;
   background: #fff;
+  box-shadow: 0 0.25rem 0.8rem rgba(24, 24, 27, 0.04);
 }
 
 .side-panel-fill {
@@ -643,10 +636,10 @@ body {
 
 .count-tile {
   width: 100%;
-  min-height: 4.9rem;
+  min-height: 3.35rem;
   border: 1px solid var(--studio-border);
-  border-radius: 0.5rem;
-  padding: 0.52rem 0.6rem;
+  border-radius: 0.42rem;
+  padding: 0.36rem 0.42rem;
   background: #fff;
   text-align: left;
   transition: border-color 140ms ease, box-shadow 140ms ease, transform 320ms ease;
@@ -674,23 +667,23 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.4rem;
-  margin-bottom: 0.34rem;
+  gap: 0.24rem;
+  margin-bottom: 0.16rem;
   color: #52525b;
-  font-size: 0.72rem;
+  font-size: 0.62rem;
   line-height: 1.15;
 }
 
 .count-value {
   color: #18181b;
-  font-size: 1.1rem;
+  font-size: 0.96rem;
   font-weight: 650;
   line-height: 1;
 }
 
 .count-value-pending {
-  width: 2.5rem;
-  height: 1.25rem;
+  width: 1.9rem;
+  height: 0.95rem;
   color: transparent;
 }
 
@@ -700,8 +693,8 @@ body {
 }
 
 .count-tile .spinner-border {
-  width: 0.86rem;
-  height: 0.86rem;
+  width: 0.68rem;
+  height: 0.68rem;
   color: #a1a1aa;
   border-width: 0.12rem;
 }
@@ -712,7 +705,7 @@ body {
 }
 
 .count-result-bar {
-  height: 0.3rem;
+  height: 0.22rem;
   overflow: hidden;
   background: #e4e4e7;
 }
