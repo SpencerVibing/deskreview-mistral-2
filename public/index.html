@@ -131,7 +131,7 @@
         <aside class="studio-pane studio-counts-pane">
           <div class="counts-panel-scroll pt-5">
             <div class="accordion accordion-flush checks-accordion" id="checksAccordion">
-              <div class="accordion-item">
+              <div class="accordion-item" id="articleCountsPluginPanel">
                 <h2 class="accordion-header" id="articleElementCountsHeading">
                   <button class="accordion-button bg-transparent shadow-none py-2 reader-header-label fw-normal text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#articleElementCountsPanel" aria-expanded="true" aria-controls="articleElementCountsPanel">
                     Article element counts
@@ -148,7 +148,7 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+              <div class="accordion-item" id="essentialGuidelinesPluginPanel">
                 <h2 class="accordion-header" id="essentialGuidelinesHeading">
                   <button class="accordion-button collapsed bg-transparent shadow-none py-2 reader-header-label fw-normal text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#essentialGuidelinesPanel" aria-expanded="false" aria-controls="essentialGuidelinesPanel">
                     <span>Essential guidelines</span>
@@ -163,7 +163,7 @@
                   </div>
                 </div>
               </div>
-              <div class="accordion-item">
+              <div class="accordion-item" id="reportingGuidelinesPluginPanel">
                 <h2 class="accordion-header" id="reportingGuidelinesHeading">
                   <button class="accordion-button collapsed bg-transparent shadow-none py-2 reader-header-label fw-normal text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#reportingGuidelinesPanel" aria-expanded="false" aria-controls="reportingGuidelinesPanel">
                     Reporting guidelines
@@ -182,10 +182,16 @@
               <i class="bi bi-clock-history"></i>
               <span>Runtime summary</span>
             </button>
-            <button id="feedbackReportButton" class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="modal" data-bs-target="#feedbackReportModal">
-              <i class="bi bi-file-earmark-text"></i>
-              <span>Feedback report</span>
-            </button>
+            <div class="d-flex align-items-center gap-2">
+              <button id="customizeChecksButton" class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="modal" data-bs-target="#customizeChecksModal">
+                <i class="bi bi-sliders"></i>
+                <span>Customize</span>
+              </button>
+              <button id="feedbackReportButton" class="btn btn-sm btn-light border-0" type="button" data-bs-toggle="modal" data-bs-target="#feedbackReportModal">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>Feedback report</span>
+              </button>
+            </div>
           </div>
           <section id="detailsPanel" class="details-panel" aria-hidden="true" aria-label="Count details">
             <div class="details-topbar">
@@ -255,6 +261,20 @@
             <button id="feedbackReportPdf" type="button" class="btn btn-dark">
               Save as PDF
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="customizeChecksModal" tabindex="-1" aria-labelledby="customizeChecksTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="customizeChecksTitle" class="modal-title fs-5">Customize checks</h2>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div id="customizeChecksBody" class="modal-body">
+            <div class="text-secondary small">Loading check configuration...</div>
           </div>
         </div>
       </div>

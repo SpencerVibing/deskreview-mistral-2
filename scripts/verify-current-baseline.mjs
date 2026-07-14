@@ -42,6 +42,7 @@ async function main() {
   assert(indexHtml.includes('id="tocList"'), 'ToC list is missing.');
   assert(indexHtml.includes('id="countsGrid"'), 'Counts grid is missing.');
   assert(indexHtml.includes('id="essentialGuideList"'), 'Essential guide list is missing.');
+  assert(indexHtml.includes('id="customizeChecksModal"'), 'Customize checks modal is missing.');
   assert(indexHtml.includes('id="detailsPanel"'), 'Details panel is missing.');
 
   const child = spawn(process.execPath, ['server/index.js'], {
@@ -95,9 +96,17 @@ async function main() {
     assert(guidelineDetailCore.response.status === 200, `Expected /core/guideline-detail.js to return 200, got ${guidelineDetailCore.response.status}.`);
     assert(guidelineDetailCore.text.includes('filterGuideResults'), 'Guideline detail core module is missing.');
 
+    const pluginConfigCore = await request('/core/plugin-config.js');
+    assert(pluginConfigCore.response.status === 200, `Expected /core/plugin-config.js to return 200, got ${pluginConfigCore.response.status}.`);
+    assert(pluginConfigCore.text.includes('normalizePluginPreferences'), 'Plugin config core module is missing.');
+
     const essentialData = await request('/data/ease-essential-guidelines.json');
     assert(essentialData.response.status === 200, `Expected /data/ease-essential-guidelines.json to return 200, got ${essentialData.response.status}.`);
     assert(essentialData.text.includes('EASE Essentials'), 'Essential guideline data is missing.');
+
+    const pluginData = await request('/data/plugin-catalog.json');
+    assert(pluginData.response.status === 200, `Expected /data/plugin-catalog.json to return 200, got ${pluginData.response.status}.`);
+    assert(pluginData.text.includes('essential-guidelines'), 'Plugin catalog data is missing.');
 
     const libraryService = await request('/services/browser-library.js');
     assert(libraryService.response.status === 200, `Expected /services/browser-library.js to return 200, got ${libraryService.response.status}.`);

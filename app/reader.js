@@ -9,6 +9,13 @@ import {
   filterGuideResults,
   summarizeGuideResults
 } from '/core/guideline-detail.js';
+import {
+  addCustomGuide,
+  normalizePluginPreferences,
+  pluginIsEnabled,
+  removeCustomGuide,
+  setPluginEnabled
+} from '/core/plugin-config.js';
 import { projectTocEntries } from '/core/toc.js';
 import {
   deleteStoredReview,
@@ -17,6 +24,11 @@ import {
   putStoredReview
 } from '/services/browser-library.js';
 import { loadEssentialGuides } from '/services/guideline-data.js';
+import {
+  loadPluginCatalog,
+  loadPluginPreferences,
+  savePluginPreferences
+} from '/services/plugin-preferences.js';
 import {
   annotateDocument,
   requestOcr,
@@ -106,6 +118,8 @@ const state = {
   essentialResults: [],
   essentialStatus: 'idle',
   activeGuideFilter: 'all',
+  pluginCatalog: [],
+  pluginPreferences: { enabled: {}, customGuides: [] },
   pdfSearch: {
     query: '',
     matches: [],
@@ -143,6 +157,10 @@ const els = {
   countsGrid: document.getElementById('countsGrid'),
   essentialGuideList: document.getElementById('essentialGuideList'),
   essentialGuidelineSummary: document.getElementById('essentialGuidelineSummary'),
+  essentialGuidelinesPluginPanel: document.getElementById('essentialGuidelinesPluginPanel'),
+  reportingGuidelinesPluginPanel: document.getElementById('reportingGuidelinesPluginPanel'),
+  customizeChecksModal: document.getElementById('customizeChecksModal'),
+  customizeChecksBody: document.getElementById('customizeChecksBody'),
   tocList: document.getElementById('tocList'),
   pdfScroll: document.getElementById('pdfScroll'),
   pdfDocument: document.getElementById('pdfDocument'),
@@ -1428,6 +1446,11 @@ function updateEssentialResults() {
 
 function renderEssentialGuidelines() {
   if (!els.essentialGuideList) return;
+  if (!pluginIsEnabled(state.pluginPreferences, 'essential-guidelines')) {
+    els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are disabled.</div>';
+    if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Off';
+    return;
+  }
   if (!state.essentialGuides.length) {
     els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are loading.</div>';
     if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Loading';
@@ -1457,6 +1480,20 @@ function renderEssentialGuidelines() {
     els.essentialGuidelineSummary.className = `badge text-bg-${guidelineStatusTone(state.documentAnnotation.status === 'ready' ? 'present' : 'pending')} ms-auto`;
     els.essentialGuidelineSummary.textContent = summaryText;
   }
+  const customGuides = Array.isArray(state.pluginPreferences.customGuides) ? state.pluginPreferences.customGuides : [];
+  const customGuideHtml = customGuides.map((guide) => `
+    <div class="card border shadow-sm">
+      <div class="card-body p-3">
+        <div class="d-flex align-items-start justify-content-between gap-2">
+          <div>
+            <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
+            <div class="small text-secondary">${escapeHtml(guide.description || 'Custom guide definition')}</div>
+          </div>
+          <span class="badge text-bg-secondary">Custom</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
   els.essentialGuideList.innerHTML = state.essentialResults.map((guide) => {
     const tone = guidelineStatusTone(guide.status);
     const summary = guide.summary || {};
@@ -1479,7 +1516,7 @@ function renderEssentialGuidelines() {
         </div>
       </button>
     `;
-  }).join('');
+  }).join('') + customGuideHtml;
 }
 
 function renderEssentialGuideDetails(guideId = '') {
@@ -1545,6 +1582,74 @@ function applyGuideDetailFilter(status = 'all') {
     const visible = state.activeGuideFilter === 'all' || node.dataset.guideResultStatus === state.activeGuideFilter;
     node.classList.toggle('d-none', !visible);
   });
+}
+
+function applyPluginPreferences() {
+  const essentialEnabled = pluginIsEnabled(state.pluginPreferences, 'essential-guidelines');
+  const reportingEnabled = pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines');
+  els.essentialGuidelinesPluginPanel?.classList.toggle('d-none', !essentialEnabled);
+  els.reportingGuidelinesPluginPanel?.classList.toggle('d-none', !reportingEnabled);
+  renderEssentialGuidelines();
+}
+
+function persistPluginPreferences(preferences = state.pluginPreferences) {
+  state.pluginPreferences = normalizePluginPreferences(preferences, state.pluginCatalog);
+  savePluginPreferences(state.pluginPreferences);
+  applyPluginPreferences();
+  renderCustomizeChecks();
+}
+
+function renderCustomizeChecks() {
+  if (!els.customizeChecksBody) return;
+  const catalog = state.pluginCatalog || [];
+  const preferences = state.pluginPreferences || { enabled: {}, customGuides: [] };
+  els.customizeChecksBody.innerHTML = `
+    <div class="vstack gap-3">
+      <section>
+        <div class="small fw-semibold text-body mb-2">Check groups</div>
+        <div class="list-group">
+          ${catalog.map((plugin) => {
+            const checked = pluginIsEnabled(preferences, plugin.id);
+            return `
+              <label class="list-group-item d-flex align-items-start gap-3">
+                <input class="form-check-input mt-1" type="checkbox" data-plugin-toggle="${escapeHtml(plugin.id)}" ${checked ? 'checked' : ''} ${plugin.locked ? 'disabled' : ''}>
+                <span class="min-w-0">
+                  <span class="d-flex align-items-center gap-2">
+                    <span class="fw-medium">${escapeHtml(plugin.label)}</span>
+                    ${plugin.locked ? '<span class="badge text-bg-light">Required</span>' : ''}
+                  </span>
+                  <span class="d-block small text-secondary">${escapeHtml(plugin.description || '')}</span>
+                </span>
+              </label>
+            `;
+          }).join('')}
+        </div>
+      </section>
+      <section>
+        <div class="small fw-semibold text-body mb-2">Custom guides</div>
+        <form class="vstack gap-2" data-custom-guide-form>
+          <input class="form-control form-control-sm" name="name" type="text" placeholder="Guide name" aria-label="Guide name">
+          <textarea class="form-control form-control-sm" name="description" rows="3" placeholder="Short requirement summary" aria-label="Guide summary"></textarea>
+          <div>
+            <button type="submit" class="btn btn-sm btn-dark">Add custom guide</button>
+          </div>
+        </form>
+        <div class="list-group mt-3">
+          ${(preferences.customGuides || []).map((guide) => `
+            <div class="list-group-item d-flex align-items-start justify-content-between gap-3">
+              <div class="min-w-0">
+                <div class="small fw-medium">${escapeHtml(guide.name)}</div>
+                <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
+              </div>
+              <button type="button" class="btn btn-sm btn-light border" data-remove-custom-guide="${escapeHtml(guide.id)}" aria-label="Remove ${escapeHtml(guide.name)}">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          `).join('') || '<div class="small text-secondary">No custom guides saved.</div>'}
+        </div>
+      </section>
+    </div>
+  `;
 }
 
 function detailTitle(kind = '') {
@@ -3983,6 +4088,38 @@ els.feedbackReportModal?.addEventListener('show.bs.modal', renderFeedbackReport)
 els.feedbackReportButton?.addEventListener('click', renderFeedbackReport);
 els.feedbackReportPdf?.addEventListener('click', openFeedbackReportPdf);
 
+els.customizeChecksModal?.addEventListener('show.bs.modal', renderCustomizeChecks);
+els.customizeChecksBody?.addEventListener('change', (event) => {
+  const toggle = event.target.closest('[data-plugin-toggle]');
+  if (!toggle) return;
+  persistPluginPreferences(setPluginEnabled(
+    state.pluginPreferences,
+    state.pluginCatalog,
+    toggle.dataset.pluginToggle,
+    toggle.checked
+  ));
+});
+els.customizeChecksBody?.addEventListener('submit', (event) => {
+  const form = event.target.closest('[data-custom-guide-form]');
+  if (!form) return;
+  event.preventDefault();
+  const formData = new FormData(form);
+  persistPluginPreferences(addCustomGuide(state.pluginPreferences, state.pluginCatalog, {
+    name: formData.get('name'),
+    description: formData.get('description')
+  }));
+});
+els.customizeChecksBody?.addEventListener('click', (event) => {
+  const removeButton = event.target.closest('[data-remove-custom-guide]');
+  if (!removeButton) return;
+  event.preventDefault();
+  persistPluginPreferences(removeCustomGuide(
+    state.pluginPreferences,
+    state.pluginCatalog,
+    removeButton.dataset.removeCustomGuide
+  ));
+});
+
 els.detailsPanelClose.addEventListener('click', closeDetails);
 
 els.detailsPanelBody.addEventListener('click', (event) => {
@@ -4023,6 +4160,17 @@ initSplitter(els.tocSplitter, 'toc');
 initSplitter(els.countsSplitter, 'counts');
 initPdfResizeObserver();
 showHome();
+loadPluginCatalog()
+  .then((plugins) => {
+    state.pluginCatalog = plugins;
+    state.pluginPreferences = normalizePluginPreferences(loadPluginPreferences(), plugins);
+    applyPluginPreferences();
+  })
+  .catch((error) => {
+    console.warn('[deskreview-mistral-2] plugin catalog failed', error);
+    state.pluginCatalog = [];
+    state.pluginPreferences = normalizePluginPreferences(loadPluginPreferences(), []);
+  });
 loadEssentialGuides()
   .then((guides) => {
     state.essentialGuides = guides;

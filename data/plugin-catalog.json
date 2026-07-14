@@ -1,0 +1,25 @@
+{
+  "plugins": [
+    {
+      "id": "article-counts",
+      "label": "Article element counts",
+      "description": "OCR and annotation-backed count tiles.",
+      "locked": true,
+      "defaultEnabled": true
+    },
+    {
+      "id": "essential-guidelines",
+      "label": "Essential guidelines",
+      "description": "EASE-inspired core manuscript checks.",
+      "locked": false,
+      "defaultEnabled": true
+    },
+    {
+      "id": "reporting-guidelines",
+      "label": "Reporting guidelines",
+      "description": "Matched reporting guideline checks.",
+      "locked": false,
+      "defaultEnabled": true
+    }
+  ]
+}
