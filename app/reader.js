@@ -238,12 +238,10 @@ const els = {
   libraryBack: document.getElementById('libraryBack'),
   countsGrid: document.getElementById('countsGrid'),
   essentialGuideList: document.getElementById('essentialGuideList'),
-  essentialGuidelineSummary: document.getElementById('essentialGuidelineSummary'),
   essentialLaneProgress: document.getElementById('essentialLaneProgress'),
   essentialGuidelinesPluginPanel: document.getElementById('essentialGuidelinesPluginPanel'),
   reportingGuidelinesPluginPanel: document.getElementById('reportingGuidelinesPluginPanel'),
   reportingGuideList: document.getElementById('reportingGuideList'),
-  matchedGuidelineSummary: document.getElementById('matchedGuidelineSummary'),
   matchedLaneProgress: document.getElementById('matchedLaneProgress'),
   recommendedGuideList: document.getElementById('recommendedGuideList'),
   recommendedGuidelineSummary: document.getElementById('recommendedGuidelineSummary'),
@@ -1790,6 +1788,11 @@ function renderGuideStatusBadges(summary = {}) {
   `;
 }
 
+function renderGuidelineSelectorTitle(guideId = '', label = 'Guideline') {
+  const id = String(guideId || '').trim();
+  return `<span class="d-inline-block small fw-semibold text-body" data-guideline-selector-open="${escapeHtml(id)}">${escapeHtml(label || 'Guideline')}</span>`;
+}
+
 function updateEssentialResults() {
   if (state.precomputedExample.active && state.essentialResults.length) {
     return;
@@ -1808,13 +1811,11 @@ function renderEssentialGuidelines() {
   if (!els.essentialGuideList) return;
   if (!pluginIsEnabled(state.pluginPreferences, 'essential-guidelines')) {
     els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are disabled.</div>';
-    if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Off';
     if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = '';
     return;
   }
   if (!state.essentialGuides.length && !state.precomputedExample.active) {
     els.essentialGuideList.innerHTML = '<div class="small text-secondary">Essential guidelines are loading.</div>';
-    if (els.essentialGuidelineSummary) els.essentialGuidelineSummary.textContent = 'Loading';
     if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
@@ -1823,10 +1824,6 @@ function renderEssentialGuidelines() {
     els.essentialGuideList.innerHTML = `
       <div class="alert alert-light border small mb-0">${escapeHtml(state.documentAnnotation.error || 'Document annotation is unavailable.')}</div>
     `;
-    if (els.essentialGuidelineSummary) {
-      els.essentialGuidelineSummary.className = 'small text-danger';
-      els.essentialGuidelineSummary.textContent = 'Failed';
-    }
     if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = '';
     return;
   }
@@ -1834,13 +1831,6 @@ function renderEssentialGuidelines() {
   const aggregateStatus = state.documentAnnotation.status === 'ready'
     ? (aggregate.absent ? 'absent' : aggregate.warning ? 'warning' : 'present')
     : 'pending';
-  const summaryText = state.documentAnnotation.status === 'ready'
-    ? `${aggregate.present}/${Math.max(1, aggregate.present + aggregate.warning + aggregate.absent)}`
-    : 'Pending';
-  if (els.essentialGuidelineSummary) {
-    els.essentialGuidelineSummary.className = 'small text-secondary';
-    els.essentialGuidelineSummary.textContent = summaryText;
-  }
   if (els.essentialLaneProgress) {
     els.essentialLaneProgress.innerHTML = renderGuideProgress(aggregate, aggregateStatus);
   }
@@ -1853,7 +1843,7 @@ function renderEssentialGuidelines() {
           <div class="d-flex align-items-start justify-content-between gap-2">
             <div class="min-w-0">
               <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Essential')}</div>
-              <div class="small fw-semibold text-body">${escapeHtml(guide.name || 'Essential guide')}</div>
+              <div>${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
               <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
             </div>
             <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
@@ -1957,16 +1947,12 @@ function renderReportingGuidelines() {
   if (!els.reportingGuideList) return;
   if (!pluginIsEnabled(state.pluginPreferences, 'reporting-guidelines')) {
     els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guidelines are disabled.</div>';
-    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Off';
     if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = '';
     return;
   }
   if (state.reportingGuideResults.length) {
     const aggregate = aggregateGuideSummaries(state.reportingGuideResults);
     const aggregateStatus = aggregate.absent ? 'absent' : aggregate.warning ? 'warning' : 'present';
-    if (els.matchedGuidelineSummary) {
-      els.matchedGuidelineSummary.textContent = `${state.reportingGuideResults.length} matched`;
-    }
     if (els.matchedLaneProgress) {
       els.matchedLaneProgress.innerHTML = renderGuideProgress(aggregate, aggregateStatus);
     }
@@ -1976,7 +1962,7 @@ function renderReportingGuidelines() {
           <div class="d-flex align-items-start justify-content-between gap-2">
             <div class="min-w-0">
               <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Matched guideline')}</div>
-              <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
+              <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
               <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
             </div>
             <span class="badge text-bg-${guidelineStatusTone(guide.status)}">${escapeHtml(guidelineStatusLabel(guide.status))}</span>
@@ -1990,7 +1976,6 @@ function renderReportingGuidelines() {
   }
   if (!state.reportingGuidelineCatalog.length) {
     els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guideline catalog is loading.</div>';
-    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Loading catalog';
     if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
@@ -2000,28 +1985,22 @@ function renderReportingGuidelines() {
       message: 'The annotation is ready. Reporting guidelines are being matched in the background.',
       progress: null
     });
-    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Matching in background';
     if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
   if (state.reportingMatches.status === 'failed') {
     els.reportingGuideList.innerHTML = `<div class="alert alert-light border small mb-0">${escapeHtml(state.reportingMatches.error || 'Reporting guideline matching failed.')}</div>`;
-    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Failed';
     if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = '';
     return;
   }
   if (state.reportingMatches.status !== 'ready') {
     els.reportingGuideList.innerHTML = '<div class="small text-secondary">Reporting guideline matches will appear after document annotation.</div>';
-    if (els.matchedGuidelineSummary) els.matchedGuidelineSummary.textContent = 'Waiting for annotation';
     if (els.matchedLaneProgress) els.matchedLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
     return;
   }
   const matches = state.reportingMatches.result?.matches || [];
   const warnings = state.reportingMatches.result?.warnings || [];
   const summary = { present: matches.length, warning: warnings.length, absent: 0, na: 0 };
-  if (els.matchedGuidelineSummary) {
-    els.matchedGuidelineSummary.textContent = `${matches.length} matched${warnings.length ? `, ${warnings.length} warning${warnings.length === 1 ? '' : 's'}` : ''}`;
-  }
   if (els.matchedLaneProgress) {
     els.matchedLaneProgress.innerHTML = renderGuideProgress(summary, matches.length || warnings.length ? 'present' : 'warning');
   }
@@ -2033,7 +2012,7 @@ function renderReportingGuidelines() {
           <div class="d-flex align-items-start justify-content-between gap-2">
             <div class="min-w-0">
               <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Matched guideline</div>
-              <div class="small fw-semibold text-body">${escapeHtml(match.label)}</div>
+              <div>${renderGuidelineSelectorTitle(match.guidelineId, match.label)}</div>
               <div class="small text-secondary">${escapeHtml(match.rationale || '')}</div>
             </div>
             <span class="badge text-bg-primary">${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%</span>
@@ -2069,7 +2048,7 @@ function renderRecommendedGuidelines() {
         <div class="d-flex align-items-start justify-content-between gap-2">
           <div class="min-w-0">
             <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(guide.sourceLabel || 'Recommended')}</div>
-            <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
+            <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
             <div class="small text-secondary">${escapeHtml(guide.description || '')}</div>
           </div>
           <span class="badge text-bg-light">Recommended</span>
@@ -2104,7 +2083,7 @@ function renderCustomGuidelines() {
         <div class="d-flex align-items-start justify-content-between gap-2">
           <div class="min-w-0">
             <div class="small text-uppercase text-secondary guide-card-kicker mb-1">Custom guideline</div>
-            <div class="small fw-semibold text-body">${escapeHtml(guide.name)}</div>
+            <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
             <div class="small text-secondary">${escapeHtml(guide.description || 'Custom guide definition')}</div>
           </div>
           <span class="badge text-bg-secondary">Custom</span>
@@ -2880,6 +2859,33 @@ function renderCustomizeChecks() {
   initializeGuidelineSelectorEvents();
   ensureGuidelineSelectorCatalogLoaded();
   renderGuidelineSelector();
+}
+
+function getGuidelineSelectorModal() {
+  const ModalCtor = window.bootstrap?.Modal;
+  if (!ModalCtor || !els.customizeChecksModal) return null;
+  return ModalCtor.getOrCreateInstance
+    ? ModalCtor.getOrCreateInstance(els.customizeChecksModal)
+    : new ModalCtor(els.customizeChecksModal);
+}
+
+function openGuidelineSelectorModal(guideId = '') {
+  renderCustomizeChecks();
+  getGuidelineSelectorModal()?.show();
+  const id = String(guideId || '').trim();
+  if (!id) return;
+  window.setTimeout(() => {
+    void showGuidelineSelectorDetail(id, { revealDelayMs: 120 });
+  }, 0);
+}
+
+function handleGuidelineSelectorTitleClick(event) {
+  const trigger = event.target.closest('[data-guideline-selector-open]');
+  if (!trigger) return false;
+  event.preventDefault();
+  event.stopPropagation();
+  openGuidelineSelectorModal(trigger.getAttribute('data-guideline-selector-open') || '');
+  return true;
 }
 
 function initializeGuidelineSelectorEvents() {
@@ -5495,12 +5501,14 @@ els.countsGrid.addEventListener('click', (event) => {
 });
 
 els.essentialGuideList?.addEventListener('click', (event) => {
+  if (handleGuidelineSelectorTitleClick(event)) return;
   const button = event.target.closest('[data-essential-guide-id]');
   if (!button) return;
   renderEssentialGuideDetails(button.dataset.essentialGuideId);
 });
 
 els.reportingGuideList?.addEventListener('click', (event) => {
+  if (handleGuidelineSelectorTitleClick(event)) return;
   const guideButton = event.target.closest('[data-reporting-guide-id]');
   if (guideButton) {
     renderReportingGuideResultDetails(guideButton.dataset.reportingGuideId);
@@ -5509,6 +5517,14 @@ els.reportingGuideList?.addEventListener('click', (event) => {
   const button = event.target.closest('[data-reporting-match-id]');
   if (!button) return;
   renderReportingMatchDetails(button.dataset.reportingMatchId);
+});
+
+els.recommendedGuideList?.addEventListener('click', (event) => {
+  handleGuidelineSelectorTitleClick(event);
+});
+
+els.customGuideList?.addEventListener('click', (event) => {
+  handleGuidelineSelectorTitleClick(event);
 });
 
 els.chatComposer?.addEventListener('submit', (event) => {
@@ -5701,10 +5717,6 @@ loadEssentialGuides()
     state.essentialStatus = 'failed';
     if (els.essentialGuideList) {
       els.essentialGuideList.innerHTML = `<div class="alert alert-light border small mb-0">${escapeHtml(error?.message || error || 'Essential guidelines could not be loaded.')}</div>`;
-    }
-    if (els.essentialGuidelineSummary) {
-      els.essentialGuidelineSummary.className = 'badge text-bg-danger ms-auto';
-      els.essentialGuidelineSummary.textContent = 'Failed';
     }
   });
 loadReportingGuidelines()

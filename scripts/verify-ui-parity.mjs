@@ -122,6 +122,7 @@ async function main() {
     await assertText(page, '#reportingGuideList', /SAMPL/i);
     await assertText(page, '#reportingGuideList', /TIDieR/i);
     await assertText(page, '#reportingGuideList', /ICMJE Recommendations/i);
+    await assertGuidelineTitleOpensSelector(page, 'cert', /CERT/i);
     await page.click('#reportingGuideList [data-reporting-guide-id="consort"]');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /CONSORT/i);
@@ -224,6 +225,8 @@ async function assertChecksAccordion(page) {
 
 async function assertReaderUiRegressionFixes(page) {
   assert.equal(await page.locator('#openGuidelineCatalogButton').count(), 0, 'Guideline catalog kebab button should be removed.');
+  assert.equal(await page.locator('#essentialGuidelineSummary').count(), 0, 'Essential guideline summary clutter should be removed.');
+  assert.equal(await page.locator('#matchedGuidelineSummary').count(), 0, 'Matched guideline summary clutter should be removed.');
   const guideBarClasses = await page.locator('.guide-progress-mini .progress-bar').evaluateAll((nodes) => nodes.map((node) => node.className));
   assert.ok(guideBarClasses.length > 0, 'Guideline mini progress bars should render.');
   assert.ok(
@@ -271,6 +274,23 @@ async function assertGuidelineSelectorModal(page) {
   await assertText(page, '#references-pane', /BMJ|doi/i);
   const referenceHref = await page.locator('#references-pane a[href]').first().getAttribute('href');
   assert.match(referenceHref || '', /^https:\/\//);
+  await page.click('#closeGuidelineDetailSliderBtn');
+  await page.waitForSelector('#guidelineDetailSlider.active', { state: 'detached', timeout: 1000 }).catch(async () => {
+    assert.equal(await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')), false);
+  });
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+    await page.locator('#customizeChecksModal .btn-close').click();
+    await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 });
+  });
+}
+
+async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
+  await page.click(`#reportingGuideList [data-guideline-selector-open="${guideId}"]`);
+  await page.waitForSelector('#customizeChecksModal.show', { timeout: 10000 });
+  await page.waitForSelector('#guidelineDetailSlider.active', { timeout: 10000 });
+  await assertText(page, '#guidelineDetailName', titlePattern);
+  await assertText(page, '#checklist-pane', /Checklist details|Title|Abstract|intervention|training/i);
   await page.click('#closeGuidelineDetailSliderBtn');
   await page.waitForSelector('#guidelineDetailSlider.active', { state: 'detached', timeout: 1000 }).catch(async () => {
     assert.equal(await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')), false);
