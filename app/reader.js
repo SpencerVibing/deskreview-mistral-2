@@ -2064,20 +2064,23 @@ function renderGuideDetailsIntro(guide = {}) {
   const title = guide.name || guide.label || guide.guideName || 'Guideline';
   return `
     <div class="mb-3">
-      <div class="d-flex align-items-center gap-2 mb-1">
-        <div class="small fw-semibold text-body">${escapeHtml(title)}</div>
-        ${id ? `
-          <button type="button" class="btn btn-sm btn-link text-secondary p-0 d-inline-flex align-items-center" data-guideline-selector-open="${escapeHtml(id)}" data-guide-details-selector-open="${escapeHtml(id)}" aria-label="View details for ${escapeHtml(title)}">
-            <i class="bi bi-info-circle" aria-hidden="true"></i>
-          </button>
-        ` : ''}
+      <div class="d-flex align-items-center justify-content-between gap-3">
+        <div class="d-flex align-items-center gap-2 min-w-0">
+          <div class="small fw-semibold text-body text-truncate">${escapeHtml(title)}</div>
+          ${id ? `
+            <button type="button" class="btn btn-sm btn-link text-secondary p-0 d-inline-flex align-items-center flex-shrink-0" data-guideline-selector-open="${escapeHtml(id)}" data-guide-details-selector-open="${escapeHtml(id)}" aria-label="View details for ${escapeHtml(title)}">
+              <i class="bi bi-info-circle" aria-hidden="true"></i>
+            </button>
+          ` : ''}
+        </div>
+        ${renderGuideFilterSlot()}
       </div>
     </div>
   `;
 }
 
 function renderGuideFilterSlot() {
-  return '<div id="guideFilterControl" class="d-none mb-3"></div>';
+  return '<div id="guideFilterControl" class="d-none flex-shrink-0 ms-auto"></div>';
 }
 
 function guideFilterControlElement() {
@@ -2553,7 +2556,6 @@ function renderEssentialGuideDetails(guideId = '') {
   const results = filterGuideResults(guide.results, 'all');
   openDetails('essential-guidelines', `
     ${renderGuideDetailsIntro(guide)}
-    ${renderGuideFilterSlot()}
     <div data-guide-results>
       ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'essential-guide' })}
     </div>
@@ -2980,7 +2982,6 @@ function renderReportingGuideResultDetails(guideId = '') {
   const results = filterGuideResults(guide.results, 'all');
   openDetails('reporting-guidelines', `
     ${renderGuideDetailsIntro(guide)}
-    ${renderGuideFilterSlot()}
     <div data-guide-results>
       ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'reporting-guide' })}
     </div>

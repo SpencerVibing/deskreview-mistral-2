@@ -861,10 +861,21 @@ async function assertGuideDetailFilterDropdown(page) {
   await assertVisible(page, '#detailsPanel .guide-slider-content .analyzed-guide-accordion');
   const filterPlacement = await page.evaluate(() => {
     const filter = document.querySelector('#guideFilterControl');
+    const titleButton = document.querySelector('#detailsPanelBody [data-guide-details-selector-open]');
     const results = document.querySelector('#detailsPanelBody [data-guide-results]');
-    return Boolean(filter && results && filter.nextElementSibling === results);
+    if (!filter || !titleButton || !results) return null;
+    const filterBox = filter.getBoundingClientRect();
+    const titleBox = titleButton.getBoundingClientRect();
+    const resultsBox = results.getBoundingClientRect();
+    return {
+      sameRow: Math.abs(filterBox.y - titleBox.y) <= 4,
+      filterRightOfTitle: filterBox.x > titleBox.x,
+      filterAboveResults: filterBox.bottom <= resultsBox.top
+    };
   });
-  assert.equal(filterPlacement, true, 'Guideline detail filter should sit directly above the results accordion.');
+  assert.equal(filterPlacement?.sameRow, true, 'Guideline detail filter should sit on the guideline title row.');
+  assert.equal(filterPlacement?.filterRightOfTitle, true, 'Guideline detail filter should be right-aligned relative to the title.');
+  assert.equal(filterPlacement?.filterAboveResults, true, 'Guideline detail filter should remain above the results accordion.');
   assert.equal(
     await page.locator('#detailsPanel .btn-group[aria-label="Filter guideline results"]').count(),
     0,
