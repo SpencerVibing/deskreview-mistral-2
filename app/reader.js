@@ -1969,7 +1969,22 @@ function guideAggregateDefaultStatus(summary = {}) {
   return ['absent', 'warning', 'present', 'optional', 'skipped', 'na'].find((status) => Number(summary[status] || 0) > 0) || 'absent';
 }
 
-function guideStatusFilterButtons(summary = {}, selectedStatus = 'all') {
+function guideDetailFilterMeta(status = 'all') {
+  if (status === 'all') {
+    return {
+      key: 'all',
+      label: 'All',
+      detailLabel: 'All',
+      icon: 'bi-list-ul',
+      badgeClass: 'text-bg-dark',
+      textClass: 'text-body-secondary',
+      buttonClass: 'btn-dark'
+    };
+  }
+  return guideResultStatusMeta(status);
+}
+
+function guideDetailFilterOptions(summary = {}) {
   const filters = [
     { key: 'all', label: 'All', count: Number(summary.total || 0) },
     ...GUIDE_RESULT_STATUS_FILTERS.map((item) => ({
@@ -1978,11 +1993,35 @@ function guideStatusFilterButtons(summary = {}, selectedStatus = 'all') {
       count: Number(summary[item.key] || 0)
     }))
   ];
-  return filters.map(({ key, label, count }) => `
-    <button type="button" class="btn ${key === selectedStatus ? 'btn-dark active' : 'btn-light border'}" data-guide-detail-filter="${escapeHtml(key)}">
-      ${escapeHtml(label)} <span class="badge text-bg-light">${escapeHtml(count)}</span>
-    </button>
-  `).join('');
+  return filters.map((filter) => ({
+    ...guideDetailFilterMeta(filter.key),
+    ...filter
+  }));
+}
+
+function renderGuideDetailFilterDropdown(summary = {}, selectedStatus = 'all') {
+  const options = guideDetailFilterOptions(summary);
+  const selected = options.some((item) => item.key === selectedStatus) ? selectedStatus : 'all';
+  const active = options.find((item) => item.key === selected) || options[0];
+  return `
+    <div class="dropdown guide-detail-filter-dropdown mb-3">
+      <button type="button" class="btn btn-sm dropdown-toggle d-inline-flex align-items-center gap-2 guide-detail-filter-btn ${escapeHtml(active.buttonClass)}" data-bs-toggle="dropdown" aria-expanded="false" data-guide-detail-filter-current>
+        <i class="bi bi-filter" aria-hidden="true"></i>
+        <span class="guide-filter-label" data-guide-detail-filter-label>${escapeHtml(active.label)} (${escapeHtml(active.count)})</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end small guide-detail-filter-menu">
+        ${options.map((item) => `
+          <li>
+            <button type="button" class="dropdown-item d-flex align-items-center gap-2${item.key === selected ? ' active' : ''}" data-guide-detail-filter="${escapeHtml(item.key)}" data-guide-detail-filter-label="${escapeHtml(item.label)}" data-guide-detail-filter-count="${escapeHtml(item.count)}" data-guide-detail-filter-button-class="${escapeHtml(item.buttonClass)}"${item.key === selected ? ' aria-current="true"' : ''}>
+              <i class="bi ${escapeHtml(item.icon)} ${escapeHtml(item.textClass)}" aria-hidden="true"></i>
+              <span>${escapeHtml(item.label)}</span>
+              <span class="badge ${escapeHtml(item.badgeClass)} ms-auto">${escapeHtml(item.count)}</span>
+            </button>
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `;
 }
 
 function guideDonutGradient(summary = {}) {
@@ -2076,9 +2115,9 @@ function guideResultsForLane(lane = '') {
 function renderGuideResultDetailCards(results = [], selectedStatus = 'all', { showGuideName = false } = {}) {
   return results.map((item) => {
     const tone = guidelineStatusTone(item.status);
-    const hidden = selectedStatus !== 'all' && item.status !== selectedStatus ? ' d-none' : '';
+    const hidden = selectedStatus !== 'all' && item.status !== selectedStatus;
     return `
-      <div class="detail-card${hidden}" data-guide-result-status="${escapeHtml(item.status)}">
+      <div class="detail-card guide-result-card${hidden ? ' is-filtered-out' : ''}" data-guide-result-status="${escapeHtml(item.status)}"${hidden ? ' aria-hidden="true" inert' : ''}>
         <div class="detail-card-title">
           <span>${escapeHtml(item.label || item.id)}</span>
           <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
@@ -2103,9 +2142,7 @@ function renderAggregateGuideDetails(lane = '', status = 'absent') {
   const title = lane === 'matched' ? 'All matched guideline items' : 'All Essential guideline items';
   openDetails(lane === 'matched' ? 'reporting-guidelines' : 'essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(title)} grouped by result classification.</div>
-    <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
-      ${guideStatusFilterButtons(summary, selectedStatus)}
-    </div>
+    ${renderGuideDetailFilterDropdown(summary, selectedStatus)}
     <div class="vstack gap-2" data-guide-results>
       ${renderGuideResultDetailCards(results, selectedStatus, { showGuideName: true })}
     </div>
@@ -2208,9 +2245,7 @@ function renderEssentialGuideDetails(guideId = '') {
   const results = filterGuideResults(guide.results, 'all');
   openDetails('essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
-    <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
-      ${guideStatusFilterButtons(summary, 'all')}
-    </div>
+    ${renderGuideDetailFilterDropdown(summary, 'all')}
     <div class="vstack gap-2" data-guide-results>
       ${renderGuideResultDetailCards(results)}
     </div>
@@ -2218,17 +2253,29 @@ function renderEssentialGuideDetails(guideId = '') {
 }
 
 function applyGuideDetailFilter(status = 'all') {
-  state.activeGuideFilter = status || 'all';
+  const allowed = ['all', ...GUIDE_RESULT_STATUS_FILTERS.map((item) => item.key)];
+  state.activeGuideFilter = allowed.includes(status) ? status : 'all';
+  let activeOption = null;
   els.detailsPanelBody.querySelectorAll('[data-guide-detail-filter]').forEach((button) => {
     const active = button.dataset.guideDetailFilter === state.activeGuideFilter;
-    button.classList.toggle('btn-dark', active);
     button.classList.toggle('active', active);
-    button.classList.toggle('btn-light', !active);
-    button.classList.toggle('border', !active);
+    button.toggleAttribute('aria-current', active);
+    if (active) activeOption = button;
   });
+  const label = activeOption?.dataset.guideDetailFilterLabel || guideDetailFilterMeta(state.activeGuideFilter).label;
+  const count = activeOption?.dataset.guideDetailFilterCount || '0';
+  const buttonClass = activeOption?.dataset.guideDetailFilterButtonClass || guideDetailFilterMeta(state.activeGuideFilter).buttonClass;
+  const labelNode = els.detailsPanelBody.querySelector('[data-guide-detail-filter-label]');
+  if (labelNode) labelNode.textContent = `${label} (${count})`;
+  const filterButton = els.detailsPanelBody.querySelector('[data-guide-detail-filter-current]');
+  if (filterButton) {
+    filterButton.className = `btn btn-sm dropdown-toggle d-inline-flex align-items-center gap-2 guide-detail-filter-btn ${buttonClass}`;
+  }
   els.detailsPanelBody.querySelectorAll('[data-guide-result-status]').forEach((node) => {
     const visible = state.activeGuideFilter === 'all' || node.dataset.guideResultStatus === state.activeGuideFilter;
-    node.classList.toggle('d-none', !visible);
+    node.classList.toggle('is-filtered-out', !visible);
+    node.toggleAttribute('aria-hidden', !visible);
+    node.toggleAttribute('inert', !visible);
   });
 }
 
@@ -2543,9 +2590,7 @@ function renderReportingGuideResultDetails(guideId = '') {
   const results = filterGuideResults(guide.results, 'all');
   openDetails('reporting-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
-    <div class="btn-group btn-group-sm flex-wrap mb-3" role="group" aria-label="Filter guideline results">
-      ${guideStatusFilterButtons(summary, 'all')}
-    </div>
+    ${renderGuideDetailFilterDropdown(summary, 'all')}
     <div class="vstack gap-2" data-guide-results>
       ${renderGuideResultDetailCards(results)}
     </div>
@@ -6098,7 +6143,6 @@ els.detailsPanelBody.addEventListener('click', (event) => {
   const filterButton = event.target.closest('[data-guide-detail-filter]');
   if (filterButton) {
     event.preventDefault();
-    event.stopPropagation();
     applyGuideDetailFilter(filterButton.dataset.guideDetailFilter || 'all');
     return;
   }

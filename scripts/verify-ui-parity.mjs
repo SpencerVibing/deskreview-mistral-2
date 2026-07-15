@@ -121,9 +121,10 @@ async function main() {
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /Optional/i);
     await assertText(page, '#detailsPanel', /N\/A/i);
-    await page.click('#detailsPanel [data-guide-detail-filter="optional"]');
+    await assertGuideDetailFilterDropdown(page);
+    await selectGuideDetailFilter(page, 'optional');
     await waitForVisibleGuideResult(page, 'optional');
-    await page.click('#detailsPanel [data-guide-detail-filter="all"]');
+    await selectGuideDetailFilter(page, 'all');
     await assertActiveJumpFromDetails(page);
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-essential-detail.png'), fullPage: true });
     await page.click('#detailsPanelClose');
@@ -148,9 +149,10 @@ async function main() {
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /CONSORT/i);
     await assertText(page, '#detailsPanel', /Optional/i);
-    await page.click('#detailsPanel [data-guide-detail-filter="warning"]');
+    await assertGuideDetailFilterDropdown(page);
+    await selectGuideDetailFilter(page, 'warning');
     await waitForVisibleGuideResult(page, 'warning');
-    await page.click('#detailsPanel [data-guide-detail-filter="all"]');
+    await selectGuideDetailFilter(page, 'all');
     await assertActiveJumpFromDetails(page);
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reporting-detail.png'), fullPage: true });
     await page.click('#detailsPanelClose');
@@ -475,11 +477,50 @@ async function openAccordion(page, buttonSelector, panelSelector) {
   await page.locator(panelSelector).waitFor({ state: 'visible', timeout: 10000 });
 }
 
+async function assertGuideDetailFilterDropdown(page) {
+  await assertVisible(page, '#detailsPanel .guide-detail-filter-dropdown');
+  await assertVisible(page, '#detailsPanel [data-guide-detail-filter-current]');
+  assert.equal(
+    await page.locator('#detailsPanel .btn-group[aria-label="Filter guideline results"]').count(),
+    0,
+    'Guideline detail filters should use the dropdown widget instead of the old button group.'
+  );
+  assert.equal(
+    await page.locator('#detailsPanel .guide-result-card').count(),
+    await page.locator('#detailsPanel [data-guide-result-status]').count(),
+    'Guideline result cards should use the animated guide-result-card class.'
+  );
+}
+
+async function selectGuideDetailFilter(page, status) {
+  const trigger = page.locator('#detailsPanel [data-guide-detail-filter-current]').first();
+  await trigger.scrollIntoViewIfNeeded();
+  await trigger.click();
+  const opened = await page.waitForFunction(() => {
+    return document.querySelector('#detailsPanel .guide-detail-filter-menu')?.classList.contains('show');
+  }, null, { timeout: 1500 }).then(() => true).catch(() => false);
+  if (!opened) {
+    await trigger.evaluate((button) => window.bootstrap?.Dropdown?.getOrCreateInstance(button)?.show());
+    await page.waitForFunction(() => {
+      return document.querySelector('#detailsPanel .guide-detail-filter-menu')?.classList.contains('show');
+    }, null, { timeout: 10000 });
+  }
+  await page.click(`#detailsPanel .guide-detail-filter-menu.show [data-guide-detail-filter="${status}"]`);
+  await page.waitForFunction((selectedStatus) => {
+    const button = document.querySelector('#detailsPanel [data-guide-detail-filter-current]');
+    const label = button?.textContent || '';
+    const selected = document.querySelector(`#detailsPanel [data-guide-detail-filter="${selectedStatus}"]`);
+    return selected?.classList.contains('active') && new RegExp(selectedStatus === 'all' ? 'All' : selected.textContent.trim().split(/\s+/)[0], 'i').test(label);
+  }, status, { timeout: 10000 });
+}
+
 async function waitForVisibleGuideResult(page, status) {
   await page.waitForFunction((selectedStatus) => {
     return [...document.querySelectorAll('#detailsPanel [data-guide-result-status]')]
-      .some((node) => node.dataset.guideResultStatus === selectedStatus && !node.classList.contains('d-none'));
+      .some((node) => node.dataset.guideResultStatus === selectedStatus && !node.classList.contains('is-filtered-out'));
   }, status, { timeout: 10000 });
+  const hiddenCount = await page.locator(`#detailsPanel [data-guide-result-status]:not([data-guide-result-status="${status}"]).is-filtered-out`).count();
+  assert.ok(hiddenCount > 0, 'Non-matching guideline cards should animate out with is-filtered-out.');
 }
 
 async function assertActiveJumpFromDetails(page) {
