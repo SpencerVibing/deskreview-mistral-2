@@ -286,6 +286,7 @@ const els = {
   deleteReviewModal: document.getElementById('deleteReviewModal'),
   deleteReviewName: document.getElementById('deleteReviewName'),
   deleteReviewConfirm: document.getElementById('deleteReviewConfirm'),
+  browseGuidelinesButton: document.getElementById('browseGuidelinesButton'),
   feedbackReportButton: document.getElementById('feedbackReportButton'),
   feedbackReportBody: document.getElementById('feedbackReportBody'),
   feedbackReportModal: document.getElementById('feedbackReportModal'),
@@ -6656,6 +6657,10 @@ els.runtimeSummaryButton?.addEventListener('click', renderRuntimeSummary);
 els.runtimeSummaryCopy?.addEventListener('click', () => {
   renderRuntimeSummary();
   navigator.clipboard?.writeText(runtimeSummaryText()).catch(() => {});
+});
+
+els.browseGuidelinesButton?.addEventListener('click', () => {
+  openGuidelineSelectorModal();
 });
 
 els.deleteReviewConfirm?.addEventListener('click', async () => {

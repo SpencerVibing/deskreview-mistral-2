@@ -95,6 +95,8 @@ async function main() {
     await assertCountTileBootstrapTooltips(page);
     await assertReaderUiRegressionFixes(page);
     await assertChecksSectionCards(page);
+    await assertChecksActionsDropdown(page);
+    await assertBrowseGuidelinesMenuAction(page);
     await assertCustomizeChecksModal(page);
     await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
     await page.waitForFunction(() => {
@@ -173,7 +175,7 @@ async function main() {
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reporting-detail.png'), fullPage: true });
     await page.click('#detailsPanelClose');
 
-    await page.click('#feedbackReportButton');
+    await clickChecksAction(page, '#feedbackReportButton');
     await page.waitForSelector('#feedbackReportModal.show', { timeout: 10000 });
     await assertText(page, '#feedbackReportModal', /Essential guidelines/i);
     await assertText(page, '#feedbackReportModal', /Matched reporting guidelines/i);
@@ -238,6 +240,16 @@ async function assertText(page, selector, pattern) {
   }, { selector, source: pattern.source, flags: pattern.flags }, { timeout: 15000 });
   const text = await page.locator(selector).first().innerText();
   assert.match(text, pattern);
+}
+
+async function openChecksActionsMenu(page) {
+  await page.click('#checksActionsButton');
+  await page.waitForSelector('#checksActionsButton + .dropdown-menu.show', { timeout: 10000 });
+}
+
+async function clickChecksAction(page, selector) {
+  await openChecksActionsMenu(page);
+  await page.click(selector);
 }
 
 async function switchReaderView(page, view) {
@@ -341,6 +353,12 @@ async function assertChecksSectionCards(page) {
   );
   await assertText(page, '#articleCountsHeading', /Article element counts/i);
   await assertText(page, '#reportingQualityHeading', /Reporting quality guidelines/i);
+  assert.equal(
+    await page.locator('#checksContentSections ~ #checksRuntimeSummaryAction #runtimeSummaryButton').count(),
+    1,
+    'Runtime summary button should sit below the checks section cards.'
+  );
+  await assertText(page, '#checksRuntimeSummaryAction', /Runtime summary/i);
   assert.equal(await page.locator('#guidelineChecksAccordion .accordion-button .h6').count(), 0, 'Guideline accordion labels should not use h6 display sizing.');
   const laneLabelClasses = await page.locator('#guidelineChecksAccordion .accordion-button > span:first-child > span:first-child').evaluateAll((nodes) => nodes.map((node) => node.className));
   laneLabelClasses.forEach((className) => {
@@ -469,7 +487,7 @@ async function assertReaderPaneToggles(page) {
 }
 
 async function assertCustomizeChecksModal(page) {
-  await page.click('#customizeChecksButton');
+  await clickChecksAction(page, '#customizeChecksButton');
   await page.waitForSelector('#customizeChecksModal.show', { timeout: 10000 });
   await assertText(page, '#customizeChecksModal', /Customize checks/i);
   await assertVisible(page, '#readerCustomizeFacets');
@@ -701,6 +719,38 @@ async function assertGuideListRows(page, { listSelector, cardSelector, expectedC
   const rightEdges = rows.map((row) => row.progress.x + row.progress.width);
   assert.ok(Math.max(...widths) - Math.min(...widths) <= 1, `${label} progress bars should use a fixed width.`);
   assert.ok(Math.max(...rightEdges) - Math.min(...rightEdges) <= 1, `${label} progress bars should align right.`);
+}
+
+async function assertChecksActionsDropdown(page) {
+  await assertVisible(page, '#checksActionsButton');
+  await openChecksActionsMenu(page);
+  await assertText(page, '#checksActionsButton + .dropdown-menu', /Customize checks/i);
+  await assertText(page, '#checksActionsButton + .dropdown-menu', /Browse guidelines/i);
+  await assertText(page, '#checksActionsButton + .dropdown-menu', /Create feedback report/i);
+  assert.equal(
+    await page.locator('#checksActionsButton + .dropdown-menu .dropdown-item').count(),
+    3,
+    'Checks actions dropdown should expose exactly three actions.'
+  );
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#checksActionsButton + .dropdown-menu.show', { state: 'detached', timeout: 10000 });
+}
+
+async function assertBrowseGuidelinesMenuAction(page) {
+  await clickChecksAction(page, '#browseGuidelinesButton');
+  await page.waitForSelector('#guidelineSelectorModal.show', { timeout: 10000 });
+  await assertVisible(page, '#guidelineSearchInput');
+  assert.match(
+    await page.locator('#guidelineSearchInput').getAttribute('placeholder'),
+    /Find a guideline/i
+  );
+  await assertVisible(page, '#guidelineFacetColumn');
+  await assertVisible(page, '#guidelineCardContainer');
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+    await page.locator('#guidelineSelectorModal .btn-close').click();
+    await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 });
+  });
 }
 
 async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
