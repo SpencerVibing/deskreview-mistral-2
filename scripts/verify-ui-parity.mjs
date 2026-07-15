@@ -416,7 +416,8 @@ async function assertReaderPaneToggles(page) {
   await assertVisible(page, '#tocToggleButton');
   await assertVisible(page, '#countsToggleButton');
   const rightPaneToggleIconClass = await page.locator('#countsToggleButton i').getAttribute('class');
-  assert.match(rightPaneToggleIconClass || '', /\bbi-layout-sidebar-reverse\b/, 'Right pane toggle should use the layout sidebar reverse icon.');
+  assert.match(rightPaneToggleIconClass || '', /\bbi-x-lg\b/, 'Right pane toggle should use a close icon while the side pane is visible.');
+  assert.doesNotMatch(rightPaneToggleIconClass || '', /\bbi-layout-sidebar-reverse\b/, 'Right pane toggle should not show the open icon while expanded.');
   assert.doesNotMatch(rightPaneToggleIconClass || '', /\bbi-list\b/, 'Right pane toggle should not use the hamburger icon.');
   const initial = await page.evaluate(() => {
     const rect = (selector) => {
@@ -462,6 +463,9 @@ async function assertReaderPaneToggles(page) {
   assert.equal(collapsed.splitterVisibility, 'hidden', 'Right pane splitter should hide while collapsed.');
   assert.ok(collapsed.countsPane.width <= 56, `Collapsed right pane should keep only a slim rail; width was ${collapsed.countsPane.width}px.`);
   assert.ok(collapsed.centerPane.width > initial.centerPane.width, 'Center pane should expand when the right pane collapses.');
+  const collapsedIconClass = await page.locator('#countsToggleButton i').getAttribute('class');
+  assert.match(collapsedIconClass || '', /\bbi-layout-sidebar-reverse\b/, 'Collapsed right pane toggle should use the layout sidebar reverse icon.');
+  assert.doesNotMatch(collapsedIconClass || '', /\bbi-x-lg\b/, 'Collapsed right pane toggle should not show a close icon.');
 
   await page.click('#countsToggleButton');
   await page.waitForFunction(() => !document.querySelector('#reader')?.classList.contains('counts-collapsed'), null, { timeout: 10000 });
@@ -484,6 +488,8 @@ async function assertReaderPaneToggles(page) {
   assert.equal(reopened.readerSideHidden, 'false', 'Right pane content should be available after reopening.');
   assert.notEqual(reopened.splitterVisibility, 'hidden', 'Right pane splitter should reappear after reopening.');
   assert.ok(reopened.countsPane.width > collapsed.countsPane.width + 200, 'Right pane should restore its expanded width.');
+  const reopenedIconClass = await page.locator('#countsToggleButton i').getAttribute('class');
+  assert.match(reopenedIconClass || '', /\bbi-x-lg\b/, 'Reopened right pane toggle should return to the close icon.');
 }
 
 async function assertCustomizeChecksModal(page) {

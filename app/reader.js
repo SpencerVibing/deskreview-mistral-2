@@ -6384,6 +6384,10 @@ function setCountsOpen(open = true) {
   if (!state.countsOpen) closeDetails();
   els.reader.classList.toggle('counts-collapsed', !state.countsOpen);
   els.countsToggleButton?.setAttribute('aria-expanded', String(state.countsOpen));
+  els.countsToggleButton?.setAttribute('aria-label', state.countsOpen ? 'Close side panel' : 'Open side panel');
+  const icon = els.countsToggleButton?.querySelector('i');
+  icon?.classList.toggle('bi-x-lg', state.countsOpen);
+  icon?.classList.toggle('bi-layout-sidebar-reverse', !state.countsOpen);
   els.readerSideShell?.setAttribute('aria-hidden', String(!state.countsOpen));
   els.readerSideShell?.toggleAttribute('inert', !state.countsOpen);
   schedulePdfFitRender(180);

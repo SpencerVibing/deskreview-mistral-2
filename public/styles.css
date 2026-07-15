@@ -429,18 +429,17 @@ body {
   flex: 0 0 11rem;
 }
 
-.toc-toggle-icon,
-.counts-toggle-icon {
+.toc-toggle-icon {
   display: inline-block;
   transition: transform 180ms ease;
 }
 
-#tocToggleButton[aria-expanded="true"] .toc-toggle-icon {
-  transform: rotate(90deg);
+.counts-toggle-icon {
+  display: inline-block;
 }
 
-#countsToggleButton[aria-expanded="true"] .counts-toggle-icon {
-  transform: rotate(-90deg);
+#tocToggleButton[aria-expanded="true"] .toc-toggle-icon {
+  transform: rotate(90deg);
 }
 
 .counts-grid {
