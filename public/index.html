@@ -151,15 +151,10 @@
         <div class="studio-pane studio-center-pane" id="centerPane">
           <div class="center-tabs d-flex align-items-center justify-content-between gap-3 px-3" aria-label="Rendered manuscript view">
             <div class="toolbar-side d-flex align-items-center">
-              <div class="nav nav-underline mb-0 flex-shrink-0" role="tablist">
-                <button id="pdfTab" class="nav-link active d-inline-flex align-items-center gap-2 reader-header-label fw-normal" type="button" role="tab" aria-selected="true" aria-controls="pdfView" data-view-tab="pdf">
-                  <i class="bi bi-file-earmark-pdf"></i>
-                  <span>PDF</span>
-                </button>
-                <button id="htmlTab" class="nav-link d-inline-flex align-items-center gap-2 reader-header-label fw-normal" type="button" role="tab" aria-selected="false" aria-controls="htmlView" data-view-tab="html">
-                  <i class="bi bi-code-square"></i>
-                  <span>HTML</span>
-                </button>
+              <div class="form-check form-switch d-flex align-items-center gap-2 m-0 p-0 flex-shrink-0">
+                <span id="viewSwitchPdfLabel" class="reader-header-label fw-semibold text-body" data-view-switch-label="pdf">PDF</span>
+                <input id="viewModeSwitch" class="form-check-input float-none m-0" type="checkbox" role="switch" aria-label="Switch between PDF and HTML manuscript views" aria-controls="pdfView htmlView" aria-checked="false" autocomplete="off">
+                <span id="viewSwitchHtmlLabel" class="reader-header-label fw-normal text-secondary" data-view-switch-label="html">HTML</span>
               </div>
             </div>
             <div class="d-flex align-items-center justify-content-end min-w-0 flex-grow-1">
@@ -178,7 +173,7 @@
           </div>
 
           <div class="center-content">
-            <section id="pdfView" class="reader-tab-panel active" role="tabpanel" aria-labelledby="pdfTab" data-view-panel="pdf">
+            <section id="pdfView" class="reader-tab-panel active" role="region" aria-labelledby="viewSwitchPdfLabel" data-view-panel="pdf">
               <div id="pdfScroll" class="pdf-scroll">
                 <div id="pdfDocument" class="pdf-document">
                   <div class="empty-state">
@@ -189,7 +184,7 @@
               </div>
             </section>
 
-            <section id="htmlView" class="reader-tab-panel" role="tabpanel" aria-labelledby="htmlTab" data-view-panel="html">
+            <section id="htmlView" class="reader-tab-panel" role="region" aria-labelledby="viewSwitchHtmlLabel" data-view-panel="html">
               <div id="htmlScroll" class="html-scroll">
                 <article id="htmlDocument" class="ocr-html">
                   <div class="empty-state html-empty">

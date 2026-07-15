@@ -100,9 +100,9 @@ async function main() {
       return document.querySelectorAll('#htmlDocument [data-pdf-page-preview] canvas').length >= 4;
     }, null, { timeout: 20000 });
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reader-checks.png'), fullPage: true });
-    await page.click('#htmlTab');
+    await switchReaderView(page, 'html');
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-html-manuscript.png'), fullPage: true });
-    await page.click('#pdfTab');
+    await switchReaderView(page, 'pdf');
 
     await openAccordion(page, '#essentialGuidelinesHeading button', '#essentialGuidelinesPanel');
     await assertText(page, '#essentialGuideList', /Abstract page/i);
@@ -224,6 +224,19 @@ async function assertText(page, selector, pattern) {
   assert.match(text, pattern);
 }
 
+async function switchReaderView(page, view) {
+  const showHtml = view === 'html';
+  const control = page.locator('#viewModeSwitch');
+  await control.waitFor({ state: 'visible', timeout: 10000 });
+  if (await control.isChecked() !== showHtml) await control.setChecked(showHtml);
+  await page.waitForFunction((expectedView) => {
+    const activeId = expectedView === 'html' ? 'htmlView' : 'pdfView';
+    const inactiveId = expectedView === 'html' ? 'pdfView' : 'htmlView';
+    return document.getElementById(activeId)?.classList.contains('active')
+      && !document.getElementById(inactiveId)?.classList.contains('active');
+  }, view, { timeout: 10000 });
+}
+
 async function assertOriginalPreprintExampleCards(page) {
   const expected = [
     ['medrxiv-baseline', /medRxiv\s+·\s+2021\s+·\s+preprint/i, /Combined Exercise Training vs Health Education/i],
@@ -314,6 +327,13 @@ async function assertChecksSectionCards(page) {
 }
 
 async function assertReaderUiRegressionFixes(page) {
+  await assertVisible(page, '#viewModeSwitch');
+  assert.equal(await page.locator('#pdfTab').count(), 0, 'PDF view should use the Bootstrap switch instead of the old tab button.');
+  assert.equal(await page.locator('#htmlTab').count(), 0, 'HTML view should use the Bootstrap switch instead of the old tab button.');
+  assert.equal(await page.locator('#viewModeSwitch').getAttribute('role'), 'switch', 'Reader view control should be exposed as a switch.');
+  assert.equal(await page.locator('#viewModeSwitch').isChecked(), false, 'Reader should default to the PDF side of the switch.');
+  assert.match(await page.locator('#viewSwitchPdfLabel').getAttribute('class'), /fw-semibold/, 'PDF label should be emphasized when PDF is active.');
+  assert.match(await page.locator('#viewSwitchHtmlLabel').getAttribute('class'), /text-secondary/, 'HTML label should be muted when PDF is active.');
   assert.equal(await page.locator('#openGuidelineCatalogButton').count(), 0, 'Guideline catalog kebab button should be removed.');
   assert.equal(await page.locator('#essentialGuidelineSummary').count(), 0, 'Essential guideline summary clutter should be removed.');
   assert.equal(await page.locator('#matchedGuidelineSummary').count(), 0, 'Matched guideline summary clutter should be removed.');
@@ -550,9 +570,9 @@ async function assertActiveJumpFromDetails(page) {
   await link.click();
   await assertBlockActive(page, blockKey);
   await assertPdfActiveRegion(page, { requireTextMatched: true });
-  await page.click('#htmlTab');
+  await switchReaderView(page, 'html');
   await assertHtmlActiveHighlight(page, blockKey);
-  await page.click('#pdfTab');
+  await switchReaderView(page, 'pdf');
 }
 
 async function assertActiveJumpFromFeedbackReport(page) {

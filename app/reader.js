@@ -266,8 +266,9 @@ const els = {
   pdfDocument: document.getElementById('pdfDocument'),
   htmlScroll: document.getElementById('htmlScroll'),
   htmlDocument: document.getElementById('htmlDocument'),
-  pdfTab: document.getElementById('pdfTab'),
-  htmlTab: document.getElementById('htmlTab'),
+  viewModeSwitch: document.getElementById('viewModeSwitch'),
+  viewSwitchPdfLabel: document.getElementById('viewSwitchPdfLabel'),
+  viewSwitchHtmlLabel: document.getElementById('viewSwitchHtmlLabel'),
   pdfView: document.getElementById('pdfView'),
   htmlView: document.getElementById('htmlView'),
   pdfSearchInput: document.getElementById('pdfSearchInput'),
@@ -5538,13 +5539,23 @@ function focusBlock(key = '', source = 'html', quote = '') {
   updateActivePdfRegion();
 }
 
+function setReaderViewLabelState(label, isActive) {
+  if (!label) return;
+  label.classList.toggle('fw-semibold', isActive);
+  label.classList.toggle('fw-normal', !isActive);
+  label.classList.toggle('text-body', isActive);
+  label.classList.toggle('text-secondary', !isActive);
+}
+
 function switchView(view = 'pdf') {
   const next = view === 'html' ? 'html' : 'pdf';
   state.activeView = next;
-  els.pdfTab.classList.toggle('active', next === 'pdf');
-  els.htmlTab.classList.toggle('active', next === 'html');
-  els.pdfTab.setAttribute('aria-selected', next === 'pdf' ? 'true' : 'false');
-  els.htmlTab.setAttribute('aria-selected', next === 'html' ? 'true' : 'false');
+  if (els.viewModeSwitch) {
+    els.viewModeSwitch.checked = next === 'html';
+    els.viewModeSwitch.setAttribute('aria-checked', next === 'html' ? 'true' : 'false');
+  }
+  setReaderViewLabelState(els.viewSwitchPdfLabel, next === 'pdf');
+  setReaderViewLabelState(els.viewSwitchHtmlLabel, next === 'html');
   els.pdfView.classList.toggle('active', next === 'pdf');
   els.htmlView.classList.toggle('active', next === 'html');
   window.requestAnimationFrame(() => {
@@ -6101,8 +6112,9 @@ els.htmlDocument.addEventListener('keydown', (event) => {
   focusBlock(block.dataset.blockId, 'html');
 });
 
-els.pdfTab.addEventListener('click', () => switchView('pdf'));
-els.htmlTab.addEventListener('click', () => switchView('html'));
+els.viewModeSwitch?.addEventListener('change', () => {
+  switchView(els.viewModeSwitch.checked ? 'html' : 'pdf');
+});
 els.pdfSearchInput?.addEventListener('keydown', (event) => {
   if (event.key !== 'Enter') return;
   event.preventDefault();
