@@ -4,7 +4,11 @@ import {
   buildDocumentAnnotationRequest,
   normalizeDocumentAnnotation
 } from '/core/document-annotation.js';
-import { evaluateEssentialGuides } from '/core/essential-guidelines.js';
+import {
+  buildEssentialGuidelineEvaluationRequest,
+  normalizeEssentialGuidelineResults,
+  pendingEssentialGuides
+} from '/core/essential-guidelines.js';
 import { buildFeedbackReportModel } from '/core/feedback-report.js';
 import {
   countChecklistItems,
@@ -64,6 +68,7 @@ import {
 } from '/services/precomputed-examples.js';
 import {
   annotateDocument,
+  evaluateEssentialGuidelines,
   matchReportingGuidelines,
   requestOcr,
   resolveCounts,
@@ -156,6 +161,8 @@ const state = {
   essentialGuides: [],
   essentialResults: [],
   essentialStatus: 'idle',
+  essentialError: '',
+  essentialEvaluationPromise: null,
   activeGuideFilter: 'all',
   pluginCatalog: [],
   pluginPreferences: { enabled: {}, customGuides: [] },
@@ -1284,6 +1291,17 @@ async function annotateDocumentWithCompletion(payload = {}) {
     wallMs: Math.round(runtimeNow() - started),
     apiMs: Number(data.elapsedMs || 0),
     blocks: Array.isArray(payload.blocks) ? payload.blocks.length : 0
+  });
+  return data;
+}
+
+async function evaluateEssentialGuidelinesWithCompletion(payload = {}) {
+  const started = runtimeNow();
+  const data = await evaluateEssentialGuidelines(payload);
+  markRuntime('Essential guideline evaluation finished', {
+    wallMs: Math.round(runtimeNow() - started),
+    apiMs: Number(data.elapsedMs || 0),
+    guides: Array.isArray(payload.guides) ? payload.guides.length : 0
   });
   return data;
 }
@@ -2471,10 +2489,9 @@ function updateEssentialResults() {
     state.essentialResults = [];
     return;
   }
-  state.essentialResults = evaluateEssentialGuides(
-    state.essentialGuides,
-    state.documentAnnotation.status === 'ready' ? state.documentAnnotation.result : null
-  );
+  if (!state.essentialResults.length && state.essentialStatus !== 'ready') {
+    state.essentialResults = pendingEssentialGuides(state.essentialGuides);
+  }
 }
 
 function renderEssentialGuidelines() {
@@ -2490,6 +2507,22 @@ function renderEssentialGuidelines() {
     return;
   }
   updateEssentialResults();
+  if (state.essentialStatus === 'running') {
+    els.essentialGuideList.innerHTML = renderProgressCard({
+      title: 'Evaluating Essential guidelines',
+      message: 'The manuscript annotation is ready. Essential guideline items are being judged by the LLM.',
+      progress: null
+    });
+    if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = renderGuideProgress({}, 'pending');
+    return;
+  }
+  if (state.essentialStatus === 'failed') {
+    els.essentialGuideList.innerHTML = `
+      <div class="alert alert-light border small mb-0">${escapeHtml(state.essentialError || 'Essential guideline evaluation failed.')}</div>
+    `;
+    if (els.essentialLaneProgress) els.essentialLaneProgress.innerHTML = '';
+    return;
+  }
   if (state.documentAnnotation.status === 'failed') {
     els.essentialGuideList.innerHTML = `
       <div class="alert alert-light border small mb-0">${escapeHtml(state.documentAnnotation.error || 'Document annotation is unavailable.')}</div>
@@ -2498,7 +2531,7 @@ function renderEssentialGuidelines() {
     return;
   }
   const aggregate = aggregateGuideSummaries(state.essentialResults);
-  const aggregateStatus = state.documentAnnotation.status === 'ready'
+  const aggregateStatus = state.essentialStatus === 'ready'
     ? (aggregate.absent ? 'absent' : aggregate.warning ? 'warning' : 'present')
     : 'pending';
   if (els.essentialLaneProgress) {
@@ -2980,6 +3013,81 @@ function renderReportingGuideResultDetails(guideId = '') {
   showGuideFilterControl(summary, 'all');
 }
 
+async function updateStoredReviewEssentialGuidelines(result = []) {
+  if (!state.currentReview?.id || !Array.isArray(result)) return;
+  try {
+    const existing = await getStoredReview(state.currentReview.id);
+    if (!existing) return;
+    existing.essentialGuidelines = {
+      status: 'ready',
+      result,
+      updatedAt: new Date().toISOString()
+    };
+    existing.updatedAt = new Date().toISOString();
+    await putStoredReview(existing);
+    state.currentReview = existing;
+    refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
+  } catch (error) {
+    console.warn('[deskreview-mistral-2] could not store Essential guideline results', error);
+  }
+}
+
+async function updateStoredReviewEssentialGuidelineFailure(error = '') {
+  if (!state.currentReview?.id) return;
+  try {
+    const existing = await getStoredReview(state.currentReview.id);
+    if (!existing) return;
+    existing.essentialGuidelines = {
+      status: 'failed',
+      result: null,
+      error: String(error || 'Essential guideline evaluation unavailable.'),
+      updatedAt: new Date().toISOString()
+    };
+    existing.updatedAt = new Date().toISOString();
+    await putStoredReview(existing);
+    state.currentReview = existing;
+    refreshLibrary().catch((refreshError) => console.warn('[deskreview-mistral-2] library refresh failed', refreshError));
+  } catch (storeError) {
+    console.warn('[deskreview-mistral-2] could not store Essential guideline failure', storeError);
+  }
+}
+
+function scheduleEssentialGuidelineEvaluation() {
+  if (state.precomputedExample.active) return;
+  if (state.loadedFromLibrary) return;
+  if (!pluginIsEnabled(state.pluginPreferences, 'essential-guidelines')) return;
+  if (state.essentialStatus === 'ready' || state.essentialStatus === 'running') return;
+  if (state.documentAnnotation.status !== 'ready' || !state.essentialGuides.length) return;
+  const payload = buildEssentialGuidelineEvaluationRequest(state.documentAnnotation.result, state.essentialGuides);
+  if (!payload.guides.length) return;
+  markRuntime('Essential guideline evaluation started', { guides: payload.guides.length });
+  state.essentialStatus = 'running';
+  state.essentialError = '';
+  state.essentialResults = pendingEssentialGuides(state.essentialGuides, 'LLM guideline evaluation is running.');
+  renderEssentialGuidelines();
+  state.essentialEvaluationPromise = evaluateEssentialGuidelinesWithCompletion(payload)
+    .then((response) => {
+      const result = normalizeEssentialGuidelineResults(response.result || {}, state.essentialGuides);
+      state.essentialResults = result;
+      state.essentialStatus = 'ready';
+      state.essentialError = '';
+      markRuntime('Essential guideline results ready', { guides: result.length });
+      renderEssentialGuidelines();
+      updateStoredReviewEssentialGuidelines(result).catch(() => {});
+    })
+    .catch((error) => {
+      state.essentialStatus = 'failed';
+      state.essentialError = String(error?.message || error || 'Essential guideline evaluation failed.');
+      state.essentialResults = [];
+      markRuntime('Essential guideline evaluation failed', { error: state.essentialError });
+      renderEssentialGuidelines();
+      updateStoredReviewEssentialGuidelineFailure(state.essentialError).catch(() => {});
+    })
+    .finally(() => {
+      state.essentialEvaluationPromise = null;
+    });
+}
+
 async function updateStoredReviewReportingMatches(result = null) {
   if (!state.currentReview?.id || !result) return;
   try {
@@ -3043,6 +3151,7 @@ function applyPluginPreferences() {
   renderReportingGuidelines();
   renderRecommendedGuidelines();
   renderCustomGuidelines();
+  scheduleEssentialGuidelineEvaluation();
   scheduleReportingGuidelineMatching();
 }
 
@@ -5156,6 +5265,7 @@ function scheduleDocumentAnnotation(blocks = flatBlocks()) {
         warnings: result.warnings.length
       });
       renderEssentialGuidelines();
+      scheduleEssentialGuidelineEvaluation();
       scheduleReportingGuidelineMatching();
       updateStoredReviewDocumentAnnotation(result).catch(() => {});
     })
@@ -6024,6 +6134,9 @@ function resetReaderState(file = null) {
   state.documentAnnotation = { status: 'idle', result: null, error: '', startedAt: 0 };
   state.documentAnnotationPromise = null;
   state.essentialResults = [];
+  state.essentialStatus = state.essentialGuides.length ? 'loaded' : 'idle';
+  state.essentialError = '';
+  state.essentialEvaluationPromise = null;
   state.reportingMatches = { status: 'idle', result: null, error: '', startedAt: 0 };
   state.reportingGuideResults = [];
   state.precomputedExample = { active: false, id: '', title: '' };
@@ -6071,6 +6184,7 @@ async function saveReviewToLibrary(file = null, ocr = {}) {
     countResolver: null,
     displayResolver: null,
     documentAnnotation: null,
+    essentialGuidelines: null,
     reportingMatches: null
   };
   await putStoredReview(review);
@@ -6127,6 +6241,7 @@ async function renderReviewFromRecord(review = {}) {
     state.essentialResults = Array.isArray(review.precomputedExample.essentialResults)
       ? review.precomputedExample.essentialResults
       : [];
+    state.essentialStatus = state.essentialResults.length ? 'ready' : state.essentialStatus;
     state.reportingGuideResults = Array.isArray(review.precomputedExample.reportingGuideResults)
       ? review.precomputedExample.reportingGuideResults
       : [];
@@ -6185,6 +6300,18 @@ async function renderReviewFromRecord(review = {}) {
       error: String(review.documentAnnotation.error || 'Document annotation was not available in this stored review.'),
       startedAt: 0
     };
+  }
+  if (!precomputedActive && review.essentialGuidelines?.status === 'ready' && Array.isArray(review.essentialGuidelines.result)) {
+    state.essentialResults = normalizeEssentialGuidelineResults(
+      { guides: review.essentialGuidelines.result },
+      state.essentialGuides
+    );
+    state.essentialStatus = 'ready';
+    state.essentialError = '';
+  } else if (!precomputedActive && review.essentialGuidelines?.status === 'failed') {
+    state.essentialResults = [];
+    state.essentialStatus = 'failed';
+    state.essentialError = String(review.essentialGuidelines.error || 'Essential guideline evaluation was not available in this stored review.');
   }
   if (review.reportingMatches?.status === 'ready' && review.reportingMatches.result) {
     state.reportingMatches = {
@@ -6828,8 +6955,9 @@ loadPluginCatalog()
 loadEssentialGuides()
   .then((guides) => {
     state.essentialGuides = guides;
-    state.essentialStatus = 'ready';
+    if (state.essentialStatus === 'idle') state.essentialStatus = 'loaded';
     renderEssentialGuidelines();
+    scheduleEssentialGuidelineEvaluation();
   })
   .catch((error) => {
     state.essentialStatus = 'failed';

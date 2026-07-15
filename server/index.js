@@ -510,6 +510,60 @@ function guidelineMatchSchema() {
   };
 }
 
+function essentialGuidelineEvaluationSchema() {
+  const evidenceQuote = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['quote', 'sourceBlockKey'],
+    properties: {
+      quote: { type: 'string' },
+      sourceBlockKey: { type: 'string' }
+    }
+  };
+  return {
+    type: 'json_schema',
+    json_schema: {
+      name: 'deskreview_essential_guideline_evaluation',
+      strict: true,
+      schema: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['guides', 'warnings'],
+        properties: {
+          guides: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              required: ['id', 'status', 'results'],
+              properties: {
+                id: { type: 'string' },
+                status: { type: 'string', enum: ['present', 'warning', 'absent', 'optional', 'skipped', 'na'] },
+                results: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    additionalProperties: false,
+                    required: ['id', 'status', 'message', 'evidenceQuotes', 'sourceBlockKey'],
+                    properties: {
+                      id: { type: 'string' },
+                      status: { type: 'string', enum: ['present', 'warning', 'absent', 'optional', 'skipped', 'na'] },
+                      message: { type: 'string' },
+                      evidenceQuotes: { type: 'array', items: evidenceQuote },
+                      sourceBlockKey: { type: 'string' }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          warnings: { type: 'array', items: { type: 'string' } }
+        }
+      }
+    }
+  };
+}
+
 function parseAnnotation(value) {
   if (!value) return null;
   if (typeof value === 'object') return value;
@@ -1149,6 +1203,116 @@ async function handleMatchGuidelines(req, res) {
   });
 }
 
+async function handleEvaluateEssentialGuidelines(req, res) {
+  const apiKey = String(process.env.MISTRAL_API_KEY || '').trim();
+  if (!apiKey) {
+    jsonResponse(res, { error: 'MISTRAL_API_KEY is required to evaluate Essential guidelines.' }, 500);
+    return;
+  }
+
+  let body;
+  try {
+    body = await readJsonBody(req);
+  } catch (error) {
+    jsonResponse(res, { error: String(error?.message || error || 'Invalid request body.') }, 400);
+    return;
+  }
+
+  const guides = Array.isArray(body.guides) ? body.guides : [];
+  const annotation = body.documentAnnotation && typeof body.documentAnnotation === 'object' ? body.documentAnnotation : null;
+  if (!annotation) {
+    jsonResponse(res, { error: 'Missing document annotation for Essential guideline evaluation.' }, 400);
+    return;
+  }
+  if (!guides.length) {
+    jsonResponse(res, { error: 'Missing Essential guidelines.' }, 400);
+    return;
+  }
+
+  const startedAt = Date.now();
+  const requestBody = {
+    model: MISTRAL_CHAT_MODEL,
+    temperature: 0,
+    response_format: essentialGuidelineEvaluationSchema(),
+    messages: [
+      {
+        role: 'system',
+        content: [
+          'You evaluate Essential manuscript guideline items from a supplied document annotation.',
+          'Return JSON only, conforming exactly to the schema.',
+          'Evaluate every supplied item. Use only the supplied document annotation and guideline text.',
+          'Do not infer that an item is present unless the annotation contains direct support.',
+          'Use present when the requirement is clearly satisfied, warning when partially or ambiguously supported, absent when expected information is missing, optional when an optional item is not reported but not required, and na when the item is not applicable.',
+          'For each supported item, copy one or two concise exact source quotes from the annotation and include sourceBlockKey when available.',
+          'Messages should be useful to authors and reviewers, concise, and specific.'
+        ].join(' ')
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          task: 'Evaluate the Essential guideline items for this manuscript.',
+          documentAnnotation: annotation,
+          guides: guides.slice(0, 10).map((guide) => ({
+            id: String(guide.id || ''),
+            name: String(guide.name || ''),
+            description: String(guide.description || ''),
+            items: (Array.isArray(guide.items) ? guide.items : []).slice(0, 40).map((item) => ({
+              id: String(item.id || ''),
+              label: String(item.label || item.id || ''),
+              requirement: String(item.requirement || ''),
+              optional: Boolean(item.optional)
+            }))
+          }))
+        })
+      }
+    ]
+  };
+
+  let response;
+  try {
+    const signal = AbortSignal.timeout ? AbortSignal.timeout(120000) : undefined;
+    response = await fetch(`${MISTRAL_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(requestBody),
+      signal
+    });
+  } catch (error) {
+    const message = error?.name === 'TimeoutError'
+      ? 'Mistral Essential guideline evaluation timed out.'
+      : String(error?.message || error || 'Mistral Essential guideline evaluation request failed.');
+    jsonResponse(res, { error: message }, error?.name === 'TimeoutError' ? 504 : 502);
+    return;
+  }
+
+  const text = await response.text();
+  let raw = null;
+  try {
+    raw = text ? JSON.parse(text) : {};
+  } catch {
+    raw = null;
+  }
+
+  if (!response.ok) {
+    jsonResponse(res, {
+      error: raw?.error?.message || raw?.message || text || `Mistral Essential guideline evaluation failed (${response.status}).`,
+      elapsedMs: Date.now() - startedAt,
+      model: MISTRAL_CHAT_MODEL
+    }, response.status);
+    return;
+  }
+
+  jsonResponse(res, {
+    elapsedMs: Date.now() - startedAt,
+    model: raw?.model || MISTRAL_CHAT_MODEL,
+    usage: raw?.usage || null,
+    result: parseJsonContent(raw?.choices?.[0]?.message?.content)
+  });
+}
+
 async function serveStatic(req, res) {
   const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname === '/' ? '/index.html' : decodeURIComponent(url.pathname);
@@ -1197,6 +1361,10 @@ const server = createServer(async (req, res) => {
     }
     if (req.method === 'POST' && req.url === '/api/match-guidelines') {
       await handleMatchGuidelines(req, res);
+      return;
+    }
+    if (req.method === 'POST' && req.url === '/api/evaluate-essential-guidelines') {
+      await handleEvaluateEssentialGuidelines(req, res);
       return;
     }
     if (req.method === 'GET' || req.method === 'HEAD') {

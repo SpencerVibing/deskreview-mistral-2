@@ -35,6 +35,10 @@ export function annotateDocument(payload = {}) {
   return postJson('/api/annotate-document', payload);
 }
 
+export function evaluateEssentialGuidelines(payload = {}) {
+  return postJson('/api/evaluate-essential-guidelines', payload);
+}
+
 export function matchReportingGuidelines(payload = {}) {
   return postJson('/api/match-guidelines', payload);
 }

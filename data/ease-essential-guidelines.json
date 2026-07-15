@@ -10,26 +10,22 @@
         {
           "id": "title",
           "label": "Informative title",
-          "requirement": "The manuscript has a clear title that can be used as source-grounded front matter.",
-          "type": "title"
+          "requirement": "The manuscript has a clear title that can be used as source-grounded front matter."
         },
         {
           "id": "authors",
           "label": "Authors and affiliations",
-          "requirement": "Author names and affiliation metadata are available in the annotated front matter.",
-          "type": "authors"
+          "requirement": "Author names and affiliation metadata are available in the annotated front matter."
         },
         {
           "id": "abstract",
           "label": "Abstract available",
-          "requirement": "An abstract or summary is identified and available for later checks.",
-          "type": "abstract"
+          "requirement": "An abstract or summary is identified and available for later checks."
         },
         {
           "id": "keywords",
           "label": "Keywords",
           "requirement": "Keywords are available when the manuscript provides a keyword list.",
-          "type": "keywords",
           "optional": true
         }
       ]
@@ -44,42 +40,32 @@
         {
           "id": "introduction",
           "label": "Introduction",
-          "requirement": "The manuscript includes an introduction or background section.",
-          "type": "sectionKeywords",
-          "keywords": ["introduction", "background"]
+          "requirement": "The manuscript includes an introduction or background section."
         },
         {
           "id": "methods",
           "label": "Methods",
-          "requirement": "The manuscript includes a methods, materials, or experimental section.",
-          "type": "sectionKeywords",
-          "keywords": ["methods", "materials", "experimental", "study design"]
+          "requirement": "The manuscript includes a methods, materials, or experimental section."
         },
         {
           "id": "results",
           "label": "Results",
-          "requirement": "The manuscript includes a results or findings section.",
-          "type": "sectionKeywords",
-          "keywords": ["results", "findings"]
+          "requirement": "The manuscript includes a results or findings section."
         },
         {
           "id": "discussion",
           "label": "Discussion or conclusion",
-          "requirement": "The manuscript includes a discussion or conclusion section.",
-          "type": "sectionKeywords",
-          "keywords": ["discussion", "conclusion", "conclusions"]
+          "requirement": "The manuscript includes a discussion or conclusion section."
         },
         {
           "id": "references",
           "label": "Reference list",
-          "requirement": "Reference-list entries are identified with source anchors.",
-          "type": "references"
+          "requirement": "Reference-list entries are identified with source anchors."
         },
         {
           "id": "display-items",
           "label": "Tables and figures",
           "requirement": "Tables and figures are annotated with source anchors when present.",
-          "type": "displayItems",
           "optional": true
         }
       ]
@@ -95,39 +81,30 @@
           "id": "ethics",
           "label": "Ethics statement",
           "requirement": "The manuscript includes an ethics approval, consent, or institutional review statement when relevant.",
-          "type": "statementKeywords",
-          "keywords": ["ethics", "ethical approval", "institutional review", "irb", "consent"],
           "optional": true
         },
         {
           "id": "conflicts",
           "label": "Conflicts of interest",
           "requirement": "The manuscript includes a competing interests or conflicts of interest statement.",
-          "type": "statementKeywords",
-          "keywords": ["conflict", "competing interest", "declaration of interest"],
           "optional": true
         },
         {
           "id": "funding",
           "label": "Funding",
           "requirement": "The manuscript includes funding, sponsor, or support information.",
-          "type": "statementKeywords",
-          "keywords": ["funding", "funder", "grant", "sponsor", "financial support"],
           "optional": true
         },
         {
           "id": "data-availability",
           "label": "Data availability",
           "requirement": "The manuscript includes a data availability or materials availability statement when relevant.",
-          "type": "statementKeywords",
-          "keywords": ["data availability", "availability of data", "data sharing", "repository"],
           "optional": true
         },
         {
           "id": "quote-anchors",
           "label": "Source quotes",
-          "requirement": "Source-grounded quote anchors are available for jump links.",
-          "type": "quoteAnchors"
+          "requirement": "Source-grounded quote anchors are available for jump links."
         }
       ]
     }

@@ -94,7 +94,8 @@ async function main() {
 
     const essentialCore = await request('/core/essential-guidelines.js');
     assert(essentialCore.response.status === 200, `Expected /core/essential-guidelines.js to return 200, got ${essentialCore.response.status}.`);
-    assert(essentialCore.text.includes('evaluateEssentialGuides'), 'Essential guideline core module is missing.');
+    assert(essentialCore.text.includes('buildEssentialGuidelineEvaluationRequest'), 'Essential guideline request builder is missing.');
+    assert(essentialCore.text.includes('normalizeEssentialGuidelineResults'), 'Essential guideline result normalizer is missing.');
 
     const guidelineDetailCore = await request('/core/guideline-detail.js');
     assert(guidelineDetailCore.response.status === 200, `Expected /core/guideline-detail.js to return 200, got ${guidelineDetailCore.response.status}.`);

@@ -1,58 +1,76 @@
 import assert from 'node:assert/strict';
-import { evaluateEssentialGuides } from '../core/essential-guidelines.js';
+import {
+  buildEssentialGuidelineEvaluationRequest,
+  normalizeEssentialGuidelineResults,
+  pendingEssentialGuides
+} from '../core/essential-guidelines.js';
 
 const guides = [{
   id: 'ease-abstract-page',
   name: 'Abstract page',
+  sourceLabel: 'EASE Essential guidelines',
   items: [
-    { id: 'title', type: 'title' },
-    { id: 'authors', type: 'authors' },
-    { id: 'references', type: 'references' },
-    { id: 'keywords', type: 'keywords' }
-  ]
-}, {
-  id: 'ease-imrad',
-  name: 'IMRaD',
-  items: [
-    { id: 'methods', label: 'Methods', type: 'sectionKeywords', keywords: ['methods'] },
-    { id: 'discussion', label: 'Discussion', type: 'sectionKeywords', keywords: ['discussion'] }
+    { id: 'title', label: 'Informative title', requirement: 'Clear title.' },
+    { id: 'keywords', label: 'Keywords', requirement: 'Keyword list when supplied.', optional: true }
   ]
 }, {
   id: 'ease-declarations',
   name: 'Declarations',
   items: [
-    { id: 'funding', label: 'Funding', type: 'statementKeywords', keywords: ['funding'] }
+    { id: 'funding', label: 'Funding', requirement: 'Funding statement.' }
   ]
 }];
 
-const pending = evaluateEssentialGuides(guides, null);
-assert.equal(pending[0].status, 'pending');
-assert.equal(pending[0].results[0].message, 'Waiting for document annotation.');
+const request = buildEssentialGuidelineEvaluationRequest({
+  title: { text: 'Example manuscript', sourceBlockKey: 'block-1' }
+}, guides);
 
-const evaluated = evaluateEssentialGuides(guides, {
-  title: { text: 'Example manuscript', sourceBlockKey: 'block-1' },
-  frontMatter: {
-    authors: [{ text: 'Ada Lovelace', sourceBlockKeys: ['block-2'] }],
-    affiliations: [{ text: 'Analytical Engine Institute', sourceBlockKeys: ['block-3'] }],
-    keywords: []
-  },
-  article: {
-    sections: [
-      { title: 'Methods', countedText: 'Methods text', sourceBlockKeys: ['block-4'] },
-      { title: 'Results', countedText: 'Funding was provided by Example Council.', sourceBlockKeys: ['block-5'] }
+assert.equal(request.guides.length, 2);
+assert.equal(request.guides[0].items[0].label, 'Informative title');
+assert.equal(request.guides[0].items[1].optional, true);
+
+const pending = pendingEssentialGuides(guides);
+assert.equal(pending[0].status, 'pending');
+assert.equal(pending[0].summary.pending, 2);
+assert.equal(pending[0].results[0].message, 'Waiting for LLM guideline evaluation.');
+
+const evaluated = normalizeEssentialGuidelineResults({
+  guides: [{
+    id: 'ease-abstract-page',
+    status: 'present',
+    results: [
+      {
+        id: 'title',
+        status: 'present',
+        message: 'The title is clear.',
+        sourceBlockKey: 'block-1',
+        evidenceQuotes: [{ quote: 'Example manuscript', sourceBlockKey: 'block-1' }]
+      },
+      {
+        id: 'keywords',
+        status: 'optional',
+        message: 'No keywords were supplied.',
+        sourceBlockKey: '',
+        evidenceQuotes: []
+      }
     ]
-  },
-  references: {
-    entries: [{ rawReferenceText: 'Smith 2020.', sourceBlockKey: 'block-9' }]
-  }
-});
+  }, {
+    id: 'ease-declarations',
+    results: [{
+      id: 'funding',
+      status: 'warning',
+      message: 'Funding support is mentioned, but details are limited.',
+      sourceBlockKey: 'block-5',
+      evidenceQuotes: [{ quote: 'Funding was provided by Example Council.', sourceBlockKey: 'block-5' }]
+    }]
+  }]
+}, guides);
 
 assert.equal(evaluated[0].status, 'present');
-assert.equal(evaluated[0].summary.present, 3);
-assert.equal(evaluated[0].summary.na, 1);
+assert.equal(evaluated[0].summary.present, 1);
+assert.equal(evaluated[0].summary.optional, 1);
 assert.equal(evaluated[0].results[0].sourceBlockKey, 'block-1');
-assert.equal(evaluated[1].status, 'absent');
-assert.equal(evaluated[1].results[0].status, 'present');
-assert.equal(evaluated[1].results[1].status, 'absent');
-assert.equal(evaluated[2].status, 'present');
-assert.equal(evaluated[2].results[0].sourceBlockKey, 'block-5');
+assert.equal(evaluated[0].results[0].evidenceQuote, 'Example manuscript');
+assert.equal(evaluated[1].status, 'warning');
+assert.equal(evaluated[1].summary.warning, 1);
+assert.equal(evaluated[1].results[0].message, 'Funding support is mentioned, but details are limited.');
