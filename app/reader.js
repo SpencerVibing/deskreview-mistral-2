@@ -1267,6 +1267,134 @@ function ocrCountAnnotationSummary(result = {}) {
   };
 }
 
+function countAnnotationItemsWithMappedKeys(items = [], blocks = flatBlocks(), textFields = ['text'], options = {}) {
+  return (Array.isArray(items) ? items : [])
+    .map((item) => ({
+      text: String(item?.text || '').trim(),
+      sourceBlockKeys: mapAnnotationSourceKeys(item, blocks, textFields, options)
+    }))
+    .filter((item) => item.text);
+}
+
+function countResolverResultFromOcrAnnotation(result = {}, blocks = flatBlocks()) {
+  const abstractText = String(result.abstract?.countedText || '').trim();
+  const metadata = result.metadata || {};
+  const article = result.article || {};
+  return {
+    abstract: {
+      countedText: abstractText,
+      wordCount: Number(result.abstract?.wordCount || 0),
+      sourceBlockKeys: findSourceBlockKeysForText(abstractText, blocks, { maxKeys: 3 }),
+      warnings: Array.isArray(result.abstract?.warnings) ? result.abstract.warnings : []
+    },
+    article: {
+      sections: (Array.isArray(article.sections) ? article.sections : [])
+        .map((section, index) => {
+          const title = String(section?.title || `Section ${index + 1}`).trim();
+          const countedText = String(section?.countedText || '').trim();
+          return {
+            title,
+            countedText,
+            sourceBlockKeys: findSourceBlockKeysForText(countedText || title, blocks, { maxKeys: 4 })
+          };
+        })
+        .filter((section) => section.countedText || section.sourceBlockKeys.length),
+      excludedText: [],
+      warnings: Array.isArray(article.warnings) ? article.warnings : []
+    },
+    metadata: {
+      authors: countAnnotationItemsWithMappedKeys(metadata.authors, blocks, ['text'], { minNeedle: 4 }),
+      affiliations: countAnnotationItemsWithMappedKeys(metadata.affiliations, blocks),
+      keywords: countAnnotationItemsWithMappedKeys(metadata.keywords, blocks, ['text'], { minNeedle: 4 }),
+      warnings: Array.isArray(metadata.warnings) ? metadata.warnings : []
+    },
+    warnings: Array.isArray(result.warnings) ? result.warnings : []
+  };
+}
+
+function referenceResolverResultFromOcrAnnotation(result = {}, blocks = flatBlocks()) {
+  const references = result.references || {};
+  const entries = (Array.isArray(references.entries) ? references.entries : [])
+    .map((entry, index) => {
+      const rawText = String(entry?.rawText || entry?.rawReferenceText || '').trim();
+      const sourceBlockKey = findSourceBlockKeysForText(rawText, blocks, { maxKeys: 1, minNeedle: 32 })[0] || '';
+      return {
+        number: Number(entry?.number || 0) || index + 1,
+        rawReferenceText: rawText,
+        sourceBlockKey,
+        bibliographyAnchorQuote: rawText.slice(0, 180),
+        citationMatchers: []
+      };
+    })
+    .filter((entry) => entry.rawReferenceText);
+  return {
+    entries,
+    warnings: [
+      ...(Array.isArray(references.warnings) ? references.warnings : []),
+      ...(entries.some((entry) => !entry.sourceBlockKey) ? ['Some OCR annotation references could not be mapped to rendered OCR blocks.'] : [])
+    ]
+  };
+}
+
+function applyOcrCountAnnotationResult(result = {}) {
+  if (!result || typeof result !== 'object') return;
+  const blocks = flatBlocks();
+  const countResult = countResolverResultFromOcrAnnotation(result, blocks);
+  const details = buildCountsDetailsFromResolvedMap(countResult, blocks);
+  state.countResolver = {
+    status: 'ready',
+    result: countResult,
+    error: '',
+    startedAt: state.countResolver.startedAt || 0,
+    source: 'ocr-annotation'
+  };
+  state.detailCache.set('abstract', details.abstract);
+  state.detailCache.set('article', details.article);
+  state.detailCache.set('authors', details.authors);
+  state.detailCache.set('affiliations', details.affiliations);
+  state.detailCache.set('keywords', details.keywords);
+  ['authors', 'affiliations', 'keywords', 'abstract', 'article'].forEach((kind) => state.detailBuildStatus.set(kind, 'ready'));
+  state.semanticCounts = {
+    ...(state.semanticCounts || {}),
+    abstractWordCount: details.abstract.detail.count,
+    articleWordCount: details.article.detail.count,
+    authorCount: details.authors.detail.count,
+    affiliationCount: details.affiliations.detail.count,
+    keywordCount: details.keywords.detail.count
+  };
+  const referenceResult = referenceResolverResultFromOcrAnnotation(result, blocks);
+  if (referenceResult.entries.length) {
+    const positions = blockPositionMap(blocks);
+    const referenceContext = collectReferenceContext(blocks, positions);
+    state.referenceResolver = {
+      status: 'ready',
+      result: referenceResult,
+      error: '',
+      completed: referenceResult.entries.length,
+      total: referenceResult.entries.length,
+      startedAt: state.referenceResolver.startedAt || 0,
+      source: 'ocr-annotation'
+    };
+    const referenceDetail = buildReferencesDetailFromResolvedMap(
+      referenceResult,
+      bodyBlocksForResolvedReferences(referenceResult, blocks, referenceContext)
+    );
+    state.detailCache.set('references', referenceDetail);
+    state.detailBuildStatus.set('references', 'ready');
+    state.semanticCounts = {
+      ...(state.semanticCounts || {}),
+      referenceCount: referenceDetail.detail.count
+    };
+  }
+  renderCounts();
+  updateStoredReviewCountResolver(countResult).catch(() => {});
+  if (referenceResult.entries.length) updateStoredReviewReferenceMap(referenceResult).catch(() => {});
+  ['authors', 'affiliations', 'keywords', 'abstract', 'article', 'references'].forEach((kind) => {
+    if (state.activeDetailKind === kind) renderSemanticDetail(kind, state.detailCache.get(kind));
+  });
+  maybeQueueResultReveal();
+}
+
 async function runOcrCountAnnotationExperiment(file = null) {
   if (!file || state.loadedFromLibrary || state.precomputedExample.active) return;
   try {
@@ -1279,6 +1407,7 @@ async function runOcrCountAnnotationExperiment(file = null) {
       base64
     });
     const summary = ocrCountAnnotationSummary(data.result || {});
+    applyOcrCountAnnotationResult(data.result || {});
     markRuntime('OCR count annotation experiment finished', {
       wallMs: Math.round(runtimeNow() - started),
       apiMs: Number(data.elapsedMs || 0),
@@ -1287,7 +1416,9 @@ async function runOcrCountAnnotationExperiment(file = null) {
       abstractWords: summary.abstractWords,
       articleWords: summary.articleWords,
       references: summary.references,
-      warnings: summary.warnings
+      warnings: summary.warnings,
+      linkedAuthors: state.detailCache.get('authors')?.detail?.items?.filter((item) => item.sourceBlockKeys?.length).length || 0,
+      linkedReferences: state.referenceResolver.result?.entries?.filter((entry) => entry.sourceBlockKey).length || 0
     });
   } catch (error) {
     markRuntime('OCR count annotation experiment failed', {
@@ -4520,6 +4651,47 @@ function blockTextByKey(blocks = flatBlocks()) {
   return new Map(blocks.map((block) => [block.key, block.plainText || ocrPlainText(block.text || '')]));
 }
 
+function normalizeBlockLookupText(value = '') {
+  return ocrPlainText(value)
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function findSourceBlockKeysForText(value = '', blocks = flatBlocks(), options = {}) {
+  const normalized = normalizeBlockLookupText(value);
+  if (!normalized) return [];
+  const maxKeys = Number(options.maxKeys || 1);
+  const minNeedle = Number(options.minNeedle || 24);
+  const needles = [
+    normalized,
+    normalized.slice(0, 220),
+    normalized.slice(0, 140),
+    normalized.slice(0, 90),
+    normalized.slice(0, 60)
+  ].filter((needle, index, values) => needle.length >= minNeedle && values.indexOf(needle) === index);
+  const matches = [];
+  for (const block of blocks) {
+    const haystack = normalizeBlockLookupText(block.plainText || block.text || '');
+    if (!haystack) continue;
+    if (needles.some((needle) => haystack.includes(needle) || (haystack.length >= minNeedle && needle.includes(haystack)))) {
+      matches.push(block.key);
+      if (matches.length >= maxKeys) break;
+    }
+  }
+  return matches;
+}
+
+function mapAnnotationSourceKeys(item = {}, blocks = flatBlocks(), textFields = ['text'], options = {}) {
+  const sourceText = textFields
+    .map((field) => String(item?.[field] || '').trim())
+    .find(Boolean);
+  return findSourceBlockKeysForText(sourceText, blocks, options);
+}
+
 function normalizeMetadataItems(items = []) {
   return (Array.isArray(items) ? items : [])
     .map((item) => ({
@@ -4702,6 +4874,10 @@ async function scheduleCountResolver(blocks = flatBlocks(), positions = blockPos
   });
   try {
     const response = await resolveCountsWithCompletion(resolverBlocks);
+    if (state.countResolver.source === 'ocr-annotation') {
+      markRuntime('Word-count resolver result ignored', { reason: 'ocr-annotation already linked counts' });
+      return;
+    }
     const result = response.result || {};
     state.countResolver = { status: 'ready', result, error: '', startedAt: state.countResolver.startedAt || 0 };
     const details = buildCountsDetailsFromResolvedMap(result, blocks);
@@ -5382,6 +5558,10 @@ async function scheduleReferenceResolver(blocks = flatBlocks(), positions = bloc
       if (state.activeDetailKind === 'references') renderSemanticDetail('references', state.detailCache.get('references'));
     }));
     const result = mergeResolvedReferenceChunks(results);
+    if (state.referenceResolver.source === 'ocr-annotation') {
+      markRuntime('Reference resolver result ignored', { reason: 'ocr-annotation already linked references' });
+      return;
+    }
     state.referenceResolver = { status: 'ready', result, error: '', completed: chunks.length, total: chunks.length, startedAt: state.referenceResolver.startedAt || 0 };
     const bodyBlocks = bodyBlocksForResolvedReferences(result, blocks, referenceContext);
     const detail = buildReferencesDetailFromResolvedMap(result, bodyBlocks);
