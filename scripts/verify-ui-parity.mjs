@@ -264,6 +264,8 @@ async function assertCountTileBootstrapTooltips(page) {
     'Every count tile should use a Bootstrap tooltip.'
   );
   await page.locator('[data-count-kind="article"]').hover();
+  await page.waitForTimeout(600);
+  assert.equal(await page.locator('.tooltip.count-tile-tooltip.show').count(), 0, 'Count tile tooltip should wait before showing.');
   await page.waitForSelector('.tooltip.count-tile-tooltip.show', { timeout: 10000 });
   const tooltipText = await page.locator('.tooltip.count-tile-tooltip.show').innerText();
   assert.match(tooltipText, /Article:\s+2[,.]403 words/i);

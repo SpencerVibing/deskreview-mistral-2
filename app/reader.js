@@ -1578,6 +1578,7 @@ function initializeCountTooltips() {
   els.countsGrid.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((node) => {
     window.bootstrap.Tooltip.getOrCreateInstance(node, {
       container: 'body',
+      delay: { show: 1000, hide: 0 },
       trigger: 'hover focus'
     });
   });
