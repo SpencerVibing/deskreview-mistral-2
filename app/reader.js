@@ -5,6 +5,11 @@ import {
   normalizeDocumentAnnotation
 } from '/core/document-annotation.js';
 import {
+  excludedDisplayItems,
+  normalizeResolvedDisplayItems,
+  readyDisplayItems
+} from '/core/display-items.js';
+import {
   buildEssentialGuidelineEvaluationRequest,
   normalizeEssentialGuidelineResults,
   pendingEssentialGuides
@@ -4352,29 +4357,21 @@ function displayResolverRequestItems() {
 
 function displayResolverReadyItems() {
   if (state.displayResolver.status !== 'ready') return [];
-  const sourceById = new Map(collectAllDisplayItems().map((item) => [item.itemId, item]));
-  return (Array.isArray(state.displayResolver.result?.items) ? state.displayResolver.result.items : [])
-    .filter((item) => item?.isManuscriptItem)
-    .map((item, index) => {
-      const source = sourceById.get(String(item.itemId || '')) || {};
-      const kind = String(item.kind || source.kind || '').toLowerCase();
-      return {
-        ...source,
-        ...item,
-        kind,
-        label: String(item.label || source.label || `${kind === 'figure' ? 'Figure' : 'Table'} ${index + 1}`),
-        key: String(item.sourceBlockKey || source.key || source.sourceBlockKey || ''),
-        citationOccurrences: Array.isArray(item.citationOccurrences) ? item.citationOccurrences : []
-      };
-    })
-    .filter((item) => item.kind === 'table' || item.kind === 'figure');
+  return readyDisplayItems(displayResolverNormalizedItems());
+}
+
+function displayResolverNormalizedItems() {
+  if (state.displayResolver.status !== 'ready') return [];
+  return normalizeResolvedDisplayItems({
+    resolvedItems: Array.isArray(state.displayResolver.result?.items) ? state.displayResolver.result.items : [],
+    sourceItems: collectAllDisplayItems()
+  });
 }
 
 function displayResolverExcludedItems(kind = '') {
   if (state.displayResolver.status !== 'ready') return [];
   const targetKind = kind === 'tables' ? 'table' : 'figure';
-  return (Array.isArray(state.displayResolver.result?.items) ? state.displayResolver.result.items : [])
-    .filter((item) => String(item.kind || '').toLowerCase() === targetKind && !item.isManuscriptItem);
+  return excludedDisplayItems(displayResolverNormalizedItems(), targetKind);
 }
 
 function bodyBlocksForDisplayResolver(blocks = flatBlocks(), positions = blockPositionMap(blocks)) {
@@ -4396,7 +4393,7 @@ async function updateStoredReviewDisplayResolver(result = null) {
       result,
       updatedAt: new Date().toISOString()
     };
-    const manuscriptItems = (Array.isArray(result.items) ? result.items : []).filter((item) => item?.isManuscriptItem);
+    const manuscriptItems = displayResolverReadyItems();
     existing.ocr = {
       ...(existing.ocr || {}),
       semanticCounts: {
