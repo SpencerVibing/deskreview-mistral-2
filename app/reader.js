@@ -5161,6 +5161,27 @@ function findNumericCitationOccurrences(number = 0, bodyBlocks = []) {
   return findCitationOccurrencesFromPatternSpecs(specs, bodyBlocks);
 }
 
+function referenceEntryHasNumberedLabel(entry = {}) {
+  const text = String(entry.rawReferenceText || entry.rawText || '').trim();
+  const number = Number(entry.number || 0);
+  if (!text || !Number.isFinite(number) || number <= 0) return false;
+  const escaped = escapeRegExp(String(number));
+  return new RegExp(`^(?:\\[\\s*${escaped}\\s*\\]|${escaped}\\s*[.)])\\s+`).test(text);
+}
+
+function referenceListUsesNumberedLabels(entries = []) {
+  const sample = entries.slice(0, Math.min(8, entries.length));
+  if (!sample.length) return false;
+  const numbered = sample.filter(referenceEntryHasNumberedLabel).length;
+  return numbered >= Math.max(2, Math.ceil(sample.length * 0.6));
+}
+
+function matcherIsNumericCitationOnly(matcher = '') {
+  const text = normalizeCitationDigits(matcher).trim();
+  return /^(\[|\()?[\d,\s\-–—]+(\]|\))?$/.test(text)
+    || /^\^?\{?[\d,\s\-–—]+\}?$/.test(text);
+}
+
 function stopReferenceBlocksAtSupplement(referenceBlocks = []) {
   const stopPattern = /(^|\n)\s*(take home message|illustration|authorship|supplementary|supplemental|appendix|section\s+\d+|table\s+s?\d+|figure\s+s?\d+)/i;
   const items = [];
@@ -5347,11 +5368,14 @@ function mergeResolvedReferenceChunks(results = []) {
 
 function buildReferencesDetailFromResolvedMap(resolved = {}, bodyBlocks = []) {
   const warnings = cleanUserWarnings(resolved.warnings);
-  const entries = (Array.isArray(resolved.entries) ? resolved.entries : [])
+  const resolvedEntries = Array.isArray(resolved.entries) ? resolved.entries : [];
+  const allowNumericCitationFallback = referenceListUsesNumberedLabels(resolvedEntries);
+  const entries = resolvedEntries
     .map((entry, index) => {
-      const matchers = Array.isArray(entry.citationMatchers) ? entry.citationMatchers : [];
+      const matchers = (Array.isArray(entry.citationMatchers) ? entry.citationMatchers : [])
+        .filter((matcher) => allowNumericCitationFallback || !matcherIsNumericCitationOnly(matcher));
       let citationOccurrences = findCitationOccurrencesFromMatchers(matchers, bodyBlocks);
-      if (!citationOccurrences.length) {
+      if (!citationOccurrences.length && allowNumericCitationFallback) {
         const number = Number(entry.number || index + 1);
         citationOccurrences = findNumericCitationOccurrences(number, bodyBlocks);
       }
