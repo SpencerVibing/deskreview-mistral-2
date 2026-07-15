@@ -554,6 +554,37 @@ body {
   z-index: 1;
 }
 
+.guide-overall-chart-tile {
+  max-width: 100%;
+  width: 8.5rem;
+}
+
+.guide-overall-donut {
+  height: 8.5rem;
+  width: 8.5rem;
+}
+
+.guide-overall-donut::after {
+  inset: 1.35rem;
+}
+
+.guide-overall-donut .guide-score-donut-label {
+  font-size: 0.82rem;
+}
+
+.guide-overall-rating {
+  line-height: 1.25;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.rating-stars {
+  flex: 0 0 auto;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .guide-card-kicker {
   letter-spacing: 0.06em;
 }

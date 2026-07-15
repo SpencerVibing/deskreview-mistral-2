@@ -974,6 +974,42 @@ function renderExampleStars(value = 0) {
   }).join('');
 }
 
+const GUIDE_RATING_LABELS = new Map([
+  [0, 'Unsatisfactory'],
+  [0.5, 'Unsatisfactory'],
+  [1, 'Unsatisfactory'],
+  [1.5, 'Unsatisfactory'],
+  [2, 'Poor'],
+  [2.5, 'Mediocre'],
+  [3, 'Fair'],
+  [3.5, 'Good'],
+  [4, 'Great'],
+  [4.5, 'Amazing'],
+  [5, 'Perfect!']
+]);
+
+function guideRating(summary = {}) {
+  const present = Number(summary.present || 0);
+  const warning = Number(summary.warning || 0);
+  const absent = Number(summary.absent || 0);
+  const denominator = present + warning + absent;
+  if (!denominator) return 0;
+  return Math.round(Math.min(5, ((present + (warning * 0.5)) / denominator) * 5) * 10) / 10;
+}
+
+function guideRatingHalfStep(value = 0) {
+  return Math.round(Math.max(0, Math.min(5, Number(value || 0))) * 2) / 2;
+}
+
+function guideRatingDisplay(value = 0) {
+  const rounded = guideRatingHalfStep(value);
+  return Number.isInteger(rounded) ? `${rounded} / 5` : `${rounded.toFixed(1)} / 5`;
+}
+
+function guideRatingLabel(value = 0) {
+  return GUIDE_RATING_LABELS.get(guideRatingHalfStep(value)) || 'Awaiting results';
+}
+
 async function hydrateExampleCardStats(example = {}) {
   if (!example?.id || !example.precomputedPath) return;
   try {
@@ -2131,41 +2167,62 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   const processedGuides = guides.filter((guide) => Array.isArray(guide.results) && guide.results.length).length;
   const guideCount = guides.length;
   const unframed = lane === 'essential';
+  const rating = guideRating(summary);
+  const ratingDisplay = guideRatingDisplay(rating);
+  const ratingLabel = guideRatingLabel(rating);
+  const statusItemsChecked = `${totals.total} / ${totals.total} items checked`;
   return `
     <div class="${unframed ? 'guide-aggregate-card' : 'card border shadow-sm guide-card guide-aggregate-card'}" data-guide-aggregate-lane="${escapeHtml(lane)}">
       <div class="card-body ${unframed ? 'p-0' : 'p-3'}">
         <div class="small text-uppercase text-secondary guide-card-kicker mb-2" data-guide-aggregate-kicker>Combined results</div>
-        <div class="d-flex align-items-center gap-3">
-          <div class="guide-score-donut flex-shrink-0" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(totals.total)} guideline items processed">
-            <div class="guide-score-donut-label">
-              <span class="fw-semibold">${escapeHtml(totals.total)}</span>
-              <span class="text-secondary">items</span>
+        <div class="guide-overall-summary row g-3 align-items-center">
+          <div class="col-12 col-sm-auto">
+            <div class="guide-overall-chart-tile">
+              <div class="guide-score-donut guide-overall-donut" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(statusItemsChecked)}">
+                <div class="guide-score-donut-label">
+                  <span class="fw-semibold">${escapeHtml(processedGuides)}/${escapeHtml(guideCount)}</span>
+                  <span class="text-secondary">guides</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="min-w-0 flex-grow-1 d-flex flex-column align-items-start">
-            <div class="small text-secondary mb-2" data-guide-aggregate-processed>
-              <span>${escapeHtml(processedGuides)}/${escapeHtml(guideCount)} guides processed</span>
-            </div>
-            <div class="btn-group btn-group-sm">
-              <button type="button" class="btn border d-inline-flex align-items-center gap-2 ${escapeHtml(selectedMeta.buttonClass)}" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(selectedStatus)}">
-                <i class="bi ${escapeHtml(selectedMeta.icon)} ${escapeHtml(selectedMeta.textClass)}" aria-hidden="true"></i>
-                <span class="fw-semibold">${escapeHtml(summary[selectedStatus] || 0)}</span>
-                <span>${escapeHtml(selectedMeta.label)}</span>
-              </button>
-              <button type="button" class="btn border dropdown-toggle dropdown-toggle-split ${escapeHtml(selectedMeta.buttonClass)}" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="visually-hidden">Choose item category</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
-                  <li>
-                    <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(item.key)}">
-                      <i class="bi ${escapeHtml(item.icon)} ${escapeHtml(item.textClass)}" aria-hidden="true"></i>
-                      <span>${escapeHtml(item.label)}</span>
-                      <span class="badge ${escapeHtml(item.badgeClass)} ms-auto">${escapeHtml(summary[item.key] || 0)}</span>
-                    </button>
-                  </li>
-                `).join('')}
-              </ul>
+          <div class="col min-w-0">
+            <div class="guide-overall-details vstack gap-3 align-items-start">
+              <div class="guide-overall-rating d-flex align-items-center gap-2 flex-nowrap" data-guide-aggregate-rating>
+                <div class="text-warning-emphasis fw-semibold text-truncate" data-guide-aggregate-rating-label>${escapeHtml(ratingLabel)}</div>
+                <div class="rating-stars text-warning fs-5 mb-0 lh-1" data-guide-aggregate-rating-stars data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="${escapeHtml(ratingDisplay)}" title="${escapeHtml(ratingDisplay)}" aria-label="Guideline rating: ${escapeHtml(ratingDisplay)}">
+                  ${renderExampleStars(rating)}
+                </div>
+                <div class="visually-hidden" data-guide-aggregate-rating-value>${escapeHtml(ratingDisplay)}</div>
+              </div>
+              <div class="overall-score-chart-status small text-success-emphasis" data-guide-aggregate-processed>
+                <span>${escapeHtml(processedGuides)}/${escapeHtml(guideCount)} guides processed</span>
+                <span class="mx-1">·</span>
+                <span>${escapeHtml(statusItemsChecked)}</span>
+              </div>
+              <div class="guide-overall-categories" data-guide-aggregate-categories>
+                <div class="btn-group btn-group-sm">
+                  <button type="button" class="btn border d-inline-flex align-items-center gap-2 ${escapeHtml(selectedMeta.buttonClass)}" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(selectedStatus)}">
+                    <i class="bi ${escapeHtml(selectedMeta.icon)} ${escapeHtml(selectedMeta.textClass)}" aria-hidden="true"></i>
+                    <span class="fw-semibold">${escapeHtml(summary[selectedStatus] || 0)}</span>
+                    <span>${escapeHtml(selectedMeta.label)}</span>
+                  </button>
+                  <button type="button" class="btn border dropdown-toggle dropdown-toggle-split ${escapeHtml(selectedMeta.buttonClass)}" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Choose item category</span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-start">
+                    ${GUIDE_RESULT_STATUS_FILTERS.map((item) => `
+                      <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center gap-2" data-guide-aggregate-open="${escapeHtml(lane)}" data-guide-aggregate-status="${escapeHtml(item.key)}">
+                          <i class="bi ${escapeHtml(item.icon)} ${escapeHtml(item.textClass)}" aria-hidden="true"></i>
+                          <span>${escapeHtml(item.label)}</span>
+                          <span class="badge ${escapeHtml(item.badgeClass)} ms-auto">${escapeHtml(summary[item.key] || 0)}</span>
+                        </button>
+                      </li>
+                    `).join('')}
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>

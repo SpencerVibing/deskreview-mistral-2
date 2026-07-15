@@ -410,12 +410,15 @@ async function assertGuideAggregateCard(page, { rootSelector, status, titlePatte
   const cardText = await page.locator(rootSelector).innerText();
   assert.doesNotMatch(cardText, /\d+\s+present\s*·\s*\d+\s+absent/i, 'Combined card should not show the present/absent summary line.');
   const donutText = await page.locator(`${rootSelector} .guide-score-donut-label`).innerText();
-  assert.match(donutText, /\d+\s+items/i, 'Combined card donut should show the total item count.');
+  assert.match(donutText, /\d+\/\d+\s+guides/i, 'Combined card donut should show processed guide progress.');
   assert.doesNotMatch(donutText, /ready/i, 'Combined card donut should not show ready percentage copy.');
+  assert.equal(await page.locator(`${rootSelector} [data-guide-aggregate-rating-stars] i.bi`).count(), 5, 'Combined card should show the old star rating row.');
+  const ratingValue = await page.locator(`${rootSelector} [data-guide-aggregate-rating-value]`).innerText();
+  assert.match(ratingValue, /\d(?:\.\d)?\s*\/\s*5/i, 'Combined card should include a rating value.');
   const processedText = await page.locator(`${rootSelector} [data-guide-aggregate-processed]`).innerText();
   assert.match(processedText, /\d+\/\d+\s+guides processed/i);
-  assert.doesNotMatch(processedText, /items/i, 'Processed guide line should not repeat item totals.');
-  const looseBadgeCount = await page.locator(`${rootSelector} > .card-body > .d-flex .badge`).evaluateAll((nodes) => {
+  assert.match(processedText, /\d+\s*\/\s*\d+\s+items checked/i, 'Combined card status line should show checked item progress.');
+  const looseBadgeCount = await page.locator(`${rootSelector} > .card-body .badge`).evaluateAll((nodes) => {
     return nodes.filter((node) => !node.closest('.dropdown-menu')).length;
   });
   assert.equal(looseBadgeCount, 0, 'Combined card should not show loose status badge rows.');
@@ -435,9 +438,12 @@ async function assertGuideAggregateCard(page, { rootSelector, status, titlePatte
 async function assertAggregateLayout(page, rootSelector) {
   const kickerBox = await page.locator(`${rootSelector} [data-guide-aggregate-kicker]`).boundingBox();
   const donutBox = await page.locator(`${rootSelector} .guide-score-donut`).boundingBox();
+  const ratingBox = await page.locator(`${rootSelector} [data-guide-aggregate-rating]`).boundingBox();
   const processedBox = await page.locator(`${rootSelector} [data-guide-aggregate-processed]`).boundingBox();
   const buttonBox = await page.locator(`${rootSelector} > .card-body .btn-group`).boundingBox();
   assert.ok(kickerBox && donutBox && kickerBox.y < donutBox.y, 'Combined results label should sit above the donut chart.');
+  assert.ok(ratingBox && donutBox && ratingBox.x > donutBox.x, 'Combined card rating should sit in the right-hand details column.');
+  assert.ok(ratingBox && processedBox && processedBox.y > ratingBox.y, 'Combined card status line should sit under the rating row.');
   assert.ok(processedBox && buttonBox && buttonBox.y > processedBox.y, 'Aggregate dropdown should sit under the processed guide text.');
   assert.ok(
     processedBox && buttonBox && Math.abs(buttonBox.x - processedBox.x) <= 1,
