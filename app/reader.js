@@ -5106,23 +5106,48 @@ async function updateStoredReviewDocumentAnnotationFailure(error = '') {
   }
 }
 
+function delay(ms = 0) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+async function waitForCountResolverForAnnotation(maxWaitMs = 45000) {
+  if (state.countResolver.status !== 'running') return;
+  const started = performance.now();
+  markRuntime('Document annotation waiting for counts', { maxWaitMs });
+  while (state.countResolver.status === 'running' && performance.now() - started < maxWaitMs) {
+    await delay(250);
+  }
+  markRuntime('Document annotation count wait finished', {
+    status: state.countResolver.status,
+    waitedMs: Math.round(performance.now() - started)
+  });
+}
+
 function scheduleDocumentAnnotation(blocks = flatBlocks()) {
   if (state.loadedFromLibrary) return;
   if (state.documentAnnotation.status === 'ready' || state.documentAnnotation.status === 'running') return;
-  const payload = buildDocumentAnnotationRequest({
-    blocks,
-    countResolver: state.countResolver,
-    referenceResolver: state.referenceResolver,
-    displayResolver: state.displayResolver
-  });
-  if (!payload.blocks.length) {
-    state.documentAnnotation = { status: 'failed', result: null, error: 'No OCR blocks were available for document annotation.', startedAt: 0 };
-    renderEssentialGuidelines();
-    return;
-  }
-  markRuntime('Document annotation started', { blocks: payload.blocks.length });
   state.documentAnnotation = { status: 'running', result: null, error: '', startedAt: performance.now() };
-  state.documentAnnotationPromise = annotateDocumentWithCompletion(payload)
+  renderEssentialGuidelines();
+  state.documentAnnotationPromise = (async () => {
+    await waitForCountResolverForAnnotation();
+    const payload = buildDocumentAnnotationRequest({
+      blocks,
+      countResolver: state.countResolver,
+      referenceResolver: state.referenceResolver,
+      displayResolver: state.displayResolver
+    });
+    if (!payload.blocks.length) {
+      throw new Error('No OCR blocks were available for document annotation.');
+    }
+    markRuntime('Document annotation started', {
+      blocks: payload.blocks.length,
+      countResolver: state.countResolver.status,
+      referenceResolver: state.referenceResolver.status,
+      displayResolver: state.displayResolver.status
+    });
+    const response = await annotateDocumentWithCompletion(payload);
+    return response;
+  })()
     .then((response) => {
       const result = normalizeDocumentAnnotation(response.result || {});
       state.documentAnnotation = { status: 'ready', result, error: '', startedAt: state.documentAnnotation.startedAt || 0 };
