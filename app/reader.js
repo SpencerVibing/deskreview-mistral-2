@@ -4942,9 +4942,12 @@ function renderSemanticDetail(kind = '', payload = {}) {
         const blockKey = (Array.isArray(item.sourceBlockKeys) && item.sourceBlockKeys[0])
           ? item.sourceBlockKeys[0]
           : findBlockKeyForQuote(item.text || '');
+        const itemLabel = kind === 'authors'
+          ? ''
+          : `<div class="small text-secondary mb-1">${escapeHtml(label.slice(0, -1) || label)} ${escapeHtml(index + 1)}</div>`;
         return `
           <div class="w-100 border-0 rounded p-2 bg-transparent text-start${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey)}>
-            <div class="small text-secondary mb-1">${escapeHtml(label.slice(0, -1) || label)} ${escapeHtml(index + 1)}</div>
+            ${itemLabel}
             <div class="small">${escapeHtml(item.text || '')}</div>
           </div>
         `;

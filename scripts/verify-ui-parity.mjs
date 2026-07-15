@@ -90,6 +90,7 @@ async function main() {
     await assertCountTile(page, 'references', /Refs\s+22/i);
     await assertCountTile(page, 'tables', /Tables\s+3/i);
     await assertCountTile(page, 'figures', /Figures\s+1/i);
+    await assertAuthorDetailListNoNumbering(page);
     await assertCountTileBootstrapTooltips(page);
     await assertReaderUiRegressionFixes(page);
     await assertChecksSectionCards(page);
@@ -250,6 +251,17 @@ async function assertOriginalPreprintExampleCards(page) {
 
 async function assertCountTile(page, kind, pattern) {
   await assertText(page, `[data-count-kind="${kind}"]`, pattern);
+}
+
+async function assertAuthorDetailListNoNumbering(page) {
+  await page.click('[data-count-kind="authors"]');
+  await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
+  await assertText(page, '#detailsPanelBody', /Authors/i);
+  await assertText(page, '#detailsPanel', /Lucas Porto Santos/i);
+  const detailText = await page.locator('#detailsPanel').innerText();
+  assert.doesNotMatch(detailText, /\bAuthor\s+\d+\b/i, 'Authors detail list should not show ordinal labels.');
+  await page.click('#detailsPanelClose');
+  await page.waitForFunction(() => !document.getElementById('detailsPanel')?.classList.contains('open'), null, { timeout: 10000 });
 }
 
 async function assertCountTileBootstrapTooltips(page) {
