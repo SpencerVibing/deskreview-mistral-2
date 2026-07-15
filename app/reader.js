@@ -2166,7 +2166,7 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   const selectedMeta = guideResultStatusMeta(selectedStatus);
   const processedGuides = guides.filter((guide) => Array.isArray(guide.results) && guide.results.length).length;
   const guideCount = guides.length;
-  const unframed = lane === 'essential';
+  const unframed = lane === 'essential' || lane === 'matched';
   const rating = guideRating(summary);
   const ratingDisplay = guideRatingDisplay(rating);
   const ratingLabel = guideRatingLabel(rating);
@@ -2477,8 +2477,8 @@ function renderEssentialGuidelines() {
   const guideCards = state.essentialResults.map((guide) => {
     const summary = guide.summary || {};
     return `
-      <button type="button" class="text-start w-100 guide-card essential-guide-card border-0 shadow-none bg-transparent p-0" data-essential-guide-id="${escapeHtml(guide.id)}">
-        <div class="card-body p-2 d-flex align-items-center gap-2">
+      <button type="button" class="text-start w-100 guide-card guide-list-row border-0 shadow-none bg-transparent p-0" data-essential-guide-id="${escapeHtml(guide.id)}">
+        <div class="px-2 py-1 d-flex align-items-center gap-2">
           <div class="flex-grow-1 min-w-0">${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
           <div class="ms-auto flex-shrink-0">${renderGuideProgress(summary, guide.status)}</div>
         </div>
@@ -2653,10 +2653,10 @@ function renderReportingGuidelines() {
       guides: state.reportingGuideResults
     });
     const guideCards = state.reportingGuideResults.map((guide) => `
-      <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-reporting-guide-id="${escapeHtml(guide.id)}">
-        <div class="card-body p-2">
-          <div>${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
-          <div class="mt-2">${renderGuideProgress(guide.summary || {}, guide.status)}</div>
+      <button type="button" class="text-start w-100 guide-card guide-list-row border-0 shadow-none bg-transparent p-0" data-reporting-guide-id="${escapeHtml(guide.id)}">
+        <div class="px-2 py-1 d-flex align-items-center gap-2">
+          <div class="flex-grow-1 min-w-0">${renderGuidelineSelectorTitle(guide.id, guide.name)}</div>
+          <div class="ms-auto flex-shrink-0">${renderGuideProgress(guide.summary || {}, guide.status)}</div>
         </div>
       </button>
     `).join('');
@@ -2696,13 +2696,15 @@ function renderReportingGuidelines() {
   els.reportingGuideList.innerHTML = `
     ${warnings.length ? `<div class="alert alert-light border small mb-2">${warnings.map(escapeHtml).join('<br>')}</div>` : ''}
     ${matches.map((match) => `
-      <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-reporting-match-id="${escapeHtml(match.guidelineId)}">
-        <div class="card-body p-2">
-          <div>${renderGuidelineSelectorTitle(match.guidelineId, match.label)}</div>
-          <div class="progress mt-2 rounded-pill" role="progressbar" aria-label="${escapeHtml(match.label)} confidence" aria-valuenow="${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar bg-primary-subtle" style="width: ${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%;"></div>
+      <button type="button" class="text-start w-100 guide-card guide-list-row border-0 shadow-none bg-transparent p-0" data-reporting-match-id="${escapeHtml(match.guidelineId)}">
+        <div class="px-2 py-1">
+          <div class="d-flex align-items-center gap-2">
+            <div class="flex-grow-1 min-w-0">${renderGuidelineSelectorTitle(match.guidelineId, match.label)}</div>
+            <div class="progress guide-progress-mini rounded-pill ms-auto flex-shrink-0" role="progressbar" aria-label="${escapeHtml(match.label)} confidence" aria-valuenow="${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar bg-primary-subtle" style="width: ${escapeHtml(Math.round(Number(match.confidence || 0) * 100))}%;"></div>
+            </div>
           </div>
-          ${match.anchorQuote ? `<div class="small text-secondary mt-2 text-truncate">${escapeHtml(match.anchorQuote)}</div>` : ''}
+          ${match.anchorQuote ? `<div class="small text-secondary mt-1 text-truncate">${escapeHtml(match.anchorQuote)}</div>` : ''}
         </div>
       </button>
     `).join('') || '<div class="small text-secondary">No reporting guideline matches were returned.</div>'}

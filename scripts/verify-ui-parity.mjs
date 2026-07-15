@@ -115,7 +115,12 @@ async function main() {
       unframed: true
     });
     await assertCompactGuidelineCards(page, '#essentialGuideList [data-essential-guide-id]');
-    await assertEssentialGuidelineStack(page);
+    await assertGuideListRows(page, {
+      listSelector: '#essentialGuideList',
+      cardSelector: '[data-essential-guide-id]',
+      expectedCount: 3,
+      label: 'Essential guideline'
+    });
     const essentialListText = await page.locator('#essentialGuideList').innerText();
     assert.doesNotMatch(essentialListText, /Guidelines developed by the European Association of Science Editors/i);
     assert.doesNotMatch(essentialListText, /EASE Essential guidelines/i);
@@ -140,9 +145,16 @@ async function main() {
     await assertGuideAggregateCard(page, {
       rootSelector: '#reportingGuideList [data-guide-aggregate-lane="matched"]',
       status: 'absent',
-      titlePattern: /All matched guideline items/i
+      titlePattern: /All matched guideline items/i,
+      unframed: true
     });
     await assertCompactGuidelineCards(page, '#reportingGuideList [data-reporting-guide-id]');
+    await assertGuideListRows(page, {
+      listSelector: '#reportingGuideList',
+      cardSelector: '[data-reporting-guide-id]',
+      expectedCount: 5,
+      label: 'Matched guideline'
+    });
     const reportingListText = await page.locator('#reportingGuideList').innerText();
     assert.doesNotMatch(reportingListText, /randomized trials/i);
     assert.doesNotMatch(reportingListText, /Matched guideline/i);
@@ -480,11 +492,12 @@ async function assertCompactGuidelineCards(page, cardSelector) {
   assert.ok(firstHeight <= 78, `Guideline cards should be compact; first card was ${firstHeight}px tall.`);
 }
 
-async function assertEssentialGuidelineStack(page) {
-  const firstCard = page.locator('#essentialGuideList [data-essential-guide-id]').first();
+async function assertGuideListRows(page, { listSelector, cardSelector, expectedCount, label }) {
+  const rowSelector = `${listSelector} ${cardSelector}`;
+  const firstCard = page.locator(rowSelector).first();
   const firstClassTokens = String(await firstCard.getAttribute('class') || '').split(/\s+/);
   ['card', 'border', 'shadow-sm'].forEach((token) => {
-    assert.ok(!firstClassTokens.includes(token), `Essential guide rows should not include ${token}.`);
+    assert.ok(!firstClassTokens.includes(token), `${label} rows should not include ${token}.`);
   });
   const baseFrame = await firstCard.evaluate((node) => {
     const style = window.getComputedStyle(node);
@@ -499,9 +512,9 @@ async function assertEssentialGuidelineStack(page) {
   assert.deepEqual(
     [baseFrame.borderTopWidth, baseFrame.borderRightWidth, baseFrame.borderBottomWidth, baseFrame.borderLeftWidth],
     ['0px', '0px', '0px', '0px'],
-    'Essential guide rows should not render borders.'
+    `${label} rows should not render borders.`
   );
-  assert.equal(baseFrame.boxShadow, 'none', 'Essential guide rows should not render shadows.');
+  assert.equal(baseFrame.boxShadow, 'none', `${label} rows should not render shadows.`);
   await firstCard.hover();
   const hoverFrame = await firstCard.evaluate((node) => {
     const style = window.getComputedStyle(node);
@@ -510,9 +523,9 @@ async function assertEssentialGuidelineStack(page) {
       boxShadow: style.boxShadow
     };
   });
-  assert.equal(hoverFrame.backgroundColor, 'rgb(244, 244, 245)', 'Essential guide row hover should match the ToC light grey highlight.');
-  assert.equal(hoverFrame.boxShadow, 'none', 'Essential guide row hover should not add a shadow.');
-  const rows = await page.locator('#essentialGuideList [data-essential-guide-id]').evaluateAll((nodes) => {
+  assert.equal(hoverFrame.backgroundColor, 'rgb(244, 244, 245)', `${label} row hover should match the ToC light grey highlight.`);
+  assert.equal(hoverFrame.boxShadow, 'none', `${label} row hover should not add a shadow.`);
+  const rows = await page.locator(rowSelector).evaluateAll((nodes) => {
     return nodes.map((node) => {
       const card = node.getBoundingClientRect();
       const title = node.querySelector('[data-guideline-selector-open]')?.getBoundingClientRect();
@@ -524,23 +537,24 @@ async function assertEssentialGuidelineStack(page) {
       };
     });
   });
-  assert.equal(rows.length, 3, 'Essential guideline list should show the three EASE guide cards.');
+  assert.equal(rows.length, expectedCount, `${label} list should show the expected guide rows.`);
   rows.forEach((row, index) => {
-    assert.ok(row.title, `Essential guide ${index + 1} should include a title.`);
-    assert.ok(row.progress, `Essential guide ${index + 1} should include a mini progress bar.`);
-    assert.ok(row.progress.x > row.title.x, `Essential guide ${index + 1} progress bar should sit to the right of the title.`);
+    assert.ok(row.title, `${label} ${index + 1} should include a title.`);
+    assert.ok(row.progress, `${label} ${index + 1} should include a mini progress bar.`);
+    assert.ok(row.progress.x > row.title.x, `${label} ${index + 1} progress bar should sit to the right of the title.`);
     assert.ok(
       Math.abs((row.title.y + row.title.height / 2) - (row.progress.y + row.progress.height / 2)) <= 6,
-      `Essential guide ${index + 1} title and progress bar should share one row.`
+      `${label} ${index + 1} title and progress bar should share one row.`
     );
     if (index > 0) {
-      assert.ok(row.card.y > rows[index - 1].card.y + rows[index - 1].card.height - 1, 'Essential guide cards should stack vertically.');
+      const gap = row.card.y - (rows[index - 1].card.y + rows[index - 1].card.height);
+      assert.ok(gap >= 0 && gap <= 6, `${label} rows should stack tightly; gap was ${gap}px.`);
     }
   });
   const widths = rows.map((row) => row.progress.width);
   const rightEdges = rows.map((row) => row.progress.x + row.progress.width);
-  assert.ok(Math.max(...widths) - Math.min(...widths) <= 1, 'Essential guide progress bars should use a fixed width.');
-  assert.ok(Math.max(...rightEdges) - Math.min(...rightEdges) <= 1, 'Essential guide progress bars should align right.');
+  assert.ok(Math.max(...widths) - Math.min(...widths) <= 1, `${label} progress bars should use a fixed width.`);
+  assert.ok(Math.max(...rightEdges) - Math.min(...rightEdges) <= 1, `${label} progress bars should align right.`);
 }
 
 async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
