@@ -388,6 +388,18 @@ async function assertReaderUiRegressionFixes(page) {
   await assertVisible(page, '#viewModeSwitch');
   assert.equal(await page.locator('#pdfTab').count(), 0, 'PDF view should use the Bootstrap switch instead of the old tab button.');
   assert.equal(await page.locator('#htmlTab').count(), 0, 'HTML view should use the Bootstrap switch instead of the old tab button.');
+  const neutralTheme = await page.evaluate(() => {
+    const parseRgb = (value) => {
+      const match = String(value || '').match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+      return match ? { r: Number(match[1]), g: Number(match[2]), b: Number(match[3]) } : null;
+    };
+    return {
+      body: parseRgb(getComputedStyle(document.body).backgroundColor),
+      panel: parseRgb(getComputedStyle(document.querySelector('.studio-pane')).backgroundColor)
+    };
+  });
+  assert.ok(neutralTheme.body?.r > neutralTheme.body?.b, 'Reader body neutral should carry a subtle warm tint.');
+  assert.ok(neutralTheme.panel?.r > neutralTheme.panel?.b, 'Reader panel neutral should carry a subtle warm tint.');
   assert.equal(await page.locator('#viewModeSwitch').getAttribute('role'), 'switch', 'Reader view control should be exposed as a switch.');
   assert.equal(await page.locator('#viewModeSwitch').isChecked(), false, 'Reader should default to the PDF side of the switch.');
   assert.match(await page.locator('#viewSwitchPdfLabel').getAttribute('class'), /fw-semibold/, 'PDF label should be emphasized when PDF is active.');
@@ -700,7 +712,15 @@ async function assertGuideListRows(page, { listSelector, cardSelector, expectedC
       boxShadow: style.boxShadow
     };
   });
-  assert.equal(hoverFrame.backgroundColor, 'rgb(244, 244, 245)', `${label} row hover should match the ToC light grey highlight.`);
+  const themedHoverColor = await page.evaluate(() => {
+    const probe = document.createElement('div');
+    probe.style.background = 'var(--studio-neutral-hover)';
+    document.body.append(probe);
+    const color = getComputedStyle(probe).backgroundColor;
+    probe.remove();
+    return color;
+  });
+  assert.equal(hoverFrame.backgroundColor, themedHoverColor, `${label} row hover should match the ToC themed highlight.`);
   assert.equal(hoverFrame.boxShadow, 'none', `${label} row hover should not add a shadow.`);
   const rows = await page.locator(rowSelector).evaluateAll((nodes) => {
     return nodes.map((node) => {
