@@ -4583,11 +4583,13 @@ function quoteCandidates(value = '') {
     .map((candidate) => candidate.length > 220 ? candidate.slice(0, 220) : candidate);
 }
 
-function findBlockKeyForQuote(value = '') {
+function findBlockKeyForQuote(value = '', { fromEnd = false } = {}) {
   const candidates = quoteCandidates(value);
   if (!candidates.length) return '';
+  const targets = [...state.blockTargets.entries()];
+  if (fromEnd) targets.reverse();
   for (const candidate of candidates) {
-    for (const [key, target] of state.blockTargets.entries()) {
+    for (const [key, target] of targets) {
       const normalizedBlock = normalizeForLookup(target.text || '');
       if (normalizedBlock.includes(candidate) || candidate.includes(normalizedBlock)) return key;
     }
@@ -5366,9 +5368,51 @@ function mergeResolvedReferenceChunks(results = []) {
   };
 }
 
+function dedupeResolvedReferenceEntries(entries = []) {
+  const seen = new Set();
+  const deduped = [];
+  const sourcePageIndex = (entry = {}) => {
+    const key = String(entry?.sourceBlockKey || '');
+    const match = key.match(/^block-(\d+)-/);
+    return match ? Number(match[1]) : -1;
+  };
+  const preferReferenceEntry = (current = {}, candidate = {}) => {
+    const currentPage = sourcePageIndex(current);
+    const candidatePage = sourcePageIndex(candidate);
+    if (candidatePage !== currentPage) return candidatePage > currentPage;
+    return String(candidate?.rawReferenceText || candidate?.rawText || '').length > String(current?.rawReferenceText || current?.rawText || '').length;
+  };
+  entries.forEach((entry) => {
+    const rawReferenceText = String(entry?.rawReferenceText || entry?.rawText || '').trim();
+    const signature = referenceSignature(rawReferenceText);
+    if (!rawReferenceText) return;
+    const normalizedEntry = {
+      ...entry,
+      rawReferenceText
+    };
+    if (seen.has(signature)) {
+      const existingIndex = deduped.findIndex((item) => referenceSignature(item.rawReferenceText) === signature);
+      if (existingIndex >= 0 && preferReferenceEntry(deduped[existingIndex], normalizedEntry)) {
+        deduped[existingIndex] = {
+          ...normalizedEntry,
+          number: existingIndex + 1
+        };
+      }
+      return;
+    }
+    seen.add(signature);
+    deduped.push({
+      ...normalizedEntry,
+      number: deduped.length + 1,
+      rawReferenceText
+    });
+  });
+  return deduped;
+}
+
 function buildReferencesDetailFromResolvedMap(resolved = {}, bodyBlocks = []) {
   const warnings = cleanUserWarnings(resolved.warnings);
-  const resolvedEntries = Array.isArray(resolved.entries) ? resolved.entries : [];
+  const resolvedEntries = dedupeResolvedReferenceEntries(Array.isArray(resolved.entries) ? resolved.entries : []);
   const allowNumericCitationFallback = referenceListUsesNumberedLabels(resolvedEntries);
   const entries = resolvedEntries
     .map((entry, index) => {
@@ -6049,7 +6093,7 @@ function renderSemanticDetail(kind = '', payload = {}) {
         <div class="detail-card-title"><span>References counted</span><span class="badge text-bg-light">${escapeHtml(metricValue(detail.count))}</span></div>
       </div>
       ${entries.map((entry) => {
-        const refBlockKey = entry.sourceBlockKey || findBlockKeyForQuote(entry.bibliographyAnchorQuote || entry.rawText || '');
+        const refBlockKey = findBlockKeyForQuote(entry.bibliographyAnchorQuote || entry.rawText || '', { fromEnd: true }) || entry.sourceBlockKey;
         return `
         <div class="detail-card">
           <div class="detail-card-title">
@@ -6581,8 +6625,10 @@ async function renderReviewFromRecord(review = {}) {
   renderComments();
   renderChatMessages();
   if (review.referenceResolver?.status === 'ready' && review.referenceResolver.result) {
-    const count = Array.isArray(review.referenceResolver.result.entries) ? review.referenceResolver.result.entries.length : 0;
-    state.referenceResolver = { status: 'ready', result: review.referenceResolver.result, error: '', completed: count, total: count, startedAt: 0 };
+    const entries = dedupeResolvedReferenceEntries(Array.isArray(review.referenceResolver.result.entries) ? review.referenceResolver.result.entries : []);
+    const result = { ...(review.referenceResolver.result || {}), entries };
+    const count = entries.length;
+    state.referenceResolver = { status: 'ready', result, error: '', completed: count, total: count, startedAt: 0 };
   } else if (review.referenceResolver?.status === 'failed') {
     state.referenceResolver = {
       status: 'failed',
