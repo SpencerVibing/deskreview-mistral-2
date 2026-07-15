@@ -322,6 +322,13 @@ async function assertChecksSectionCards(page) {
   assert.equal(directItems, 2, 'Checks content should have exactly two top-level section cards.');
   assert.equal(await page.locator('#checksContentSections > .side-group-card.card').count(), 2, 'Checks sections should use Bootstrap card containers.');
   assert.equal(await page.locator('#checksContentSections > .side-group-card > .card-header').count(), 2, 'Checks section labels should use Bootstrap card headers.');
+  const headerClassLists = await page.locator('#checksContentSections > .side-group-card > .card-header').evaluateAll((nodes) => nodes.map((node) => node.className));
+  headerClassLists.forEach((className) => {
+    const tokens = String(className || '').split(/\s+/);
+    assert.ok(tokens.includes('bg-body'), `Checks section card headers should use the white body background; got ${className}.`);
+    assert.ok(tokens.includes('border-bottom'), `Checks section card headers should keep a bottom separator; got ${className}.`);
+    assert.ok(!tokens.includes('bg-body-tertiary'), `Checks section card headers should not blend into the grey side pane; got ${className}.`);
+  });
   assert.ok(
     String(await page.locator('#articleCountsHeading').getAttribute('class') || '').split(/\s+/).includes('card-header'),
     'Article counts heading should be a Bootstrap card header.'
@@ -332,6 +339,13 @@ async function assertChecksSectionCards(page) {
   );
   await assertText(page, '#articleCountsHeading', /Article element counts/i);
   await assertText(page, '#reportingQualityHeading', /Reporting quality guidelines/i);
+  assert.equal(await page.locator('#guidelineChecksAccordion .accordion-button .h6').count(), 0, 'Guideline accordion labels should not use h6 display sizing.');
+  const laneLabelClasses = await page.locator('#guidelineChecksAccordion .accordion-button > span:first-child > span:first-child').evaluateAll((nodes) => nodes.map((node) => node.className));
+  laneLabelClasses.forEach((className) => {
+    const tokens = String(className || '').split(/\s+/);
+    assert.ok(tokens.includes('small'), `Guideline accordion labels should use small text sizing; got ${className}.`);
+    assert.ok(tokens.includes('fw-semibold'), `Guideline accordion labels should remain semibold; got ${className}.`);
+  });
   await assertVisible(page, '#articleCountsPanel');
   await assertVisible(page, '#reportingQualityPanel');
   const paneBackgrounds = await page.evaluate(() => {
