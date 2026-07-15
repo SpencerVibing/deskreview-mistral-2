@@ -1825,12 +1825,46 @@ function markdownToHtml(markdown = '', page = {}) {
   return html.join('\n') || '<p class="text-secondary">No OCR text returned for this block.</p>';
 }
 
+function splitConcatenatedReferenceText(value = '') {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return [];
+  const startPattern = /(^|(?<=[.)])\s*)(?=[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+(?:\s+[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+)*,\s+(?:[A-Z]\.|[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+,).{0,180}?\(\d{4}[a-z]?\))/gu;
+  const starts = [];
+  for (const match of text.matchAll(startPattern)) {
+    const index = Number(match.index || 0) + String(match[1] || '').length;
+    if (!starts.includes(index)) starts.push(index);
+  }
+  if (starts.length <= 1) return [text];
+  return starts
+    .map((start, index) => text.slice(start, starts[index + 1] || text.length).trim())
+    .filter((entry) => entry.length >= 24);
+}
+
+function renderReferencesBlockContent(markdown = '', page = {}) {
+  const lines = String(markdown || '').split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const entries = lines.flatMap(splitConcatenatedReferenceText);
+  if (entries.length <= 1) return markdownToHtml(markdown, page);
+  return entries.map((entry) => `<p>${renderInline(entry)}</p>`).join('\n');
+}
+
+function renderReferencesHtmlContent(html = '') {
+  const sanitized = sanitizeMistralHtml(html);
+  const paragraphMatch = sanitized.match(/^<p>([\s\S]*)<\/p>$/i);
+  const content = paragraphMatch ? paragraphMatch[1] : sanitized;
+  const entries = splitConcatenatedReferenceText(content);
+  if (entries.length <= 1) return sanitized;
+  return entries.map((entry) => `<p>${entry}</p>`).join('\n');
+}
+
 function renderBlockContent(block = {}, page = {}) {
   const content = blockText(block);
   const html = String(block.html || block.table_html || block.tableHtml || (
     /^<(table|figure|img)\b/i.test(content) ? content : ''
   )).trim();
-  const body = html ? `<div class="table-responsive">${sanitizeMistralHtml(html)}</div>` : markdownToHtml(content, page);
+  const type = blockType(block);
+  const body = html
+    ? (type === 'references' ? renderReferencesHtmlContent(html) : `<div class="table-responsive">${sanitizeMistralHtml(html)}</div>`)
+    : (type === 'references' ? renderReferencesBlockContent(content, page) : markdownToHtml(content, page));
   return `${body}${renderPdfSourcePreviews(block, page)}`;
 }
 
