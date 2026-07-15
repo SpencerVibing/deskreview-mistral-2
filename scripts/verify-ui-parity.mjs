@@ -115,6 +115,7 @@ async function main() {
       unframed: true
     });
     await assertCompactGuidelineCards(page, '#essentialGuideList [data-essential-guide-id]');
+    await assertEssentialGuidelineStack(page);
     const essentialListText = await page.locator('#essentialGuideList').innerText();
     assert.doesNotMatch(essentialListText, /Guidelines developed by the European Association of Science Editors/i);
     assert.doesNotMatch(essentialListText, /EASE Essential guidelines/i);
@@ -477,6 +478,38 @@ async function assertCompactGuidelineCards(page, cardSelector) {
   assert.equal(await page.locator(`${cardSelector} .badge`).count(), 0, 'Guideline cards should not show status badge grids or status badges.');
   const firstHeight = await page.locator(cardSelector).first().evaluate((node) => node.getBoundingClientRect().height);
   assert.ok(firstHeight <= 78, `Guideline cards should be compact; first card was ${firstHeight}px tall.`);
+}
+
+async function assertEssentialGuidelineStack(page) {
+  const rows = await page.locator('#essentialGuideList [data-essential-guide-id]').evaluateAll((nodes) => {
+    return nodes.map((node) => {
+      const card = node.getBoundingClientRect();
+      const title = node.querySelector('[data-guideline-selector-open]')?.getBoundingClientRect();
+      const progress = node.querySelector('.guide-progress-mini')?.getBoundingClientRect();
+      return {
+        card: { x: card.x, y: card.y, width: card.width, height: card.height },
+        title: title ? { x: title.x, y: title.y, width: title.width, height: title.height } : null,
+        progress: progress ? { x: progress.x, y: progress.y, width: progress.width, height: progress.height } : null
+      };
+    });
+  });
+  assert.equal(rows.length, 3, 'Essential guideline list should show the three EASE guide cards.');
+  rows.forEach((row, index) => {
+    assert.ok(row.title, `Essential guide ${index + 1} should include a title.`);
+    assert.ok(row.progress, `Essential guide ${index + 1} should include a mini progress bar.`);
+    assert.ok(row.progress.x > row.title.x, `Essential guide ${index + 1} progress bar should sit to the right of the title.`);
+    assert.ok(
+      Math.abs((row.title.y + row.title.height / 2) - (row.progress.y + row.progress.height / 2)) <= 6,
+      `Essential guide ${index + 1} title and progress bar should share one row.`
+    );
+    if (index > 0) {
+      assert.ok(row.card.y > rows[index - 1].card.y + rows[index - 1].card.height - 1, 'Essential guide cards should stack vertically.');
+    }
+  });
+  const widths = rows.map((row) => row.progress.width);
+  const rightEdges = rows.map((row) => row.progress.x + row.progress.width);
+  assert.ok(Math.max(...widths) - Math.min(...widths) <= 1, 'Essential guide progress bars should use a fixed width.');
+  assert.ok(Math.max(...rightEdges) - Math.min(...rightEdges) <= 1, 'Essential guide progress bars should align right.');
 }
 
 async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {

@@ -2478,9 +2478,9 @@ function renderEssentialGuidelines() {
     const summary = guide.summary || {};
     return `
       <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-essential-guide-id="${escapeHtml(guide.id)}">
-        <div class="card-body p-2">
-          <div>${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
-          <div class="mt-2">${renderGuideProgress(summary, guide.status)}</div>
+        <div class="card-body p-2 d-flex align-items-center gap-2">
+          <div class="flex-grow-1 min-w-0">${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
+          <div class="ms-auto flex-shrink-0">${renderGuideProgress(summary, guide.status)}</div>
         </div>
       </button>
     `;
