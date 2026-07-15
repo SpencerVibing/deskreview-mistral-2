@@ -1137,14 +1137,13 @@ body {
 
 .pdf-scroll {
   background: var(--studio-panel-bg);
-  box-shadow: inset 0 0.45rem 0.75rem -0.75rem rgba(24, 24, 27, 0.35);
 }
 
 .pdf-document {
   width: 100%;
   min-width: 0;
   margin: 0 auto;
-  padding: 0 0.75rem 0.75rem;
+  padding: 0.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
