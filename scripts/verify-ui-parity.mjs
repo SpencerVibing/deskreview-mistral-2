@@ -119,9 +119,9 @@ async function main() {
     assert.doesNotMatch(essentialListText, /EASE Essential guidelines/i);
     await page.click('#essentialGuideList [data-essential-guide-id="ease-abstract-page"] .guide-progress-mini');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
-    await assertText(page, '#detailsPanel', /Optional/i);
-    await assertText(page, '#detailsPanel', /N\/A/i);
     await assertGuideDetailFilterDropdown(page);
+    await assertGuideDetailFilterOption(page, 'optional', /Optional/i);
+    await assertGuideDetailFilterOption(page, 'na', /N\/A/i);
     await selectGuideDetailFilter(page, 'optional');
     await waitForVisibleGuideResult(page, 'optional');
     await selectGuideDetailFilter(page, 'all');
@@ -148,8 +148,8 @@ async function main() {
     await page.click('#reportingGuideList [data-reporting-guide-id="consort"] .guide-progress-mini');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /CONSORT/i);
-    await assertText(page, '#detailsPanel', /Optional/i);
     await assertGuideDetailFilterDropdown(page);
+    await assertGuideDetailFilterOption(page, 'optional', /Optional/i);
     await selectGuideDetailFilter(page, 'warning');
     await waitForVisibleGuideResult(page, 'warning');
     await selectGuideDetailFilter(page, 'all');
@@ -480,16 +480,22 @@ async function openAccordion(page, buttonSelector, panelSelector) {
 async function assertGuideDetailFilterDropdown(page) {
   await assertVisible(page, '#detailsPanel .guide-detail-filter-dropdown');
   await assertVisible(page, '#detailsPanel [data-guide-detail-filter-current]');
+  await assertVisible(page, '#detailsPanel .guide-slider-content .analyzed-guide-accordion');
   assert.equal(
     await page.locator('#detailsPanel .btn-group[aria-label="Filter guideline results"]').count(),
     0,
     'Guideline detail filters should use the dropdown widget instead of the old button group.'
   );
-  assert.equal(
-    await page.locator('#detailsPanel .guide-result-card').count(),
-    await page.locator('#detailsPanel [data-guide-result-status]').count(),
-    'Guideline result cards should use the animated guide-result-card class.'
-  );
+  assert.equal(await page.locator('#detailsPanel .guide-result-card').count(), 0, 'Guideline detail results should not use flat guide-result-card cards.');
+  assert.ok(await page.locator('#detailsPanel .analyzed-item-row[data-result]').count() > 0, 'Guideline results should render analyzed accordion rows.');
+  assert.ok(await page.locator('#detailsPanel .guide-section-badge').count() > 0, 'Guideline accordion sections should render count badges.');
+}
+
+async function assertGuideDetailFilterOption(page, status, pattern) {
+  const option = page.locator(`#detailsPanel [data-guide-detail-filter="${status}"]`).first();
+  assert.equal(await option.count(), 1, `Guideline detail filter should include ${status}.`);
+  const label = await option.getAttribute('data-guide-detail-filter-label');
+  assert.match(label || '', pattern);
 }
 
 async function selectGuideDetailFilter(page, status) {
@@ -506,12 +512,16 @@ async function selectGuideDetailFilter(page, status) {
     }, null, { timeout: 10000 });
   }
   await page.click(`#detailsPanel .guide-detail-filter-menu.show [data-guide-detail-filter="${status}"]`);
+  await page.waitForFunction(() => {
+    return !document.querySelector('#detailsPanel .guide-detail-filter-menu')?.classList.contains('show');
+  }, null, { timeout: 10000 });
   await page.waitForFunction((selectedStatus) => {
     const button = document.querySelector('#detailsPanel [data-guide-detail-filter-current]');
     const label = button?.textContent || '';
     const selected = document.querySelector(`#detailsPanel [data-guide-detail-filter="${selectedStatus}"]`);
     return selected?.classList.contains('active') && new RegExp(selectedStatus === 'all' ? 'All' : selected.textContent.trim().split(/\s+/)[0], 'i').test(label);
   }, status, { timeout: 10000 });
+  await page.waitForTimeout(350);
 }
 
 async function waitForVisibleGuideResult(page, status) {
@@ -521,10 +531,18 @@ async function waitForVisibleGuideResult(page, status) {
   }, status, { timeout: 10000 });
   const hiddenCount = await page.locator(`#detailsPanel [data-guide-result-status]:not([data-guide-result-status="${status}"]).is-filtered-out`).count();
   assert.ok(hiddenCount > 0, 'Non-matching guideline cards should animate out with is-filtered-out.');
+  const visibleSectionCount = await page.locator('#detailsPanel [data-guide-section]:not(.is-filtered-out)').count();
+  assert.ok(visibleSectionCount > 0, 'At least one accordion section should remain visible after filtering.');
+  const badgeText = await page.locator('#detailsPanel [data-guide-section]:not(.is-filtered-out) .guide-section-badge').first().innerText();
+  assert.match(badgeText, /\d+/, 'Visible accordion section badge should update to a numeric count.');
 }
 
 async function assertActiveJumpFromDetails(page) {
-  const link = page.locator('#detailsPanel [data-detail-block-key]').first();
+  if (!await page.locator('#detailsPanel [data-detail-block-key]:visible').count()) {
+    const detailsButton = page.locator('#detailsPanel .analyzed-item-row:not(.is-filtered-out):visible [data-bs-toggle="collapse"]').first();
+    if (await detailsButton.count()) await detailsButton.click();
+  }
+  const link = page.locator('#detailsPanel [data-detail-block-key]:visible').first();
   await link.waitFor({ state: 'visible', timeout: 10000 });
   const blockKey = await link.getAttribute('data-detail-block-key');
   assert.ok(blockKey, 'Detail jump link should carry a block key.');

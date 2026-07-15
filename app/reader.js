@@ -1908,6 +1908,18 @@ function guideResultStatusMeta(status = 'absent') {
   return GUIDE_RESULT_STATUS_FILTERS.find((item) => item.key === status) || GUIDE_RESULT_STATUS_FILTERS[0];
 }
 
+function guideResultStatusColumnClass(status = '') {
+  return {
+    present: 'bg-success-subtle text-success-emphasis',
+    warning: 'bg-warning-subtle text-warning-emphasis',
+    absent: 'bg-danger-subtle text-danger-emphasis',
+    optional: 'bg-info-subtle text-info-emphasis',
+    skipped: 'bg-secondary-subtle text-secondary-emphasis',
+    na: 'bg-secondary-subtle text-secondary-emphasis',
+    pending: 'bg-secondary-subtle text-secondary-emphasis'
+  }[status] || 'bg-secondary-subtle text-secondary-emphasis';
+}
+
 function guideSummaryTotals(summary = {}) {
   const present = Number(summary.present || 0);
   const warning = Number(summary.warning || 0);
@@ -1982,6 +1994,16 @@ function guideDetailFilterMeta(status = 'all') {
     };
   }
   return guideResultStatusMeta(status);
+}
+
+function guideSectionBadgeClass(status = 'all') {
+  return status === 'all'
+    ? 'bg-primary-subtle text-primary-emphasis'
+    : guideDetailFilterMeta(status).badgeClass;
+}
+
+function emptyGuideStatusCounts() {
+  return { all: 0, present: 0, warning: 0, absent: 0, optional: 0, skipped: 0, na: 0, pending: 0 };
 }
 
 function guideDetailFilterOptions(summary = {}) {
@@ -2112,24 +2134,113 @@ function guideResultsForLane(lane = '') {
   return [];
 }
 
-function renderGuideResultDetailCards(results = [], selectedStatus = 'all', { showGuideName = false } = {}) {
-  return results.map((item) => {
-    const tone = guidelineStatusTone(item.status);
-    const hidden = selectedStatus !== 'all' && item.status !== selectedStatus;
-    return `
-      <div class="detail-card guide-result-card${hidden ? ' is-filtered-out' : ''}" data-guide-result-status="${escapeHtml(item.status)}"${hidden ? ' aria-hidden="true" inert' : ''}>
-        <div class="detail-card-title">
-          <span>${escapeHtml(item.label || item.id)}</span>
-          <span class="badge text-bg-${tone}">${escapeHtml(guidelineStatusLabel(item.status))}</span>
-        </div>
-        ${showGuideName ? `<div class="small text-uppercase text-secondary guide-card-kicker mb-2">${escapeHtml(item.guideName || 'Guideline')}</div>` : ''}
-        ${item.section ? `<div class="small text-uppercase text-secondary guide-card-kicker mb-2">${escapeHtml(item.section)}</div>` : ''}
-        <div class="small text-secondary mb-2">${escapeHtml(item.requirement || '')}</div>
-        <div class="small mb-2">${escapeHtml(item.message || '')}</div>
-        ${renderGuideEvidenceQuotes(item)}
+function safeDomId(value = 'item') {
+  return String(value || 'item').replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'item';
+}
+
+function guideResultSections(results = []) {
+  const sections = new Map();
+  results.forEach((item) => {
+    const sectionName = String(item.section || 'General items').trim() || 'General items';
+    if (!sections.has(sectionName)) {
+      sections.set(sectionName, { name: sectionName, counts: emptyGuideStatusCounts(), items: [] });
+    }
+    const section = sections.get(sectionName);
+    const status = GUIDE_RESULT_STATUS_FILTERS.some((filter) => filter.key === item.status) ? item.status : 'na';
+    section.counts.all += 1;
+    section.counts[status] += 1;
+    section.items.push({ ...item, status });
+  });
+  return [...sections.values()];
+}
+
+function renderGuideResultRow(item = {}, { accordionId = 'guideResultsAccordion', sectionIndex = 0, itemIndex = 0, showGuideName = false, selectedStatus = 'all' } = {}) {
+  const status = GUIDE_RESULT_STATUS_FILTERS.some((filter) => filter.key === item.status) ? item.status : 'na';
+  const meta = guideResultStatusMeta(status);
+  const hidden = selectedStatus !== 'all' && status !== selectedStatus;
+  const detailId = `${accordionId}-s${sectionIndex}-i${itemIndex}`;
+  return `
+    <div class="analyzed-item-row row g-2 align-items-stretch${hidden ? ' is-filtered-out' : ''}" data-result="${escapeHtml(status)}" data-guide-result-status="${escapeHtml(status)}"${hidden ? ' aria-hidden="true" inert' : ''}>
+      <div class="col-auto text-center py-3 analyzed-item-status-col ${escapeHtml(guideResultStatusColumnClass(status))}">
+        <i class="bi ${escapeHtml(meta.icon)}" aria-hidden="true"></i>
       </div>
-    `;
-  }).join('');
+      <div class="col min-w-0 d-flex flex-column py-3 pe-3">
+        <div class="d-flex align-items-start justify-content-between gap-2">
+          <div class="min-w-0 text-break">
+            <div class="fw-semibold">${escapeHtml(item.label || item.id || 'Guideline item')}</div>
+            ${showGuideName ? `<div class="small text-uppercase text-secondary guide-card-kicker mt-1">${escapeHtml(item.guideName || 'Guideline')}</div>` : ''}
+          </div>
+          <span class="badge ${escapeHtml(meta.badgeClass)} flex-shrink-0">${escapeHtml(guidelineStatusLabel(status))}</span>
+        </div>
+        ${item.message ? `<div class="small text-muted mt-2 analyzed-item-summary">${escapeHtml(item.message)}</div>` : ''}
+        ${(item.requirement || renderGuideEvidenceQuotes(item)) ? `
+          <div class="mt-2">
+            <button class="btn btn-link btn-sm p-0 text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#${escapeHtml(detailId)}" aria-expanded="false" aria-controls="${escapeHtml(detailId)}">
+              Details
+            </button>
+          </div>
+          <div class="collapse analyzed-item-quotes mt-2" id="${escapeHtml(detailId)}">
+            <div class="card card-body my-2 shadow-sm">
+              ${item.requirement ? `<h6 class="small text-secondary fw-semibold">Analysed</h6><div class="small text-secondary mb-3">${escapeHtml(item.requirement)}</div>` : ''}
+              ${renderGuideEvidenceQuotes(item)}
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderGuideResultAccordion(results = [], selectedStatus = 'all', { showGuideName = false, idPrefix = 'guide-results' } = {}) {
+  const sections = guideResultSections(results);
+  if (!sections.length) {
+    return '<div class="guide-slider-content"><div class="text-secondary small">No guideline results were returned.</div></div>';
+  }
+  const accordionId = `guideResultsAccordion-${safeDomId(idPrefix)}`;
+  const firstVisibleIndex = Math.max(0, sections.findIndex((section) => (
+    selectedStatus === 'all' || section.items.some((item) => item.status === selectedStatus)
+  )));
+  return `
+    <div class="guide-slider-content" data-active-filter="${escapeHtml(selectedStatus)}">
+      <div class="accordion analyzed-guide-accordion" id="${escapeHtml(accordionId)}">
+        ${sections.map((section, sectionIndex) => {
+          const sectionVisible = selectedStatus === 'all' || section.items.some((item) => item.status === selectedStatus);
+          const expanded = sectionVisible && sectionIndex === firstVisibleIndex;
+          const headingId = `${accordionId}-heading-${sectionIndex}`;
+          const collapseId = `${accordionId}-collapse-${sectionIndex}`;
+          const badgeCount = selectedStatus === 'all' ? section.counts.all : section.counts[selectedStatus];
+          return `
+            <div class="accordion-item${sectionVisible ? '' : ' is-filtered-out'}" data-guide-section style="${sectionVisible ? '' : 'display: none;'}">
+              <h4 class="accordion-header" id="${escapeHtml(headingId)}">
+                <button class="accordion-button ${expanded ? '' : 'collapsed'} py-2" type="button" data-bs-toggle="collapse" data-bs-target="#${escapeHtml(collapseId)}" aria-expanded="${expanded ? 'true' : 'false'}" aria-controls="${escapeHtml(collapseId)}">
+                  <span class="flex-grow-1 text-start">${escapeHtml(section.name)}</span>
+                  <span class="mx-2 badge rounded-pill guide-section-badge ${escapeHtml(guideSectionBadgeClass(selectedStatus))}"
+                    data-all-count="${escapeHtml(section.counts.all)}"
+                    data-present-count="${escapeHtml(section.counts.present)}"
+                    data-absent-count="${escapeHtml(section.counts.absent)}"
+                    data-warning-count="${escapeHtml(section.counts.warning)}"
+                    data-optional-count="${escapeHtml(section.counts.optional)}"
+                    data-skipped-count="${escapeHtml(section.counts.skipped)}"
+                    data-na-count="${escapeHtml(section.counts.na)}">${escapeHtml(badgeCount)}</span>
+                </button>
+              </h4>
+              <div id="${escapeHtml(collapseId)}" class="accordion-collapse collapse ${expanded ? 'show' : ''}" aria-labelledby="${escapeHtml(headingId)}" data-bs-parent="#${escapeHtml(accordionId)}">
+                <div class="accordion-body p-0">
+                  ${section.items.map((item, itemIndex) => renderGuideResultRow(item, {
+                    accordionId,
+                    sectionIndex,
+                    itemIndex,
+                    showGuideName,
+                    selectedStatus
+                  })).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
 }
 
 function renderAggregateGuideDetails(lane = '', status = 'absent') {
@@ -2143,8 +2254,8 @@ function renderAggregateGuideDetails(lane = '', status = 'absent') {
   openDetails(lane === 'matched' ? 'reporting-guidelines' : 'essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(title)} grouped by result classification.</div>
     ${renderGuideDetailFilterDropdown(summary, selectedStatus)}
-    <div class="vstack gap-2" data-guide-results>
-      ${renderGuideResultDetailCards(results, selectedStatus, { showGuideName: true })}
+    <div data-guide-results>
+      ${renderGuideResultAccordion(results, selectedStatus, { showGuideName: true, idPrefix: `aggregate-${lane}` })}
     </div>
   `);
 }
@@ -2246,8 +2357,8 @@ function renderEssentialGuideDetails(guideId = '') {
   openDetails('essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
     ${renderGuideDetailFilterDropdown(summary, 'all')}
-    <div class="vstack gap-2" data-guide-results>
-      ${renderGuideResultDetailCards(results)}
+    <div data-guide-results>
+      ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'essential-guide' })}
     </div>
   `);
 }
@@ -2271,12 +2382,45 @@ function applyGuideDetailFilter(status = 'all') {
   if (filterButton) {
     filterButton.className = `btn btn-sm dropdown-toggle d-inline-flex align-items-center gap-2 guide-detail-filter-btn ${buttonClass}`;
   }
-  els.detailsPanelBody.querySelectorAll('[data-guide-result-status]').forEach((node) => {
+  els.detailsPanelBody.querySelectorAll('.guide-slider-content').forEach((node) => {
+    node.dataset.activeFilter = state.activeGuideFilter;
+  });
+  els.detailsPanelBody.querySelectorAll('.analyzed-item-row[data-result]').forEach((node) => {
     const visible = state.activeGuideFilter === 'all' || node.dataset.guideResultStatus === state.activeGuideFilter;
     node.classList.toggle('is-filtered-out', !visible);
     node.toggleAttribute('aria-hidden', !visible);
     node.toggleAttribute('inert', !visible);
   });
+  const visibleSections = [];
+  els.detailsPanelBody.querySelectorAll('[data-guide-section]').forEach((section) => {
+    const hasVisibleRows = [...section.querySelectorAll('.analyzed-item-row[data-result]')]
+      .some((row) => !row.classList.contains('is-filtered-out'));
+    section.classList.toggle('is-filtered-out', !hasVisibleRows);
+    section.style.display = hasVisibleRows ? '' : 'none';
+    section.classList.remove('is-first-visible');
+    if (hasVisibleRows) visibleSections.push(section);
+  });
+  const firstVisibleSection = visibleSections[0] || null;
+  if (firstVisibleSection) firstVisibleSection.classList.add('is-first-visible');
+  els.detailsPanelBody.querySelectorAll('.guide-section-badge').forEach((badge) => {
+    const key = state.activeGuideFilter === 'all' ? 'allCount' : `${state.activeGuideFilter}Count`;
+    badge.textContent = String(Number(badge.dataset[key] || 0));
+    badge.className = `mx-2 badge rounded-pill guide-section-badge ${guideSectionBadgeClass(state.activeGuideFilter)}`;
+    badge.classList.add('badge-updating');
+    badge.addEventListener('animationend', () => {
+      badge.classList.remove('badge-updating');
+    }, { once: true });
+  });
+  if (firstVisibleSection) {
+    const targetCollapse = firstVisibleSection.querySelector('.accordion-collapse');
+    els.detailsPanelBody.querySelectorAll('[data-guide-section] .accordion-collapse.show').forEach((collapse) => {
+      if (collapse === targetCollapse) return;
+      window.bootstrap?.Collapse?.getOrCreateInstance(collapse, { toggle: false })?.hide();
+    });
+    if (targetCollapse && !targetCollapse.classList.contains('show')) {
+      window.bootstrap?.Collapse?.getOrCreateInstance(targetCollapse, { toggle: false })?.show();
+    }
+  }
 }
 
 function renderReportingGuidelines() {
@@ -2591,8 +2735,8 @@ function renderReportingGuideResultDetails(guideId = '') {
   openDetails('reporting-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
     ${renderGuideDetailFilterDropdown(summary, 'all')}
-    <div class="vstack gap-2" data-guide-results>
-      ${renderGuideResultDetailCards(results)}
+    <div data-guide-results>
+      ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'reporting-guide' })}
     </div>
   `);
 }
@@ -6144,6 +6288,8 @@ els.detailsPanelBody.addEventListener('click', (event) => {
   if (filterButton) {
     event.preventDefault();
     applyGuideDetailFilter(filterButton.dataset.guideDetailFilter || 'all');
+    const dropdownTrigger = filterButton.closest('.dropdown')?.querySelector('[data-guide-detail-filter-current]');
+    window.bootstrap?.Dropdown?.getOrCreateInstance(dropdownTrigger)?.hide();
     return;
   }
   const copyButton = event.target.closest('[data-copy-quote]');
