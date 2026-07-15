@@ -1035,6 +1035,10 @@ body {
   display: none;
 }
 
+.ocr-block.active {
+  background: rgba(59, 130, 246, 0.12);
+}
+
 .ocr-block h1,
 .ocr-block h2,
 .ocr-block h3,

@@ -487,9 +487,13 @@ async function assertActiveJumpFromDetails(page) {
   await link.waitFor({ state: 'visible', timeout: 10000 });
   const blockKey = await link.getAttribute('data-detail-block-key');
   assert.ok(blockKey, 'Detail jump link should carry a block key.');
+  assert.ok(await link.getAttribute('data-detail-quote'), 'Detail jump link should carry quote text for PDF targeting.');
   await link.click();
   await assertBlockActive(page, blockKey);
-  await assertPdfActiveRegion(page);
+  await assertPdfActiveRegion(page, { requireTextMatched: true });
+  await page.click('#htmlTab');
+  await assertHtmlActiveHighlight(page, blockKey);
+  await page.click('#pdfTab');
 }
 
 async function assertActiveJumpFromFeedbackReport(page) {
@@ -497,9 +501,10 @@ async function assertActiveJumpFromFeedbackReport(page) {
   await link.waitFor({ state: 'visible', timeout: 10000 });
   const blockKey = await link.getAttribute('data-detail-block-key');
   assert.ok(blockKey, 'Feedback report jump link should carry a block key.');
+  assert.ok(await link.getAttribute('data-detail-quote'), 'Feedback report jump link should carry quote text for PDF targeting.');
   await link.click();
   await assertBlockActive(page, blockKey);
-  await assertPdfActiveRegion(page);
+  await assertPdfActiveRegion(page, { requireTextMatched: true });
 }
 
 async function assertBlockActive(page, blockKey) {
@@ -508,7 +513,16 @@ async function assertBlockActive(page, blockKey) {
   }, blockKey, { timeout: 10000 });
 }
 
-async function assertPdfActiveRegion(page) {
+async function assertHtmlActiveHighlight(page, blockKey) {
+  await page.waitForFunction((key) => {
+    const node = document.querySelector(`[data-block-id="${key}"]`);
+    if (!node?.classList.contains('active')) return false;
+    const style = getComputedStyle(node);
+    return style.backgroundColor !== 'rgba(0, 0, 0, 0)' && style.backgroundColor !== 'transparent';
+  }, blockKey, { timeout: 10000 });
+}
+
+async function assertPdfActiveRegion(page, { requireTextMatched = false } = {}) {
   await page.waitForFunction(() => {
     const region = document.querySelector('.pdf-active-region');
     if (!region) return false;
@@ -519,6 +533,12 @@ async function assertPdfActiveRegion(page) {
       && style.backgroundColor !== 'rgba(0, 0, 0, 0)'
       && style.display !== 'none';
   }, null, { timeout: 10000 });
+  if (requireTextMatched) {
+    await page.waitForFunction(() => {
+      const region = document.querySelector('.pdf-active-region');
+      return region && !region.classList.contains('pdf-active-region-fallback');
+    }, null, { timeout: 10000 });
+  }
 }
 
 async function assertActiveSidePaneIsFlex(page) {

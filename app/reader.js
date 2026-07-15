@@ -82,11 +82,14 @@ const state = {
   pdfPreviewToken: 0,
   pages: [],
   pageViews: new Map(),
+  pdfTextCache: new Map(),
   blockTargets: new Map(),
   tocEntries: [],
   activeBlockKey: '',
+  activeBlockQuote: '',
   startedAt: 0,
   pdfRenderToken: 0,
+  pdfHighlightToken: 0,
   activeView: 'pdf',
   activeSplitter: '',
   tocOpen: true,
@@ -636,7 +639,7 @@ function feedbackReportHtml() {
                     <span class="badge text-bg-primary">${escapeHtml(Math.round(match.confidence * 100))}%</span>
                   </div>
                   <div class="small text-secondary">${escapeHtml(match.rationale || '')}</div>
-                  ${match.anchorQuote ? `<div class="small text-secondary mt-1${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey)}>${escapeHtml(match.anchorQuote)}</div>` : ''}
+                  ${match.anchorQuote ? `<div class="small text-secondary mt-1${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey, match.anchorQuote)}>${escapeHtml(match.anchorQuote)}</div>` : ''}
                 </div>
               `).join('')}
             </div>
@@ -652,7 +655,7 @@ function feedbackReportHtml() {
               ${reportModel.quoteAnchors.slice(0, 12).map((anchor) => `
                 <div class="list-group-item px-0">
                   <div class="small fw-medium">${escapeHtml(anchor.label || anchor.kind || 'Source quote')}</div>
-                  <div class="small text-secondary${detailClickableClass(anchor.sourceBlockKey)}"${detailLinkAttributes(anchor.sourceBlockKey)}>${escapeHtml(anchor.quote)}</div>
+                  <div class="small text-secondary${detailClickableClass(anchor.sourceBlockKey)}"${detailLinkAttributes(anchor.sourceBlockKey, anchor.quote)}>${escapeHtml(anchor.quote)}</div>
                 </div>
               `).join('')}
             </div>
@@ -1326,7 +1329,7 @@ async function renderPdfDocument() {
     }).promise;
     if (token !== state.pdfRenderToken) return;
     state.pageViews.set(pageNumberValue, { wrapper, viewport });
-    if (state.activeBlockKey) drawActivePdfRegion(state.activeBlockKey);
+    if (state.activeBlockKey) updateActivePdfRegion({ scroll: false });
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
   }
 }
@@ -1379,7 +1382,7 @@ function clearPdfBlockRegions() {
 
 function renderAllRegions() {
   clearPdfBlockRegions();
-  if (state.activeBlockKey) drawActivePdfRegion(state.activeBlockKey);
+  if (state.activeBlockKey) updateActivePdfRegion({ scroll: false });
 }
 
 function imageSource(image = {}) {
@@ -2182,7 +2185,7 @@ function renderGuideEvidenceQuotes(item = {}) {
         if (!quote) return '';
         return `
           <div class="d-flex align-items-start gap-2">
-            <div class="small text-secondary flex-grow-1${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey)}>
+            <div class="small text-secondary flex-grow-1${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey, quote)}>
               ${quotes.length > 1 ? `<span class="badge text-bg-light me-1">Quote ${escapeHtml(index + 1)}</span>` : ''}
               ${escapeHtml(quote)}
             </div>
@@ -2522,7 +2525,7 @@ function renderReportingMatchDetails(guidelineId = '') {
       <div class="small mb-2">${escapeHtml(match.rationale || '')}</div>
       ${match.anchorQuote ? `
         <div class="d-flex align-items-start gap-2">
-          <div class="small text-secondary flex-grow-1${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey)}>${escapeHtml(match.anchorQuote)}</div>
+          <div class="small text-secondary flex-grow-1${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey, match.anchorQuote)}>${escapeHtml(match.anchorQuote)}</div>
           <button class="btn btn-sm btn-light border flex-shrink-0" type="button" data-copy-quote="${escapeHtml(match.anchorQuote)}" aria-label="Copy quote">
             <i class="bi bi-copy"></i>
           </button>
@@ -3456,7 +3459,7 @@ function renderResolvedDisplayDetails(kind = 'tables') {
             <span>${escapeHtml(item.label || `${targetKind === 'table' ? 'Table' : 'Figure'} ${index + 1}`)}</span>
             <span class="badge text-bg-light">${escapeHtml((item.citationOccurrences || []).length)} uses</span>
           </div>
-          <div class="${itemBlockKey ? 'detail-clickable' : ''}" ${itemBlockKey ? `data-detail-block-key="${escapeHtml(itemBlockKey)}" tabindex="0" role="button"` : ''}>
+          <div class="${itemBlockKey ? 'detail-clickable' : ''}"${detailLinkAttributes(itemBlockKey, item.anchorQuote || item.text || item.label || '')}>
             ${targetKind === 'figure' && item.content ? item.content : `
               <div class="d-flex align-items-center gap-3">
                 <span class="d-inline-flex align-items-center justify-content-center rounded-circle ${targetKind === 'table' ? 'text-success bg-success-subtle' : 'text-primary bg-primary-subtle'} p-2 flex-shrink-0" aria-hidden="true">
@@ -3471,7 +3474,7 @@ function renderResolvedDisplayDetails(kind = 'tables') {
             return `
               <div class="border-top py-2">
                 <div class="small fw-semibold">${escapeHtml(occurrence.citationText || 'Body reference')}</div>
-                <div class="small text-secondary${detailClickableClass(occurrenceBlockKey)}"${detailLinkAttributes(occurrenceBlockKey)}>${escapeHtml(occurrence.contextQuote || '')}</div>
+                <div class="small text-secondary${detailClickableClass(occurrenceBlockKey)}"${detailLinkAttributes(occurrenceBlockKey, occurrence.contextQuote || occurrence.citationText || '')}>${escapeHtml(occurrence.contextQuote || '')}</div>
               </div>
             `;
           }).join('') || '<div class="small text-secondary border-top pt-2">No body-text references were returned for this item.</div>'}
@@ -4843,9 +4846,18 @@ function scheduleDetailBuild() {
   }
 }
 
-function detailLinkAttributes(key = '') {
+function detailJumpQuote(value = '') {
+  return ocrPlainText(value).slice(0, 720);
+}
+
+function detailLinkAttributes(key = '', quote = '') {
   if (!key) return '';
-  return ` data-detail-block-key="${escapeHtml(key)}" tabindex="0" role="button"`;
+  const quoteText = detailJumpQuote(quote);
+  return ` data-detail-block-key="${escapeHtml(key)}"${quoteText ? ` data-detail-quote="${escapeHtml(quoteText)}"` : ''} tabindex="0" role="button"`;
+}
+
+function detailQuoteFromTarget(target = null) {
+  return String(target?.dataset?.detailQuote || '').trim();
 }
 
 function detailClickableClass(key = '') {
@@ -4867,7 +4879,7 @@ function renderSemanticDetail(kind = '', payload = {}) {
           <span>What was counted</span>
           <span class="badge text-bg-light">${escapeHtml(metricValue(detail.count))} words</span>
         </div>
-        <div class="detail-text${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey)}>${escapeHtml(detail.countedText || 'No abstract text was returned.')}</div>
+        <div class="detail-text${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey, detail.countedText || '')}>${escapeHtml(detail.countedText || 'No abstract text was returned.')}</div>
       </div>
       ${renderExcludedText(detail.excludedText)}
     `);
@@ -4905,7 +4917,7 @@ function renderSemanticDetail(kind = '', payload = {}) {
             </h3>
             <div id="${itemId}-body" class="accordion-collapse collapse" aria-labelledby="${itemId}-heading" data-bs-parent="#${accordionId}">
               <div class="accordion-body px-0 pt-0">
-                <div class="detail-text${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey)}>${escapeHtml(section.countedText || '')}</div>
+                <div class="detail-text${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey, section.countedText || section.title || '')}>${escapeHtml(section.countedText || '')}</div>
               </div>
             </div>
           </div>
@@ -4946,7 +4958,7 @@ function renderSemanticDetail(kind = '', payload = {}) {
           ? ''
           : `<div class="small text-secondary mb-1">${escapeHtml(label.slice(0, -1) || label)} ${escapeHtml(index + 1)}</div>`;
         return `
-          <div class="w-100 border-0 rounded p-2 bg-transparent text-start${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey)}>
+          <div class="w-100 border-0 rounded p-2 bg-transparent text-start${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey, item.text || '')}>
             ${itemLabel}
             <div class="small">${escapeHtml(item.text || '')}</div>
           </div>
@@ -4984,13 +4996,13 @@ function renderSemanticDetail(kind = '', payload = {}) {
             <span>Reference ${escapeHtml(entry.number || '')}</span>
             <span class="badge text-bg-light">${escapeHtml((entry.citationOccurrences || []).length)} uses</span>
           </div>
-          <div class="detail-text mb-2${detailClickableClass(refBlockKey)}"${detailLinkAttributes(refBlockKey)}>${escapeHtml(entry.rawText || '')}</div>
+          <div class="detail-text mb-2${detailClickableClass(refBlockKey)}"${detailLinkAttributes(refBlockKey, entry.bibliographyAnchorQuote || entry.rawText || '')}>${escapeHtml(entry.rawText || '')}</div>
           ${(entry.citationOccurrences || []).map((occurrence) => {
             const occurrenceBlockKey = occurrence.blockKey || findBlockKeyForQuote(occurrence.contextQuote || occurrence.citationText || '');
             return `
             <div class="border-top py-2">
               <div class="small fw-semibold">${escapeHtml(occurrence.citationText || 'Citation')}</div>
-              <div class="small text-secondary${detailClickableClass(occurrenceBlockKey)}"${detailLinkAttributes(occurrenceBlockKey)}>${escapeHtml(occurrence.contextQuote || '')}</div>
+              <div class="small text-secondary${detailClickableClass(occurrenceBlockKey)}"${detailLinkAttributes(occurrenceBlockKey, occurrence.contextQuote || occurrence.citationText || '')}>${escapeHtml(occurrence.contextQuote || '')}</div>
             </div>
           `;
           }).join('') || '<div class="small text-secondary border-top pt-2">No in-text citation was found for this reference.</div>'}
@@ -5060,46 +5072,185 @@ function sourceScales(target = {}) {
   };
 }
 
-function drawActivePdfRegion(key = '') {
-  document.querySelectorAll('.pdf-active-region').forEach((node) => node.remove());
-  const target = state.blockTargets.get(key);
-  if (!target) return;
-  const scales = sourceScales(target);
-  if (!scales) return;
-  const hasBox = Boolean(target.box);
+function projectedBlockBox(target = {}, scales = null) {
+  if (!target.box || !scales) return null;
+  return {
+    left: target.box.left * scales.xScale,
+    top: target.box.top * scales.yScale,
+    width: (target.box.right - target.box.left) * scales.xScale,
+    height: (target.box.bottom - target.box.top) * scales.yScale
+  };
+}
+
+function fallbackPdfBox(scales = null) {
+  if (!scales) return null;
   const fallbackHeight = Math.min(96, Math.max(56, scales.pageView.viewport.height * 0.08));
   const fallbackInset = Math.min(24, Math.max(14, scales.pageView.viewport.width * 0.025));
-  const box = hasBox
-    ? {
-      left: target.box.left * scales.xScale,
-      top: target.box.top * scales.yScale,
-      width: (target.box.right - target.box.left) * scales.xScale,
-      height: (target.box.bottom - target.box.top) * scales.yScale
-    }
-    : {
-      left: fallbackInset,
-      top: fallbackInset,
-      width: Math.max(24, scales.pageView.viewport.width - (fallbackInset * 2)),
-      height: fallbackHeight
-    };
+  return {
+    left: fallbackInset,
+    top: fallbackInset,
+    width: Math.max(24, scales.pageView.viewport.width - (fallbackInset * 2)),
+    height: fallbackHeight
+  };
+}
+
+function clampPdfBox(box = {}, viewport = {}) {
+  const left = clampNumber(Number(box.left || 0), 0, Number(viewport.width || 0));
+  const top = clampNumber(Number(box.top || 0), 0, Number(viewport.height || 0));
+  const right = clampNumber(Number(box.left || 0) + Number(box.width || 0), left, Number(viewport.width || 0));
+  const bottom = clampNumber(Number(box.top || 0) + Number(box.height || 0), top, Number(viewport.height || 0));
+  const width = right - left;
+  const height = bottom - top;
+  return width > 2 && height > 2 ? { left, top, width, height } : null;
+}
+
+function drawPdfRegion(scales = null, box = null, fallback = false) {
+  if (!scales || !box) return;
+  const region = clampPdfBox(box, scales.pageView.viewport);
+  if (!region) return;
   const highlight = document.createElement('div');
-  highlight.className = `pdf-active-region${hasBox ? '' : ' pdf-active-region-fallback'}`;
-  highlight.style.left = `${box.left}px`;
-  highlight.style.top = `${box.top}px`;
-  highlight.style.width = `${box.width}px`;
-  highlight.style.height = `${box.height}px`;
+  highlight.className = `pdf-active-region${fallback ? ' pdf-active-region-fallback' : ''}`;
+  highlight.style.left = `${region.left}px`;
+  highlight.style.top = `${region.top}px`;
+  highlight.style.width = `${region.width}px`;
+  highlight.style.height = `${region.height}px`;
   scales.pageView.wrapper.appendChild(highlight);
 }
 
-function scrollPdfToBlock(target = {}) {
-  const pageView = state.pageViews.get(target.pageNumber);
-  if (!pageView) return;
-  let top = pageView.wrapper.offsetTop - 40;
-  if (target.box) {
-    const scales = sourceScales(target);
-    if (scales) top = pageView.wrapper.offsetTop + target.box.top * scales.yScale - 72;
+function pdfLookupCandidates(value = '') {
+  const normalizedPieces = [
+    String(value || ''),
+    ...String(value || '').split(/\n+/),
+    ...String(value || '').split(/(?<=[.!?])\s+/)
+  ].map(normalizeForLookup).filter((candidate) => candidate.length >= 4);
+  const candidates = [];
+  const seen = new Set();
+  const add = (candidate = '') => {
+    const clean = String(candidate || '').trim();
+    if (clean.length < 4 || seen.has(clean)) return;
+    seen.add(clean);
+    candidates.push(clean);
+  };
+  normalizedPieces.forEach((candidate) => {
+    add(candidate.length > 260 ? candidate.slice(0, 260).trim() : candidate);
+    const words = candidate.split(/\s+/).filter(Boolean);
+    if (words.length >= 6) {
+      add(words.slice(0, Math.min(20, words.length)).join(' '));
+      add(words.slice(0, Math.min(12, words.length)).join(' '));
+      for (let index = 0; index <= words.length - 6; index += 4) {
+        add(words.slice(index, Math.min(index + 12, words.length)).join(' '));
+      }
+    }
+  });
+  return candidates.sort((a, b) => b.length - a.length);
+}
+
+async function pdfTextItems(pageNumberValue = 1) {
+  if (!state.pdfDoc || !Number(pageNumberValue)) return [];
+  if (state.pdfTextCache.has(pageNumberValue)) return state.pdfTextCache.get(pageNumberValue);
+  const promise = state.pdfDoc.getPage(pageNumberValue)
+    .then((page) => page.getTextContent())
+    .then((content) => Array.isArray(content.items) ? content.items : [])
+    .catch((error) => {
+      console.warn('[deskreview-mistral-2] PDF text lookup failed', error);
+      return [];
+    });
+  state.pdfTextCache.set(pageNumberValue, promise);
+  const items = await promise;
+  state.pdfTextCache.set(pageNumberValue, items);
+  return items;
+}
+
+function pdfTextLookupIndex(items = []) {
+  let textValue = '';
+  const ranges = [];
+  items.forEach((item, index) => {
+    const normalized = normalizeForLookup(item?.str || '');
+    if (!normalized) return;
+    const start = textValue ? textValue.length + 1 : 0;
+    if (textValue) textValue += ' ';
+    textValue += normalized;
+    ranges.push({ index, start, end: start + normalized.length });
+  });
+  return { textValue, ranges };
+}
+
+function pdfTextItemBox(item = {}, viewport = {}) {
+  const transform = Array.isArray(item.transform) ? item.transform : [1, 0, 0, 1, 0, 0];
+  const matrix = pdfjsLib.Util.transform(viewport.transform, transform);
+  const height = Math.max(
+    4,
+    Math.abs(matrix[3] || 0),
+    Math.abs(Number(item.height || 0) * Number(viewport.scale || 1))
+  );
+  const width = Math.max(4, Math.abs(Number(item.width || 0) * Number(viewport.scale || 1)));
+  return {
+    left: Number(matrix[4] || 0),
+    top: Number(matrix[5] || 0) - height,
+    width,
+    height
+  };
+}
+
+function unionPdfBoxes(boxes = []) {
+  const valid = boxes.filter((box) => box && Number.isFinite(box.left) && Number.isFinite(box.top) && box.width > 0 && box.height > 0);
+  if (!valid.length) return null;
+  const left = Math.min(...valid.map((box) => box.left));
+  const top = Math.min(...valid.map((box) => box.top));
+  const right = Math.max(...valid.map((box) => box.left + box.width));
+  const bottom = Math.max(...valid.map((box) => box.top + box.height));
+  return { left, top, width: right - left, height: bottom - top };
+}
+
+async function pdfTextBoxForQuote(target = {}, quote = '', scales = null) {
+  const lookupText = String(quote || target.text || '').trim();
+  if (!lookupText || !scales) return null;
+  const items = await pdfTextItems(target.pageNumber);
+  if (!items.length) return null;
+  const { textValue, ranges } = pdfTextLookupIndex(items);
+  if (!textValue) return null;
+  for (const candidate of pdfLookupCandidates(lookupText)) {
+    const start = textValue.indexOf(candidate);
+    if (start < 0) continue;
+    const end = start + candidate.length;
+    const matchedIndexes = ranges
+      .filter((range) => range.end >= start && range.start <= end)
+      .map((range) => range.index);
+    const boxes = matchedIndexes.map((index) => pdfTextItemBox(items[index], scales.pageView.viewport));
+    const union = unionPdfBoxes(boxes);
+    if (union) return union;
   }
-  els.pdfScroll.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  return null;
+}
+
+async function resolvePdfRegion(target = {}, quote = '') {
+  const scales = sourceScales(target);
+  if (!scales) return null;
+  if (String(quote || '').trim()) {
+    const textBox = await pdfTextBoxForQuote(target, quote, scales);
+    if (textBox) return { scales, box: textBox, fallback: false };
+  }
+  const projected = projectedBlockBox(target, scales);
+  if (projected) return { scales, box: projected, fallback: false };
+  const textBox = await pdfTextBoxForQuote(target, target.text || '', scales);
+  if (textBox) return { scales, box: textBox, fallback: false };
+  return { scales, box: fallbackPdfBox(scales), fallback: true };
+}
+
+async function updateActivePdfRegion({ scroll = true } = {}) {
+  const key = state.activeBlockKey;
+  const target = state.blockTargets.get(key);
+  document.querySelectorAll('.pdf-active-region').forEach((node) => node.remove());
+  if (!target) return;
+  const token = state.pdfHighlightToken + 1;
+  state.pdfHighlightToken = token;
+  const region = await resolvePdfRegion(target, state.activeBlockQuote);
+  if (token !== state.pdfHighlightToken || key !== state.activeBlockKey || !region) return;
+  drawPdfRegion(region.scales, region.box, region.fallback);
+  if (scroll) {
+    const top = region.scales.pageView.wrapper.offsetTop + Number(region.box?.top || 0) - 72;
+    els.pdfScroll.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
 }
 
 function scrollHtmlToBlock(key = '') {
@@ -5164,7 +5315,7 @@ function focusPdfSearchMatch() {
     return;
   }
   if (state.activeView !== 'pdf') switchView('pdf');
-  window.requestAnimationFrame(() => focusBlock(match.blockKey, 'search'));
+  window.requestAnimationFrame(() => focusBlock(match.blockKey, 'search', match.citationText || ''));
   updatePdfSearchUi();
 }
 
@@ -5183,10 +5334,11 @@ function stepPdfSearch(delta = 1) {
   focusPdfSearchMatch();
 }
 
-function focusBlock(key = '', source = 'html') {
+function focusBlock(key = '', source = 'html', quote = '') {
   const target = state.blockTargets.get(key);
   if (!target) return;
   state.activeBlockKey = key;
+  state.activeBlockQuote = String(quote || '').trim();
   syncActiveToc(key);
   els.htmlDocument.querySelectorAll('.ocr-block.active').forEach((node) => node.classList.remove('active'));
   const htmlBlock = document.getElementById(key);
@@ -5194,8 +5346,7 @@ function focusBlock(key = '', source = 'html') {
     htmlBlock.classList.add('active');
     if (source !== 'html' && state.activeView === 'html') scrollHtmlToBlock(key);
   }
-  scrollPdfToBlock(target);
-  drawActivePdfRegion(key);
+  updateActivePdfRegion();
 }
 
 function switchView(view = 'pdf') {
@@ -5210,7 +5361,7 @@ function switchView(view = 'pdf') {
   window.requestAnimationFrame(() => {
     if (next === 'pdf') schedulePdfFitRender(0);
     if (!state.activeBlockKey) return;
-    if (next === 'pdf') scrollPdfToBlock(state.blockTargets.get(state.activeBlockKey));
+    if (next === 'pdf') updateActivePdfRegion();
     if (next === 'html') scrollHtmlToBlock(state.activeBlockKey);
   });
 }
@@ -5224,6 +5375,9 @@ function resetReaderState(file = null) {
   state.blockTargets.clear();
   state.tocEntries = [];
   state.activeBlockKey = '';
+  state.activeBlockQuote = '';
+  state.pdfTextCache.clear();
+  state.pdfHighlightToken += 1;
   state.semanticCounts = null;
   state.detailCache.clear();
   state.detailBuildStatus.clear();
@@ -5836,7 +5990,7 @@ els.chatMessageList?.addEventListener('click', (event) => {
   const target = event.target.closest('[data-detail-block-key]');
   if (!target) return;
   event.preventDefault();
-  focusBlock(target.dataset.detailBlockKey, 'chat');
+  focusBlock(target.dataset.detailBlockKey, 'chat', detailQuoteFromTarget(target));
 });
 
 els.commentComposer?.addEventListener('submit', (event) => {
@@ -5867,7 +6021,7 @@ els.commentList?.addEventListener('click', (event) => {
   const target = event.target.closest('[data-detail-block-key]');
   if (!target) return;
   event.preventDefault();
-  focusBlock(target.dataset.detailBlockKey, 'comment');
+  focusBlock(target.dataset.detailBlockKey, 'comment', detailQuoteFromTarget(target));
 });
 
 els.runtimeSummaryModal?.addEventListener('show.bs.modal', renderRuntimeSummary);
@@ -5903,7 +6057,7 @@ els.feedbackReportBody?.addEventListener('click', (event) => {
   const target = event.target.closest('[data-detail-block-key]');
   if (!target) return;
   event.preventDefault();
-  focusBlock(target.dataset.detailBlockKey, 'feedback-report');
+  focusBlock(target.dataset.detailBlockKey, 'feedback-report', detailQuoteFromTarget(target));
 });
 
 els.customizeChecksModal?.addEventListener('show.bs.modal', renderCustomizeChecks);
@@ -5959,7 +6113,7 @@ els.detailsPanelBody.addEventListener('click', (event) => {
   if (!button) return;
   event.preventDefault();
   event.stopPropagation();
-  focusBlock(button.dataset.detailBlockKey, 'details');
+  focusBlock(button.dataset.detailBlockKey, 'details', detailQuoteFromTarget(button));
 });
 
 els.detailsPanelBody.addEventListener('keydown', (event) => {
@@ -5968,7 +6122,7 @@ els.detailsPanelBody.addEventListener('keydown', (event) => {
   if (!target) return;
   event.preventDefault();
   event.stopPropagation();
-  focusBlock(target.dataset.detailBlockKey, 'details');
+  focusBlock(target.dataset.detailBlockKey, 'details', detailQuoteFromTarget(target));
 });
 
 els.pdfScroll.addEventListener('wheel', (event) => scrollPaneByWheel(event, els.pdfScroll), { passive: false });
