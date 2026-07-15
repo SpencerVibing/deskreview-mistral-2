@@ -812,8 +812,11 @@ async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
 
 async function assertDetailsGuidelineSelectorLink(page, guideId, titlePattern) {
   await assertText(page, '#detailsPanelBody', titlePattern);
-  await assertText(page, '#detailsPanelBody', /View guideline details/i);
+  assert.equal(await page.locator('#detailsPanelTitle').count(), 0, 'Details panel should not render a redundant topbar title.');
+  assert.equal(await page.locator('#detailsPanel .details-topbar .bi-card-checklist').count(), 0, 'Details panel should not render the old topbar checklist icon.');
+  assert.doesNotMatch(await page.locator('#detailsPanelBody').innerText(), /View guideline details/i);
   await assertVisible(page, `#detailsPanelBody [data-guide-details-selector-open="${guideId}"]`);
+  await assertVisible(page, `#detailsPanelBody [data-guide-details-selector-open="${guideId}"] .bi-info-circle`);
   await page.click(`#detailsPanelBody [data-guide-details-selector-open="${guideId}"]`);
   await page.waitForSelector('#guidelineSelectorModal.show', { timeout: 10000 });
   await delay(300);
@@ -854,12 +857,18 @@ async function assertGuideDetailFilterDropdown(page) {
   await assertVisible(page, '#guideFilterControl:not(.d-none) .dropdown');
   await assertVisible(page, '#guideFilterControl .guide-filter-label');
   await assertVisible(page, '#detailsPanel .guide-slider-content .analyzed-guide-accordion');
+  const filterPlacement = await page.evaluate(() => {
+    const filter = document.querySelector('#guideFilterControl');
+    const results = document.querySelector('#detailsPanelBody [data-guide-results]');
+    return Boolean(filter && results && filter.nextElementSibling === results);
+  });
+  assert.equal(filterPlacement, true, 'Guideline detail filter should sit directly above the results accordion.');
   assert.equal(
     await page.locator('#detailsPanel .btn-group[aria-label="Filter guideline results"]').count(),
     0,
     'Guideline detail filters should use the dropdown widget instead of the old button group.'
   );
-  assert.equal(await page.locator('#detailsPanel .guide-detail-filter-dropdown').count(), 0, 'Guideline detail filters should render in the header guideFilterControl.');
+  assert.equal(await page.locator('#detailsPanel .guide-detail-filter-dropdown').count(), 0, 'Guideline detail filters should render in guideFilterControl.');
   assert.equal(await page.locator('#detailsPanel [data-guide-detail-filter-current]').count(), 0, 'Guideline detail filters should use the original guideFilterControl attributes.');
   assert.equal(await page.locator('#detailsPanel .guide-result-card').count(), 0, 'Guideline detail results should not use flat guide-result-card cards.');
   assert.ok(await page.locator('#detailsPanel .analyzed-item-row[data-result]').count() > 0, 'Guideline results should render analyzed accordion rows.');
