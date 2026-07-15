@@ -320,6 +320,16 @@ async function assertChecksSectionCards(page) {
   assert.equal(await page.locator('#checksContentAccordion').count(), 0, 'Checks content should not use a top-level accordion.');
   const directItems = await page.locator('#checksContentSections > .side-group-card').count();
   assert.equal(directItems, 2, 'Checks content should have exactly two top-level section cards.');
+  assert.equal(await page.locator('#checksContentSections > .side-group-card.card').count(), 2, 'Checks sections should use Bootstrap card containers.');
+  assert.equal(await page.locator('#checksContentSections > .side-group-card > .card-header').count(), 2, 'Checks section labels should use Bootstrap card headers.');
+  assert.ok(
+    String(await page.locator('#articleCountsHeading').getAttribute('class') || '').split(/\s+/).includes('card-header'),
+    'Article counts heading should be a Bootstrap card header.'
+  );
+  assert.ok(
+    String(await page.locator('#reportingQualityHeading').getAttribute('class') || '').split(/\s+/).includes('card-header'),
+    'Reporting quality heading should be a Bootstrap card header.'
+  );
   await assertText(page, '#articleCountsHeading', /Article element counts/i);
   await assertText(page, '#reportingQualityHeading', /Reporting quality guidelines/i);
   await assertVisible(page, '#articleCountsPanel');
@@ -437,6 +447,10 @@ async function assertGuideAggregateCard(page, { rootSelector, status, titlePatte
   });
   assert.equal(looseBadgeCount, 0, 'Combined card should not show loose status badge rows.');
   assert.equal(await page.locator(`${rootSelector} .guide-progress-mini`).count(), 0, 'Combined card should not show a mini bar chart.');
+  assert.ok(
+    String(await page.locator(`${rootSelector} .guide-overall-summary`).getAttribute('class') || '').split(/\s+/).includes('mb-3'),
+    'Combined card should keep whitespace below the overall summary.'
+  );
   await assertAggregateLayout(page, rootSelector);
   const defaultStatus = await page.locator(`${rootSelector} > .card-body .btn-group > [data-guide-aggregate-open]`).first().getAttribute('data-guide-aggregate-status');
   await expectAggregateButtonTone(page, rootSelector, defaultStatus || 'absent');

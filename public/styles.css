@@ -450,13 +450,6 @@ body {
   color: #18181b;
 }
 
-.side-group-card {
-  padding: 0.9rem;
-  border-radius: 0.65rem;
-  background: #fff;
-  box-shadow: 0 0.25rem 0.8rem rgba(24, 24, 27, 0.04);
-}
-
 .side-panel-fill {
   min-height: 0;
 }

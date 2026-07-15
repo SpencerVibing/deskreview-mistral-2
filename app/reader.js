@@ -2174,7 +2174,7 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   return `
     <div class="${unframed ? 'guide-aggregate-card' : 'card border shadow-sm guide-card guide-aggregate-card'}" data-guide-aggregate-lane="${escapeHtml(lane)}">
       <div class="card-body ${unframed ? 'p-0' : 'p-3'}">
-        <div class="guide-overall-summary row g-3 align-items-start">
+        <div class="guide-overall-summary row g-3 align-items-start mb-3">
           <div class="col-12 col-sm-auto">
             <div class="guide-overall-chart-tile">
               <div class="guide-score-donut guide-overall-donut" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(statusItemsChecked)}">
