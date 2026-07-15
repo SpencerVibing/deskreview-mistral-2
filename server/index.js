@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { extname, join, resolve } from 'node:path';
 
@@ -10,6 +11,7 @@ const STATIC_ROOTS = new Map([
   ['/services/', join(ROOT, 'services')],
   ['/data/', join(ROOT, 'data')]
 ]);
+const CONFIG_SOURCES = new Map();
 
 await loadLocalEnv();
 
@@ -45,11 +47,54 @@ async function loadLocalEnv() {
         const rawValue = trimmed.slice(separator + 1).trim();
         if (!key || process.env[key] !== undefined) return;
         process.env[key] = rawValue.replace(/^(['"])(.*)\1$/, '$2');
+        CONFIG_SOURCES.set(key, envFile === join(ROOT, '.env') ? '.env' : 'DESKREVIEW_ENV_FILE');
       });
     } catch {
       // A local env file is optional; OCR requests still require MISTRAL_API_KEY.
     }
   }
+}
+
+function configSource(name = '') {
+  if (CONFIG_SOURCES.has(name)) return CONFIG_SOURCES.get(name);
+  if (process.env[name] !== undefined) return 'environment';
+  return 'default';
+}
+
+function secretFingerprint(value = '') {
+  const secret = String(value || '');
+  if (!secret) return '';
+  return createHash('sha256').update(secret).digest('hex').slice(0, 12);
+}
+
+function logStartupDiagnostics() {
+  const apiKey = String(process.env.MISTRAL_API_KEY || '');
+  console.log('[deskreview-mistral-2] Mistral config', JSON.stringify({
+    apiKey: apiKey
+      ? {
+          present: true,
+          source: configSource('MISTRAL_API_KEY'),
+          length: apiKey.length,
+          fingerprint: secretFingerprint(apiKey)
+        }
+      : {
+          present: false,
+          source: 'missing'
+        },
+    baseUrl: {
+      value: MISTRAL_BASE_URL,
+      source: configSource('MISTRAL_BASE_URL')
+    },
+    ocrModel: {
+      value: MISTRAL_OCR_MODEL,
+      source: configSource('MISTRAL_OCR_MODEL')
+    },
+    chatModel: {
+      value: MISTRAL_CHAT_MODEL,
+      source: configSource('MISTRAL_CHAT_MODEL')
+    },
+    ocrTimeoutMs: MISTRAL_OCR_TIMEOUT_MS
+  }));
 }
 
 function jsonResponse(res, data, status = 200) {
@@ -1585,4 +1630,5 @@ const server = createServer(async (req, res) => {
 
 server.listen(PORT, '127.0.0.1', () => {
   console.log(`deskreview-mistral-2 listening on http://127.0.0.1:${PORT}`);
+  logStartupDiagnostics();
 });
