@@ -81,6 +81,7 @@ async function main() {
       const html = document.getElementById('htmlDocument')?.textContent || '';
       return html.includes('Combined Exercise Training') && document.querySelectorAll('.ocr-block').length >= 8;
     }, null, { timeout: 45000 });
+    await assertReaderPaneToggles(page);
     await assertText(page, '#tocList', /Title/i);
     await assertText(page, '#tocList', /Abstract/i);
     await assertCountTile(page, 'authors', /Authors\s+22/i);
@@ -390,6 +391,77 @@ async function assertReaderUiRegressionFixes(page) {
   assert.equal(await page.locator('#htmlDocument [data-block-type="table"]').count(), 3, 'HTML manuscript should render three table blocks.');
   assert.equal(await page.locator('#htmlDocument [data-block-type="figure"]').count(), 1, 'HTML manuscript should render one figure block.');
   assert.ok(await page.locator('#htmlDocument [data-pdf-page-preview]').count() >= 4, 'Display-item source page previews should render.');
+}
+
+async function assertReaderPaneToggles(page) {
+  await assertVisible(page, '#tocToggleButton');
+  await assertVisible(page, '#countsToggleButton');
+  const initial = await page.evaluate(() => {
+    const rect = (selector) => {
+      const box = document.querySelector(selector)?.getBoundingClientRect();
+      return box ? { x: box.x, y: box.y, width: box.width, height: box.height } : null;
+    };
+    return {
+      tocButton: rect('#tocToggleButton'),
+      countsButton: rect('#countsToggleButton'),
+      countsPane: rect('.studio-counts-pane'),
+      centerPane: rect('#centerPane'),
+      countsExpanded: document.querySelector('#countsToggleButton')?.getAttribute('aria-expanded'),
+      readerSideDisplay: getComputedStyle(document.querySelector('#readerSideShell')).display
+    };
+  });
+  assert.ok(initial.tocButton && initial.countsButton, 'Both reader pane toggle buttons should be measurable.');
+  assert.ok(Math.abs(initial.tocButton.y - initial.countsButton.y) <= 2, 'Right pane toggle should align vertically with the ToC hamburger.');
+  assert.ok(Math.abs(initial.tocButton.height - initial.countsButton.height) <= 1, 'Right pane toggle should match the ToC hamburger height.');
+  assert.ok(Math.abs(initial.tocButton.width - initial.countsButton.width) <= 1, 'Right pane toggle should match the ToC hamburger width.');
+  assert.equal(initial.countsExpanded, 'true', 'Right pane should start expanded.');
+  assert.equal(initial.readerSideDisplay, 'flex', 'Right pane shell should be visible while expanded.');
+
+  await page.click('#countsToggleButton');
+  await page.waitForFunction(() => document.querySelector('#reader')?.classList.contains('counts-collapsed'), null, { timeout: 10000 });
+  await delay(220);
+  const collapsed = await page.evaluate(() => {
+    const rect = (selector) => {
+      const box = document.querySelector(selector)?.getBoundingClientRect();
+      return box ? { x: box.x, y: box.y, width: box.width, height: box.height } : null;
+    };
+    return {
+      countsPane: rect('.studio-counts-pane'),
+      centerPane: rect('#centerPane'),
+      countsExpanded: document.querySelector('#countsToggleButton')?.getAttribute('aria-expanded'),
+      readerSideDisplay: getComputedStyle(document.querySelector('#readerSideShell')).display,
+      readerSideHidden: document.querySelector('#readerSideShell')?.getAttribute('aria-hidden'),
+      splitterVisibility: getComputedStyle(document.querySelector('#countsSplitter')).visibility
+    };
+  });
+  assert.equal(collapsed.countsExpanded, 'false', 'Right pane toggle should expose collapsed state.');
+  assert.equal(collapsed.readerSideDisplay, 'none', 'Right pane content should hide while collapsed.');
+  assert.equal(collapsed.readerSideHidden, 'true', 'Right pane content should be hidden from assistive tech while collapsed.');
+  assert.equal(collapsed.splitterVisibility, 'hidden', 'Right pane splitter should hide while collapsed.');
+  assert.ok(collapsed.countsPane.width <= 56, `Collapsed right pane should keep only a slim rail; width was ${collapsed.countsPane.width}px.`);
+  assert.ok(collapsed.centerPane.width > initial.centerPane.width, 'Center pane should expand when the right pane collapses.');
+
+  await page.click('#countsToggleButton');
+  await page.waitForFunction(() => !document.querySelector('#reader')?.classList.contains('counts-collapsed'), null, { timeout: 10000 });
+  await delay(220);
+  const reopened = await page.evaluate(() => {
+    const rect = (selector) => {
+      const box = document.querySelector(selector)?.getBoundingClientRect();
+      return box ? { x: box.x, y: box.y, width: box.width, height: box.height } : null;
+    };
+    return {
+      countsPane: rect('.studio-counts-pane'),
+      countsExpanded: document.querySelector('#countsToggleButton')?.getAttribute('aria-expanded'),
+      readerSideDisplay: getComputedStyle(document.querySelector('#readerSideShell')).display,
+      readerSideHidden: document.querySelector('#readerSideShell')?.getAttribute('aria-hidden'),
+      splitterVisibility: getComputedStyle(document.querySelector('#countsSplitter')).visibility
+    };
+  });
+  assert.equal(reopened.countsExpanded, 'true', 'Right pane should reopen.');
+  assert.equal(reopened.readerSideDisplay, 'flex', 'Right pane content should reappear after reopening.');
+  assert.equal(reopened.readerSideHidden, 'false', 'Right pane content should be available after reopening.');
+  assert.notEqual(reopened.splitterVisibility, 'hidden', 'Right pane splitter should reappear after reopening.');
+  assert.ok(reopened.countsPane.width > collapsed.countsPane.width + 200, 'Right pane should restore its expanded width.');
 }
 
 async function assertGuidelineSelectorModal(page) {

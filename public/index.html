@@ -199,8 +199,13 @@
 
         <div id="countsSplitter" class="studio-splitter" role="separator" aria-label="Resize checks panel" aria-orientation="vertical" tabindex="0"></div>
         <aside class="studio-pane studio-counts-pane">
-          <div class="reader-side-shell d-flex flex-column h-100 min-h-0">
-            <ul class="nav nav-underline nav-fill w-100 px-3 pt-3 mb-3 border-bottom border-secondary-subtle flex-nowrap side-tabs" role="tablist" aria-label="DeskReview side panel">
+          <div class="counts-toggle-row d-flex align-items-center justify-content-end px-3 pt-3">
+            <button id="countsToggleButton" class="btn btn-sm btn-link text-body text-decoration-none px-0" type="button" aria-label="Toggle side panel" aria-controls="readerSideShell" aria-expanded="true">
+              <i class="bi bi-list toc-toggle-icon counts-toggle-icon" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div id="readerSideShell" class="reader-side-shell d-flex flex-column flex-grow-1 min-h-0">
+            <ul class="nav nav-underline nav-fill w-100 px-3 pt-2 mb-3 border-bottom border-secondary-subtle flex-nowrap side-tabs" role="tablist" aria-label="DeskReview side panel">
               <li class="nav-item" role="presentation">
                 <button class="nav-link active w-100 px-2 py-2 d-flex flex-column align-items-center gap-1" id="checks-tab" data-bs-toggle="tab" data-bs-target="#checks-pane" type="button" role="tab" aria-controls="checks-pane" aria-selected="true">
                   <i class="bi bi-clipboard-check" aria-hidden="true"></i>

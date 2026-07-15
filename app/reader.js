@@ -93,6 +93,7 @@ const state = {
   activeView: 'pdf',
   activeSplitter: '',
   tocOpen: true,
+  countsOpen: true,
   semanticCounts: null,
   detailCache: new Map(),
   detailBuildStatus: new Map(),
@@ -232,8 +233,10 @@ const els = {
   reviewLibraryBody: document.getElementById('reviewLibraryBody'),
   exampleManuscriptList: document.getElementById('exampleManuscriptList'),
   tocToggleButton: document.getElementById('tocToggleButton'),
+  countsToggleButton: document.getElementById('countsToggleButton'),
   tocSplitter: document.getElementById('tocSplitter'),
   countsSplitter: document.getElementById('countsSplitter'),
+  readerSideShell: document.getElementById('readerSideShell'),
   fileName: document.getElementById('fileName'),
   elapsedBadge: document.getElementById('elapsedBadge'),
   pagesBadge: document.getElementById('pagesBadge'),
@@ -6168,6 +6171,18 @@ function paneWidth(selector = '') {
   return els.reader.querySelector(selector)?.getBoundingClientRect().width || 0;
 }
 
+function tocPaneWidthForLayout() {
+  return state.tocOpen ? (paneWidth('.studio-toc-pane') || 288) : (paneWidth('.studio-toc-pane') || 48);
+}
+
+function countsPaneWidthForLayout() {
+  return state.countsOpen ? (paneWidth('.studio-counts-pane') || 320) : (paneWidth('.studio-counts-pane') || 48);
+}
+
+function visibleSplitterWidth() {
+  return (state.tocOpen ? 6 : 0) + (state.countsOpen ? 6 : 0);
+}
+
 function setPaneWidth(kind = 'toc', width = 0) {
   const property = kind === 'toc' ? '--toc-width' : '--counts-width';
   els.reader.style.setProperty(property, `${Math.round(width)}px`);
@@ -6181,11 +6196,21 @@ function setTocOpen(open = true) {
   schedulePdfFitRender(180);
 }
 
+function setCountsOpen(open = true) {
+  state.countsOpen = Boolean(open);
+  if (!state.countsOpen) closeDetails();
+  els.reader.classList.toggle('counts-collapsed', !state.countsOpen);
+  els.countsToggleButton?.setAttribute('aria-expanded', String(state.countsOpen));
+  els.readerSideShell?.setAttribute('aria-hidden', String(!state.countsOpen));
+  els.readerSideShell?.toggleAttribute('inert', !state.countsOpen);
+  schedulePdfFitRender(180);
+}
+
 function resizePaneFromPointer(kind = '', clientX = 0) {
   const rect = els.reader.getBoundingClientRect();
-  const currentToc = state.tocOpen ? (paneWidth('.studio-toc-pane') || 288) : 0;
-  const currentCounts = paneWidth('.studio-counts-pane') || 320;
-  const splitterTotal = 12;
+  const currentToc = tocPaneWidthForLayout();
+  const currentCounts = countsPaneWidthForLayout();
+  const splitterTotal = visibleSplitterWidth();
   const minimumCenter = 440;
   if (kind === 'toc') {
     const max = Math.max(180, rect.width - currentCounts - splitterTotal - minimumCenter);
@@ -6200,9 +6225,9 @@ function resizePaneFromPointer(kind = '', clientX = 0) {
 
 function resizePaneByStep(kind = '', step = 0) {
   const rect = els.reader.getBoundingClientRect();
-  const currentToc = state.tocOpen ? (paneWidth('.studio-toc-pane') || 288) : 0;
-  const currentCounts = paneWidth('.studio-counts-pane') || 320;
-  const splitterTotal = 12;
+  const currentToc = tocPaneWidthForLayout();
+  const currentCounts = countsPaneWidthForLayout();
+  const splitterTotal = visibleSplitterWidth();
   const minimumCenter = 440;
   if (kind === 'toc') {
     const max = Math.max(180, rect.width - currentCounts - splitterTotal - minimumCenter);
@@ -6288,6 +6313,10 @@ document.querySelectorAll('[data-scroll-target]').forEach((button) => {
 
 els.tocToggleButton?.addEventListener('click', () => {
   setTocOpen(!state.tocOpen);
+});
+
+els.countsToggleButton?.addEventListener('click', () => {
+  setCountsOpen(!state.countsOpen);
 });
 
 els.reviewLibraryBody.addEventListener('click', async (event) => {

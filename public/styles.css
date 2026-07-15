@@ -309,7 +309,20 @@ body {
   grid-template-columns: 3rem 0 minmax(28rem, 1fr) 6px var(--counts-width, clamp(24rem, 31vw, 34rem));
 }
 
+.studio-reader.counts-collapsed {
+  grid-template-columns: var(--toc-width, 18rem) 6px minmax(28rem, 1fr) 0 3rem;
+}
+
+.studio-reader.toc-collapsed.counts-collapsed {
+  grid-template-columns: 3rem 0 minmax(28rem, 1fr) 0 3rem;
+}
+
 .studio-reader.toc-collapsed #tocSplitter {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.studio-reader.counts-collapsed #countsSplitter {
   visibility: hidden;
   pointer-events: none;
 }
@@ -321,8 +334,18 @@ body {
   display: none;
 }
 
+.studio-reader.counts-collapsed .reader-side-shell,
+.studio-reader.counts-collapsed .details-panel {
+  display: none !important;
+}
+
 .studio-reader.toc-collapsed .toc-toggle-row {
   justify-content: center;
+  padding-inline: 0 !important;
+}
+
+.studio-reader.counts-collapsed .counts-toggle-row {
+  justify-content: center !important;
   padding-inline: 0 !important;
 }
 
@@ -394,6 +417,10 @@ body {
   flex: 0 0 auto;
 }
 
+.counts-toggle-row {
+  flex: 0 0 auto;
+}
+
 .search-control {
   max-width: 22rem;
 }
@@ -409,6 +436,10 @@ body {
 
 #tocToggleButton[aria-expanded="true"] .toc-toggle-icon {
   transform: rotate(90deg);
+}
+
+#countsToggleButton[aria-expanded="true"] .counts-toggle-icon {
+  transform: rotate(-90deg);
 }
 
 .counts-grid {
