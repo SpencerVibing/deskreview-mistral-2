@@ -2130,9 +2130,10 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   const selectedMeta = guideResultStatusMeta(selectedStatus);
   const processedGuides = guides.filter((guide) => Array.isArray(guide.results) && guide.results.length).length;
   const guideCount = guides.length;
+  const unframed = lane === 'essential';
   return `
-    <div class="card border shadow-sm guide-card guide-aggregate-card" data-guide-aggregate-lane="${escapeHtml(lane)}">
-      <div class="card-body p-3">
+    <div class="${unframed ? 'guide-aggregate-card' : 'card border shadow-sm guide-card guide-aggregate-card'}" data-guide-aggregate-lane="${escapeHtml(lane)}">
+      <div class="card-body ${unframed ? 'p-0' : 'p-3'}">
         <div class="small text-uppercase text-secondary guide-card-kicker mb-2" data-guide-aggregate-kicker>Combined results</div>
         <div class="d-flex align-items-center gap-3">
           <div class="guide-score-donut flex-shrink-0" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(totals.total)} guideline items processed">

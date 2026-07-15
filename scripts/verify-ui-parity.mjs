@@ -111,7 +111,8 @@ async function main() {
     await assertGuideAggregateCard(page, {
       rootSelector: '#essentialGuideList [data-guide-aggregate-lane="essential"]',
       status: 'skipped',
-      titlePattern: /All Essential guideline items/i
+      titlePattern: /All Essential guideline items/i,
+      unframed: true
     });
     await assertCompactGuidelineCards(page, '#essentialGuideList [data-essential-guide-id]');
     const essentialListText = await page.locator('#essentialGuideList').innerText();
@@ -395,9 +396,15 @@ async function assertGuidelineSelectorModal(page) {
   });
 }
 
-async function assertGuideAggregateCard(page, { rootSelector, status, titlePattern }) {
+async function assertGuideAggregateCard(page, { rootSelector, status, titlePattern, unframed = false }) {
   await assertVisible(page, rootSelector);
   await assertText(page, rootSelector, /Combined results/i);
+  const rootClassTokens = String(await page.locator(rootSelector).getAttribute('class') || '').split(/\s+/);
+  if (unframed) {
+    ['card', 'border', 'shadow-sm', 'guide-card'].forEach((token) => {
+      assert.ok(!rootClassTokens.includes(token), `Unframed Combined results should not include ${token}.`);
+    });
+  }
   assert.doesNotMatch(await page.locator(rootSelector).innerText(), titlePattern, 'Combined results card should not repeat the full aggregate title.');
   await assertText(page, rootSelector, /guides processed/i);
   const cardText = await page.locator(rootSelector).innerText();
