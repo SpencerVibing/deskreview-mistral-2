@@ -16,6 +16,10 @@ export function requestOcr({ fileName = 'manuscript.pdf', mimeType = 'applicatio
   return postJson('/api/ocr', { fileName, mimeType, base64 });
 }
 
+export function requestOcrCountAnnotation({ fileName = 'manuscript.pdf', mimeType = 'application/pdf', base64 = '' } = {}) {
+  return postJson('/api/ocr-count-annotation', { fileName, mimeType, base64 });
+}
+
 export function resolveReferences(referenceBlocks = [], options = {}) {
   return postJson('/api/resolve-references', {
     referenceBlocks,

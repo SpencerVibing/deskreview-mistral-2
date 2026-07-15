@@ -101,6 +101,101 @@ function semanticCountsSchema() {
   });
 }
 
+function ocrCountAnnotationSchema() {
+  const sourceItem = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['text', 'sourceBlockKeys'],
+    properties: {
+      text: { type: 'string' },
+      sourceBlockKeys: { type: 'array', items: { type: 'string' } }
+    }
+  };
+  return mistralJsonSchema('deskreview_article_element_counts_annotation', {
+    type: 'object',
+    additionalProperties: false,
+    required: ['title', 'metadata', 'abstract', 'article', 'references', 'warnings'],
+    properties: {
+      title: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['text', 'sourceBlockKeys'],
+        properties: {
+          text: { type: 'string' },
+          sourceBlockKeys: { type: 'array', items: { type: 'string' } }
+        }
+      },
+      metadata: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['authors', 'affiliations', 'keywords', 'warnings'],
+        properties: {
+          authors: { type: 'array', items: sourceItem },
+          affiliations: { type: 'array', items: sourceItem },
+          keywords: { type: 'array', items: sourceItem },
+          warnings: { type: 'array', items: { type: 'string' } }
+        }
+      },
+      abstract: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['countedText', 'wordCount', 'sourceBlockKeys', 'warnings'],
+        properties: {
+          countedText: { type: 'string' },
+          wordCount: { type: 'integer', minimum: 0 },
+          sourceBlockKeys: { type: 'array', items: { type: 'string' } },
+          warnings: { type: 'array', items: { type: 'string' } }
+        }
+      },
+      article: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['wordCount', 'sections', 'warnings'],
+        properties: {
+          wordCount: { type: 'integer', minimum: 0 },
+          sections: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              required: ['title', 'countedText', 'sourceBlockKeys'],
+              properties: {
+                title: { type: 'string' },
+                countedText: { type: 'string' },
+                sourceBlockKeys: { type: 'array', items: { type: 'string' } }
+              }
+            }
+          },
+          warnings: { type: 'array', items: { type: 'string' } }
+        }
+      },
+      references: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['count', 'entries', 'warnings'],
+        properties: {
+          count: { type: 'integer', minimum: 0 },
+          entries: {
+            type: 'array',
+            items: {
+              type: 'object',
+              additionalProperties: false,
+              required: ['number', 'rawText', 'sourceBlockKeys'],
+              properties: {
+                number: { type: 'integer', minimum: 1 },
+                rawText: { type: 'string' },
+                sourceBlockKeys: { type: 'array', items: { type: 'string' } }
+              }
+            }
+          },
+          warnings: { type: 'array', items: { type: 'string' } }
+        }
+      },
+      warnings: { type: 'array', items: { type: 'string' } }
+    }
+  });
+}
+
 function referenceResolverSchema() {
   return {
     type: 'json_schema',
@@ -674,6 +769,95 @@ async function handleOcr(req, res) {
     pages: Array.isArray(raw?.pages) ? raw.pages : [],
     semanticCounts: null,
     usage_info: raw?.usage_info || null
+  });
+}
+
+async function handleOcrCountAnnotation(req, res) {
+  const apiKey = String(process.env.MISTRAL_API_KEY || '').trim();
+  if (!apiKey) {
+    jsonResponse(res, { error: 'MISTRAL_API_KEY is required to run OCR document annotation.' }, 500);
+    return;
+  }
+
+  let body;
+  try {
+    body = await readJsonBody(req);
+  } catch (error) {
+    jsonResponse(res, { error: String(error?.message || error || 'Invalid request body.') }, 400);
+    return;
+  }
+
+  const base64 = String(body.base64 || '').trim();
+  if (!base64) {
+    jsonResponse(res, { error: 'Missing PDF base64 payload.' }, 400);
+    return;
+  }
+
+  const startedAt = Date.now();
+  const requestBody = {
+    model: MISTRAL_OCR_MODEL,
+    document: {
+      type: 'document_url',
+      document_url: `data:${String(body.mimeType || 'application/pdf')};base64,${base64}`
+    },
+    include_blocks: true,
+    table_format: 'html',
+    document_annotation_format: ocrCountAnnotationSchema(),
+    document_annotation_prompt: [
+      'Extract article element counts for a scientific manuscript.',
+      'Return individual author names as separate authors; never return a joined byline as one author.',
+      'Use the actual manuscript, not editorial-management cover-page metadata, unless manuscript front matter is missing.',
+      'Count abstract words from the abstract only.',
+      'Count main article words excluding abstract, references, captions, tables, figures, headers, footers, page numbers, and supplementary/back matter.',
+      'Split bibliography entries into separate references even when OCR groups multiple references in one block.',
+      'Keep countedText values concise enough for review while preserving source-grounded evidence.'
+    ].join(' ')
+  };
+
+  let response;
+  try {
+    const signal = AbortSignal.timeout ? AbortSignal.timeout(120000) : undefined;
+    response = await fetch(`${MISTRAL_BASE_URL}/ocr`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(requestBody),
+      signal
+    });
+  } catch (error) {
+    const message = error?.name === 'TimeoutError'
+      ? 'Mistral OCR count annotation timed out.'
+      : String(error?.message || error || 'Mistral OCR count annotation request failed.');
+    jsonResponse(res, { error: message }, error?.name === 'TimeoutError' ? 504 : 502);
+    return;
+  }
+
+  const text = await response.text();
+  let raw = null;
+  try {
+    raw = text ? JSON.parse(text) : {};
+  } catch {
+    raw = null;
+  }
+
+  if (!response.ok) {
+    jsonResponse(res, {
+      error: raw?.error?.message || raw?.message || text || `Mistral OCR count annotation failed (${response.status}).`,
+      elapsedMs: Date.now() - startedAt,
+      model: MISTRAL_OCR_MODEL
+    }, response.status);
+    return;
+  }
+
+  jsonResponse(res, {
+    fileName: String(body.fileName || 'manuscript.pdf'),
+    elapsedMs: Date.now() - startedAt,
+    model: raw?.model || MISTRAL_OCR_MODEL,
+    result: parseJsonContent(raw?.document_annotation),
+    usage_info: raw?.usage_info || null,
+    pageCount: Array.isArray(raw?.pages) ? raw.pages.length : 0
   });
 }
 
@@ -1341,6 +1525,10 @@ const server = createServer(async (req, res) => {
   try {
     if (req.method === 'POST' && req.url === '/api/ocr') {
       await handleOcr(req, res);
+      return;
+    }
+    if (req.method === 'POST' && req.url === '/api/ocr-count-annotation') {
+      await handleOcrCountAnnotation(req, res);
       return;
     }
     if (req.method === 'POST' && req.url === '/api/resolve-references') {

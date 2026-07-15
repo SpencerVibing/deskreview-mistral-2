@@ -70,6 +70,7 @@ import {
   annotateDocument,
   evaluateEssentialGuidelines,
   matchReportingGuidelines,
+  requestOcrCountAnnotation,
   requestOcr,
   resolveCounts,
   resolveDisplayItems,
@@ -1246,6 +1247,53 @@ async function runOcr(file) {
     pages: Array.isArray(data.pages) ? data.pages.length : 0
   });
   return data;
+}
+
+function ocrCountAnnotationSummary(result = {}) {
+  return {
+    authors: Array.isArray(result.metadata?.authors) ? result.metadata.authors.length : 0,
+    affiliations: Array.isArray(result.metadata?.affiliations) ? result.metadata.affiliations.length : 0,
+    keywords: Array.isArray(result.metadata?.keywords) ? result.metadata.keywords.length : 0,
+    abstractWords: Number(result.abstract?.wordCount || 0),
+    articleWords: Number(result.article?.wordCount || 0),
+    references: Number(result.references?.count || (Array.isArray(result.references?.entries) ? result.references.entries.length : 0)),
+    warnings: [
+      ...(Array.isArray(result.warnings) ? result.warnings : []),
+      ...(Array.isArray(result.metadata?.warnings) ? result.metadata.warnings : []),
+      ...(Array.isArray(result.abstract?.warnings) ? result.abstract.warnings : []),
+      ...(Array.isArray(result.article?.warnings) ? result.article.warnings : []),
+      ...(Array.isArray(result.references?.warnings) ? result.references.warnings : [])
+    ].filter(Boolean).length
+  };
+}
+
+async function runOcrCountAnnotationExperiment(file = null) {
+  if (!file || state.loadedFromLibrary || state.precomputedExample.active) return;
+  try {
+    const base64 = await fileToBase64(file);
+    const started = runtimeNow();
+    markRuntime('OCR count annotation experiment started');
+    const data = await requestOcrCountAnnotation({
+      fileName: file.name,
+      mimeType: file.type || 'application/pdf',
+      base64
+    });
+    const summary = ocrCountAnnotationSummary(data.result || {});
+    markRuntime('OCR count annotation experiment finished', {
+      wallMs: Math.round(runtimeNow() - started),
+      apiMs: Number(data.elapsedMs || 0),
+      authors: summary.authors,
+      affiliations: summary.affiliations,
+      abstractWords: summary.abstractWords,
+      articleWords: summary.articleWords,
+      references: summary.references,
+      warnings: summary.warnings
+    });
+  } catch (error) {
+    markRuntime('OCR count annotation experiment failed', {
+      error: String(error?.message || error || 'OCR count annotation failed.')
+    });
+  }
 }
 
 async function resolveReferencesWithCompletion(referenceBlocks = [], options = {}) {
@@ -6399,6 +6447,9 @@ async function handleFile(file = null) {
       console.warn('[deskreview-mistral-2] could not store review', error);
     });
     scheduleDetailBuild();
+    runOcrCountAnnotationExperiment(file).catch((error) => {
+      console.warn('[deskreview-mistral-2] OCR count annotation experiment failed', error);
+    });
     const total = performance.now() - state.startedAt;
     setStatus(`OCR ready in ${formatDuration(total)}`, 'done');
   } catch (error) {
