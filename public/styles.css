@@ -779,6 +779,16 @@ body {
   outline: none;
 }
 
+.essential-guide-card {
+  border-radius: 0.375rem;
+}
+
+.essential-guide-card:hover,
+.essential-guide-card:focus {
+  background: #f4f4f5 !important;
+  box-shadow: none !important;
+}
+
 #customizeChecksModal .modal-dialog {
   max-width: min(1180px, calc(100vw - 2rem));
 }

@@ -2477,7 +2477,7 @@ function renderEssentialGuidelines() {
   const guideCards = state.essentialResults.map((guide) => {
     const summary = guide.summary || {};
     return `
-      <button type="button" class="card border shadow-sm text-start w-100 guide-card" data-essential-guide-id="${escapeHtml(guide.id)}">
+      <button type="button" class="text-start w-100 guide-card essential-guide-card border-0 shadow-none bg-transparent p-0" data-essential-guide-id="${escapeHtml(guide.id)}">
         <div class="card-body p-2 d-flex align-items-center gap-2">
           <div class="flex-grow-1 min-w-0">${renderGuidelineSelectorTitle(guide.id, guide.name || 'Essential guide')}</div>
           <div class="ms-auto flex-shrink-0">${renderGuideProgress(summary, guide.status)}</div>

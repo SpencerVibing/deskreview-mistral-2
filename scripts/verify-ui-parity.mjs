@@ -481,6 +481,37 @@ async function assertCompactGuidelineCards(page, cardSelector) {
 }
 
 async function assertEssentialGuidelineStack(page) {
+  const firstCard = page.locator('#essentialGuideList [data-essential-guide-id]').first();
+  const firstClassTokens = String(await firstCard.getAttribute('class') || '').split(/\s+/);
+  ['card', 'border', 'shadow-sm'].forEach((token) => {
+    assert.ok(!firstClassTokens.includes(token), `Essential guide rows should not include ${token}.`);
+  });
+  const baseFrame = await firstCard.evaluate((node) => {
+    const style = window.getComputedStyle(node);
+    return {
+      borderTopWidth: style.borderTopWidth,
+      borderRightWidth: style.borderRightWidth,
+      borderBottomWidth: style.borderBottomWidth,
+      borderLeftWidth: style.borderLeftWidth,
+      boxShadow: style.boxShadow
+    };
+  });
+  assert.deepEqual(
+    [baseFrame.borderTopWidth, baseFrame.borderRightWidth, baseFrame.borderBottomWidth, baseFrame.borderLeftWidth],
+    ['0px', '0px', '0px', '0px'],
+    'Essential guide rows should not render borders.'
+  );
+  assert.equal(baseFrame.boxShadow, 'none', 'Essential guide rows should not render shadows.');
+  await firstCard.hover();
+  const hoverFrame = await firstCard.evaluate((node) => {
+    const style = window.getComputedStyle(node);
+    return {
+      backgroundColor: style.backgroundColor,
+      boxShadow: style.boxShadow
+    };
+  });
+  assert.equal(hoverFrame.backgroundColor, 'rgb(244, 244, 245)', 'Essential guide row hover should match the ToC light grey highlight.');
+  assert.equal(hoverFrame.boxShadow, 'none', 'Essential guide row hover should not add a shadow.');
   const rows = await page.locator('#essentialGuideList [data-essential-guide-id]').evaluateAll((nodes) => {
     return nodes.map((node) => {
       const card = node.getBoundingClientRect();
