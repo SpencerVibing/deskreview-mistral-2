@@ -2174,8 +2174,7 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
   return `
     <div class="${unframed ? 'guide-aggregate-card' : 'card border shadow-sm guide-card guide-aggregate-card'}" data-guide-aggregate-lane="${escapeHtml(lane)}">
       <div class="card-body ${unframed ? 'p-0' : 'p-3'}">
-        <div class="small text-uppercase text-secondary guide-card-kicker mb-2" data-guide-aggregate-kicker>Combined results</div>
-        <div class="guide-overall-summary row g-3 align-items-center">
+        <div class="guide-overall-summary row g-3 align-items-start">
           <div class="col-12 col-sm-auto">
             <div class="guide-overall-chart-tile">
               <div class="guide-score-donut guide-overall-donut" style="--guide-score-gradient: ${guideDonutGradient(summary)};" aria-label="${escapeHtml(statusItemsChecked)}">
@@ -2196,8 +2195,6 @@ function renderGuideAggregateCard({ lane = 'essential', guides = [] } = {}) {
                 <div class="visually-hidden" data-guide-aggregate-rating-value>${escapeHtml(ratingDisplay)}</div>
               </div>
               <div class="overall-score-chart-status small text-success-emphasis" data-guide-aggregate-processed>
-                <span>${escapeHtml(processedGuides)}/${escapeHtml(guideCount)} guides processed</span>
-                <span class="mx-1">·</span>
                 <span>${escapeHtml(statusItemsChecked)}</span>
               </div>
               <div class="guide-overall-categories" data-guide-aggregate-categories>

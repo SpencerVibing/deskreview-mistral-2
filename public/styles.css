@@ -556,20 +556,20 @@ body {
 
 .guide-overall-chart-tile {
   max-width: 100%;
-  width: 8.5rem;
+  width: 6.6rem;
 }
 
 .guide-overall-donut {
-  height: 8.5rem;
-  width: 8.5rem;
+  height: 6.6rem;
+  width: 6.6rem;
 }
 
 .guide-overall-donut::after {
-  inset: 1.35rem;
+  inset: 1.05rem;
 }
 
 .guide-overall-donut .guide-score-donut-label {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .guide-overall-rating {
