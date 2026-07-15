@@ -325,6 +325,43 @@ async function validateReferenceDetails(page) {
   };
 }
 
+async function validateDisplayDetails(page, kind = '', expectedCount = 0) {
+  const details = await page.evaluate(() => [...document.querySelectorAll('#detailsPanelBody .detail-card')]
+    .map((card) => {
+      const title = card.querySelector('.detail-card-title span')?.textContent?.replace(/\s+/g, ' ').trim() || '';
+      const anchor = card.querySelector('[data-detail-block-key]');
+      return {
+        title,
+        blockKey: anchor?.getAttribute('data-detail-block-key') || ''
+      };
+    }));
+  const failures = [];
+  if (Number.isFinite(Number(expectedCount)) && details.length !== Number(expectedCount)) {
+    failures.push({ type: 'display-card-count-mismatch', kind, expected: Number(expectedCount), actual: details.length });
+  }
+
+  const labels = new Map();
+  const blockKeys = new Map();
+  for (const detail of details) {
+    const label = normalize(detail.title);
+    if (label && labels.has(label)) {
+      failures.push({ type: 'duplicate-display-label', kind, first: labels.get(label), duplicate: detail.title });
+    } else if (label) {
+      labels.set(label, detail.title);
+    }
+    if (detail.blockKey && blockKeys.has(detail.blockKey)) {
+      failures.push({ type: 'duplicate-display-source-block', kind, first: blockKeys.get(detail.blockKey), duplicate: detail.title, blockKey: detail.blockKey });
+    } else if (detail.blockKey) {
+      blockKeys.set(detail.blockKey, detail.title);
+    }
+  }
+
+  return {
+    cards: details.length,
+    failures
+  };
+}
+
 async function validatePdf(pdfPath) {
   const context = await browser.newContext({ viewport: { width: 1600, height: 1100 } });
   const page = await context.newPage();
@@ -364,6 +401,11 @@ async function validatePdf(pdfPath) {
         const referenceCheck = await validateReferenceDetails(page);
         result.detailLinks.referencesMeta = referenceCheck;
         result.failures.push(...referenceCheck.failures.map((failure) => ({ kind, ...failure })));
+      }
+      if (kind === 'tables' || kind === 'figures') {
+        const displayCheck = await validateDisplayDetails(page, kind, result.counts[kind]?.value);
+        result.detailLinks[`${kind}Meta`] = displayCheck;
+        result.failures.push(...displayCheck.failures.map((failure) => ({ kind, ...failure })));
       }
       const detailCheck = await validateDetailLinks(page, kind);
       result.detailLinks[kind] = { links: detailCheck.links };
