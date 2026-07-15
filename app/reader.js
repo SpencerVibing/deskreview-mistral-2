@@ -771,7 +771,7 @@ function hasCountValue(value) {
 
 function tileHasResolvedValue(kind = '') {
   const semantic = state.semanticCounts || {};
-  if (kind === 'tables' || kind === 'figures') return state.pages.length > 0;
+  if (kind === 'tables' || kind === 'figures') return state.displayResolver.status === 'ready' || state.displayResolver.status === 'failed';
   if (['authors', 'affiliations', 'keywords', 'abstract', 'article'].includes(kind) && state.countResolver.status === 'failed') return true;
   if (['authors', 'affiliations', 'keywords'].includes(kind) && state.countResolver.status === 'ready') return true;
   if (kind === 'authors') return hasCountValue(semantic.authorCount);
@@ -2013,13 +2013,16 @@ function getOcrCounts() {
   const resolvedDisplayItems = displayResolverReadyItems();
   const resolvedTables = resolvedDisplayItems.filter((item) => item.kind === 'table').length;
   const resolvedFigures = resolvedDisplayItems.filter((item) => item.kind === 'figure').length;
+  const hasResolvedDisplayItems = state.displayResolver.status === 'ready';
   return {
     pages: state.pages.length,
     words,
     headings: state.tocEntries.length,
     blocks: blocks.length,
-    tables: state.displayResolver.status === 'ready' ? resolvedTables : Math.max(tableAssets, tableBlocks),
-    figures: state.displayResolver.status === 'ready' ? resolvedFigures : Math.max(figureAssets, figureBlocks)
+    tableCandidates: Math.max(tableAssets, tableBlocks),
+    figureCandidates: Math.max(figureAssets, figureBlocks),
+    tables: hasResolvedDisplayItems ? resolvedTables : null,
+    figures: hasResolvedDisplayItems ? resolvedFigures : null
   };
 }
 
@@ -4415,15 +4418,19 @@ function renderResolvedDisplayDetails(kind = 'tables') {
   `);
 }
 
-async function scheduleDisplayResolver(kind = 'tables') {
+async function scheduleDisplayResolver(kind = 'tables', { renderDetails = true } = {}) {
+  const renderActiveDisplayDetails = () => {
+    const activeKind = ['tables', 'figures'].includes(state.activeDetailKind) ? state.activeDetailKind : kind;
+    if (renderDetails || ['tables', 'figures'].includes(state.activeDetailKind)) renderResolvedDisplayDetails(activeKind);
+  };
   if (state.displayResolver.status === 'ready') {
-    renderResolvedDisplayDetails(kind);
+    if (renderDetails) renderResolvedDisplayDetails(kind);
     return;
   }
   if (state.displayResolver.status === 'running' && state.displayResolverPromise) {
-    renderDisplayResolvingDetail(kind);
+    if (renderDetails) renderDisplayResolvingDetail(kind);
     await state.displayResolverPromise.catch(() => {});
-    if (state.displayResolver.status === 'ready') renderResolvedDisplayDetails(kind);
+    if (state.displayResolver.status === 'ready' && renderDetails) renderResolvedDisplayDetails(kind);
     return;
   }
   const blocks = flatBlocks();
@@ -4432,19 +4439,20 @@ async function scheduleDisplayResolver(kind = 'tables') {
   const bodyBlocks = bodyBlocksForDisplayResolver(blocks, positions);
   if (!displayItems.length) {
     state.displayResolver = { status: 'failed', result: null, error: 'No OCR table or figure items were available.', startedAt: 0 };
-    renderDetailError(kind, state.displayResolver.error);
+    if (renderDetails) renderDetailError(kind, state.displayResolver.error);
     return;
   }
   markRuntime('Table/figure resolver started', { displayItems: displayItems.length, bodyBlocks: bodyBlocks.length });
   state.displayResolver = { status: 'running', result: null, error: '', startedAt: performance.now() };
-  renderDisplayResolvingDetail(kind);
+  renderCounts();
+  if (renderDetails) renderDisplayResolvingDetail(kind);
   state.displayResolverPromise = resolveDisplayItemsWithCompletion(displayItems, bodyBlocks)
     .then((response) => {
       const result = response.result || {};
       state.displayResolver = { status: 'ready', result, error: '', startedAt: state.displayResolver.startedAt || 0 };
       updateStoredReviewDisplayResolver(result).catch(() => {});
       renderCounts();
-      renderResolvedDisplayDetails(kind);
+      renderActiveDisplayDetails();
     })
     .catch((error) => {
       state.displayResolver = {
@@ -4454,7 +4462,9 @@ async function scheduleDisplayResolver(kind = 'tables') {
         startedAt: 0
       };
       updateStoredReviewDisplayFailure(state.displayResolver.error).catch(() => {});
-      renderDetailError(kind, state.displayResolver.error);
+      if (renderDetails || ['tables', 'figures'].includes(state.activeDetailKind)) {
+        renderDetailError(['tables', 'figures'].includes(state.activeDetailKind) ? state.activeDetailKind : kind, state.displayResolver.error);
+      }
     })
     .finally(() => {
       state.displayResolverPromise = null;
@@ -5843,6 +5853,14 @@ function scheduleDetailBuild() {
     window.setTimeout(run, 0);
   }
   if (allowResolverWork) {
+    const resolveDisplay = () => scheduleDisplayResolver('tables', { renderDetails: false }).catch((error) => {
+      console.warn('[deskreview-mistral-2] table/figure resolver failed', error);
+    });
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(resolveDisplay, { timeout: 1000 });
+    } else {
+      window.setTimeout(resolveDisplay, 0);
+    }
     const annotate = () => scheduleDocumentAnnotation(blocks);
     if ('requestIdleCallback' in window) {
       window.requestIdleCallback(annotate, { timeout: 1800 });
