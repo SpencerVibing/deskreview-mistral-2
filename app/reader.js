@@ -264,6 +264,7 @@ const els = {
   commentInput: document.getElementById('commentInput'),
   customizeChecksModal: document.getElementById('customizeChecksModal'),
   customizeChecksBody: document.getElementById('customizeChecksBody'),
+  guidelineSelectorModal: document.getElementById('guidelineSelectorModal'),
   tocList: document.getElementById('tocList'),
   pdfScroll: document.getElementById('pdfScroll'),
   pdfDocument: document.getElementById('pdfDocument'),
@@ -3499,8 +3500,84 @@ function ensureGuidelineSelectorCatalogLoaded() {
     });
 }
 
+function renderPluginToggleCard(plugin = {}) {
+  const enabled = pluginIsEnabled(state.pluginPreferences, plugin.id);
+  const locked = Boolean(plugin.locked);
+  const inputId = `plugin-toggle-${String(plugin.id || '').replace(/[^a-z0-9_-]+/gi, '-')}`;
+  return `
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-3">
+        <div class="d-flex align-items-start justify-content-between gap-3">
+          <div class="min-w-0">
+            <label class="form-check-label fw-semibold small text-body" for="${escapeHtml(inputId)}">${escapeHtml(plugin.label || plugin.id || 'Check group')}</label>
+            <div class="small text-secondary mt-1">${escapeHtml(plugin.description || '')}</div>
+          </div>
+          <div class="form-check form-switch m-0 flex-shrink-0">
+            <input id="${escapeHtml(inputId)}" class="form-check-input" type="checkbox" role="switch" data-plugin-toggle="${escapeHtml(plugin.id)}" ${enabled ? 'checked' : ''} ${locked ? 'disabled' : ''} aria-label="${escapeHtml(plugin.label || plugin.id || 'Check group')}">
+          </div>
+        </div>
+        ${locked ? '<div class="small text-secondary mt-2">Required for the core reader.</div>' : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderCustomGuideSettings() {
+  const customGuides = Array.isArray(state.pluginPreferences.customGuides) ? state.pluginPreferences.customGuides : [];
+  return `
+    <section class="card border-0 shadow-sm">
+      <div class="card-header bg-body border-bottom px-3 py-2">
+        <div class="fw-semibold small text-body">Custom guidelines</div>
+      </div>
+      <div class="card-body p-3">
+        <form class="row g-2 align-items-end" data-custom-guide-form>
+          <div class="col-12 col-md-5">
+            <label class="form-label small text-secondary" for="customGuideName">Name</label>
+            <input id="customGuideName" name="name" class="form-control form-control-sm" type="text" placeholder="e.g. Journal checklist">
+          </div>
+          <div class="col-12 col-md-5">
+            <label class="form-label small text-secondary" for="customGuideDescription">Requirement</label>
+            <input id="customGuideDescription" name="description" class="form-control form-control-sm" type="text" placeholder="What should DeskReview check?">
+          </div>
+          <div class="col-12 col-md-2 d-grid">
+            <button class="btn btn-sm btn-dark" type="submit">Add</button>
+          </div>
+        </form>
+        <div class="vstack gap-2 mt-3">
+          ${customGuides.length ? customGuides.map((guide) => `
+            <div class="d-flex align-items-start justify-content-between gap-3 rounded-2 bg-body px-3 py-2">
+              <div class="min-w-0">
+                <div class="small fw-semibold text-body text-truncate">${escapeHtml(guide.name)}</div>
+                ${guide.description ? `<div class="small text-secondary text-truncate">${escapeHtml(guide.description)}</div>` : ''}
+              </div>
+              <button type="button" class="btn btn-sm btn-light border-0 text-secondary flex-shrink-0" data-remove-custom-guide="${escapeHtml(guide.id)}" aria-label="Remove ${escapeHtml(guide.name)}">
+                <i class="bi bi-trash" aria-hidden="true"></i>
+              </button>
+            </div>
+          `).join('') : '<div class="small text-secondary">No custom guidelines have been added yet.</div>'}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function renderCustomizeChecks() {
   if (!els.customizeChecksBody) return;
+  const pluginCards = state.pluginCatalog.length
+    ? state.pluginCatalog.map(renderPluginToggleCard).join('')
+    : '<div class="card border-0 shadow-sm"><div class="card-body p-3 small text-secondary">Check settings are loading.</div></div>';
+  els.customizeChecksBody.innerHTML = `
+    <div class="vstack gap-3">
+      <section>
+        <div class="small text-uppercase text-secondary fw-semibold mb-2">Check groups</div>
+        <div class="vstack gap-2">${pluginCards}</div>
+      </section>
+      ${renderCustomGuideSettings()}
+    </div>
+  `;
+}
+
+function initializeGuidelineSelector() {
   initializeGuidelineSelectorEvents();
   ensureGuidelineSelectorCatalogLoaded();
   renderGuidelineSelector();
@@ -3508,14 +3585,14 @@ function renderCustomizeChecks() {
 
 function getGuidelineSelectorModal() {
   const ModalCtor = window.bootstrap?.Modal;
-  if (!ModalCtor || !els.customizeChecksModal) return null;
+  if (!ModalCtor || !els.guidelineSelectorModal) return null;
   return ModalCtor.getOrCreateInstance
-    ? ModalCtor.getOrCreateInstance(els.customizeChecksModal)
-    : new ModalCtor(els.customizeChecksModal);
+    ? ModalCtor.getOrCreateInstance(els.guidelineSelectorModal)
+    : new ModalCtor(els.guidelineSelectorModal);
 }
 
 function openGuidelineSelectorModal(guideId = '') {
-  renderCustomizeChecks();
+  initializeGuidelineSelector();
   getGuidelineSelectorModal()?.show();
   const id = String(guideId || '').trim();
   if (!id) return;
@@ -3617,7 +3694,7 @@ function initializeGuidelineSelectorEvents() {
   });
 
   closeDetailButton?.addEventListener('click', closeGuidelineDetailSlider);
-  els.customizeChecksModal?.addEventListener('hidden.bs.modal', closeGuidelineDetailSlider);
+  els.guidelineSelectorModal?.addEventListener('hidden.bs.modal', closeGuidelineDetailSlider);
 }
 
 function detailTitle(kind = '') {

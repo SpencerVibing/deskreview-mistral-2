@@ -46,6 +46,7 @@ async function main() {
   assert(indexHtml.includes('id="essentialGuideList"'), 'Essential guide list is missing.');
   assert(indexHtml.includes('id="reportingGuideList"'), 'Reporting guide list is missing.');
   assert(indexHtml.includes('id="customizeChecksModal"'), 'Customize checks modal is missing.');
+  assert(indexHtml.includes('id="guidelineSelectorModal"'), 'Guideline selector modal is missing.');
   assert(indexHtml.includes('id="detailsPanel"'), 'Details panel is missing.');
 
   const child = spawn(process.execPath, ['server/index.js'], {

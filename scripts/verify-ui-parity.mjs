@@ -95,7 +95,7 @@ async function main() {
     await assertCountTileBootstrapTooltips(page);
     await assertReaderUiRegressionFixes(page);
     await assertChecksSectionCards(page);
-    await assertGuidelineSelectorModal(page);
+    await assertCustomizeChecksModal(page);
     await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
     await page.waitForFunction(() => {
       return document.querySelectorAll('#htmlDocument [data-pdf-page-preview] canvas').length >= 4;
@@ -159,6 +159,7 @@ async function main() {
     const reportingListText = await page.locator('#reportingGuideList').innerText();
     assert.doesNotMatch(reportingListText, /randomized trials/i);
     assert.doesNotMatch(reportingListText, /Matched guideline/i);
+    await assertGuidelineSelectorModal(page);
     await assertGuidelineTitleOpensSelector(page, 'cert', /CERT/i);
     await page.click('#reportingGuideList [data-reporting-guide-id="consort"] .guide-progress-mini');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
@@ -464,9 +465,30 @@ async function assertReaderPaneToggles(page) {
   assert.ok(reopened.countsPane.width > collapsed.countsPane.width + 200, 'Right pane should restore its expanded width.');
 }
 
-async function assertGuidelineSelectorModal(page) {
+async function assertCustomizeChecksModal(page) {
   await page.click('#customizeChecksButton');
   await page.waitForSelector('#customizeChecksModal.show', { timeout: 10000 });
+  await assertText(page, '#customizeChecksModal', /Customize checks/i);
+  await assertText(page, '#customizeChecksModal', /Check groups/i);
+  await assertText(page, '#customizeChecksModal', /Article element counts/i);
+  await assertText(page, '#customizeChecksModal', /Essential guidelines/i);
+  await assertText(page, '#customizeChecksModal', /Reporting guidelines/i);
+  await assertText(page, '#customizeChecksModal', /Custom guidelines/i);
+  assert.equal(await page.locator('#customizeChecksModal [data-plugin-toggle]').count(), 5, 'Customize checks modal should show plugin switches.');
+  assert.equal(await page.locator('#customizeChecksModal #guidelineFacetColumn').count(), 0, 'Customize checks modal should not show the guideline selector facets.');
+  assert.equal(await page.locator('#guidelineSelectorModal.show').count(), 0, 'Customize checks button should not open the guideline selector modal.');
+  const requiredToggleDisabled = await page.locator('#customizeChecksModal [data-plugin-toggle="article-counts"]').isDisabled();
+  assert.equal(requiredToggleDisabled, true, 'Required article counts plugin should be locked.');
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+    await page.locator('#customizeChecksModal .btn-close').click();
+    await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 });
+  });
+}
+
+async function assertGuidelineSelectorModal(page) {
+  await page.click('#reportingGuideList [data-guideline-selector-open="consort"]');
+  await page.waitForSelector('#guidelineSelectorModal.show', { timeout: 10000 });
   await page.waitForSelector('#guidelineCardContainer .guideline-select-card', { timeout: 15000 });
   await assertText(page, '#guidelineFacetColumn', /All guides/i);
   await assertText(page, '#guidelineFacetColumn', /Scientific Domain/i);
@@ -499,9 +521,9 @@ async function assertGuidelineSelectorModal(page) {
     assert.equal(await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')), false);
   });
   await page.keyboard.press('Escape');
-  await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
-    await page.locator('#customizeChecksModal .btn-close').click();
-    await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 });
+  await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+    await page.locator('#guidelineSelectorModal .btn-close').click();
+    await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 });
   });
 }
 
@@ -659,7 +681,7 @@ async function assertGuideListRows(page, { listSelector, cardSelector, expectedC
 
 async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
   await page.click(`#reportingGuideList [data-guideline-selector-open="${guideId}"]`);
-  await page.waitForSelector('#customizeChecksModal.show', { timeout: 10000 });
+  await page.waitForSelector('#guidelineSelectorModal.show', { timeout: 10000 });
   await delay(300);
   assert.equal(
     await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')),
@@ -674,9 +696,9 @@ async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
     assert.equal(await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')), false);
   });
   await page.keyboard.press('Escape');
-  await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
-    await page.locator('#customizeChecksModal .btn-close').click();
-    await page.waitForSelector('#customizeChecksModal.show', { state: 'detached', timeout: 10000 });
+  await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+    await page.locator('#guidelineSelectorModal .btn-close').click();
+    await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 });
   });
 }
 

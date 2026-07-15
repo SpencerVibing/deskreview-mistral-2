@@ -450,10 +450,30 @@
       </div>
     </div>
 
-    <div class="modal fade" id="customizeChecksModal" tabindex="-1" aria-label="Select guideline" aria-hidden="true">
+    <div class="modal fade" id="customizeChecksModal" tabindex="-1" aria-labelledby="customizeChecksModalTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <h2 class="modal-title h5" id="customizeChecksModalTitle">Customize checks</h2>
+              <div class="small text-secondary">Choose which check groups appear in the reader and add project-specific custom guidelines.</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div id="customizeChecksBody" class="modal-body bg-body-tertiary">
+            <div class="text-secondary small">Check settings are loading.</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="guidelineSelectorModal" tabindex="-1" aria-label="Select guideline" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
-          <div id="customizeChecksBody" class="modal-body p-0 guideline-selector-modal-body d-flex overflow-hidden position-relative">
+          <div id="guidelineSelectorBody" class="modal-body p-0 guideline-selector-modal-body d-flex overflow-hidden position-relative">
             <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-1" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="guideline-modal-column d-flex flex-column border-end bg-light-subtle p-3 pt-5 overflow-auto" id="guidelineFacetColumn"></div>
             <div class="guideline-modal-column d-flex flex-column flex-grow-1 p-5 position-relative">
