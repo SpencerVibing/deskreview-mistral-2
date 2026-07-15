@@ -166,6 +166,7 @@ async function main() {
     await page.click('#reportingGuideList [data-reporting-guide-id="consort"] .guide-progress-mini');
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertText(page, '#detailsPanel', /CONSORT/i);
+    await assertDetailsGuidelineSelectorLink(page, 'consort', /CONSORT/i);
     await assertGuideDetailFilterDropdown(page);
     await assertGuideDetailFilterOption(page, 'optional', /Optional/i);
     await selectGuideDetailFilter(page, 'warning');
@@ -798,6 +799,31 @@ async function assertGuidelineTitleOpensSelector(page, guideId, titlePattern) {
   await page.waitForSelector('#guidelineDetailSlider.active', { timeout: 10000 });
   await assertText(page, '#guidelineDetailName', titlePattern);
   await assertText(page, '#checklist-pane', /Checklist details|Title|Abstract|intervention|training/i);
+  await page.click('#closeGuidelineDetailSliderBtn');
+  await page.waitForSelector('#guidelineDetailSlider.active', { state: 'detached', timeout: 1000 }).catch(async () => {
+    assert.equal(await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')), false);
+  });
+  await page.keyboard.press('Escape');
+  await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 }).catch(async () => {
+    await page.locator('#guidelineSelectorModal .btn-close').click();
+    await page.waitForSelector('#guidelineSelectorModal.show', { state: 'detached', timeout: 10000 });
+  });
+}
+
+async function assertDetailsGuidelineSelectorLink(page, guideId, titlePattern) {
+  await assertText(page, '#detailsPanelBody', titlePattern);
+  await assertText(page, '#detailsPanelBody', /View guideline details/i);
+  await assertVisible(page, `#detailsPanelBody [data-guide-details-selector-open="${guideId}"]`);
+  await page.click(`#detailsPanelBody [data-guide-details-selector-open="${guideId}"]`);
+  await page.waitForSelector('#guidelineSelectorModal.show', { timeout: 10000 });
+  await delay(300);
+  assert.equal(
+    await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')),
+    false,
+    'Guideline detail slider should wait after the modal grid appears from the details panel link.'
+  );
+  await page.waitForSelector('#guidelineDetailSlider.active', { timeout: 10000 });
+  await assertText(page, '#guidelineDetailName', titlePattern);
   await page.click('#closeGuidelineDetailSliderBtn');
   await page.waitForSelector('#guidelineDetailSlider.active', { state: 'detached', timeout: 1000 }).catch(async () => {
     assert.equal(await page.locator('#guidelineDetailSlider').evaluate((node) => node.classList.contains('active')), false);

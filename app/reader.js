@@ -2061,6 +2061,24 @@ function renderGuidelineSelectorTitle(guideId = '', label = 'Guideline') {
   return `<span class="d-inline-block small fw-semibold text-body" data-guideline-selector-open="${escapeHtml(id)}">${escapeHtml(label || 'Guideline')}</span>`;
 }
 
+function renderGuideDetailsIntro(guide = {}) {
+  const id = String(guide.id || guide.guidelineId || '').trim();
+  const title = guide.name || guide.label || guide.guideName || 'Guideline';
+  const description = String(guide.description || guide.guideDescription || '').trim();
+  return `
+    <div class="mb-3">
+      <div class="small fw-semibold text-body mb-1">${escapeHtml(title)}</div>
+      ${description ? `<div class="small text-secondary mb-2">${escapeHtml(description)}</div>` : ''}
+      ${id ? `
+        <button type="button" class="btn btn-sm btn-light border d-inline-flex align-items-center gap-2" data-guideline-selector-open="${escapeHtml(id)}" data-guide-details-selector-open="${escapeHtml(id)}">
+          <i class="bi bi-journal-text" aria-hidden="true"></i>
+          <span>View guideline details</span>
+        </button>
+      ` : ''}
+    </div>
+  `;
+}
+
 function guideResultsAcrossGuides(guides = []) {
   return guides.flatMap((guide) => (Array.isArray(guide.results) ? guide.results : []).map((item) => ({
     ...item,
@@ -2527,7 +2545,7 @@ function renderEssentialGuideDetails(guideId = '') {
   const summary = summarizeGuideResults(guide.results);
   const results = filterGuideResults(guide.results, 'all');
   openDetails('essential-guidelines', `
-    <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
+    ${renderGuideDetailsIntro(guide)}
     <div data-guide-results>
       ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'essential-guide' })}
     </div>
@@ -2952,7 +2970,7 @@ function renderReportingGuideResultDetails(guideId = '') {
   const summary = summarizeGuideResults(guide.results);
   const results = filterGuideResults(guide.results, 'all');
   openDetails('reporting-guidelines', `
-    <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
+    ${renderGuideDetailsIntro(guide)}
     <div data-guide-results>
       ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'reporting-guide' })}
     </div>
@@ -6740,6 +6758,7 @@ els.guideFilterControl?.addEventListener('click', async (event) => {
 });
 
 els.detailsPanelBody.addEventListener('click', (event) => {
+  if (handleGuidelineSelectorTitleClick(event)) return;
   const copyFeedbackButton = event.target.closest('[data-copy-analyzed-item]');
   if (copyFeedbackButton) {
     event.preventDefault();
