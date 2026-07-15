@@ -22,19 +22,36 @@ function anchor(value = {}) {
   };
 }
 
-function annotationBlocks(blocks = [], limit = 220) {
+function isLowValueAnnotationBlock(block = {}) {
+  const type = text(block.type).toLowerCase();
+  if (['header', 'footer', 'equation', 'image'].includes(type)) return true;
+  return false;
+}
+
+function isHighValueAnnotationBlock(block = {}) {
+  const type = text(block.type).toLowerCase();
+  const value = text(block.text || block.plainText);
+  if (['title', 'caption', 'table'].includes(type)) return true;
+  return /abstract|introduction|method|result|discussion|conclusion|acknowledg|reference|funding|conflict|competing|ethic|consent|data availability|author contribution|declaration|keyword/i.test(value);
+}
+
+function annotationBlocks(blocks = [], limit = 120) {
   const normalized = array(blocks)
+    .filter((block) => !isLowValueAnnotationBlock(block))
     .map((block) => ({
       blockKey: text(block.key || block.blockKey),
       pageNumber: number(block.pageNumber),
       type: text(block.type),
-      text: text(block.text || block.plainText).slice(0, 2500)
+      text: text(block.text || block.plainText).slice(0, 900)
     }))
     .filter((block) => block.blockKey && block.text);
   if (normalized.length <= limit) return normalized;
-  const headCount = Math.max(120, Math.floor(limit * 0.72));
-  const tailCount = Math.max(0, limit - headCount);
-  const selected = [...normalized.slice(0, headCount), ...normalized.slice(-tailCount)];
+  const highValue = normalized.filter(isHighValueAnnotationBlock);
+  const selected = [
+    ...normalized.slice(0, 70),
+    ...highValue,
+    ...normalized.slice(-40)
+  ].slice(0, limit);
   const seen = new Set();
   return selected.filter((block) => {
     if (seen.has(block.blockKey)) return false;

@@ -982,6 +982,9 @@ async function handleAnnotateDocument(req, res) {
           'Use only supplied OCR block text and resolver context. Do not invent manuscript content.',
           'For title, front matter, abstract, article sections, references, tables, and figures, copy exact source text snippets and block keys when available.',
           'Use resolver context as supporting evidence when it is supplied, but if it conflicts with OCR text, prefer exact OCR source text and add a short warning.',
+          'Keep the annotation concise: article countedText values should be short representative snippets, not full sections.',
+          'Return at most 8 article sections, at most 12 reference entries, at most 24 display items, and at most 24 quoteAnchors.',
+          'Leave citationOccurrences arrays empty unless a directly supplied resolver context already contains a short citation occurrence.',
           'quoteAnchors should contain concise exact quotes that later checks can use for PDF/HTML jump links, especially for declarations such as ethics approval, consent, conflicts of interest, funding, data availability, protocol registration, and author contributions when those statements are present.',
           'Warnings must be short and user-friendly. Do not mention schemas, prompts, or implementation details.'
         ].join(' ')
@@ -990,11 +993,11 @@ async function handleAnnotateDocument(req, res) {
         role: 'user',
         content: JSON.stringify({
           task: 'Annotate this manuscript for later guideline checks and source-grounded navigation.',
-          blocks: blocks.slice(0, 220).map((block) => ({
+          blocks: blocks.slice(0, 120).map((block) => ({
             blockKey: String(block.blockKey || ''),
             pageNumber: Number(block.pageNumber || 0) || 0,
             type: String(block.type || ''),
-            text: String(block.text || '').slice(0, 2500)
+            text: String(block.text || '').slice(0, 900)
           })),
           resolverContext: body.resolverContext || {}
         })

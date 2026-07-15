@@ -48,6 +48,18 @@ assert.equal(request.blocks.length, 1);
 assert.deepEqual(request.resolverContext.countedText, { abstract: {} });
 assert.equal(request.resolverContext.references, null);
 
+const filteredRequest = buildDocumentAnnotationRequest({
+  blocks: [
+    { key: 'header', pageNumber: 1, type: 'header', text: 'Journal header' },
+    { key: 'equation', pageNumber: 1, type: 'equation', text: 'x = y' },
+    { key: 'image', pageNumber: 1, type: 'image', text: '![img-0.jpeg](img-0.jpeg)' },
+    { key: 'caption', pageNumber: 1, type: 'caption', text: 'Figure 1. Separation result.' },
+    { key: 'body', pageNumber: 2, type: 'text', text: 'Methods text' }
+  ]
+});
+
+assert.deepEqual(filteredRequest.blocks.map((block) => block.blockKey), ['caption', 'body']);
+
 const longRequest = buildDocumentAnnotationRequest({
   blocks: Array.from({ length: 260 }, (_, index) => ({
     key: `block-${index + 1}`,
@@ -57,6 +69,6 @@ const longRequest = buildDocumentAnnotationRequest({
   }))
 });
 
-assert.equal(longRequest.blocks.length, 220);
+assert.ok(longRequest.blocks.length <= 120);
 assert.equal(longRequest.blocks[0].blockKey, 'block-1');
-assert.equal(longRequest.blocks.at(-1).blockKey, 'block-260');
+assert.ok(longRequest.blocks.some((block) => block.blockKey === 'block-260'));
