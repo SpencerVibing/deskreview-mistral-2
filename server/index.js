@@ -17,6 +17,7 @@ const PORT = Number(process.env.PORT || 8891);
 const MISTRAL_BASE_URL = String(process.env.MISTRAL_BASE_URL || 'https://api.mistral.ai/v1').replace(/\/+$/, '');
 const MISTRAL_OCR_MODEL = String(process.env.MISTRAL_OCR_MODEL || 'mistral-ocr-latest').trim();
 const MISTRAL_CHAT_MODEL = String(process.env.MISTRAL_CHAT_MODEL || 'mistral-small-latest').trim();
+const MISTRAL_OCR_TIMEOUT_MS = Number(process.env.MISTRAL_OCR_TIMEOUT_MS || 180000);
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -58,6 +59,10 @@ function jsonResponse(res, data, status = 200) {
     'Content-Length': Buffer.byteLength(body)
   });
   res.end(body);
+}
+
+function mistralErrorMessage(raw = null, text = '', fallback = 'Mistral request failed.') {
+  return raw?.error?.message || raw?.detail || raw?.message || text || fallback;
 }
 
 function mistralJsonSchema(name, schema) {
@@ -303,7 +308,7 @@ function countedTextResolverSchema() {
             properties: {
               authors: {
                 type: 'array',
-                description: 'Manuscript authors copied from the author byline. One item per author exactly as listed.',
+                description: 'Manuscript authors copied from the author byline. One item per person; split names joined by "and" and remove footnote/correspondence markers.',
                 items: {
                   type: 'object',
                   additionalProperties: false,
@@ -329,7 +334,7 @@ function countedTextResolverSchema() {
               },
               keywords: {
                 type: 'array',
-                description: 'Individual manuscript keywords copied from the keyword list. One item per keyword.',
+                description: 'Individual manuscript keywords copied from the keyword list, or from Editorial Manager/submission cover metadata only when the manuscript has no keyword list. One item per keyword.',
                 items: {
                   type: 'object',
                   additionalProperties: false,
@@ -732,16 +737,21 @@ async function handleOcr(req, res) {
 
   let response;
   try {
+    const signal = AbortSignal.timeout ? AbortSignal.timeout(MISTRAL_OCR_TIMEOUT_MS) : undefined;
     response = await fetch(`${MISTRAL_BASE_URL}/ocr`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`
       },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify(requestBody),
+      signal
     });
   } catch (error) {
-    jsonResponse(res, { error: String(error?.message || error || 'Mistral OCR request failed.') }, 502);
+    const message = error?.name === 'TimeoutError'
+      ? 'Mistral OCR request timed out.'
+      : String(error?.message || error || 'Mistral OCR request failed.');
+    jsonResponse(res, { error: message }, error?.name === 'TimeoutError' ? 504 : 502);
     return;
   }
 
@@ -755,7 +765,7 @@ async function handleOcr(req, res) {
 
   if (!response.ok) {
     jsonResponse(res, {
-      error: raw?.error?.message || raw?.message || text || `Mistral OCR failed (${response.status}).`,
+      error: mistralErrorMessage(raw, text, `Mistral OCR failed (${response.status}).`),
       elapsedMs: Date.now() - startedAt,
       model: MISTRAL_OCR_MODEL
     }, response.status);
@@ -806,7 +816,9 @@ async function handleOcrCountAnnotation(req, res) {
     document_annotation_prompt: [
       'Extract article element counts for a scientific manuscript.',
       'Return individual author names as separate authors; never return a joined byline as one author.',
+      'When a byline joins people with "and", split the people into separate author items and remove footnote markers such as *, dagger symbols, superscripts, and correspondence symbols.',
       'Use the actual manuscript, not editorial-management cover-page metadata, unless manuscript front matter is missing.',
+      'If the actual manuscript has no keyword list but an Editorial Manager or submission cover table has a Keywords field, use that Keywords field as backup and split it into individual keyword items.',
       'Count abstract words from the abstract only.',
       'Count main article words excluding abstract, references, captions, tables, figures, headers, footers, page numbers, and supplementary/back matter.',
       'Split bibliography entries into separate references even when OCR groups multiple references in one block.',
@@ -1010,7 +1022,9 @@ async function handleResolveCounts(req, res) {
           'If Keywords appears in the same OCR block after abstract prose, stop before Keywords and list it under excludedText.',
           'For article: identify counted main manuscript prose sections only. Prefer returning sourceBlockKeys instead of copying countedText; keep countedText empty unless one block must be split to exclude non-article text.',
           'Exclude abstract, keywords, references, bibliography, tables, figures, captions, supplements, appendices, acknowledgements, funding, conflicts, data availability, author contributions, headers, footers, and page/line numbers.',
-          'For metadata.authors: copy only the manuscript author byline and return one item per author. For metadata.affiliations: copy distinct listed affiliation entries. For metadata.keywords: copy individual keywords only from a keyword list. Return empty arrays when absent.',
+          'For metadata.authors: copy only the manuscript author byline and return one item per author. When a byline joins people with "and", split the people into separate author items and remove footnote markers such as *, dagger symbols, superscripts, and correspondence symbols.',
+          'For metadata.affiliations: copy distinct listed affiliation entries.',
+          'For metadata.keywords: copy individual keywords from the manuscript keyword list. If the manuscript has no keyword list but an Editorial Manager or submission cover table has a Keywords field, use that field as backup and split it into individual keyword items. Return an empty keyword array only when neither manuscript nor cover metadata includes keywords.',
           'Use manuscript section titles where available. Keep output compact. Warnings must be short and user-friendly.'
         ].join(' ')
       },

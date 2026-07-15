@@ -790,7 +790,7 @@ function tileHasResolvedValue(kind = '') {
   if (kind === 'abstract') return hasCountValue(semantic.abstractWordCount);
   if (kind === 'article') return hasCountValue(semantic.articleWordCount);
   if (kind === 'references' && state.referenceResolver.status === 'failed') return true;
-  if (kind === 'references') return hasCountValue(semantic.referenceCount);
+  if (kind === 'references') return state.referenceResolver.status === 'ready';
   return false;
 }
 
@@ -1380,11 +1380,28 @@ function referenceResolverResultFromOcrAnnotation(result = {}, blocks = flatBloc
   };
 }
 
+function preserveBetterMetadataCounts(candidate = {}, existing = {}) {
+  if (!existing?.metadata || !candidate?.metadata) return candidate;
+  const metadata = { ...(candidate.metadata || {}) };
+  ['authors', 'affiliations', 'keywords'].forEach((key) => {
+    const candidateItems = Array.isArray(metadata[key]) ? metadata[key] : [];
+    const existingItems = Array.isArray(existing.metadata?.[key]) ? existing.metadata[key] : [];
+    if (existingItems.length > candidateItems.length) metadata[key] = existingItems;
+  });
+  return {
+    ...candidate,
+    metadata
+  };
+}
+
 function applyOcrCountAnnotationResult(result = {}) {
   if (!result || typeof result !== 'object') return { changed: [], linkedAuthors: 0, linkedReferences: 0 };
   const before = countUpgradeSnapshot();
   const blocks = flatBlocks();
-  const countResult = countResolverResultFromOcrAnnotation(result, blocks);
+  const countResult = preserveBetterMetadataCounts(
+    countResolverResultFromOcrAnnotation(result, blocks),
+    state.countResolver.result || {}
+  );
   const details = buildCountsDetailsFromResolvedMap(countResult, blocks);
   state.countResolver = {
     status: 'ready',
@@ -1828,16 +1845,29 @@ function markdownToHtml(markdown = '', page = {}) {
 function splitConcatenatedReferenceText(value = '') {
   const text = String(value || '').replace(/\s+/g, ' ').trim();
   if (!text) return [];
-  const startPattern = /(^|(?<=[.)])\s*)(?=[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+(?:\s+[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+)*,\s+(?:[A-Z]\.|[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+,).{0,180}?\(\d{4}[a-z]?\))/gu;
   const starts = [];
-  for (const match of text.matchAll(startPattern)) {
-    const index = Number(match.index || 0) + String(match[1] || '').length;
-    if (!starts.includes(index)) starts.push(index);
-  }
+  [
+    /(^|(?<!\b[A-Z])\.\s*)(?=[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+(?:\s+[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+)*,\s+(?:[A-Z]\.|[A-ZÀ-ÖØ-Þ][\p{L}'’.-]+,).{0,180}?\(\d{4}[a-z]?\))/gu,
+    /(^|(?<!\b[A-Z])\.\s*)(?=(?:\[\s*\d{1,3}\s*\]|\d{1,3}\s*[.)])\s+\p{L})/gu
+  ].forEach((pattern) => {
+    for (const match of text.matchAll(pattern)) {
+      const index = Number(match.index || 0) + String(match[1] || '').length;
+      if (!starts.includes(index)) starts.push(index);
+    }
+  });
+  starts.sort((a, b) => a - b);
   if (starts.length <= 1) return [text];
   return starts
     .map((start, index) => text.slice(start, starts[index + 1] || text.length).trim())
     .filter((entry) => entry.length >= 24);
+}
+
+function looksLikeReferenceListText(value = '') {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return false;
+  const entries = splitConcatenatedReferenceText(text);
+  if (entries.length > 1) return true;
+  return /^(?:\[\s*\d{1,3}\s*\]|\d{1,3}\s*[.)])\s+\p{L}/u.test(text);
 }
 
 function renderReferencesBlockContent(markdown = '', page = {}) {
@@ -1862,9 +1892,10 @@ function renderBlockContent(block = {}, page = {}) {
     /^<(table|figure|img)\b/i.test(content) ? content : ''
   )).trim();
   const type = blockType(block);
+  const renderAsReferences = type === 'references' || (type === 'list' && looksLikeReferenceListText(content || html));
   const body = html
-    ? (type === 'references' ? renderReferencesHtmlContent(html) : `<div class="table-responsive">${sanitizeMistralHtml(html)}</div>`)
-    : (type === 'references' ? renderReferencesBlockContent(content, page) : markdownToHtml(content, page));
+    ? (renderAsReferences ? renderReferencesHtmlContent(html) : `<div class="table-responsive">${sanitizeMistralHtml(html)}</div>`)
+    : (renderAsReferences ? renderReferencesBlockContent(content, page) : markdownToHtml(content, page));
   return `${body}${renderPdfSourcePreviews(block, page)}`;
 }
 
@@ -4617,18 +4648,91 @@ function quoteCandidates(value = '') {
     .map((candidate) => candidate.length > 220 ? candidate.slice(0, 220) : candidate);
 }
 
-function findBlockKeyForQuote(value = '', { fromEnd = false } = {}) {
+function findBlockKeyForQuote(value = '', { fromEnd = false, type = '' } = {}) {
   const candidates = quoteCandidates(value);
   if (!candidates.length) return '';
   const targets = [...state.blockTargets.entries()];
   if (fromEnd) targets.reverse();
   for (const candidate of candidates) {
     for (const [key, target] of targets) {
+      if (type && target.type !== type) continue;
       const normalizedBlock = normalizeForLookup(target.text || '');
       if (normalizedBlock.includes(candidate) || candidate.includes(normalizedBlock)) return key;
     }
   }
   return '';
+}
+
+function isReferenceLikeTarget(target = {}) {
+  return target.type === 'references' || (target.type === 'list' && looksLikeReferenceListText(target.text || ''));
+}
+
+function findReferenceLikeBlockKeyForQuote(value = '') {
+  const candidates = quoteCandidates(value);
+  if (!candidates.length) return '';
+  const targets = [...state.blockTargets.entries()].reverse();
+  for (const candidate of candidates) {
+    for (const [key, target] of targets) {
+      if (!isReferenceLikeTarget(target)) continue;
+      const normalizedBlock = normalizeForLookup(target.text || '');
+      if (normalizedBlock.includes(candidate) || candidate.includes(normalizedBlock)) return key;
+    }
+  }
+  return '';
+}
+
+function referenceLabelNumber(value = '') {
+  const match = String(value || '').trim().match(/^(?:\[\s*(\d{1,3})\s*]|\s*(\d{1,3})\s*[.)])/);
+  return match ? Number(match[1] || match[2]) : null;
+}
+
+function referenceLeadText(value = '') {
+  return String(value || '')
+    .replace(/^(?:\[\s*\d{1,3}\s*\]|\s*\d{1,3}\s*[.)])\s*/, '')
+    .slice(0, 90);
+}
+
+function referenceMatchTokens(value = '') {
+  const stopwords = new Set(['and', 'the', 'with', 'from', 'journal', 'trans', 'transactions', 'proceedings']);
+  return [...new Set(normalizeForLookup(value)
+    .split(/\s+/)
+    .filter((token) => token.length >= 4 && !stopwords.has(token))
+    .slice(0, 80))];
+}
+
+function findReferenceLikeBlockKeyByOverlap(value = '') {
+  const tokens = referenceMatchTokens(value);
+  if (tokens.length < 4) return '';
+  let best = { key: '', score: 0 };
+  for (const [key, target] of [...state.blockTargets.entries()].reverse()) {
+    if (!isReferenceLikeTarget(target)) continue;
+    const blockTextValue = normalizeForLookup(target.text || '');
+    const score = tokens.reduce((sum, token) => sum + (blockTextValue.includes(token) ? 1 : 0), 0);
+    if (score > best.score) best = { key, score };
+  }
+  const threshold = Math.min(10, Math.max(4, Math.ceil(tokens.length * 0.35)));
+  return best.score >= threshold ? best.key : '';
+}
+
+function findReferenceBlockKeyForEntry(entry = {}) {
+  const text = String(entry.bibliographyAnchorQuote || entry.rawText || '').trim();
+  const direct = findReferenceLikeBlockKeyForQuote(text);
+  if (direct) return direct;
+  const number = referenceLabelNumber(text) || Number(entry.number || 0);
+  const lead = normalizeForLookup(referenceLeadText(text)).slice(0, 48);
+  if (!number || lead.length < 8) return '';
+  const targets = [...state.blockTargets.entries()].reverse();
+  const labelPatterns = [
+    new RegExp(`(^|\\s)\\[\\s*${number}\\s*]`),
+    new RegExp(`(^|\\s)${number}\\s*[.)]\\s+`)
+  ];
+  for (const [key, target] of targets) {
+    if (!isReferenceLikeTarget(target)) continue;
+    const rawBlock = String(target.text || '');
+    const normalizedBlock = normalizeForLookup(rawBlock);
+    if (labelPatterns.some((pattern) => pattern.test(rawBlock)) && normalizedBlock.includes(lead)) return key;
+  }
+  return findReferenceLikeBlockKeyByOverlap(text);
 }
 
 function ocrPlainText(value = '') {
@@ -4880,6 +4984,11 @@ function buildCountsDetailsFromResolvedMap(result = {}, blocks = flatBlocks()) {
   };
 }
 
+function isSubmissionMetadataBlock(block = {}) {
+  const text = String(block.text || block.plainText || '').trim();
+  return /(?:Manuscript Number|Full Title|Short Title|Article Type|Section\/Category|Keywords|Powered by Editorial Manager)/i.test(text);
+}
+
 function countBlocksForResolver(blocks = flatBlocks(), positions = blockPositionMap(blocks)) {
   const referenceIndex = resolvedHeadingBlockIndex(blocks, positions, /^(references|bibliography)\b/i, /^(references|bibliography|literature cited)\b/i);
   const supplementaryIndex = resolvedHeadingBlockIndex(blocks, positions, /^(supplementary|supplemental|appendix)\b/i);
@@ -4888,7 +4997,10 @@ function countBlocksForResolver(blocks = flatBlocks(), positions = blockPosition
   const end = Math.min(referenceStart, supplementaryStart, blocks.length);
   return blocks
     .slice(0, end)
-    .filter((block) => block.type !== 'table' && block.type !== 'image' && block.type !== 'figure')
+    .filter((block) => {
+      if (block.type === 'table') return isSubmissionMetadataBlock(block);
+      return !['header', 'footer', 'signature', 'image', 'figure'].includes(block.type);
+    })
     .map((block) => ({
       blockKey: block.key,
       pageNumber: block.pageNumber,
@@ -5825,6 +5937,18 @@ function buildReferencesDetailFromOcr(blocks = flatBlocks(), positions = blockPo
   return buildReferencesPendingDetail();
 }
 
+function refreshReferenceDetailFromResolver(blocks = flatBlocks(), positions = blockPositionMap(blocks)) {
+  if (!state.referenceResolver.result) return null;
+  const detail = buildReferencesDetailFromOcr(blocks, positions);
+  state.detailCache.set('references', detail);
+  state.detailBuildStatus.set('references', 'ready');
+  state.semanticCounts = {
+    ...(state.semanticCounts || {}),
+    referenceCount: detail.detail.count
+  };
+  return detail;
+}
+
 function prepareReferenceDetails(blocks = flatBlocks(), positions = blockPositionMap(blocks)) {
   try {
     const referencesDetail = buildReferencesDetailFromOcr(blocks, positions);
@@ -6127,7 +6251,9 @@ function renderSemanticDetail(kind = '', payload = {}) {
         <div class="detail-card-title"><span>References counted</span><span class="badge text-bg-light">${escapeHtml(metricValue(detail.count))}</span></div>
       </div>
       ${entries.map((entry) => {
-        const refBlockKey = findBlockKeyForQuote(entry.bibliographyAnchorQuote || entry.rawText || '', { fromEnd: true }) || entry.sourceBlockKey;
+        const refBlockKey = findReferenceBlockKeyForEntry(entry)
+          || findBlockKeyForQuote(entry.bibliographyAnchorQuote || entry.rawText || '', { fromEnd: true })
+          || entry.sourceBlockKey;
         return `
         <div class="detail-card">
           <div class="detail-card-title">
@@ -6158,6 +6284,10 @@ async function openCountDetails(kind = '') {
     return;
   }
   if (!state.file) return;
+  if (kind === 'references' && state.referenceResolver.result) {
+    renderSemanticDetail(kind, refreshReferenceDetailFromResolver() || state.detailCache.get(kind));
+    return;
+  }
   if (state.detailCache.has(kind)) {
     renderSemanticDetail(kind, state.detailCache.get(kind));
     return;
@@ -6813,10 +6943,14 @@ async function handleFile(file = null) {
     setStatus(`OCR ready in ${formatDuration(total)}`, 'done');
   } catch (error) {
     console.error(error);
+    const message = String(error?.message || error || 'OCR failed.');
     state.ocrProgress.status = 'failed';
     stopProgressTicker();
     setStatus('OCR failed', 'error');
-    els.htmlDocument.innerHTML = `<div class="alert alert-danger m-3">${escapeHtml(error?.message || error || 'OCR failed.')}</div>`;
+    markRuntime('OCR request failed', { error: message });
+    renderEmptyToc('OCR4 did not return manuscript sections.');
+    renderEmptyCounts(`OCR failed: ${message}`);
+    els.htmlDocument.innerHTML = `<div class="alert alert-danger m-3">${escapeHtml(message)}</div>`;
   }
 
   await pdfPromise;
