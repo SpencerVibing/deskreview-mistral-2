@@ -2533,14 +2533,9 @@ function renderGuideEvidenceQuotes(item = {}) {
         const blockKey = String(entry.sourceBlockKey || item.sourceBlockKey || '').trim();
         if (!quote) return '';
         return `
-          <div class="d-flex align-items-start gap-2">
-            <div class="small text-secondary flex-grow-1${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey, quote)}>
-              ${quotes.length > 1 ? `<span class="badge text-bg-light me-1">Quote ${escapeHtml(index + 1)}</span>` : ''}
-              ${escapeHtml(quote)}
-            </div>
-            <button class="btn btn-sm btn-light border flex-shrink-0" type="button" data-copy-quote="${escapeHtml(quote)}" aria-label="Copy quote">
-              <i class="bi bi-copy"></i>
-            </button>
+          <div class="small text-secondary${detailClickableClass(blockKey)}"${detailLinkAttributes(blockKey, quote)}>
+            ${quotes.length > 1 ? `<span class="badge text-bg-light me-1">Quote ${escapeHtml(index + 1)}</span>` : ''}
+            ${escapeHtml(quote)}
           </div>
         `;
       }).join('')}
@@ -2964,12 +2959,7 @@ function renderReportingMatchDetails(guidelineId = '') {
       </div>
       <div class="small mb-2">${escapeHtml(match.rationale || '')}</div>
       ${match.anchorQuote ? `
-        <div class="d-flex align-items-start gap-2">
-          <div class="small text-secondary flex-grow-1${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey, match.anchorQuote)}>${escapeHtml(match.anchorQuote)}</div>
-          <button class="btn btn-sm btn-light border flex-shrink-0" type="button" data-copy-quote="${escapeHtml(match.anchorQuote)}" aria-label="Copy quote">
-            <i class="bi bi-copy"></i>
-          </button>
-        </div>
+        <div class="small text-secondary${detailClickableClass(match.sourceBlockKey)}"${detailLinkAttributes(match.sourceBlockKey, match.anchorQuote)}>${escapeHtml(match.anchorQuote)}</div>
       ` : ''}
     </div>
   `);
@@ -6762,13 +6752,6 @@ els.detailsPanelBody.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
     navigator.clipboard?.writeText(copyFeedbackButton.dataset.copyAnalyzedItem || '').catch(() => {});
-    return;
-  }
-  const copyButton = event.target.closest('[data-copy-quote]');
-  if (copyButton) {
-    event.preventDefault();
-    event.stopPropagation();
-    navigator.clipboard?.writeText(copyButton.dataset.copyQuote || '').catch(() => {});
     return;
   }
   const button = event.target.closest('[data-detail-block-key]');

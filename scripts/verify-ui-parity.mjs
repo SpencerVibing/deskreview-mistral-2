@@ -954,6 +954,11 @@ async function assertActiveJumpFromDetails(page) {
     const quoteToggle = page.locator('#detailsPanel .analyzed-item-row:not(.is-filtered-out):visible button[data-bs-toggle="collapse"]').filter({ hasText: /Show quotes/i }).first();
     if (await quoteToggle.count()) await quoteToggle.click();
   }
+  assert.equal(
+    await page.locator('#detailsPanel .analyzed-item-quotes [data-copy-quote]').count(),
+    0,
+    'Analyzed item quote panels should not include copy quote buttons.'
+  );
   const link = page.locator('#detailsPanel [data-detail-block-key]:visible').first();
   await link.waitFor({ state: 'visible', timeout: 10000 });
   const blockKey = await link.getAttribute('data-detail-block-key');
