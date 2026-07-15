@@ -1095,12 +1095,63 @@ function blockType(block = {}) {
   return String(block.type || block.block_type || block.category || 'text').trim().toLowerCase() || 'text';
 }
 
-function blockBox(block = {}) {
-  const left = Number(block.top_left_x ?? block.topLeftX ?? block.bbox?.left ?? block.bounding_box?.left ?? block.x ?? 0) || 0;
-  const top = Number(block.top_left_y ?? block.topLeftY ?? block.bbox?.top ?? block.bounding_box?.top ?? block.y ?? 0) || 0;
-  const right = Number(block.bottom_right_x ?? block.bottomRightX ?? block.bbox?.right ?? block.bounding_box?.right ?? (block.x != null && block.width != null ? Number(block.x) + Number(block.width) : 0)) || 0;
-  const bottom = Number(block.bottom_right_y ?? block.bottomRightY ?? block.bbox?.bottom ?? block.bounding_box?.bottom ?? (block.y != null && block.height != null ? Number(block.y) + Number(block.height) : 0)) || 0;
+function normalizedBox(leftValue, topValue, rightValue, bottomValue) {
+  const left = Number(leftValue);
+  const top = Number(topValue);
+  const right = Number(rightValue);
+  const bottom = Number(bottomValue);
+  if (![left, top, right, bottom].every(Number.isFinite)) return null;
   return right > left && bottom > top ? { left, top, right, bottom } : null;
+}
+
+function boxFromPointList(points = []) {
+  const pairs = [];
+  if (points.every((value) => Number.isFinite(Number(value)))) {
+    for (let index = 0; index + 1 < points.length; index += 2) {
+      pairs.push([Number(points[index]), Number(points[index + 1])]);
+    }
+  } else {
+    points.forEach((point) => {
+      if (Array.isArray(point) && point.length >= 2) {
+        pairs.push([Number(point[0]), Number(point[1])]);
+        return;
+      }
+      if (point && typeof point === 'object') {
+        pairs.push([
+          Number(point.x ?? point.left ?? point[0]),
+          Number(point.y ?? point.top ?? point[1])
+        ]);
+      }
+    });
+  }
+  const valid = pairs.filter(([x, y]) => Number.isFinite(x) && Number.isFinite(y));
+  if (valid.length < 2) return null;
+  const xs = valid.map(([x]) => x);
+  const ys = valid.map(([, y]) => y);
+  return normalizedBox(Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys));
+}
+
+function boxFromObject(value = {}) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  return normalizedBox(
+    value.left ?? value.x0 ?? value.x_min ?? value.xMin ?? value.top_left_x ?? value.topLeftX ?? value.x,
+    value.top ?? value.y0 ?? value.y_min ?? value.yMin ?? value.top_left_y ?? value.topLeftY ?? value.y,
+    value.right ?? value.x1 ?? value.x_max ?? value.xMax ?? value.bottom_right_x ?? value.bottomRightX ?? (value.x != null && value.width != null ? Number(value.x) + Number(value.width) : undefined),
+    value.bottom ?? value.y1 ?? value.y_max ?? value.yMax ?? value.bottom_right_y ?? value.bottomRightY ?? (value.y != null && value.height != null ? Number(value.y) + Number(value.height) : undefined)
+  );
+}
+
+function blockBox(block = {}) {
+  return normalizedBox(
+    block.top_left_x ?? block.topLeftX ?? block.x0 ?? block.x_min ?? block.xMin ?? block.x,
+    block.top_left_y ?? block.topLeftY ?? block.y0 ?? block.y_min ?? block.yMin ?? block.y,
+    block.bottom_right_x ?? block.bottomRightX ?? block.x1 ?? block.x_max ?? block.xMax ?? (block.x != null && block.width != null ? Number(block.x) + Number(block.width) : undefined),
+    block.bottom_right_y ?? block.bottomRightY ?? block.y1 ?? block.y_max ?? block.yMax ?? (block.y != null && block.height != null ? Number(block.y) + Number(block.height) : undefined)
+  )
+    || boxFromObject(block.bbox)
+    || boxFromObject(block.bounding_box)
+    || boxFromObject(block.boundingBox)
+    || boxFromPointList(block.polygon || block.points || block.coordinates || block.vertices || []);
 }
 
 function pageDimensions(page = {}, pageView = null) {
@@ -5009,15 +5060,31 @@ function sourceScales(target = {}) {
 function drawActivePdfRegion(key = '') {
   document.querySelectorAll('.pdf-active-region').forEach((node) => node.remove());
   const target = state.blockTargets.get(key);
-  if (!target?.box) return;
+  if (!target) return;
   const scales = sourceScales(target);
   if (!scales) return;
+  const hasBox = Boolean(target.box);
+  const fallbackHeight = Math.min(96, Math.max(56, scales.pageView.viewport.height * 0.08));
+  const fallbackInset = Math.min(24, Math.max(14, scales.pageView.viewport.width * 0.025));
+  const box = hasBox
+    ? {
+      left: target.box.left * scales.xScale,
+      top: target.box.top * scales.yScale,
+      width: (target.box.right - target.box.left) * scales.xScale,
+      height: (target.box.bottom - target.box.top) * scales.yScale
+    }
+    : {
+      left: fallbackInset,
+      top: fallbackInset,
+      width: Math.max(24, scales.pageView.viewport.width - (fallbackInset * 2)),
+      height: fallbackHeight
+    };
   const highlight = document.createElement('div');
-  highlight.className = 'pdf-active-region';
-  highlight.style.left = `${target.box.left * scales.xScale}px`;
-  highlight.style.top = `${target.box.top * scales.yScale}px`;
-  highlight.style.width = `${(target.box.right - target.box.left) * scales.xScale}px`;
-  highlight.style.height = `${(target.box.bottom - target.box.top) * scales.yScale}px`;
+  highlight.className = `pdf-active-region${hasBox ? '' : ' pdf-active-region-fallback'}`;
+  highlight.style.left = `${box.left}px`;
+  highlight.style.top = `${box.top}px`;
+  highlight.style.width = `${box.width}px`;
+  highlight.style.height = `${box.height}px`;
   scales.pageView.wrapper.appendChild(highlight);
 }
 

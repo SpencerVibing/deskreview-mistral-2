@@ -477,6 +477,7 @@ async function assertActiveJumpFromDetails(page) {
   assert.ok(blockKey, 'Detail jump link should carry a block key.');
   await link.click();
   await assertBlockActive(page, blockKey);
+  await assertPdfActiveRegion(page);
 }
 
 async function assertActiveJumpFromFeedbackReport(page) {
@@ -486,12 +487,26 @@ async function assertActiveJumpFromFeedbackReport(page) {
   assert.ok(blockKey, 'Feedback report jump link should carry a block key.');
   await link.click();
   await assertBlockActive(page, blockKey);
+  await assertPdfActiveRegion(page);
 }
 
 async function assertBlockActive(page, blockKey) {
   await page.waitForFunction((key) => {
     return document.querySelector(`[data-block-id="${key}"]`)?.classList.contains('active');
   }, blockKey, { timeout: 10000 });
+}
+
+async function assertPdfActiveRegion(page) {
+  await page.waitForFunction(() => {
+    const region = document.querySelector('.pdf-active-region');
+    if (!region) return false;
+    const box = region.getBoundingClientRect();
+    const style = getComputedStyle(region);
+    return box.width > 8
+      && box.height > 8
+      && style.backgroundColor !== 'rgba(0, 0, 0, 0)'
+      && style.display !== 'none';
+  }, null, { timeout: 10000 });
 }
 
 async function assertActiveSidePaneIsFlex(page) {
