@@ -930,27 +930,85 @@ function renderHomeStats() {
   });
 }
 
+function exampleStatusCounts(payload = {}) {
+  const counts = payload?.overall?.counts && typeof payload.overall.counts === 'object'
+    ? payload.overall.counts
+    : (payload?.overall && typeof payload.overall === 'object' ? payload.overall : {});
+  return {
+    present: Number(counts.present || counts.yes || 0),
+    warning: Number(counts.warning || 0),
+    absent: Number(counts.absent || counts.no || 0),
+    optional: Number(counts.optional || counts.skipped || 0),
+    na: Number(counts.na || 0),
+    total: Number(counts.total || 0)
+  };
+}
+
+function exampleItemCount(counts = {}) {
+  if (Number(counts.total || 0) > 0) return Number(counts.total || 0);
+  return ['present', 'warning', 'absent', 'optional', 'na']
+    .reduce((sum, key) => sum + Number(counts[key] || 0), 0);
+}
+
+function exampleRating(counts = {}) {
+  const present = Number(counts.present || 0);
+  const warning = Number(counts.warning || 0);
+  const absent = Number(counts.absent || 0);
+  const denominator = present + warning + absent;
+  if (!denominator) return 0;
+  return Math.round(Math.min(5, ((present + (warning * 0.5)) / denominator) * 5) * 2) / 2;
+}
+
+function renderExampleStars(value = 0) {
+  const rounded = Math.round(Math.max(0, Math.min(5, Number(value || 0))) * 2) / 2;
+  return Array.from({ length: 5 }).map((_, index) => {
+    const star = index + 1;
+    if (rounded >= star) return '<i class="bi bi-star-fill"></i>';
+    if (rounded === star - 0.5) return '<i class="bi bi-star-half"></i>';
+    return '<i class="bi bi-star"></i>';
+  }).join('');
+}
+
+async function hydrateExampleCardStats(example = {}) {
+  if (!example?.id || !example.precomputedPath) return;
+  try {
+    const payload = await loadPrecomputedExamplePayload(example);
+    const counts = exampleStatusCounts(payload);
+    const total = exampleItemCount(counts);
+    const starsNode = els.exampleManuscriptList?.querySelector(`[data-example-stars="${CSS.escape(example.id)}"]`);
+    const itemsNode = els.exampleManuscriptList?.querySelector(`[data-example-items="${CSS.escape(example.id)}"]`);
+    if (starsNode) starsNode.innerHTML = renderExampleStars(exampleRating(counts));
+    if (itemsNode) itemsNode.textContent = total ? `${formatInteger(total)} items` : '— items';
+  } catch (error) {
+    console.warn('[deskreview-mistral-2] example stats failed', example.id, error);
+  }
+}
+
 function renderExampleManuscripts() {
   if (!els.exampleManuscriptList) return;
-  if (!state.examples.length) {
+  const examples = state.examples.filter((example) => String(example.type || '').toLowerCase() === 'preprint');
+  if (!examples.length) {
     els.exampleManuscriptList.innerHTML = '<div class="text-secondary small">No examples are configured yet.</div>';
     renderHomeStats();
     return;
   }
-  els.exampleManuscriptList.innerHTML = state.examples.map((example) => `
-    <${example.precomputedPath ? 'button' : 'div'} ${example.precomputedPath ? `type="button" data-example-id="${escapeHtml(example.id)}"` : ''} class="card example-card border shadow-sm flex-shrink-0 text-start ${example.precomputedPath ? 'example-card-button' : ''}">
-      <div class="card-body p-3 d-flex flex-column">
-        <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
-          <div class="example-title small fw-semibold text-body">${escapeHtml(example.title || 'Example manuscript')}</div>
-          <span class="badge text-bg-light flex-shrink-0">${escapeHtml(example.status || 'Example')}</span>
-        </div>
-        <div class="small text-secondary mb-3">${escapeHtml(example.description || '')}</div>
-        <div class="d-flex flex-wrap gap-1 mt-auto">
-          ${(Array.isArray(example.tags) ? example.tags : []).map((tag) => `<span class="badge bg-secondary-subtle text-secondary-emphasis">${escapeHtml(tag)}</span>`).join('')}
+  els.exampleManuscriptList.innerHTML = examples.map((example) => `
+    <button type="button" class="card text-start shadow-sm border rounded-3 flex-shrink-0 example-card" data-example-id="${escapeHtml(example.id)}">
+      <div class="card-body">
+        <div class="text-secondary small">${escapeHtml([example.source, example.year, example.type].filter(Boolean).join(' · '))}</div>
+        <h3 class="h6 mt-3 mb-0 example-title">${escapeHtml(example.title || 'Example manuscript')}</h3>
+      </div>
+      <div class="card-footer bg-transparent border-0 pt-0">
+        <div class="d-flex align-items-center justify-content-between small text-secondary">
+          <div class="example-stars text-body-tertiary" data-example-stars="${escapeHtml(example.id)}">★★★★★</div>
+          <div class="example-items" data-example-items="${escapeHtml(example.id)}">— items</div>
         </div>
       </div>
-    </${example.precomputedPath ? 'button' : 'div'}>
+    </button>
   `).join('');
+  examples.forEach((example) => {
+    void hydrateExampleCardStats(example);
+  });
   renderHomeStats();
 }
 

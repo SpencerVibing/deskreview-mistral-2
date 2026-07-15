@@ -67,12 +67,13 @@ async function main() {
     assert.doesNotMatch(homeText, /Mistral OCR\s*\/\s*ChatGPT|ChatGPT/i, 'Home page should not expose a ChatGPT/Mistral provider toggle.');
     const imageWidth = await page.locator('.empty-hero-shot').evaluate((img) => img.naturalWidth);
     assert.ok(imageWidth > 100, 'homepage screenshot asset should load');
+    await assertOriginalPreprintExampleCards(page);
     await page.screenshot({ path: join(OUT_DIR, 'homepage.png'), fullPage: true });
 
     const medrxivCard = page.locator('[data-example-id="medrxiv-baseline"]');
     await medrxivCard.waitFor({ state: 'visible', timeout: 10000 });
-    await assertText(page, '[data-example-id="medrxiv-baseline"]', /medRxiv \(2021 preprint\)/i);
-    await assertText(page, '[data-example-id="medrxiv-baseline"]', /CONSORT/i);
+    await assertText(page, '[data-example-id="medrxiv-baseline"]', /medRxiv\s+·\s+2021\s+·\s+preprint/i);
+    await assertText(page, '[data-example-id="medrxiv-baseline"]', /Combined Exercise Training vs Health Education/i);
     await medrxivCard.click();
 
     await page.waitForSelector('#reader:not(.d-none)', { timeout: 45000 });
@@ -218,6 +219,33 @@ async function assertText(page, selector, pattern) {
   }, { selector, source: pattern.source, flags: pattern.flags }, { timeout: 15000 });
   const text = await page.locator(selector).first().innerText();
   assert.match(text, pattern);
+}
+
+async function assertOriginalPreprintExampleCards(page) {
+  const expected = [
+    ['medrxiv-baseline', /medRxiv\s+·\s+2021\s+·\s+preprint/i, /Combined Exercise Training vs Health Education/i],
+    ['chemRxivPDF', /chemRxiv\s+·\s+2025\s+·\s+preprint/i, /soy protein substitute/i],
+    ['EarthArXiv', /EarthArXiv\s+·\s+2021\s+·\s+preprint/i, /Modeling Lithospheric Radioactivity/i],
+    ['ResearchSquarePDF', /Research Square\s+·\s+2023\s+·\s+preprint/i, /Teleround System for Intensive Care Units/i],
+    ['psyArXiv', /psyArXiv\s+·\s+preprint/i, /dangerous driving behavior/i]
+  ];
+  await page.waitForFunction(() => document.querySelectorAll('#exampleManuscriptList .example-card').length === 5, null, { timeout: 10000 });
+  assert.equal(await page.locator('#exampleManuscriptList .example-card').count(), 5, 'Homepage should show the five original preprint examples.');
+  const allCardText = await page.locator('#exampleManuscriptList').innerText();
+  assert.doesNotMatch(allCardText, /Humpback whale|Guideline annotation/i, 'Homepage examples should not show non-preprint local/demo cards.');
+  for (const [id, metaPattern, titlePattern] of expected) {
+    const selector = `[data-example-id="${id}"]`;
+    await assertText(page, selector, metaPattern);
+    await assertText(page, selector, titlePattern);
+    assert.equal(await page.locator(`${selector} .card-body .text-secondary.small`).count(), 1, `${id} should have the original metadata line.`);
+    assert.equal(await page.locator(`${selector} .card-footer .example-stars`).count(), 1, `${id} should have the original stars footer.`);
+    assert.equal(await page.locator(`${selector} .card-footer .example-items`).count(), 1, `${id} should have the original item-count footer.`);
+    assert.equal(await page.locator(`${selector} .badge`).count(), 0, `${id} should not show tag/status badges.`);
+  }
+  await page.waitForFunction(() => {
+    return [...document.querySelectorAll('#exampleManuscriptList .example-items')]
+      .every((node) => /\d[\d,]*\s+items/.test(node.textContent || ''));
+  }, null, { timeout: 15000 });
 }
 
 async function assertCountTile(page, kind, pattern) {

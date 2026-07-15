@@ -9,6 +9,18 @@ assert.equal(normalizePrecomputedStatus('skipped'), 'skipped');
 
 const payload = JSON.parse(await readFile(new URL('../data/examples/precomputed/medRxivPDF.json', import.meta.url), 'utf8'));
 const adapted = adaptPrecomputedExampleSnapshot(payload);
+const exampleConfig = JSON.parse(await readFile(new URL('../data/example-manuscripts.json', import.meta.url), 'utf8'));
+
+for (const example of exampleConfig.examples || []) {
+  assert.equal(example.type, 'preprint');
+  assert.ok(example.precomputedPath, `${example.id} should have a precomputed result path.`);
+  assert.ok(example.pdfPath, `${example.id} should have a PDF path.`);
+  const examplePayload = JSON.parse(await readFile(new URL(`..${example.precomputedPath}`, import.meta.url), 'utf8'));
+  const exampleAdapted = adaptPrecomputedExampleSnapshot(examplePayload);
+  assert.ok(exampleAdapted.pages.length > 0, `${example.id} should adapt into reader pages.`);
+  assert.ok(exampleAdapted.essentialResults.length > 0, `${example.id} should adapt Essential results.`);
+  assert.ok(exampleAdapted.semanticCounts.referenceCount > 0, `${example.id} should adapt reference counts.`);
+}
 
 assert.equal(adapted.essentialResults.length, 3);
 assert.equal(adapted.essentialResults[0].id, 'ease-abstract-page');

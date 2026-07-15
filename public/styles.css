@@ -196,13 +196,8 @@ body {
 .example-card {
   --bs-card-bg: rgba(255, 255, 255, 0.88);
   width: 280px;
-  min-height: 10.5rem;
   background-color: var(--bs-card-bg);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.example-card-button {
-  appearance: none;
 }
 
 .example-card:hover,
@@ -213,7 +208,7 @@ body {
 }
 
 .example-title {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", serif;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

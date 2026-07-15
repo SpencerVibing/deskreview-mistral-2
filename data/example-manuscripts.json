@@ -2,26 +2,48 @@
   "examples": [
     {
       "id": "medrxiv-baseline",
-      "title": "medRxiv (2021 preprint)",
-      "description": "Combined Exercise Training vs Health Education for Older Adults with Hypertension: The HAEL Randomized Clinical Trial.",
-      "tags": ["EASE Essentials", "CONSORT", "Precomputed"],
-      "status": "Open example",
+      "source": "medRxiv",
+      "year": "2021",
+      "type": "preprint",
+      "title": "Combined Exercise Training vs Health Education for Older Adults with Hypertension: The HAEL Randomized Clinical Trial",
       "pdfPath": "/assets/pdfs/medRxiv.pdf",
       "precomputedPath": "/data/examples/precomputed/medRxivPDF.json"
     },
     {
-      "id": "humpback-whale",
-      "title": "Humpback whale source separation",
-      "description": "Stress test for Editorial Manager cover-page metadata, title de-duplication, and ToC projection.",
-      "tags": ["ToC", "Cover metadata", "PDF anchors"],
-      "status": "Local test case"
+      "id": "chemRxivPDF",
+      "source": "chemRxiv",
+      "year": "2025",
+      "type": "preprint",
+      "title": "A soy protein substitute for animal meat proteins can provide global phosphorus reduction and recirculation opportunitie",
+      "pdfPath": "/assets/pdfs/chemRxiv.pdf",
+      "precomputedPath": "/data/examples/precomputed/chemRxivPDF.json"
     },
     {
-      "id": "guideline-demo",
-      "title": "Guideline annotation demo",
-      "description": "Illustrates document annotation, Essential checks, and matched reporting-guideline cards.",
-      "tags": ["Guidelines", "Annotation", "Details"],
-      "status": "Workflow example"
+      "id": "EarthArXiv",
+      "source": "EarthArXiv",
+      "year": "2021",
+      "type": "preprint",
+      "title": "Modeling Lithospheric Radioactivity Influence on Atmospheric Electric Properties Relative to Earthquakes",
+      "pdfPath": "/assets/pdfs/EarthArXiv.pdf",
+      "precomputedPath": "/data/examples/precomputed/EarthArXiv.json"
+    },
+    {
+      "id": "ResearchSquarePDF",
+      "source": "Research Square",
+      "year": "2023",
+      "type": "preprint",
+      "title": "User Experience Design Methodologies for Building User Interfaces for Teleround System for Intensive Care Units",
+      "pdfPath": "/assets/pdfs/ResearchSquare.pdf",
+      "precomputedPath": "/data/examples/precomputed/ResearchSquarePDF.json"
+    },
+    {
+      "id": "psyArXiv",
+      "source": "psyArXiv",
+      "year": "",
+      "type": "preprint",
+      "title": "How age, driving experience, and gender interact in predicting dangerous driving behavior",
+      "pdfPath": "/assets/pdfs/psyArXiv.pdf",
+      "precomputedPath": "/data/examples/precomputed/psyArXiv.json"
     }
   ]
 }
