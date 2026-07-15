@@ -289,7 +289,8 @@ const els = {
   detailsPanel: document.getElementById('detailsPanel'),
   detailsPanelTitle: document.getElementById('detailsPanelTitle'),
   detailsPanelBody: document.getElementById('detailsPanelBody'),
-  detailsPanelClose: document.getElementById('detailsPanelClose')
+  detailsPanelClose: document.getElementById('detailsPanelClose'),
+  guideFilterControl: document.getElementById('guideFilterControl')
 };
 
 function escapeHtml(value = '') {
@@ -1905,20 +1906,70 @@ const GUIDE_RESULT_STATUS_FILTERS = [
   { key: 'na', label: 'N/A', detailLabel: 'N/A', icon: 'bi-dash-circle-fill', badgeClass: 'bg-secondary-subtle text-secondary-emphasis', textClass: 'text-secondary', buttonClass: 'bg-secondary-subtle text-secondary-emphasis border-secondary-subtle' }
 ];
 
+const GUIDE_FILTER_KEYS = ['all', 'present', 'warning', 'absent', 'optional', 'skipped', 'na'];
+
+const GUIDE_FILTER_META = {
+  all: {
+    label: 'All items',
+    buttonClass: 'btn-outline-primary',
+    iconClass: '',
+    countClass: 'badge rounded-pill text-bg-secondary ms-3',
+    sectionBadgeClass: 'bg-primary-subtle text-secondary-emphasis'
+  },
+  present: {
+    label: 'Present items',
+    buttonClass: 'btn-outline-success',
+    iconClass: 'bi-check text-success',
+    countClass: 'badge rounded-pill bg-success-subtle text-success-emphasis ms-3',
+    sectionBadgeClass: 'bg-success-subtle text-secondary-emphasis'
+  },
+  warning: {
+    label: 'Warning items',
+    buttonClass: 'btn-outline-warning text-warning-emphasis',
+    iconClass: 'bi-exclamation-triangle text-warning',
+    countClass: 'badge rounded-pill bg-warning-subtle text-warning-emphasis ms-3',
+    sectionBadgeClass: 'bg-warning-subtle text-secondary-emphasis'
+  },
+  absent: {
+    label: 'Absent items',
+    buttonClass: 'btn-outline-danger',
+    iconClass: 'bi-ban text-danger',
+    countClass: 'badge rounded-pill bg-danger-subtle text-danger-emphasis ms-3',
+    sectionBadgeClass: 'bg-danger-subtle text-secondary-emphasis'
+  },
+  optional: {
+    label: 'Optional items',
+    buttonClass: 'btn-outline-info text-info-emphasis',
+    iconClass: 'bi-info-circle text-info-emphasis',
+    countClass: 'badge rounded-pill bg-info-subtle text-info-emphasis ms-3',
+    sectionBadgeClass: 'bg-info-subtle text-secondary-emphasis'
+  },
+  skipped: {
+    label: 'Skipped items',
+    buttonClass: 'btn-outline-purple text-purple-emphasis',
+    iconClass: 'bi-skip-forward text-purple-emphasis',
+    countClass: 'badge rounded-pill bg-purple-subtle text-purple-emphasis ms-3',
+    sectionBadgeClass: 'bg-purple-subtle text-purple-emphasis'
+  },
+  na: {
+    label: 'N / A items',
+    buttonClass: 'btn-outline-secondary',
+    iconClass: 'bi-dash-circle text-secondary',
+    countClass: 'badge rounded-pill bg-secondary-subtle text-secondary-emphasis ms-3',
+    sectionBadgeClass: 'bg-secondary-subtle text-secondary-emphasis'
+  }
+};
+
+const GUIDE_FILTER_BUTTON_CLASS_TOKENS = [...new Set(GUIDE_FILTER_KEYS
+  .flatMap((key) => GUIDE_FILTER_META[key].buttonClass.split(/\s+/))
+  .filter(Boolean))];
+
+const GUIDE_SECTION_BADGE_CLASS_TOKENS = [...new Set(GUIDE_FILTER_KEYS
+  .flatMap((key) => GUIDE_FILTER_META[key].sectionBadgeClass.split(/\s+/))
+  .filter(Boolean))];
+
 function guideResultStatusMeta(status = 'absent') {
   return GUIDE_RESULT_STATUS_FILTERS.find((item) => item.key === status) || GUIDE_RESULT_STATUS_FILTERS[0];
-}
-
-function guideResultStatusColumnClass(status = '') {
-  return {
-    present: 'bg-success-subtle text-success-emphasis',
-    warning: 'bg-warning-subtle text-warning-emphasis',
-    absent: 'bg-danger-subtle text-danger-emphasis',
-    optional: 'bg-info-subtle text-info-emphasis',
-    skipped: 'bg-secondary-subtle text-secondary-emphasis',
-    na: 'bg-secondary-subtle text-secondary-emphasis',
-    pending: 'bg-secondary-subtle text-secondary-emphasis'
-  }[status] || 'bg-secondary-subtle text-secondary-emphasis';
 }
 
 function guideSummaryTotals(summary = {}) {
@@ -1983,24 +2034,11 @@ function guideAggregateDefaultStatus(summary = {}) {
 }
 
 function guideDetailFilterMeta(status = 'all') {
-  if (status === 'all') {
-    return {
-      key: 'all',
-      label: 'All',
-      detailLabel: 'All',
-      icon: 'bi-list-ul',
-      badgeClass: 'text-bg-dark',
-      textClass: 'text-body-secondary',
-      buttonClass: 'btn-dark'
-    };
-  }
-  return guideResultStatusMeta(status);
+  return GUIDE_FILTER_META[status] || GUIDE_FILTER_META.all;
 }
 
 function guideSectionBadgeClass(status = 'all') {
-  return status === 'all'
-    ? 'bg-primary-subtle text-primary-emphasis'
-    : guideDetailFilterMeta(status).badgeClass;
+  return guideDetailFilterMeta(status).sectionBadgeClass;
 }
 
 function emptyGuideStatusCounts() {
@@ -2008,43 +2046,52 @@ function emptyGuideStatusCounts() {
 }
 
 function guideDetailFilterOptions(summary = {}) {
-  const filters = [
-    { key: 'all', label: 'All', count: Number(summary.total || 0) },
-    ...GUIDE_RESULT_STATUS_FILTERS.map((item) => ({
-      key: item.key,
-      label: item.detailLabel,
-      count: Number(summary[item.key] || 0)
-    }))
-  ];
-  return filters.map((filter) => ({
-    ...guideDetailFilterMeta(filter.key),
-    ...filter
+  const totals = guideSummaryTotals(summary);
+  return GUIDE_FILTER_KEYS.map((key) => ({
+    ...guideDetailFilterMeta(key),
+    key,
+    count: key === 'all' ? totals.total : Number(summary[key] || 0)
   }));
 }
 
-function renderGuideDetailFilterDropdown(summary = {}, selectedStatus = 'all') {
+function renderGuideFilterControl(summary = {}, selectedStatus = 'all') {
   const options = guideDetailFilterOptions(summary);
   const selected = options.some((item) => item.key === selectedStatus) ? selectedStatus : 'all';
   const active = options.find((item) => item.key === selected) || options[0];
+  const menuItems = options.map((item) => {
+    const iconHtml = item.iconClass ? `<i class="bi ${escapeHtml(item.iconClass)} me-1" aria-hidden="true"></i>` : '';
+    return `
+      <li>
+        <a class="dropdown-item d-flex justify-content-between align-items-center${item.key === selected ? ' active' : ''}" href="#" data-guide-filter="${escapeHtml(item.key)}" data-guide-filter-btn-class="${escapeHtml(item.buttonClass)}"${item.key === selected ? ' aria-current="true"' : ''}>
+          <span data-guide-filter-label>${iconHtml}${escapeHtml(item.label)}</span>
+          <span class="${escapeHtml(item.countClass)}" data-guide-filter-count="${escapeHtml(item.key)}">${escapeHtml(item.count)}</span>
+        </a>
+      </li>
+    `;
+  }).join('');
   return `
-    <div class="dropdown guide-detail-filter-dropdown mb-3">
-      <button type="button" class="btn btn-sm dropdown-toggle d-inline-flex align-items-center gap-2 guide-detail-filter-btn ${escapeHtml(active.buttonClass)}" data-bs-toggle="dropdown" aria-expanded="false" data-guide-detail-filter-current>
-        <i class="bi bi-filter" aria-hidden="true"></i>
-        <span class="guide-filter-label" data-guide-detail-filter-label>${escapeHtml(active.label)} (${escapeHtml(active.count)})</span>
+    <div class="dropdown">
+      <button class="btn btn-sm d-flex align-items-center ${escapeHtml(active.buttonClass)}" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Filter visible items">
+        <i class="bi bi-filter me-1" aria-hidden="true"></i>
+        <span class="guide-filter-label">${escapeHtml(active.label)} (${escapeHtml(active.count)})</span>
       </button>
-      <ul class="dropdown-menu dropdown-menu-end small guide-detail-filter-menu">
-        ${options.map((item) => `
-          <li>
-            <button type="button" class="dropdown-item d-flex align-items-center gap-2${item.key === selected ? ' active' : ''}" data-guide-detail-filter="${escapeHtml(item.key)}" data-guide-detail-filter-label="${escapeHtml(item.label)}" data-guide-detail-filter-count="${escapeHtml(item.count)}" data-guide-detail-filter-button-class="${escapeHtml(item.buttonClass)}"${item.key === selected ? ' aria-current="true"' : ''}>
-              <i class="bi ${escapeHtml(item.icon)} ${escapeHtml(item.textClass)}" aria-hidden="true"></i>
-              <span>${escapeHtml(item.label)}</span>
-              <span class="badge ${escapeHtml(item.badgeClass)} ms-auto">${escapeHtml(item.count)}</span>
-            </button>
-          </li>
-        `).join('')}
+      <ul class="dropdown-menu dropdown-menu-end small">
+        ${menuItems}
       </ul>
     </div>
   `;
+}
+
+function showGuideFilterControl(summary = {}, selectedStatus = 'all') {
+  if (!els.guideFilterControl) return;
+  els.guideFilterControl.innerHTML = renderGuideFilterControl(summary, selectedStatus);
+  els.guideFilterControl.classList.remove('d-none');
+}
+
+function hideGuideFilterControl() {
+  if (!els.guideFilterControl) return;
+  els.guideFilterControl.classList.add('d-none');
+  els.guideFilterControl.innerHTML = '';
 }
 
 function guideDonutGradient(summary = {}) {
@@ -2155,38 +2202,104 @@ function guideResultSections(results = []) {
   return [...sections.values()];
 }
 
+function guideEvidenceQuoteEntries(item = {}) {
+  return Array.isArray(item.evidenceQuotes) && item.evidenceQuotes.length
+    ? item.evidenceQuotes
+    : (item.evidenceQuote ? [{ quote: item.evidenceQuote, sourceBlockKey: item.sourceBlockKey || '' }] : []);
+}
+
+function buildGuideResultCopyText(item = {}, status = 'na') {
+  const lines = [];
+  const title = String(item.label || item.id || 'Guideline item').trim();
+  const statusLabel = guidelineStatusLabel(status);
+  const message = String(item.message || '').trim();
+  const requirement = String(item.requirement || '').trim();
+  const quotes = guideEvidenceQuoteEntries(item)
+    .map((entry) => String(entry.quote || '').trim())
+    .filter(Boolean);
+  if (title) lines.push(title);
+  if (statusLabel) lines.push(`Status: ${statusLabel}`);
+  if (message) lines.push(`Feedback: ${message}`);
+  if (requirement) lines.push(`Analysed: ${requirement}`);
+  if (quotes.length) {
+    lines.push('Quotes:');
+    quotes.forEach((quote) => lines.push(`- "${quote}"`));
+  }
+  return lines.join('\n');
+}
+
 function renderGuideResultRow(item = {}, { accordionId = 'guideResultsAccordion', sectionIndex = 0, itemIndex = 0, showGuideName = false, selectedStatus = 'all' } = {}) {
   const status = GUIDE_RESULT_STATUS_FILTERS.some((filter) => filter.key === item.status) ? item.status : 'na';
   const meta = guideResultStatusMeta(status);
   const hidden = selectedStatus !== 'all' && status !== selectedStatus;
   const detailId = `${accordionId}-s${sectionIndex}-i${itemIndex}`;
+  const quotesId = `${detailId}-quotes`;
+  const title = escapeHtml(item.label || item.id || 'Guideline item');
+  const message = String(item.message || '').trim();
+  const requirement = String(item.requirement || '').trim();
+  const evidenceHtml = renderGuideEvidenceQuotes(item);
+  const details = [];
+  const guideMeta = showGuideName
+    ? [item.guideName, item.section].map((value) => String(value || '').trim()).filter(Boolean).join(' • ')
+    : '';
+  if (guideMeta) {
+    details.push(`<h6 class="small text-secondary fw-semibold mb-1">Guide</h6><div class="small text-muted mb-2">${escapeHtml(guideMeta)}</div>`);
+  }
+  if (evidenceHtml) {
+    details.push(`
+      <div class="mt-2">
+        <button
+          type="button"
+          class="btn btn-link btn-sm p-0 text-decoration-none align-baseline"
+          data-bs-toggle="collapse"
+          data-bs-target="#${escapeHtml(quotesId)}"
+          aria-expanded="false"
+          aria-controls="${escapeHtml(quotesId)}"
+          title="Show the corresponding passages from the manuscript"
+          aria-label="Show the corresponding passages from the manuscript">
+          <i class="bi bi-quote me-1" aria-hidden="true"></i>Show quotes
+        </button>
+      </div>
+      <div class="collapse mt-2" id="${escapeHtml(quotesId)}">
+        <h6 class="small text-secondary fw-semibold">Quotes</h6>
+        ${evidenceHtml}
+      </div>
+    `);
+  }
+  if (requirement) {
+    details.push(`<h6 class="small text-secondary fw-semibold ${evidenceHtml ? 'mt-3' : 'mt-1'}">Analysed</h6><div class="small text-secondary">${escapeHtml(requirement)}</div>`);
+  }
+  const hasDetails = details.length > 0;
+  const copyText = buildGuideResultCopyText(item, status);
+  const summary = hasDetails
+    ? `<div class="small text-muted mt-2 collapsed analyzed-item-summary" role="button" tabindex="0" data-bs-toggle="collapse" data-bs-target="#${escapeHtml(detailId)}" aria-expanded="false" aria-controls="${escapeHtml(detailId)}">${message ? escapeHtml(message) : 'Click to view details'}</div>`
+    : `<div class="small text-muted mt-2">${message ? escapeHtml(message) : 'No details available.'}</div>`;
+  const detailsHtml = hasDetails
+    ? `<div class="collapse analyzed-item-quotes mt-2" id="${escapeHtml(detailId)}"><div class="card card-body my-2 shadow-sm">${details.join('')}</div></div>`
+    : '';
   return `
-    <div class="analyzed-item-row row g-2 align-items-stretch${hidden ? ' is-filtered-out' : ''}" data-result="${escapeHtml(status)}" data-guide-result-status="${escapeHtml(status)}"${hidden ? ' aria-hidden="true" inert' : ''}>
-      <div class="col-auto text-center py-3 analyzed-item-status-col ${escapeHtml(guideResultStatusColumnClass(status))}">
+    <div class="analyzed-item-row row g-2 align-items-start${hidden ? ' is-filtered-out' : ''}" data-result="${escapeHtml(status)}" data-guide-result-status="${escapeHtml(status)}"${hidden ? ' aria-hidden="true" inert' : ''}>
+      <div class="col-auto text-center py-3 analyzed-item-status-col ${escapeHtml(meta.textClass)}">
         <i class="bi ${escapeHtml(meta.icon)}" aria-hidden="true"></i>
       </div>
-      <div class="col min-w-0 d-flex flex-column py-3 pe-3">
+      <div class="col min-w-0 d-flex flex-column py-3">
         <div class="d-flex align-items-start justify-content-between gap-2">
-          <div class="min-w-0 text-break">
-            <div class="fw-semibold">${escapeHtml(item.label || item.id || 'Guideline item')}</div>
-            ${showGuideName ? `<div class="small text-uppercase text-secondary guide-card-kicker mt-1">${escapeHtml(item.guideName || 'Guideline')}</div>` : ''}
+          <div class="analyzed-item-title-wrap flex-grow-1 text-break">
+            <div class="fw-semibold ${escapeHtml(meta.textClass)}">${title}</div>
           </div>
-          <span class="badge ${escapeHtml(meta.badgeClass)} flex-shrink-0">${escapeHtml(guidelineStatusLabel(status))}</span>
+          <button
+            type="button"
+            class="btn btn-sm border-0 bg-transparent p-0 text-secondary analyzed-item-copy-btn flex-shrink-0"
+            data-copy-analyzed-item="${escapeHtml(copyText)}"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-title="Copy item feedback"
+            aria-label="Copy item feedback">
+            <i class="bi bi-copy" aria-hidden="true"></i>
+          </button>
         </div>
-        ${item.message ? `<div class="small text-muted mt-2 analyzed-item-summary">${escapeHtml(item.message)}</div>` : ''}
-        ${(item.requirement || renderGuideEvidenceQuotes(item)) ? `
-          <div class="mt-2">
-            <button class="btn btn-link btn-sm p-0 text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#${escapeHtml(detailId)}" aria-expanded="false" aria-controls="${escapeHtml(detailId)}">
-              Details
-            </button>
-          </div>
-          <div class="collapse analyzed-item-quotes mt-2" id="${escapeHtml(detailId)}">
-            <div class="card card-body my-2 shadow-sm">
-              ${item.requirement ? `<h6 class="small text-secondary fw-semibold">Analysed</h6><div class="small text-secondary mb-3">${escapeHtml(item.requirement)}</div>` : ''}
-              ${renderGuideEvidenceQuotes(item)}
-            </div>
-          </div>
-        ` : ''}
+        ${summary}
+        ${detailsHtml}
       </div>
     </div>
   `;
@@ -2211,9 +2324,9 @@ function renderGuideResultAccordion(results = [], selectedStatus = 'all', { show
           const collapseId = `${accordionId}-collapse-${sectionIndex}`;
           const badgeCount = selectedStatus === 'all' ? section.counts.all : section.counts[selectedStatus];
           return `
-            <div class="accordion-item${sectionVisible ? '' : ' is-filtered-out'}" data-guide-section style="${sectionVisible ? '' : 'display: none;'}">
+            <div class="accordion-item${sectionVisible ? '' : ' is-filtered-out'}${expanded ? ' is-first-visible' : ''}" data-guide-section style="${sectionVisible ? '' : 'display: none;'}">
               <h4 class="accordion-header" id="${escapeHtml(headingId)}">
-                <button class="accordion-button ${expanded ? '' : 'collapsed'} py-2" type="button" data-bs-toggle="collapse" data-bs-target="#${escapeHtml(collapseId)}" aria-expanded="${expanded ? 'true' : 'false'}" aria-controls="${escapeHtml(collapseId)}">
+                <button class="accordion-button ${expanded ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#${escapeHtml(collapseId)}" aria-expanded="${expanded ? 'true' : 'false'}" aria-controls="${escapeHtml(collapseId)}">
                   <span class="flex-grow-1 text-start">${escapeHtml(section.name)}</span>
                   <span class="mx-2 badge rounded-pill guide-section-badge ${escapeHtml(guideSectionBadgeClass(selectedStatus))}"
                     data-all-count="${escapeHtml(section.counts.all)}"
@@ -2226,7 +2339,7 @@ function renderGuideResultAccordion(results = [], selectedStatus = 'all', { show
                 </button>
               </h4>
               <div id="${escapeHtml(collapseId)}" class="accordion-collapse collapse ${expanded ? 'show' : ''}" aria-labelledby="${escapeHtml(headingId)}" data-bs-parent="#${escapeHtml(accordionId)}">
-                <div class="accordion-body p-0">
+                <div class="accordion-body">
                   ${section.items.map((item, itemIndex) => renderGuideResultRow(item, {
                     accordionId,
                     sectionIndex,
@@ -2254,11 +2367,11 @@ function renderAggregateGuideDetails(lane = '', status = 'absent') {
   const title = lane === 'matched' ? 'All matched guideline items' : 'All Essential guideline items';
   openDetails(lane === 'matched' ? 'reporting-guidelines' : 'essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(title)} grouped by result classification.</div>
-    ${renderGuideDetailFilterDropdown(summary, selectedStatus)}
     <div data-guide-results>
       ${renderGuideResultAccordion(results, selectedStatus, { showGuideName: true, idPrefix: `aggregate-${lane}` })}
     </div>
   `);
+  showGuideFilterControl(summary, selectedStatus);
 }
 
 function updateEssentialResults() {
@@ -2322,9 +2435,7 @@ function renderEssentialGuidelines() {
 }
 
 function renderGuideEvidenceQuotes(item = {}) {
-  const quotes = Array.isArray(item.evidenceQuotes) && item.evidenceQuotes.length
-    ? item.evidenceQuotes
-    : (item.evidenceQuote ? [{ quote: item.evidenceQuote, sourceBlockKey: item.sourceBlockKey || '' }] : []);
+  const quotes = guideEvidenceQuoteEntries(item);
   if (!quotes.length) return '';
   return `
     <div class="vstack gap-2">
@@ -2357,32 +2468,85 @@ function renderEssentialGuideDetails(guideId = '') {
   const results = filterGuideResults(guide.results, 'all');
   openDetails('essential-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
-    ${renderGuideDetailFilterDropdown(summary, 'all')}
     <div data-guide-results>
       ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'essential-guide' })}
     </div>
   `);
+  showGuideFilterControl(summary, 'all');
 }
 
-function applyGuideDetailFilter(status = 'all') {
-  const allowed = ['all', ...GUIDE_RESULT_STATUS_FILTERS.map((item) => item.key)];
-  state.activeGuideFilter = allowed.includes(status) ? status : 'all';
-  let activeOption = null;
-  els.detailsPanelBody.querySelectorAll('[data-guide-detail-filter]').forEach((button) => {
-    const active = button.dataset.guideDetailFilter === state.activeGuideFilter;
-    button.classList.toggle('active', active);
-    button.toggleAttribute('aria-current', active);
-    if (active) activeOption = button;
+function waitForBootstrapCollapse(collapse, eventName, action) {
+  return new Promise((resolve) => {
+    let settled = false;
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      collapse.removeEventListener(eventName, done);
+      resolve();
+    };
+    collapse.addEventListener(eventName, done, { once: true });
+    action();
+    window.setTimeout(done, 320);
   });
-  const label = activeOption?.dataset.guideDetailFilterLabel || guideDetailFilterMeta(state.activeGuideFilter).label;
-  const count = activeOption?.dataset.guideDetailFilterCount || '0';
-  const buttonClass = activeOption?.dataset.guideDetailFilterButtonClass || guideDetailFilterMeta(state.activeGuideFilter).buttonClass;
-  const labelNode = els.detailsPanelBody.querySelector('[data-guide-detail-filter-label]');
-  if (labelNode) labelNode.textContent = `${label} (${count})`;
-  const filterButton = els.detailsPanelBody.querySelector('[data-guide-detail-filter-current]');
-  if (filterButton) {
-    filterButton.className = `btn btn-sm dropdown-toggle d-inline-flex align-items-center gap-2 guide-detail-filter-btn ${buttonClass}`;
+}
+
+async function collapseExpandedGuideSections(root = els.detailsPanelBody) {
+  const collapses = [...root.querySelectorAll('.analyzed-guide-accordion > .accordion-item > .accordion-collapse.show')];
+  await Promise.all(collapses.map((collapse) => {
+    const instance = window.bootstrap?.Collapse?.getOrCreateInstance(collapse, { toggle: false });
+    if (!instance) {
+      collapse.classList.remove('show');
+      collapse.closest('.accordion-item')?.querySelector('.accordion-button')?.classList.add('collapsed');
+      return Promise.resolve();
+    }
+    return waitForBootstrapCollapse(collapse, 'hidden.bs.collapse', () => instance.hide());
+  }));
+}
+
+function reopenFirstVisibleGuideSection(root = els.detailsPanelBody) {
+  const firstVisibleSection = [...root.querySelectorAll('[data-guide-section]')]
+    .find((section) => section.style.display !== 'none' && !section.classList.contains('is-filtered-out'));
+  if (!firstVisibleSection) return;
+  const targetCollapse = firstVisibleSection.querySelector('.accordion-collapse');
+  if (!targetCollapse || targetCollapse.classList.contains('show')) return;
+  const instance = window.bootstrap?.Collapse?.getOrCreateInstance(targetCollapse, { toggle: false });
+  if (instance) {
+    instance.show();
+    return;
   }
+  targetCollapse.classList.add('show');
+  const button = firstVisibleSection.querySelector('.accordion-button');
+  button?.classList.remove('collapsed');
+  button?.setAttribute('aria-expanded', 'true');
+}
+
+function updateGuideFilterControl(status = 'all') {
+  const activeOption = els.guideFilterControl?.querySelector(`[data-guide-filter="${CSS.escape(status)}"]`);
+  els.guideFilterControl?.querySelectorAll('[data-guide-filter]').forEach((item) => {
+    const active = item === activeOption;
+    item.classList.toggle('active', active);
+    item.toggleAttribute('aria-current', active);
+  });
+  const activeMeta = guideDetailFilterMeta(status);
+  const itemLabel = activeOption?.querySelector('[data-guide-filter-label]');
+  const countEl = activeOption?.querySelector('[data-guide-filter-count]');
+  const labelEl = els.guideFilterControl?.querySelector('.guide-filter-label');
+  if (labelEl) {
+    const count = countEl ? countEl.textContent.trim() : '0';
+    labelEl.textContent = `${itemLabel ? itemLabel.textContent.trim() : activeMeta.label} (${count})`;
+  }
+  const filterButton = els.guideFilterControl?.querySelector('button[data-bs-toggle="dropdown"]');
+  const buttonClass = activeOption?.getAttribute('data-guide-filter-btn-class') || activeMeta.buttonClass;
+  if (filterButton) {
+    filterButton.classList.remove(...GUIDE_FILTER_BUTTON_CLASS_TOKENS);
+    filterButton.classList.add(...buttonClass.split(/\s+/).filter(Boolean));
+  }
+}
+
+async function applyGuideDetailFilter(status = 'all') {
+  state.activeGuideFilter = GUIDE_FILTER_KEYS.includes(status) ? status : 'all';
+  await collapseExpandedGuideSections();
+  updateGuideFilterControl(state.activeGuideFilter);
   els.detailsPanelBody.querySelectorAll('.guide-slider-content').forEach((node) => {
     node.dataset.activeFilter = state.activeGuideFilter;
   });
@@ -2406,22 +2570,14 @@ function applyGuideDetailFilter(status = 'all') {
   els.detailsPanelBody.querySelectorAll('.guide-section-badge').forEach((badge) => {
     const key = state.activeGuideFilter === 'all' ? 'allCount' : `${state.activeGuideFilter}Count`;
     badge.textContent = String(Number(badge.dataset[key] || 0));
-    badge.className = `mx-2 badge rounded-pill guide-section-badge ${guideSectionBadgeClass(state.activeGuideFilter)}`;
+    badge.classList.remove(...GUIDE_SECTION_BADGE_CLASS_TOKENS);
+    badge.classList.add(...guideSectionBadgeClass(state.activeGuideFilter).split(/\s+/).filter(Boolean));
     badge.classList.add('badge-updating');
     badge.addEventListener('animationend', () => {
       badge.classList.remove('badge-updating');
     }, { once: true });
   });
-  if (firstVisibleSection) {
-    const targetCollapse = firstVisibleSection.querySelector('.accordion-collapse');
-    els.detailsPanelBody.querySelectorAll('[data-guide-section] .accordion-collapse.show').forEach((collapse) => {
-      if (collapse === targetCollapse) return;
-      window.bootstrap?.Collapse?.getOrCreateInstance(collapse, { toggle: false })?.hide();
-    });
-    if (targetCollapse && !targetCollapse.classList.contains('show')) {
-      window.bootstrap?.Collapse?.getOrCreateInstance(targetCollapse, { toggle: false })?.show();
-    }
-  }
+  window.setTimeout(() => reopenFirstVisibleGuideSection(), 20);
 }
 
 function renderReportingGuidelines() {
@@ -2735,11 +2891,11 @@ function renderReportingGuideResultDetails(guideId = '') {
   const results = filterGuideResults(guide.results, 'all');
   openDetails('reporting-guidelines', `
     <div class="small text-secondary mb-3">${escapeHtml(guide.description || '')}</div>
-    ${renderGuideDetailFilterDropdown(summary, 'all')}
     <div data-guide-results>
       ${renderGuideResultAccordion(results, 'all', { idPrefix: guide.id || 'reporting-guide' })}
     </div>
   `);
+  showGuideFilterControl(summary, 'all');
 }
 
 async function updateStoredReviewReportingMatches(result = null) {
@@ -3418,6 +3574,7 @@ function detailTitle(kind = '') {
 
 function openDetails(kind = '', html = '') {
   state.activeDetailKind = kind;
+  hideGuideFilterControl();
   els.detailsPanelTitle.textContent = detailTitle(kind);
   els.detailsPanelBody.innerHTML = html;
   els.detailsPanel.classList.add('open');
@@ -3426,6 +3583,7 @@ function openDetails(kind = '', html = '') {
 
 function closeDetails() {
   state.activeDetailKind = '';
+  hideGuideFilterControl();
   els.detailsPanel.classList.remove('open');
   els.detailsPanel.setAttribute('aria-hidden', 'true');
 }
@@ -6295,13 +6453,21 @@ els.customizeChecksBody?.addEventListener('click', (event) => {
 
 els.detailsPanelClose.addEventListener('click', closeDetails);
 
+els.guideFilterControl?.addEventListener('click', async (event) => {
+  const item = event.target.closest('[data-guide-filter]');
+  if (!item) return;
+  event.preventDefault();
+  const dropdownTrigger = item.closest('.dropdown')?.querySelector('button[data-bs-toggle="dropdown"]');
+  window.bootstrap?.Dropdown?.getOrCreateInstance(dropdownTrigger)?.hide();
+  await applyGuideDetailFilter(item.getAttribute('data-guide-filter') || 'all');
+});
+
 els.detailsPanelBody.addEventListener('click', (event) => {
-  const filterButton = event.target.closest('[data-guide-detail-filter]');
-  if (filterButton) {
+  const copyFeedbackButton = event.target.closest('[data-copy-analyzed-item]');
+  if (copyFeedbackButton) {
     event.preventDefault();
-    applyGuideDetailFilter(filterButton.dataset.guideDetailFilter || 'all');
-    const dropdownTrigger = filterButton.closest('.dropdown')?.querySelector('[data-guide-detail-filter-current]');
-    window.bootstrap?.Dropdown?.getOrCreateInstance(dropdownTrigger)?.hide();
+    event.stopPropagation();
+    navigator.clipboard?.writeText(copyFeedbackButton.dataset.copyAnalyzedItem || '').catch(() => {});
     return;
   }
   const copyButton = event.target.closest('[data-copy-quote]');

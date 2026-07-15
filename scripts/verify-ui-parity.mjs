@@ -121,7 +121,7 @@ async function main() {
     await page.waitForSelector('#detailsPanel.open', { timeout: 10000 });
     await assertGuideDetailFilterDropdown(page);
     await assertGuideDetailFilterOption(page, 'optional', /Optional/i);
-    await assertGuideDetailFilterOption(page, 'na', /N\/A/i);
+    await assertGuideDetailFilterOption(page, 'na', /N\s*\/\s*A/i);
     await selectGuideDetailFilter(page, 'optional');
     await waitForVisibleGuideResult(page, 'optional');
     await selectGuideDetailFilter(page, 'all');
@@ -498,48 +498,53 @@ async function openAccordion(page, buttonSelector, panelSelector) {
 }
 
 async function assertGuideDetailFilterDropdown(page) {
-  await assertVisible(page, '#detailsPanel .guide-detail-filter-dropdown');
-  await assertVisible(page, '#detailsPanel [data-guide-detail-filter-current]');
+  await assertVisible(page, '#guideFilterControl:not(.d-none) .dropdown');
+  await assertVisible(page, '#guideFilterControl .guide-filter-label');
   await assertVisible(page, '#detailsPanel .guide-slider-content .analyzed-guide-accordion');
   assert.equal(
     await page.locator('#detailsPanel .btn-group[aria-label="Filter guideline results"]').count(),
     0,
     'Guideline detail filters should use the dropdown widget instead of the old button group.'
   );
+  assert.equal(await page.locator('#detailsPanel .guide-detail-filter-dropdown').count(), 0, 'Guideline detail filters should render in the header guideFilterControl.');
+  assert.equal(await page.locator('#detailsPanel [data-guide-detail-filter-current]').count(), 0, 'Guideline detail filters should use the original guideFilterControl attributes.');
   assert.equal(await page.locator('#detailsPanel .guide-result-card').count(), 0, 'Guideline detail results should not use flat guide-result-card cards.');
   assert.ok(await page.locator('#detailsPanel .analyzed-item-row[data-result]').count() > 0, 'Guideline results should render analyzed accordion rows.');
   assert.ok(await page.locator('#detailsPanel .guide-section-badge').count() > 0, 'Guideline accordion sections should render count badges.');
+  assert.ok(await page.locator('#detailsPanel .analyzed-item-copy-btn[data-copy-analyzed-item]').count() > 0, 'Guideline rows should include old-style copy feedback buttons.');
+  assert.equal(await page.locator('#detailsPanel .analyzed-item-row .d-flex.align-items-start.justify-content-between > .badge').count(), 0, 'Guideline row headers should not show status badges.');
 }
 
 async function assertGuideDetailFilterOption(page, status, pattern) {
-  const option = page.locator(`#detailsPanel [data-guide-detail-filter="${status}"]`).first();
+  const option = page.locator(`#guideFilterControl [data-guide-filter="${status}"]`).first();
   assert.equal(await option.count(), 1, `Guideline detail filter should include ${status}.`);
-  const label = await option.getAttribute('data-guide-detail-filter-label');
+  const label = await option.locator('[data-guide-filter-label]').innerText();
   assert.match(label || '', pattern);
 }
 
 async function selectGuideDetailFilter(page, status) {
-  const trigger = page.locator('#detailsPanel [data-guide-detail-filter-current]').first();
+  const trigger = page.locator('#guideFilterControl button[data-bs-toggle="dropdown"]').first();
   await trigger.scrollIntoViewIfNeeded();
   await trigger.click();
   const opened = await page.waitForFunction(() => {
-    return document.querySelector('#detailsPanel .guide-detail-filter-menu')?.classList.contains('show');
+    return document.querySelector('#guideFilterControl .dropdown-menu')?.classList.contains('show');
   }, null, { timeout: 1500 }).then(() => true).catch(() => false);
   if (!opened) {
     await trigger.evaluate((button) => window.bootstrap?.Dropdown?.getOrCreateInstance(button)?.show());
     await page.waitForFunction(() => {
-      return document.querySelector('#detailsPanel .guide-detail-filter-menu')?.classList.contains('show');
+      return document.querySelector('#guideFilterControl .dropdown-menu')?.classList.contains('show');
     }, null, { timeout: 10000 });
   }
-  await page.click(`#detailsPanel .guide-detail-filter-menu.show [data-guide-detail-filter="${status}"]`);
+  await page.click(`#guideFilterControl .dropdown-menu.show [data-guide-filter="${status}"]`);
   await page.waitForFunction(() => {
-    return !document.querySelector('#detailsPanel .guide-detail-filter-menu')?.classList.contains('show');
+    return !document.querySelector('#guideFilterControl .dropdown-menu')?.classList.contains('show');
   }, null, { timeout: 10000 });
   await page.waitForFunction((selectedStatus) => {
-    const button = document.querySelector('#detailsPanel [data-guide-detail-filter-current]');
+    const button = document.querySelector('#guideFilterControl button[data-bs-toggle="dropdown"]');
     const label = button?.textContent || '';
-    const selected = document.querySelector(`#detailsPanel [data-guide-detail-filter="${selectedStatus}"]`);
-    return selected?.classList.contains('active') && new RegExp(selectedStatus === 'all' ? 'All' : selected.textContent.trim().split(/\s+/)[0], 'i').test(label);
+    const selected = document.querySelector(`#guideFilterControl [data-guide-filter="${selectedStatus}"]`);
+    const selectedLabel = selected?.querySelector('[data-guide-filter-label]')?.textContent?.trim().split(/\s+/)[0] || '';
+    return selected?.classList.contains('active') && new RegExp(selectedStatus === 'all' ? 'All' : selectedLabel, 'i').test(label);
   }, status, { timeout: 10000 });
   await page.waitForTimeout(350);
 }
@@ -559,8 +564,10 @@ async function waitForVisibleGuideResult(page, status) {
 
 async function assertActiveJumpFromDetails(page) {
   if (!await page.locator('#detailsPanel [data-detail-block-key]:visible').count()) {
-    const detailsButton = page.locator('#detailsPanel .analyzed-item-row:not(.is-filtered-out):visible [data-bs-toggle="collapse"]').first();
-    if (await detailsButton.count()) await detailsButton.click();
+    const summaryToggle = page.locator('#detailsPanel .analyzed-item-row:not(.is-filtered-out):visible .analyzed-item-summary[data-bs-toggle="collapse"]').first();
+    if (await summaryToggle.count()) await summaryToggle.click();
+    const quoteToggle = page.locator('#detailsPanel .analyzed-item-row:not(.is-filtered-out):visible button[data-bs-toggle="collapse"]').filter({ hasText: /Show quotes/i }).first();
+    if (await quoteToggle.count()) await quoteToggle.click();
   }
   const link = page.locator('#detailsPanel [data-detail-block-key]:visible').first();
   await link.waitFor({ state: 'visible', timeout: 10000 });
