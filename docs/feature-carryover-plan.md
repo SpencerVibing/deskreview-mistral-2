@@ -68,6 +68,7 @@ This project should carry forward the useful DeskReview feature set by reimpleme
 - Run `npm run check` before committing.
 - Add targeted tests with each new behavior.
 - Browser smoke tests should cover upload, reader readiness, ToC, count tiles, details slider filters, quote jumps, PDF highlights, and stored review reloads as those features land.
+- For real-PDF jump-link iteration, use the cached API loop in `docs/cached-jump-link-test-loop.md`: record one live run, replay cached API outputs during normal iteration, then run one final live pass.
 - If a feature slows reader readiness or weakens source-grounded jumps, stop and rework the design before continuing.
 
 ## Milestone Log

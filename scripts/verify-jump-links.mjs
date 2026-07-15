@@ -1,13 +1,33 @@
-import { basename } from 'node:path';
+import { createHash } from 'node:crypto';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { basename, dirname, join } from 'node:path';
 import { chromium } from 'playwright';
 
 const APP_URL = process.env.APP_URL || 'http://127.0.0.1:8891';
 const PDF_PATHS = process.argv.slice(2);
 const COUNT_KINDS = ['authors', 'affiliations', 'abstract', 'article', 'keywords', 'references', 'tables', 'figures'];
 const LONG_TIMEOUT = Number(process.env.JUMP_LINK_TIMEOUT_MS || 240000);
+const API_CACHE_MODE = String(process.env.API_CACHE_MODE || 'off').toLowerCase();
+const API_CACHE_DIR = process.env.API_CACHE_DIR || join(process.cwd(), '.cache', 'mistral-api');
+const RECORD_FAILED_API_RESPONSES = /^(1|true|yes)$/i.test(String(process.env.API_CACHE_RECORD_FAILURES || ''));
+const CACHEABLE_API_PATHS = new Set([
+  '/api/ocr',
+  '/api/ocr-count-annotation',
+  '/api/resolve-references',
+  '/api/resolve-counts',
+  '/api/resolve-display-items',
+  '/api/annotate-document',
+  '/api/match-guidelines',
+  '/api/evaluate-essential-guidelines'
+]);
 
 if (!PDF_PATHS.length) {
   console.error('Usage: node scripts/verify-jump-links.mjs <pdf> [pdf...]');
+  process.exit(2);
+}
+
+if (!['off', 'record', 'replay'].includes(API_CACHE_MODE)) {
+  console.error(`Unsupported API_CACHE_MODE="${API_CACHE_MODE}". Use off, record, or replay.`);
   process.exit(2);
 }
 
@@ -15,9 +35,88 @@ function normalize(value = '') {
   return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
-function numberFromText(value = '') {
-  const match = String(value || '').match(/\b\d[\d,]*\b/);
-  return match ? Number(match[0].replace(/,/g, '')) : null;
+function requestCacheEntry(request) {
+  const url = new URL(request.url());
+  if (request.method() !== 'POST' || !CACHEABLE_API_PATHS.has(url.pathname)) return null;
+  const body = request.postData() || '';
+  const requestHash = createHash('sha256')
+    .update(JSON.stringify({
+      method: request.method(),
+      path: url.pathname,
+      body
+    }))
+    .digest('hex');
+  const apiName = url.pathname.replace(/^\/api\//, '').replace(/[^a-z0-9.-]+/gi, '-');
+  return {
+    path: url.pathname,
+    requestHash,
+    filePath: join(API_CACHE_DIR, `${apiName}-${requestHash}.json`)
+  };
+}
+
+async function installApiCache(page) {
+  if (API_CACHE_MODE === 'off') return;
+  await mkdir(API_CACHE_DIR, { recursive: true });
+  console.error(`[api-cache] mode=${API_CACHE_MODE} dir=${API_CACHE_DIR}`);
+
+  if (API_CACHE_MODE === 'replay') {
+    await page.route('**/api/**', async (route) => {
+      const entry = requestCacheEntry(route.request());
+      if (!entry) {
+        await route.continue();
+        return;
+      }
+      try {
+        const cached = JSON.parse(await readFile(entry.filePath, 'utf8'));
+        await route.fulfill({
+          status: Number(cached.response?.status || 200),
+          contentType: String(cached.response?.contentType || 'application/json; charset=utf-8'),
+          body: String(cached.response?.body || '')
+        });
+        console.error(`[api-cache] replayed ${entry.path} ${entry.requestHash.slice(0, 12)}`);
+      } catch {
+        await route.fulfill({
+          status: 502,
+          contentType: 'application/json; charset=utf-8',
+          body: JSON.stringify({
+            error: `API cache miss for ${entry.path}. Run API_CACHE_MODE=record once before replaying cached tests.`
+          })
+        });
+      }
+    });
+    return;
+  }
+
+  page.on('response', async (response) => {
+    const entry = requestCacheEntry(response.request());
+    if (!entry) return;
+    const status = response.status();
+    if ((status < 200 || status >= 300) && !RECORD_FAILED_API_RESPONSES) {
+      console.error(`[api-cache] skipped failed ${entry.path} ${status} ${entry.requestHash.slice(0, 12)}`);
+      return;
+    }
+    try {
+      const body = await response.text();
+      await mkdir(dirname(entry.filePath), { recursive: true });
+      await writeFile(entry.filePath, JSON.stringify({
+        version: 1,
+        createdAt: new Date().toISOString(),
+        request: {
+          method: response.request().method(),
+          path: entry.path,
+          requestHash: entry.requestHash
+        },
+        response: {
+          status,
+          contentType: response.headers()['content-type'] || 'application/json; charset=utf-8',
+          body
+        }
+      }, null, 2));
+      console.error(`[api-cache] recorded ${entry.path} ${entry.requestHash.slice(0, 12)}`);
+    } catch (error) {
+      console.error(`[api-cache] could not record ${entry.path}: ${String(error?.message || error)}`);
+    }
+  });
 }
 
 async function waitForCountTiles(page) {
@@ -234,6 +333,10 @@ async function validatePdf(pdfPath) {
     pdf: name,
     counts: {},
     detailLinks: {},
+    apiCache: {
+      mode: API_CACHE_MODE,
+      dir: API_CACHE_MODE === 'off' ? '' : API_CACHE_DIR
+    },
     failures: []
   };
 
@@ -242,6 +345,7 @@ async function validatePdf(pdfPath) {
   });
 
   try {
+    await installApiCache(page);
     await page.goto(APP_URL, { waitUntil: 'domcontentloaded' });
     await page.setInputFiles('#homePdfInput', pdfPath);
     await waitForCountTiles(page);

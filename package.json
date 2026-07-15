@@ -9,6 +9,10 @@
     "check:unit": "node tests/toc.test.mjs && node tests/count-progress.test.mjs && node tests/document-annotation.test.mjs && node tests/essential-guidelines.test.mjs && node tests/feedback-report.test.mjs && node tests/guideline-catalog.test.mjs && node tests/guideline-detail.test.mjs && node tests/plugin-config.test.mjs && node tests/reporting-guidelines.test.mjs && node tests/home-summary.test.mjs && node tests/precomputed-example.test.mjs",
     "check:baseline": "node scripts/verify-current-baseline.mjs",
     "check:ui": "node scripts/verify-ui-parity.mjs",
+    "verify:jump-links": "node scripts/verify-jump-links.mjs",
+    "verify:jump-links:record": "API_CACHE_MODE=record node scripts/verify-jump-links.mjs",
+    "verify:jump-links:cached": "API_CACHE_MODE=replay node scripts/verify-jump-links.mjs",
+    "verify:jump-links:live": "API_CACHE_MODE=off node scripts/verify-jump-links.mjs",
     "check": "npm run check:syntax && npm run check:unit && npm run check:baseline && npm run check:ui"
   },
   "devDependencies": {
