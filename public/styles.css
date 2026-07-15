@@ -1137,6 +1137,7 @@ body {
 
 .pdf-scroll {
   background: var(--studio-panel-bg);
+  box-shadow: inset 0 0.45rem 0.75rem -0.75rem rgba(24, 24, 27, 0.35);
 }
 
 .pdf-document {

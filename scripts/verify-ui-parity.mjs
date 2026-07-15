@@ -392,6 +392,10 @@ async function assertReaderUiRegressionFixes(page) {
   assert.equal(await page.locator('#viewModeSwitch').isChecked(), false, 'Reader should default to the PDF side of the switch.');
   assert.match(await page.locator('#viewSwitchPdfLabel').getAttribute('class'), /fw-semibold/, 'PDF label should be emphasized when PDF is active.');
   assert.match(await page.locator('#viewSwitchHtmlLabel').getAttribute('class'), /text-secondary/, 'HTML label should be muted when PDF is active.');
+  const centerTabsClasses = String(await page.locator('.center-tabs').getAttribute('class') || '').split(/\s+/);
+  assert.ok(centerTabsClasses.includes('mb-4'), 'Reader view controls should keep extra space above the rendered PDF.');
+  const pdfScrollShadow = await page.locator('#pdfScroll').evaluate((node) => getComputedStyle(node).boxShadow);
+  assert.notEqual(pdfScrollShadow, 'none', 'PDF viewer should render a subtle top shadow.');
   assert.equal(await page.locator('#openGuidelineCatalogButton').count(), 0, 'Guideline catalog kebab button should be removed.');
   assert.equal(await page.locator('#essentialGuidelineSummary').count(), 0, 'Essential guideline summary clutter should be removed.');
   assert.equal(await page.locator('#matchedGuidelineSummary').count(), 0, 'Matched guideline summary clutter should be removed.');
