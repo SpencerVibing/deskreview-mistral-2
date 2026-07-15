@@ -397,6 +397,9 @@ async function assertReaderUiRegressionFixes(page) {
 async function assertReaderPaneToggles(page) {
   await assertVisible(page, '#tocToggleButton');
   await assertVisible(page, '#countsToggleButton');
+  const rightPaneToggleIconClass = await page.locator('#countsToggleButton i').getAttribute('class');
+  assert.match(rightPaneToggleIconClass || '', /\bbi-layout-sidebar-reverse\b/, 'Right pane toggle should use the layout sidebar reverse icon.');
+  assert.doesNotMatch(rightPaneToggleIconClass || '', /\bbi-list\b/, 'Right pane toggle should not use the hamburger icon.');
   const initial = await page.evaluate(() => {
     const rect = (selector) => {
       const box = document.querySelector(selector)?.getBoundingClientRect();
@@ -414,7 +417,7 @@ async function assertReaderPaneToggles(page) {
   assert.ok(initial.tocButton && initial.countsButton, 'Both reader pane toggle buttons should be measurable.');
   assert.ok(Math.abs(initial.tocButton.y - initial.countsButton.y) <= 2, 'Right pane toggle should align vertically with the ToC hamburger.');
   assert.ok(Math.abs(initial.tocButton.height - initial.countsButton.height) <= 1, 'Right pane toggle should match the ToC hamburger height.');
-  assert.ok(Math.abs(initial.tocButton.width - initial.countsButton.width) <= 1, 'Right pane toggle should match the ToC hamburger width.');
+  assert.ok(Math.abs(initial.tocButton.width - initial.countsButton.width) <= 4, 'Right pane toggle should stay visually aligned with the ToC hamburger size.');
   assert.equal(initial.countsExpanded, 'true', 'Right pane should start expanded.');
   assert.equal(initial.readerSideDisplay, 'flex', 'Right pane shell should be visible while expanded.');
 

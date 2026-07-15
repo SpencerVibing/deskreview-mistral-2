@@ -429,7 +429,8 @@ body {
   flex: 0 0 11rem;
 }
 
-.toc-toggle-icon {
+.toc-toggle-icon,
+.counts-toggle-icon {
   display: inline-block;
   transition: transform 180ms ease;
 }
