@@ -814,7 +814,9 @@ async function assertDetailsGuidelineSelectorLink(page, guideId, titlePattern) {
   await assertText(page, '#detailsPanelBody', titlePattern);
   assert.equal(await page.locator('#detailsPanelTitle').count(), 0, 'Details panel should not render a redundant topbar title.');
   assert.equal(await page.locator('#detailsPanel .details-topbar .bi-card-checklist').count(), 0, 'Details panel should not render the old topbar checklist icon.');
-  assert.doesNotMatch(await page.locator('#detailsPanelBody').innerText(), /View guideline details/i);
+  const detailsText = await page.locator('#detailsPanelBody').innerText();
+  assert.doesNotMatch(detailsText, /View guideline details/i);
+  assert.doesNotMatch(detailsText, /provides an updated minimum set of reporting items|practical reporting guidance/i);
   await assertVisible(page, `#detailsPanelBody [data-guide-details-selector-open="${guideId}"]`);
   await assertVisible(page, `#detailsPanelBody [data-guide-details-selector-open="${guideId}"] .bi-info-circle`);
   await page.click(`#detailsPanelBody [data-guide-details-selector-open="${guideId}"]`);

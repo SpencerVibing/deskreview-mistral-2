@@ -2062,7 +2062,6 @@ function renderGuidelineSelectorTitle(guideId = '', label = 'Guideline') {
 function renderGuideDetailsIntro(guide = {}) {
   const id = String(guide.id || guide.guidelineId || '').trim();
   const title = guide.name || guide.label || guide.guideName || 'Guideline';
-  const description = String(guide.description || guide.guideDescription || '').trim();
   return `
     <div class="mb-3">
       <div class="d-flex align-items-center gap-2 mb-1">
@@ -2073,7 +2072,6 @@ function renderGuideDetailsIntro(guide = {}) {
           </button>
         ` : ''}
       </div>
-      ${description ? `<div class="small text-secondary mb-2">${escapeHtml(description)}</div>` : ''}
     </div>
   `;
 }
