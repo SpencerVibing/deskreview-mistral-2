@@ -769,6 +769,16 @@ function hasCountValue(value) {
   return value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value));
 }
 
+function referenceProgressSnapshot() {
+  const total = Math.max(0, Number(state.referenceResolver.total || 0));
+  const completed = Math.min(total, Math.max(0, Number(state.referenceResolver.completed || 0)));
+  return {
+    total,
+    completed,
+    progressPercent: total ? Math.round((completed / total) * 100) : null
+  };
+}
+
 function tileHasResolvedValue(kind = '') {
   const semantic = state.semanticCounts || {};
   if (kind === 'tables' || kind === 'figures') return state.displayResolver.status === 'ready' || state.displayResolver.status === 'failed';
@@ -863,8 +873,7 @@ function updateBackgroundStatus() {
     return;
   }
   if (referenceRunning) {
-    const total = Number(state.referenceResolver.total || 0);
-    const completed = Number(state.referenceResolver.completed || 0);
+    const { total, completed } = referenceProgressSnapshot();
     setStatus(total ? `OCR ready · references ${completed}/${total}` : 'OCR ready · resolving references', 'running');
     return;
   }
@@ -2110,9 +2119,8 @@ function renderCounts() {
   }
   const counts = getOcrCounts();
   const semantic = state.semanticCounts || {};
-  const referenceTotal = Number(state.referenceResolver.total || 0);
-  const referenceCompleted = Number(state.referenceResolver.completed || 0);
-  const referenceProgress = referenceTotal ? Math.round((referenceCompleted / referenceTotal) * 100) : null;
+  const referenceProgressState = referenceProgressSnapshot();
+  const referenceProgress = referenceProgressState.progressPercent;
   const releasedValue = (kind, value) => (resultIsReleased(kind) ? value : null);
   const releasedStatus = (kind) => (resultIsReleased(kind) ? 'ready' : 'running');
   const releasedResultBar = (kind, value, unit) => {
@@ -5368,8 +5376,11 @@ function buildReferencesDetailFromResolvedMap(resolved = {}, bodyBlocks = []) {
 }
 
 function buildReferencesPendingDetail(message = 'Resolving references from the OCR text.') {
-  const completed = Number(state.referenceResolver.completed || 0);
-  const total = Number(state.referenceResolver.total || 0);
+  const { completed, total, progressPercent } = referenceProgressSnapshot();
+  const knownCount = Number(state.semanticCounts?.referenceCount || 0);
+  const baseMessage = knownCount > 0 && /^Resolving references/i.test(message)
+    ? `Reference count is ready (${formatInteger(knownCount)} refs). Building source-linked reference cards and citation uses.`
+    : message;
   const progress = total > 1 ? ` ${completed} of ${total} parts complete.` : '';
   const elapsed = state.referenceResolver.startedAt ? performance.now() - state.referenceResolver.startedAt : 0;
   const eta = completed > 0 && total > completed
@@ -5378,12 +5389,12 @@ function buildReferencesPendingDetail(message = 'Resolving references from the O
   return {
     kind: 'references',
     detail: {
-      count: Number(state.semanticCounts?.referenceCount || 0),
+      count: knownCount,
       entries: [],
       pending: true,
-      progressPercent: total ? Math.round((completed / total) * 100) : null,
+      progressPercent,
       etaMs: eta,
-      warnings: [`${message}${progress}`.trim()]
+      warnings: [`${baseMessage}${progress}`.trim()]
     }
   };
 }
@@ -5602,7 +5613,8 @@ async function scheduleReferenceResolver(blocks = flatBlocks(), positions = bloc
     const results = new Array(chunks.length);
     await Promise.all(chunks.map(async (chunk, index) => {
       results[index] = await resolveReferenceBatchWithFallback(chunk, index, { inferBibliographyRegion });
-      state.referenceResolver.completed += 1;
+      const total = Number(state.referenceResolver.total || chunks.length || 0);
+      state.referenceResolver.completed = Math.min(total, Number(state.referenceResolver.completed || 0) + 1);
       state.detailCache.set('references', buildReferencesPendingDetail(
         referenceContext.inferred
           ? 'Resolving references without an explicit References heading.'
