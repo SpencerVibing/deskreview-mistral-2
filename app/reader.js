@@ -1502,12 +1502,13 @@ function blockSourcePages(block = {}) {
 
 function renderPdfSourcePreviews(block = {}, page = {}) {
   const type = blockType(block);
-  if (type !== 'table' && type !== 'figure') return '';
+  const displayType = type === 'image' ? 'figure' : type;
+  if (displayType !== 'table' && displayType !== 'figure') return '';
   const pages = blockSourcePages(block);
   if (!pages.length) return '';
-  const label = block.precomputedLabel || block.label || (type === 'figure' ? 'Figure' : 'Table');
+  const label = block.precomputedLabel || block.label || (displayType === 'figure' ? 'Figure' : 'Table');
   return `
-    <div class="d-grid gap-3 my-3" data-display-source-previews="${escapeHtml(type)}">
+    <div class="d-grid gap-3 my-3" data-display-source-previews="${escapeHtml(displayType)}">
       ${pages.map((sourcePage) => `
         <figure class="pdf-source-preview border rounded bg-light-subtle overflow-hidden mb-0">
           <div class="pdf-source-preview-canvas p-2" data-pdf-page-preview="${escapeHtml(sourcePage)}" data-pdf-preview-label="${escapeHtml(label)}">

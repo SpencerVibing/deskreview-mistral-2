@@ -27,24 +27,36 @@ assert.equal(adapted.essentialResults[0].id, 'ease-abstract-page');
 assert.equal(adapted.reportingGuideResults.length, 5);
 assert.equal(adapted.semanticCounts.authorCount, 22);
 assert.equal(adapted.semanticCounts.referenceCount, 22);
-assert.ok(adapted.pages.length >= 20);
+assert.equal(adapted.pages.length, 24);
+assert.equal(payload.ocr?.pages?.length, 24);
+assert.deepEqual(
+  adapted.pages
+    .map((page, index) => (
+      String(page.markdown || '').trim()
+      || (page.blocks || []).some((block) => String(block.content || block.markdown || block.text || '').trim())
+        ? null
+        : index + 1
+    ))
+    .filter(Boolean),
+  []
+);
 assert.ok(adapted.documentAnnotation.quoteAnchors.length > 5);
 
 const precomputedBlocks = adapted.pages.flatMap((page) => page.blocks || []);
-const titleBlock = precomputedBlocks.find((block) => block.precomputedKey === 'title');
+const titleBlock = adapted.sourceBlocks.find((block) => block.semanticKey === 'title');
 assert.ok(titleBlock);
 assert.match(
-  titleBlock.markdown,
-  /^# Combined Exercise Training vs Health Education for Older Adults with Hypertension: The HAEL Randomized Clinical Trial/m
+  titleBlock.text,
+  /^## Combined Exercise Training vs Health Education for Older Adults with Hypertension: The HAEL Randomized Clinical Trial/m
 );
-assert.doesNotMatch(titleBlock.markdown, /^# Title page/m);
+assert.doesNotMatch(titleBlock.text, /^## Title page/m);
 
 const tableBlocks = precomputedBlocks.filter((block) => block.type === 'table');
-const figureBlocks = precomputedBlocks.filter((block) => block.type === 'figure');
+const figureBlocks = precomputedBlocks.filter((block) => block.type === 'figure' || block.type === 'image');
 assert.equal(tableBlocks.length, 3);
 assert.equal(figureBlocks.length, 1);
-assert.deepEqual(tableBlocks.map((block) => block.sourcePages), [[21], [22], [23, 24]]);
-assert.deepEqual(figureBlocks.map((block) => block.sourcePages), [[20]]);
+assert.deepEqual(adapted.displayResolver.items.filter((item) => item.kind === 'table').map((item) => item.sourceBlockKey), ['block-20-2', 'block-21-2', 'block-22-3']);
+assert.deepEqual(adapted.displayResolver.items.filter((item) => item.kind === 'figure').map((item) => item.sourceBlockKey), ['block-19-2']);
 
 const abstractGuide = adapted.essentialResults.find((guide) => guide.id === 'ease-abstract-page');
 assert.ok(abstractGuide.results.length >= 10);

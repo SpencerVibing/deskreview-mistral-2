@@ -104,6 +104,11 @@ async function main() {
     }, null, { timeout: 20000 });
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-reader-checks.png'), fullPage: true });
     await switchReaderView(page, 'html');
+    assert.equal(await page.locator('#htmlDocument .ocr-page').count(), 24, 'medRxiv example should render all OCR4 pages in HTML view.');
+    const htmlManuscriptText = await page.locator('#htmlDocument').innerText();
+    assert.doesNotMatch(htmlManuscriptText, /No OCR text returned for this block/i, 'HTML manuscript should not contain empty OCR placeholders.');
+    assert.match(htmlManuscriptText, /Eligible participants were/i, 'HTML manuscript should include OCR text from page 6.');
+    assert.match(htmlManuscriptText, /Table 1\. Participant/i, 'HTML manuscript should include OCR table captions.');
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-html-manuscript.png'), fullPage: true });
     await switchReaderView(page, 'pdf');
 
@@ -421,14 +426,19 @@ async function assertReaderUiRegressionFixes(page) {
     guideBarClasses.every((className) => /bg-\w+-subtle/.test(className)),
     `Guideline mini progress bars should use subtle colors: ${guideBarClasses.join(', ')}`
   );
-  const firstHeading = await page.locator('#htmlDocument .ocr-block h1').first().innerText();
+  const firstHeadingLocator = page.locator('#htmlDocument .ocr-block :is(h1, h2, h3, h4, h5, h6)').first();
+  const firstHeading = await firstHeadingLocator.innerText();
   assert.match(firstHeading, /Combined Exercise Training vs Health Education for Older Adults with Hypertension/i);
   assert.doesNotMatch(firstHeading, /Title page/i);
-  const firstHeadingSize = await page.locator('#htmlDocument .ocr-block h1').first().evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
+  const firstHeadingSize = await firstHeadingLocator.evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
   const paragraphSize = await page.locator('#htmlDocument .ocr-block p').first().evaluate((node) => parseFloat(getComputedStyle(node).fontSize));
   assert.ok(firstHeadingSize <= paragraphSize * 1.55, `HTML manuscript heading is too large: ${firstHeadingSize}px vs ${paragraphSize}px.`);
   assert.equal(await page.locator('#htmlDocument [data-block-type="table"]').count(), 3, 'HTML manuscript should render three table blocks.');
-  assert.equal(await page.locator('#htmlDocument [data-block-type="figure"]').count(), 1, 'HTML manuscript should render one figure block.');
+  assert.equal(
+    await page.locator('#htmlDocument [data-block-type="figure"], #htmlDocument [data-block-type="image"]').count(),
+    1,
+    'HTML manuscript should render one figure/image block.'
+  );
   assert.ok(await page.locator('#htmlDocument [data-pdf-page-preview]').count() >= 4, 'Display-item source page previews should render.');
 }
 

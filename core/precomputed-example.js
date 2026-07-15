@@ -122,6 +122,154 @@ function displayItemMarkdown(item = {}, label = '') {
   return `${markdownHeading(2, label)}${lines.length ? `\n\n${lines.join('\n\n')}` : ''}`;
 }
 
+function pageIndexValue(page = {}, fallback = 0) {
+  const value = Number(page.index ?? page.page_index ?? fallback);
+  return Number.isFinite(value) && value >= 0 ? value : fallback;
+}
+
+function storedOcrPages(snapshot = {}) {
+  const candidates = [
+    snapshot.ocr?.pages,
+    snapshot.ocr4?.pages,
+    snapshot.mistralOcr?.pages,
+    snapshot.ocrPages
+  ];
+  const pages = candidates.find(Array.isArray) || [];
+  return pages.map((page, index) => ({
+    ...page,
+    index: pageIndexValue(page, index)
+  }));
+}
+
+function getOcrBlocks(page = {}) {
+  if (Array.isArray(page.blocks)) return page.blocks;
+  if (Array.isArray(page.ocr_blocks)) return page.ocr_blocks;
+  return [];
+}
+
+function ocrBlockText(block = {}) {
+  return text(block.content || block.text || block.markdown || block.html || block.table_html || block.tableHtml);
+}
+
+function firstMatchingSourceBlock(sourceBlocks = [], candidates = [], pageNumbers = []) {
+  const normalizedCandidates = candidates.map(normalizeLookup).filter(Boolean);
+  if (!normalizedCandidates.length) return null;
+  const allowedPages = new Set(array(pageNumbers).map(number).filter(Boolean));
+  const scopedBlocks = allowedPages.size
+    ? sourceBlocks.filter((block) => allowedPages.has(block.pageNumber))
+    : sourceBlocks;
+  return scopedBlocks.find((block) => {
+    const normalizedText = normalizeLookup(block.text);
+    return normalizedCandidates.some((candidate) => (
+      normalizedText.includes(candidate)
+      || (candidate.length > 80 && normalizedText.includes(candidate.slice(0, 80)))
+    ));
+  }) || (allowedPages.size
+    ? scopedBlocks.find((block) => !/^(header|footer)$/i.test(block.sectionHint)) || null
+    : null);
+}
+
+function sectionMatchCandidates(section = {}, label = '') {
+  return [
+    section.startQuote,
+    text(section.text).slice(0, 220),
+    label
+  ].filter(Boolean);
+}
+
+function assignSemanticKey(sourceBlocks = [], semanticKey = '', candidates = [], pageNumbers = []) {
+  const block = firstMatchingSourceBlock(sourceBlocks, candidates, pageNumbers);
+  if (!block) return null;
+  block.semanticKey = block.semanticKey || semanticKey;
+  block.sectionHint = block.sectionHint || semanticKey;
+  block.label = block.label || semanticKey;
+  return block;
+}
+
+function firstTypedSourceBlock(sourceBlocks = [], pageNumbers = [], types = []) {
+  const allowedPages = new Set(array(pageNumbers).map(number).filter(Boolean));
+  const allowedTypes = new Set(types.map((type) => text(type).toLowerCase()).filter(Boolean));
+  if (!allowedPages.size || !allowedTypes.size) return null;
+  return sourceBlocks.find((block) => (
+    allowedPages.has(block.pageNumber)
+    && allowedTypes.has(text(block.sectionHint).toLowerCase())
+  )) || null;
+}
+
+function applyDisplayBlockMeta(rawBlockByKey = new Map(), sourceBlock = null, label = '', pages = []) {
+  const rawBlock = rawBlockByKey.get(sourceBlock?.key);
+  if (!rawBlock) return;
+  rawBlock.sourcePages = pages;
+  rawBlock.precomputedLabel = label;
+}
+
+function buildOcrSourceBlocks(snapshot = {}, pages = []) {
+  const rawBlockByKey = new Map();
+  const sourceBlocks = pages.flatMap((page, pagePosition) => {
+    const pageIndex = pageIndexValue(page, pagePosition);
+    return getOcrBlocks(page).map((block, blockIndex) => {
+      const type = text(block.type || block.block_type || block.category || 'text');
+      const key = blockKeyFor(pageIndex + 1, blockIndex);
+      rawBlockByKey.set(key, block);
+      return {
+        key,
+        pageNumber: pageIndex + 1,
+        label: type,
+        semanticKey: '',
+        sectionHint: type.toLowerCase(),
+        text: ocrBlockText(block)
+      };
+    });
+  }).filter((block) => block.text);
+  const documentMap = snapshot.documentMap || {};
+  [
+    ['title', 'Title', documentMap.title],
+    ['abstract', 'Abstract', documentMap.abstract],
+    ['introduction', 'Introduction', documentMap.introduction],
+    ['methods', 'Methods', documentMap.methods],
+    ['results', 'Results', documentMap.results],
+    ['discussion', 'Discussion', documentMap.discussion],
+    ['conclusions', 'Conclusions', documentMap.conclusions],
+    ['declarations', text(documentMap.declarations?.label) || 'Declarations', documentMap.declarations],
+    ['references', 'References', documentMap.references]
+  ].forEach(([key, fallbackLabel, section]) => {
+    if (!section || typeof section !== 'object') return;
+    const label = key === 'title' ? titleHeading(snapshot, section) : text(section.label) || fallbackLabel;
+    assignSemanticKey(sourceBlocks, key, sectionMatchCandidates(section, label), sectionPages(section));
+  });
+  array(documentMap.figures).forEach((figure, index) => {
+    const label = text(figure.label) || `Figure ${index + 1}`;
+    const pagesForItem = sectionPages(figure);
+    const block = firstTypedSourceBlock(sourceBlocks, pagesForItem, ['image', 'figure'])
+      || assignSemanticKey(sourceBlocks, `figure-${index + 1}`, [
+        figure.captionQuote,
+        figure.title,
+        label
+      ], pagesForItem);
+    if (block) {
+      block.semanticKey = block.semanticKey || `figure-${index + 1}`;
+      block.label = label;
+      applyDisplayBlockMeta(rawBlockByKey, block, label, pagesForItem);
+    }
+  });
+  array(documentMap.tables).forEach((table, index) => {
+    const label = text(table.label) || `Table ${index + 1}`;
+    const pagesForItem = sectionPages(table);
+    const block = firstTypedSourceBlock(sourceBlocks, pagesForItem, ['table'])
+      || assignSemanticKey(sourceBlocks, `table-${index + 1}`, [
+        table.captionQuote,
+        table.title,
+        label
+      ], pagesForItem);
+    if (block) {
+      block.semanticKey = block.semanticKey || `table-${index + 1}`;
+      block.label = label;
+      applyDisplayBlockMeta(rawBlockByKey, block, label, pagesForItem);
+    }
+  });
+  return sourceBlocks;
+}
+
 function buildSourcePages(snapshot = {}) {
   const documentMap = snapshot.documentMap || {};
   const pages = [];
@@ -471,7 +619,10 @@ function displayResolverResult(snapshot = {}, sourceBlocks = []) {
 }
 
 export function adaptPrecomputedExampleSnapshot(snapshot = {}) {
-  const { pages, sourceBlocks } = buildSourcePages(snapshot);
+  const synthetic = buildSourcePages(snapshot);
+  const ocrPages = storedOcrPages(snapshot);
+  const pages = ocrPages.length ? ocrPages : synthetic.pages;
+  const sourceBlocks = ocrPages.length ? buildOcrSourceBlocks(snapshot, ocrPages) : synthetic.sourceBlocks;
   const annotation = documentAnnotation(snapshot, sourceBlocks);
   const countResult = countResolverResult(annotation);
   const essentialIds = new Set(['ease_front_matter', 'ease_IMRaD', 'ease_declarations']);
