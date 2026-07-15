@@ -1267,6 +1267,41 @@ function ocrCountAnnotationSummary(result = {}) {
   };
 }
 
+function countUpgradeSnapshot() {
+  const semantic = state.semanticCounts || {};
+  return {
+    authors: Number.isFinite(Number(semantic.authorCount)) ? Number(semantic.authorCount) : null,
+    affiliations: Number.isFinite(Number(semantic.affiliationCount)) ? Number(semantic.affiliationCount) : null,
+    keywords: Number.isFinite(Number(semantic.keywordCount)) ? Number(semantic.keywordCount) : null,
+    abstractWords: Number.isFinite(Number(semantic.abstractWordCount)) ? Number(semantic.abstractWordCount) : null,
+    articleWords: Number.isFinite(Number(semantic.articleWordCount)) ? Number(semantic.articleWordCount) : null,
+    references: Number.isFinite(Number(semantic.referenceCount)) ? Number(semantic.referenceCount) : null
+  };
+}
+
+function countUpgradeChanges(before = {}, after = {}) {
+  return Object.entries(after)
+    .filter(([key, value]) => value !== null && value !== undefined && before[key] !== value)
+    .map(([key, value]) => `${key}:${before[key] ?? '-'}->${value}`);
+}
+
+function pulseCountTilesForChanges(changes = []) {
+  const bySummaryKey = {
+    authors: 'authors',
+    affiliations: 'affiliations',
+    keywords: 'keywords',
+    abstractWords: 'abstract',
+    articleWords: 'article',
+    references: 'references'
+  };
+  const now = runtimeNow();
+  changes.forEach((change) => {
+    const summaryKey = String(change || '').split(':')[0];
+    const tileKey = bySummaryKey[summaryKey];
+    if (tileKey) state.tilePulseUntil[tileKey] = now + 1800;
+  });
+}
+
 function countAnnotationItemsWithMappedKeys(items = [], blocks = flatBlocks(), textFields = ['text'], options = {}) {
   return (Array.isArray(items) ? items : [])
     .map((item) => ({
@@ -1337,7 +1372,8 @@ function referenceResolverResultFromOcrAnnotation(result = {}, blocks = flatBloc
 }
 
 function applyOcrCountAnnotationResult(result = {}) {
-  if (!result || typeof result !== 'object') return;
+  if (!result || typeof result !== 'object') return { changed: [], linkedAuthors: 0, linkedReferences: 0 };
+  const before = countUpgradeSnapshot();
   const blocks = flatBlocks();
   const countResult = countResolverResultFromOcrAnnotation(result, blocks);
   const details = buildCountsDetailsFromResolvedMap(countResult, blocks);
@@ -1386,6 +1422,9 @@ function applyOcrCountAnnotationResult(result = {}) {
       referenceCount: referenceDetail.detail.count
     };
   }
+  const after = countUpgradeSnapshot();
+  const changed = countUpgradeChanges(before, after);
+  pulseCountTilesForChanges(changed);
   renderCounts();
   updateStoredReviewCountResolver(countResult).catch(() => {});
   if (referenceResult.entries.length) updateStoredReviewReferenceMap(referenceResult).catch(() => {});
@@ -1393,6 +1432,11 @@ function applyOcrCountAnnotationResult(result = {}) {
     if (state.activeDetailKind === kind) renderSemanticDetail(kind, state.detailCache.get(kind));
   });
   maybeQueueResultReveal();
+  return {
+    changed,
+    linkedAuthors: details.authors.detail.items?.filter((item) => item.sourceBlockKeys?.length).length || 0,
+    linkedReferences: referenceResult.entries.filter((entry) => entry.sourceBlockKey).length
+  };
 }
 
 async function runOcrCountAnnotationExperiment(file = null) {
@@ -1407,7 +1451,7 @@ async function runOcrCountAnnotationExperiment(file = null) {
       base64
     });
     const summary = ocrCountAnnotationSummary(data.result || {});
-    applyOcrCountAnnotationResult(data.result || {});
+    const upgrade = applyOcrCountAnnotationResult(data.result || {});
     markRuntime('OCR count annotation experiment finished', {
       wallMs: Math.round(runtimeNow() - started),
       apiMs: Number(data.elapsedMs || 0),
@@ -1417,8 +1461,9 @@ async function runOcrCountAnnotationExperiment(file = null) {
       articleWords: summary.articleWords,
       references: summary.references,
       warnings: summary.warnings,
-      linkedAuthors: state.detailCache.get('authors')?.detail?.items?.filter((item) => item.sourceBlockKeys?.length).length || 0,
-      linkedReferences: state.referenceResolver.result?.entries?.filter((entry) => entry.sourceBlockKey).length || 0
+      linkedAuthors: upgrade.linkedAuthors,
+      linkedReferences: upgrade.linkedReferences,
+      changed: upgrade.changed.join('; ') || 'none'
     });
   } catch (error) {
     markRuntime('OCR count annotation experiment failed', {
