@@ -3561,18 +3561,123 @@ function renderCustomGuideSettings() {
   `;
 }
 
-function renderCustomizeChecks() {
+const CUSTOMIZE_CHECK_PANES = [
+  {
+    id: 'readerCustomizeCountsPane',
+    tabId: 'readerCustomizeCountsTab',
+    label: 'Article counts',
+    description: 'OCR and annotation-backed article element summaries.',
+    pluginIds: ['article-counts']
+  },
+  {
+    id: 'readerCustomizeEssentialPane',
+    tabId: 'readerCustomizeEssentialTab',
+    label: 'Essential guides',
+    description: 'Core manuscript-readiness checks.',
+    pluginIds: ['essential-guidelines']
+  },
+  {
+    id: 'readerCustomizeReportingPane',
+    tabId: 'readerCustomizeReportingTab',
+    label: 'Reporting guidelines',
+    description: 'Study-design guideline matching and item checks.',
+    pluginIds: ['reporting-guidelines']
+  },
+  {
+    id: 'readerCustomizeOpenSciencePane',
+    tabId: 'readerCustomizeOpenScienceTab',
+    label: 'Open Science',
+    description: 'Transparent-reporting checks that apply across manuscripts.',
+    pluginIds: ['recommended-guidelines']
+  },
+  {
+    id: 'readerCustomizeCustomPane',
+    tabId: 'readerCustomizeCustomTab',
+    label: 'Custom guidelines',
+    description: 'Project-specific checklist items saved in this browser.',
+    pluginIds: ['custom-guidelines'],
+    includesCustomGuides: true
+  },
+  {
+    id: 'readerCustomizeFunctionsPane',
+    tabId: 'readerCustomizeFunctionsTab',
+    label: 'Reader functions',
+    description: 'Reader tools that support review workflows.',
+    isFunctionsPane: true
+  }
+];
+
+function getCustomizeChecksActivePaneId() {
+  return els.customizeChecksBody?.querySelector?.('.tab-pane.active')?.id || 'readerCustomizeEssentialPane';
+}
+
+function renderCustomizeFacetButton(pane = {}, activePaneId = '') {
+  const active = pane.id === activePaneId;
+  const count = Array.isArray(pane.pluginIds) ? pane.pluginIds.length : 0;
+  return `
+    <button class="btn btn-light ${active ? 'active' : ''} text-start d-flex align-items-center justify-content-between gap-3" id="${escapeHtml(pane.tabId)}" data-bs-toggle="pill" data-bs-target="#${escapeHtml(pane.id)}" type="button" role="tab" aria-controls="${escapeHtml(pane.id)}" aria-selected="${active ? 'true' : 'false'}">
+      <span>${escapeHtml(pane.label)}</span>
+      ${count ? `<span class="badge text-bg-light border text-secondary fw-normal">${escapeHtml(count)}</span>` : ''}
+    </button>
+  `;
+}
+
+function renderPluginCardsForPane(pluginIds = []) {
+  const plugins = state.pluginCatalog.filter((plugin) => pluginIds.includes(plugin.id));
+  if (!state.pluginCatalog.length) {
+    return '<div class="card border-0 shadow-sm"><div class="card-body p-3 small text-secondary">Check settings are loading.</div></div>';
+  }
+  return plugins.length
+    ? plugins.map(renderPluginToggleCard).join('')
+    : '<div class="small text-secondary">No settings are available in this category.</div>';
+}
+
+function renderReaderFunctionsPane() {
+  return `
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-3">
+        <div class="fw-semibold small text-body mb-1">Reader functions</div>
+        <div class="small text-secondary">
+          Feedback report, runtime summary, chat, comments, PDF search, and pane controls remain available from the reader interface.
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderCustomizePane(pane = {}, activePaneId = '') {
+  const active = pane.id === activePaneId;
+  return `
+    <div class="tab-pane fade ${active ? 'show active' : ''}" id="${escapeHtml(pane.id)}" role="tabpanel" aria-labelledby="${escapeHtml(pane.tabId)}" tabindex="0">
+      <div class="mb-3">
+        <div class="h6 mb-1">${escapeHtml(pane.label)}</div>
+        <div class="small text-secondary">${escapeHtml(pane.description || '')}</div>
+      </div>
+      <div class="vstack gap-3">
+        ${pane.isFunctionsPane ? renderReaderFunctionsPane() : renderPluginCardsForPane(pane.pluginIds || [])}
+        ${pane.includesCustomGuides ? renderCustomGuideSettings() : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderCustomizeChecks(activePaneId = getCustomizeChecksActivePaneId()) {
   if (!els.customizeChecksBody) return;
-  const pluginCards = state.pluginCatalog.length
-    ? state.pluginCatalog.map(renderPluginToggleCard).join('')
-    : '<div class="card border-0 shadow-sm"><div class="card-body p-3 small text-secondary">Check settings are loading.</div></div>';
+  const safeActivePaneId = CUSTOMIZE_CHECK_PANES.some((pane) => pane.id === activePaneId)
+    ? activePaneId
+    : 'readerCustomizeEssentialPane';
   els.customizeChecksBody.innerHTML = `
-    <div class="vstack gap-3">
-      <section>
-        <div class="small text-uppercase text-secondary fw-semibold mb-2">Check groups</div>
-        <div class="vstack gap-2">${pluginCards}</div>
-      </section>
-      ${renderCustomGuideSettings()}
+    <div class="row g-4">
+      <div class="col-12 col-md-4 col-lg-3 bg-light rounded-3 p-3">
+        <div class="nav flex-md-column gap-2" id="readerCustomizeFacets" role="tablist" aria-orientation="vertical">
+          ${CUSTOMIZE_CHECK_PANES.map((pane) => renderCustomizeFacetButton(pane, safeActivePaneId)).join('')}
+        </div>
+      </div>
+      <div class="col-12 col-md-8 col-lg-9">
+        <div class="tab-content" id="readerCustomizeTabContent">
+          ${CUSTOMIZE_CHECK_PANES.map((pane) => renderCustomizePane(pane, safeActivePaneId)).join('')}
+        </div>
+      </div>
     </div>
   `;
 }
