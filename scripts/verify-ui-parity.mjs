@@ -250,6 +250,9 @@ async function main() {
     await page.click('#commentsBookmarkList [data-bookmark-action="tag"]');
     await page.waitForSelector('.popover [data-popover-bookmark-tag]', { timeout: 10000 });
     await assertText(page, '.popover', /Topic/i);
+    await page.click('.popover [data-tag-value="Topic"]');
+    await page.waitForSelector('.popover', { state: 'detached', timeout: 10000 });
+    await assertText(page, '#commentsBookmarkList', /Topic/i);
     await page.click('[data-bs-target="#commentsNotepadCollapse"]');
     await assertVisible(page, '#commentsNotepadInput');
     await page.fill('#commentsNotepadInput', 'UI parity smoke note');

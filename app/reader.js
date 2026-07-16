@@ -228,6 +228,7 @@ const state = {
   editingReviewerFormId: '',
   editingBookmarkCommentId: '',
   pendingDeleteBookmarkId: '',
+  activeBookmarkPopoverAnchor: null,
   notepadSaveTimer: 0,
   floatingBookmarkButton: null,
   examples: [],
@@ -3794,6 +3795,7 @@ function addBookmarkFromQuote(quote = '', { revealPanel = false } = {}) {
 }
 
 function updateBookmark(bookmarkId = '', updates = {}) {
+  hideActiveBookmarkPopover();
   state.commentsData.bookmarks = state.commentsData.bookmarks.map((bookmark) => (
     bookmark.id === bookmarkId
       ? normalizeBookmark({ ...bookmark, ...updates, updatedAt: new Date().toISOString() })
@@ -3804,6 +3806,7 @@ function updateBookmark(bookmarkId = '', updates = {}) {
 }
 
 function deleteBookmark(bookmarkId = '') {
+  hideActiveBookmarkPopover();
   state.commentsData.bookmarks = state.commentsData.bookmarks.filter((bookmark) => bookmark.id !== bookmarkId);
   if (state.editingBookmarkCommentId === bookmarkId) state.editingBookmarkCommentId = '';
   saveReviewComments();
@@ -3812,6 +3815,7 @@ function deleteBookmark(bookmarkId = '') {
 
 function openBookmarkPopover(anchor = null, html = '') {
   if (!anchor || !window.bootstrap?.Popover) return;
+  hideActiveBookmarkPopover();
   window.bootstrap.Popover.getInstance(anchor)?.dispose();
   const popover = new window.bootstrap.Popover(anchor, {
     content: html,
@@ -3820,9 +3824,23 @@ function openBookmarkPopover(anchor = null, html = '') {
     placement: 'bottom',
     trigger: 'manual'
   });
-  anchor.addEventListener('hidden.bs.popover', () => popover.dispose(), { once: true });
+  state.activeBookmarkPopoverAnchor = anchor;
   anchor.focus();
   popover.show();
+}
+
+function hideActiveBookmarkPopover() {
+  const anchor = state.activeBookmarkPopoverAnchor;
+  if (anchor && window.bootstrap?.Popover) {
+    const instance = window.bootstrap.Popover.getInstance(anchor);
+    try {
+      instance?.dispose();
+    } catch {
+      // Bootstrap can race Popper cleanup when the bookmark card re-renders.
+    }
+  }
+  state.activeBookmarkPopoverAnchor = null;
+  document.querySelectorAll('.popover').forEach((node) => node.remove());
 }
 
 function hideBookmarkDropdown(trigger = null) {
@@ -7294,6 +7312,7 @@ function resetReaderState(file = null) {
   state.editingReviewerFormId = '';
   state.editingBookmarkCommentId = '';
   state.pendingDeleteBookmarkId = '';
+  state.activeBookmarkPopoverAnchor = null;
   if (state.notepadSaveTimer) {
     window.clearTimeout(state.notepadSaveTimer);
     state.notepadSaveTimer = 0;
