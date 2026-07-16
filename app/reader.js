@@ -1707,10 +1707,49 @@ async function renderPdfDocument() {
       transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null
     }).promise;
     if (token !== state.pdfRenderToken) return;
+    await renderPdfTextLayer(page, viewport, wrapper);
+    if (token !== state.pdfRenderToken) return;
     state.pageViews.set(pageNumberValue, { wrapper, viewport });
     if (state.activeBlockKey) updateActivePdfRegion({ scroll: false });
     await new Promise((resolve) => window.requestAnimationFrame(resolve));
   }
+}
+
+async function renderPdfTextLayer(page = null, viewport = null, wrapper = null) {
+  if (!page || !viewport || !wrapper) return;
+  const textLayer = document.createElement('div');
+  textLayer.className = 'pdf-text-layer';
+  textLayer.setAttribute('aria-hidden', 'true');
+  textLayer.style.width = `${viewport.width}px`;
+  textLayer.style.height = `${viewport.height}px`;
+  wrapper.appendChild(textLayer);
+
+  const textContent = await page.getTextContent();
+  const styles = textContent.styles || {};
+  (Array.isArray(textContent.items) ? textContent.items : []).forEach((item) => {
+    const text = String(item.str || '').trim();
+    if (!text) return;
+    const tx = pdfjsLib.Util.transform(viewport.transform, item.transform);
+    const fontStyle = styles[item.fontName] || {};
+    const fontHeight = Math.hypot(tx[2], tx[3]);
+    const angle = Math.atan2(tx[1], tx[0]);
+    const ascent = fontStyle.ascent ? fontStyle.ascent * fontHeight : fontHeight * 0.8;
+    const span = document.createElement('span');
+    span.textContent = item.str;
+    span.style.left = `${tx[4]}px`;
+    span.style.top = `${tx[5] - ascent}px`;
+    span.style.fontSize = `${fontHeight}px`;
+    span.style.fontFamily = fontStyle.fontFamily || 'sans-serif';
+    const transforms = [];
+    if (angle) transforms.push(`rotate(${angle}rad)`);
+    if (item.width && fontHeight) {
+      const expectedWidth = Math.max(1, item.width * viewport.scale);
+      const measuredWidth = Math.max(1, text.length * fontHeight * 0.5);
+      transforms.push(`scaleX(${expectedWidth / measuredWidth})`);
+    }
+    if (transforms.length) span.style.transform = transforms.join(' ');
+    textLayer.appendChild(span);
+  });
 }
 
 async function renderPdfPagePreviews() {
@@ -3680,7 +3719,7 @@ function selectionInsideReader(selection = null) {
   if (!selection || selection.rangeCount < 1 || !String(selection.toString() || '').trim()) return false;
   const anchor = selection.anchorNode?.nodeType === Node.ELEMENT_NODE ? selection.anchorNode : selection.anchorNode?.parentElement;
   const focus = selection.focusNode?.nodeType === Node.ELEMENT_NODE ? selection.focusNode : selection.focusNode?.parentElement;
-  return Boolean(anchor?.closest?.('#htmlDocument, #detailsPanelBody') || focus?.closest?.('#htmlDocument, #detailsPanelBody'));
+  return Boolean(anchor?.closest?.('#htmlDocument, #detailsPanelBody, #pdfDocument') || focus?.closest?.('#htmlDocument, #detailsPanelBody, #pdfDocument'));
 }
 
 function ensureFloatingBookmarkButton() {

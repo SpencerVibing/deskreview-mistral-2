@@ -1212,6 +1212,30 @@ body {
   display: block;
 }
 
+.pdf-text-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  opacity: 0.01;
+  line-height: 1;
+  user-select: text;
+}
+
+.pdf-text-layer span {
+  position: absolute;
+  color: transparent;
+  cursor: text;
+  line-height: 1;
+  white-space: pre;
+  transform-origin: 0 0;
+  user-select: text;
+}
+
+.pdf-text-layer ::selection {
+  background: rgba(59, 130, 246, 0.35);
+}
+
 .pdf-active-region {
   position: absolute;
   pointer-events: none;

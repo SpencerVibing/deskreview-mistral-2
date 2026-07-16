@@ -99,6 +99,7 @@ async function main() {
     await assertBrowseGuidelinesMenuAction(page);
     await assertCustomizeChecksModal(page);
     await page.waitForSelector('#pdfDocument canvas', { timeout: 45000 });
+    await assertPdfTextLayerSelectable(page);
     await page.waitForFunction(() => {
       return document.querySelectorAll('#htmlDocument [data-pdf-page-preview] canvas').length >= 4;
     }, null, { timeout: 20000 });
@@ -268,6 +269,20 @@ async function assertVisible(page, selector) {
   const locator = page.locator(selector).first();
   await locator.waitFor({ state: 'visible', timeout: 10000 });
   assert.equal(await locator.isVisible(), true, `${selector} should be visible`);
+}
+
+async function assertPdfTextLayerSelectable(page) {
+  await page.waitForFunction(() => document.querySelectorAll('#pdfDocument .pdf-text-layer span').length > 20, null, { timeout: 20000 });
+  const layer = await page.locator('#pdfDocument .pdf-text-layer').first();
+  const style = await layer.evaluate((node) => {
+    const computed = getComputedStyle(node);
+    return {
+      userSelect: computed.userSelect,
+      zIndex: computed.zIndex
+    };
+  });
+  assert.match(style.userSelect, /text|auto/i, 'PDF text layer should be selectable.');
+  assert.equal(style.zIndex, '2', 'PDF text layer should sit above the canvas and below active highlights.');
 }
 
 async function assertText(page, selector, pattern) {
