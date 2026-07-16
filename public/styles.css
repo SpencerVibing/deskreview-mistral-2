@@ -1217,9 +1217,9 @@ body {
   inset: 0;
   z-index: 2;
   overflow: hidden;
-  opacity: 0.01;
   line-height: 1;
   user-select: text;
+  -webkit-user-select: text;
 }
 
 .pdf-text-layer span {
@@ -1230,10 +1230,12 @@ body {
   white-space: pre;
   transform-origin: 0 0;
   user-select: text;
+  -webkit-user-select: text;
 }
 
 .pdf-text-layer ::selection {
-  background: rgba(59, 130, 246, 0.35);
+  color: transparent;
+  background: rgba(59, 130, 246, 0.32);
 }
 
 .pdf-active-region {
