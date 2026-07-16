@@ -366,15 +366,41 @@ function resetRuntime(fileName = '') {
   state.runtime = {
     startedAt: runtimeNow(),
     fileName,
+    generatedAt: '',
+    source: 'live',
     events: []
   };
   markRuntime('Upload selected', { fileName });
+}
+
+function runtimeSnapshot(source = state.runtime.source || 'live') {
+  return {
+    version: 1,
+    source,
+    fileName: state.runtime.fileName || state.file?.name || '',
+    generatedAt: new Date().toISOString(),
+    events: (state.runtime.events || []).map((event) => ({ ...event }))
+  };
+}
+
+function restoreRuntimeSnapshot(snapshot = null, fallbackFileName = '') {
+  const events = Array.isArray(snapshot?.events)
+    ? snapshot.events.map((event) => ({ ...event }))
+    : [];
+  state.runtime = {
+    startedAt: 0,
+    fileName: String(snapshot?.fileName || fallbackFileName || ''),
+    generatedAt: String(snapshot?.generatedAt || ''),
+    source: String(snapshot?.source || 'stored-live'),
+    events
+  };
 }
 
 function markRuntime(label = '', data = {}) {
   if (!state.runtime.startedAt) {
     state.runtime.startedAt = runtimeNow();
   }
+  state.runtime.generatedAt = '';
   state.runtime.events.push({
     label,
     elapsedMs: Math.round(runtimeNow() - state.runtime.startedAt),
@@ -387,7 +413,7 @@ function runtimeSummaryText() {
   const lines = [
     `Runtime summary`,
     `File: ${state.runtime.fileName || state.file?.name || 'none'}`,
-    `Generated: ${new Date().toISOString()}`,
+    `Generated: ${state.runtime.generatedAt || new Date().toISOString()}`,
     ''
   ];
   if (!events.length) {
@@ -1496,10 +1522,12 @@ async function runOcrCountAnnotationExperiment(file = null) {
       linkedReferences: upgrade.linkedReferences,
       changed: upgrade.changed.join('; ') || 'none'
     });
+    updateStoredReviewRuntimeSummary().catch(() => {});
   } catch (error) {
     markRuntime('OCR count annotation experiment failed', {
       error: String(error?.message || error || 'OCR count annotation failed.')
     });
+    updateStoredReviewRuntimeSummary().catch(() => {});
   }
 }
 
@@ -3329,6 +3357,7 @@ async function updateStoredReviewEssentialGuidelines(result = []) {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -3349,6 +3378,7 @@ async function updateStoredReviewEssentialGuidelineFailure(error = '') {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((refreshError) => console.warn('[deskreview-mistral-2] library refresh failed', refreshError));
@@ -3404,6 +3434,7 @@ async function updateStoredReviewReportingMatches(result = null) {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -4403,6 +4434,7 @@ async function updateStoredReviewDisplayResolver(result = null) {
       }
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -4423,6 +4455,7 @@ async function updateStoredReviewDisplayFailure(error = '') {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((refreshError) => console.warn('[deskreview-mistral-2] library refresh failed', refreshError));
@@ -5030,6 +5063,7 @@ async function updateStoredReviewCountResolver(result = null) {
       }
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -5050,6 +5084,7 @@ async function updateStoredReviewCountResolverFailure(error = '') {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((refreshError) => console.warn('[deskreview-mistral-2] library refresh failed', refreshError));
@@ -5628,6 +5663,7 @@ async function updateStoredReviewReferenceMap(result = null) {
       }
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -5648,6 +5684,7 @@ async function updateStoredReviewReferenceFailure(error = '') {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((refreshError) => console.warn('[deskreview-mistral-2] library refresh failed', refreshError));
@@ -5669,6 +5706,7 @@ async function updateStoredReviewSemanticCounts(partialCounts = {}) {
       }
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -5688,6 +5726,7 @@ async function updateStoredReviewDocumentAnnotation(result = null) {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -5708,6 +5747,7 @@ async function updateStoredReviewDocumentAnnotationFailure(error = '') {
       updatedAt: new Date().toISOString()
     };
     existing.updatedAt = new Date().toISOString();
+    attachCurrentRuntimeSummary(existing);
     await putStoredReview(existing);
     state.currentReview = existing;
     refreshLibrary().catch((refreshError) => console.warn('[deskreview-mistral-2] library refresh failed', refreshError));
@@ -6717,7 +6757,8 @@ async function saveReviewToLibrary(file = null, ocr = {}) {
     displayResolver: null,
     documentAnnotation: null,
     essentialGuidelines: null,
-    reportingMatches: null
+    reportingMatches: null,
+    runtimeSummary: runtimeSnapshot('live-analysis')
   };
   await putStoredReview(review);
   state.currentReviewId = id;
@@ -6727,6 +6768,25 @@ async function saveReviewToLibrary(file = null, ocr = {}) {
   renderChatMessages();
   refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
   return review;
+}
+
+function attachCurrentRuntimeSummary(review = {}) {
+  if (!review || state.loadedFromLibrary) return review;
+  review.runtimeSummary = runtimeSnapshot('live-analysis');
+  return review;
+}
+
+async function updateStoredReviewRuntimeSummary() {
+  if (!state.currentReview?.id || state.loadedFromLibrary) return;
+  try {
+    const existing = await getStoredReview(state.currentReview.id);
+    if (!existing) return;
+    attachCurrentRuntimeSummary(existing);
+    await putStoredReview(existing);
+    state.currentReview = existing;
+  } catch (error) {
+    console.warn('[deskreview-mistral-2] could not store runtime summary', error);
+  }
 }
 
 function hydrateSemanticCountsFromSavedResults(blocks = flatBlocks()) {
@@ -6756,11 +6816,16 @@ async function renderReviewFromRecord(review = {}) {
     lastModified: new Date(review.updatedAt || review.createdAt || Date.now()).getTime()
   });
   resetReaderState(file);
-  resetRuntime(review.fileName || 'stored review');
   const precomputedActive = Boolean(review.precomputedExample?.active);
-  markRuntime(precomputedActive ? 'Loaded precomputed example' : 'Loaded from library', {
-    pages: Array.isArray(review.ocr.pages) ? review.ocr.pages.length : 0
-  });
+  const hasSavedRuntimeSummary = Array.isArray(review.runtimeSummary?.events);
+  if (hasSavedRuntimeSummary) {
+    restoreRuntimeSnapshot(review.runtimeSummary, review.fileName || 'stored review');
+  } else {
+    resetRuntime(review.fileName || 'stored review');
+    markRuntime(precomputedActive ? 'Loaded precomputed example' : 'Loaded from library', {
+      pages: Array.isArray(review.ocr.pages) ? review.ocr.pages.length : 0
+    });
+  }
   state.currentReviewId = review.id || '';
   state.currentReview = review;
   state.loadedFromLibrary = true;
@@ -6777,10 +6842,12 @@ async function renderReviewFromRecord(review = {}) {
     state.reportingGuideResults = Array.isArray(review.precomputedExample.reportingGuideResults)
       ? review.precomputedExample.reportingGuideResults
       : [];
-    markRuntime('Precomputed guide results loaded', {
-      essentialGuides: state.essentialResults.length,
-      matchedGuides: state.reportingGuideResults.length
-    });
+    if (!hasSavedRuntimeSummary) {
+      markRuntime('Precomputed guide results loaded', {
+        essentialGuides: state.essentialResults.length,
+        matchedGuides: state.reportingGuideResults.length
+      });
+    }
   }
   loadReviewComments();
   renderComments();
@@ -6882,15 +6949,19 @@ async function renderReviewFromRecord(review = {}) {
   });
   updateMetrics({ ...review.ocr, elapsedMs: 0 }, file);
   renderHtmlDocument();
-  markRuntime('HTML reader rendered from library', {
-    pages: state.pages.length,
-    blocks: flatBlocks().length
-  });
+  if (!hasSavedRuntimeSummary) {
+    markRuntime('HTML reader rendered from library', {
+      pages: state.pages.length,
+      blocks: flatBlocks().length
+    });
+  }
   scheduleDetailBuild();
   await pdfPromise;
-  markRuntime('PDF rendered from library', {
-    pages: Number(state.pdfDoc?.numPages || 0)
-  });
+  if (!hasSavedRuntimeSummary) {
+    markRuntime('PDF rendered from library', {
+      pages: Number(state.pdfDoc?.numPages || 0)
+    });
+  }
   await renderPdfPagePreviews();
   renderAllRegions();
 }
@@ -6954,6 +7025,7 @@ async function handleFile(file = null) {
   markRuntime('PDF rendered', {
     pages: Number(state.pdfDoc?.numPages || 0)
   });
+  updateStoredReviewRuntimeSummary().catch(() => {});
   await renderPdfPagePreviews();
   renderAllRegions();
 }
