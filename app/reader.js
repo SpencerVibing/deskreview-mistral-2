@@ -3818,11 +3818,17 @@ function openBookmarkPopover(anchor = null, html = '') {
     html: true,
     sanitize: false,
     placement: 'bottom',
-    trigger: 'focus'
+    trigger: 'manual'
   });
   anchor.addEventListener('hidden.bs.popover', () => popover.dispose(), { once: true });
   anchor.focus();
   popover.show();
+}
+
+function hideBookmarkDropdown(trigger = null) {
+  const dropdownToggle = trigger?.closest?.('.dropdown')?.querySelector('[data-bs-toggle="dropdown"]');
+  if (!dropdownToggle || !window.bootstrap?.Dropdown) return;
+  window.bootstrap.Dropdown.getOrCreateInstance(dropdownToggle)?.hide();
 }
 
 function exportComments(format = 'txt') {
@@ -8063,11 +8069,15 @@ els.commentsBookmarkList?.addEventListener('click', (event) => {
     const action = actionButton.dataset.bookmarkAction || '';
     if (action === 'tag') {
       const bookmark = getBookmarkById(bookmarkId);
-      openBookmarkPopover(actionButton, createTagPopoverMarkup(bookmarkId, bookmark?.tag || ''));
+      const anchor = els.commentsBookmarkList?.querySelector(`[data-bookmark-tag-anchor="${CSS.escape(bookmarkId)}"]`) || actionButton;
+      hideBookmarkDropdown(actionButton);
+      window.setTimeout(() => openBookmarkPopover(anchor, createTagPopoverMarkup(bookmarkId, bookmark?.tag || '')), 80);
       return;
     }
     if (action === 'reaction') {
-      openBookmarkPopover(actionButton, createReactionPopoverMarkup(bookmarkId));
+      const anchor = els.commentsBookmarkList?.querySelector(`[data-bookmark-reaction-anchor="${CSS.escape(bookmarkId)}"]`) || actionButton;
+      hideBookmarkDropdown(actionButton);
+      window.setTimeout(() => openBookmarkPopover(anchor, createReactionPopoverMarkup(bookmarkId)), 80);
       return;
     }
     if (action === 'comment') {

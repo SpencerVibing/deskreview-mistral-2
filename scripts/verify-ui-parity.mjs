@@ -74,6 +74,23 @@ async function main() {
     await medrxivCard.waitFor({ state: 'visible', timeout: 10000 });
     await assertText(page, '[data-example-id="medrxiv-baseline"]', /medRxiv\s+·\s+2021\s+·\s+preprint/i);
     await assertText(page, '[data-example-id="medrxiv-baseline"]', /Combined Exercise Training vs Health Education/i);
+    await page.evaluate(() => {
+      localStorage.setItem('deskreview-mistral-2-comments:v2', JSON.stringify({
+        'example-medrxiv-baseline': {
+          notepad: '',
+          bookmarks: [{
+            id: 'ui-parity-bookmark',
+            quote: 'Combined Exercise Training',
+            sourceBlockKey: 'block-0-0',
+            tag: '',
+            reaction: '',
+            comment: '',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          }]
+        }
+      }));
+    });
     await medrxivCard.click();
 
     await page.waitForSelector('#reader:not(.d-none)', { timeout: 45000 });
@@ -227,6 +244,12 @@ async function main() {
     await assertText(page, '#commentsAccordion', /Notepad/i);
     await assertText(page, '#commentsAccordion', /Annotated bookmarks/i);
     await assertText(page, '#commentsAccordion', /Reviewer guidance/i);
+    await page.click('[data-bs-target="#commentsBookmarksCollapse"]');
+    await assertText(page, '#commentsBookmarkList', /Combined Exercise Training/i);
+    await page.click('#commentsBookmarkList [data-bs-toggle="dropdown"]');
+    await page.click('#commentsBookmarkList [data-bookmark-action="tag"]');
+    await page.waitForSelector('.popover [data-popover-bookmark-tag]', { timeout: 10000 });
+    await assertText(page, '.popover', /Topic/i);
     await page.click('[data-bs-target="#commentsNotepadCollapse"]');
     await assertVisible(page, '#commentsNotepadInput');
     await page.fill('#commentsNotepadInput', 'UI parity smoke note');
