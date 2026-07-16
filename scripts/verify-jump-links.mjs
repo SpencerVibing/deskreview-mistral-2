@@ -18,7 +18,8 @@ const CACHEABLE_API_PATHS = new Set([
   '/api/resolve-display-items',
   '/api/annotate-document',
   '/api/match-guidelines',
-  '/api/evaluate-essential-guidelines'
+  '/api/evaluate-essential-guidelines',
+  '/api/chat'
 ]);
 
 if (!PDF_PATHS.length) {

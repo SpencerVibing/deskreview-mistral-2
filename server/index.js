@@ -121,6 +121,41 @@ function mistralJsonSchema(name, schema) {
   };
 }
 
+function groundedChatSchema() {
+  return mistralJsonSchema('deskreview_grounded_chat', {
+    type: 'object',
+    additionalProperties: false,
+    required: ['answer', 'citations'],
+    properties: {
+      answer: {
+        type: 'string',
+        description: 'Answer using inline citation markers such as [1].'
+      },
+      citations: {
+        type: 'array',
+        minItems: 1,
+        maxItems: 6,
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['marker', 'quote'],
+          properties: {
+            marker: {
+              type: 'integer',
+              minimum: 1,
+              maximum: 6
+            },
+            quote: {
+              type: 'string',
+              description: 'An exact verbatim quote copied from the supplied manuscript context.'
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 function semanticCountsSchema() {
   return mistralJsonSchema('deskreview_semantic_counts', {
     type: 'object',
@@ -1559,6 +1594,119 @@ async function handleEvaluateEssentialGuidelines(req, res) {
   });
 }
 
+async function handleChat(req, res) {
+  const apiKey = String(process.env.MISTRAL_API_KEY || '').trim();
+  if (!apiKey) {
+    jsonResponse(res, { error: 'MISTRAL_API_KEY is required to chat with a manuscript.' }, 500);
+    return;
+  }
+
+  let body;
+  try {
+    body = await readJsonBody(req);
+  } catch (error) {
+    jsonResponse(res, { error: String(error?.message || error || 'Invalid request body.') }, 400);
+    return;
+  }
+
+  const question = String(body.question || '').trim();
+  const blocks = Array.isArray(body.blocks) ? body.blocks : [];
+  if (!question) {
+    jsonResponse(res, { error: 'Missing chat question.' }, 400);
+    return;
+  }
+  if (!blocks.length) {
+    jsonResponse(res, { error: 'No manuscript context is available for chat.' }, 400);
+    return;
+  }
+
+  const contextBlocks = blocks.slice(0, 160).map((block) => ({
+    blockKey: String(block.blockKey || ''),
+    pageNumber: Number(block.pageNumber || 0) || 0,
+    type: String(block.type || ''),
+    text: String(block.text || '').replace(/\s+/g, ' ').trim().slice(0, 2500)
+  })).filter((block) => block.text);
+
+  const history = (Array.isArray(body.history) ? body.history : []).slice(-6).map((message) => ({
+    role: String(message.role || '') === 'assistant' ? 'assistant' : 'user',
+    content: String(message.content || '').slice(0, 1200)
+  })).filter((message) => message.content);
+
+  const startedAt = Date.now();
+  const requestBody = {
+    model: MISTRAL_CHAT_MODEL,
+    temperature: 0.1,
+    response_format: groundedChatSchema(),
+    messages: [
+      {
+        role: 'system',
+        content: [
+          'You are an academic manuscript assistant.',
+          'Answer using only the supplied OCR manuscript blocks.',
+          'Do not use outside knowledge or assumptions.',
+          'Every substantive claim must be supported by inline markers like [1].',
+          'Every citation quote must be copied verbatim from the supplied block text.',
+          'If the manuscript context does not contain enough information, say that plainly and cite the closest relevant quote explaining the limitation.',
+          'Return JSON only and conform exactly to the schema.'
+        ].join(' ')
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          task: 'Answer the user question using only these OCR manuscript blocks. Include citation markers in the answer and exact supporting quotes in citations.',
+          question,
+          previousMessages: history,
+          manuscriptBlocks: contextBlocks
+        })
+      }
+    ]
+  };
+
+  let response;
+  try {
+    const signal = AbortSignal.timeout ? AbortSignal.timeout(120000) : undefined;
+    response = await fetch(`${MISTRAL_BASE_URL}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(requestBody),
+      signal
+    });
+  } catch (error) {
+    const message = error?.name === 'TimeoutError'
+      ? 'Mistral manuscript chat timed out.'
+      : String(error?.message || error || 'Mistral manuscript chat request failed.');
+    jsonResponse(res, { error: message }, error?.name === 'TimeoutError' ? 504 : 502);
+    return;
+  }
+
+  const text = await response.text();
+  let raw = null;
+  try {
+    raw = text ? JSON.parse(text) : {};
+  } catch {
+    raw = null;
+  }
+
+  if (!response.ok) {
+    jsonResponse(res, {
+      error: raw?.error?.message || raw?.message || text || `Mistral manuscript chat failed (${response.status}).`,
+      elapsedMs: Date.now() - startedAt,
+      model: MISTRAL_CHAT_MODEL
+    }, response.status);
+    return;
+  }
+
+  jsonResponse(res, {
+    elapsedMs: Date.now() - startedAt,
+    model: raw?.model || MISTRAL_CHAT_MODEL,
+    usage: raw?.usage || null,
+    result: parseJsonContent(raw?.choices?.[0]?.message?.content)
+  });
+}
+
 async function serveStatic(req, res) {
   const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
   const pathname = url.pathname === '/' ? '/index.html' : decodeURIComponent(url.pathname);
@@ -1615,6 +1763,10 @@ const server = createServer(async (req, res) => {
     }
     if (req.method === 'POST' && req.url === '/api/evaluate-essential-guidelines') {
       await handleEvaluateEssentialGuidelines(req, res);
+      return;
+    }
+    if (req.method === 'POST' && req.url === '/api/chat') {
+      await handleChat(req, res);
       return;
     }
     if (req.method === 'GET' || req.method === 'HEAD') {

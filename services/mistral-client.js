@@ -46,3 +46,7 @@ export function evaluateEssentialGuidelines(payload = {}) {
 export function matchReportingGuidelines(payload = {}) {
   return postJson('/api/match-guidelines', payload);
 }
+
+export function requestGroundedChat(payload = {}) {
+  return postJson('/api/chat', payload);
+}

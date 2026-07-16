@@ -75,6 +75,7 @@ import {
   annotateDocument,
   evaluateEssentialGuidelines,
   matchReportingGuidelines,
+  requestGroundedChat,
   requestOcrCountAnnotation,
   requestOcr,
   resolveCounts,
@@ -216,7 +217,19 @@ const state = {
     }
   ],
   chatMessages: [],
-  comments: [],
+  chatStatus: 'idle',
+  chatError: '',
+  commentsData: {
+    notepad: '',
+    bookmarks: []
+  },
+  reviewerForms: [],
+  activeReviewerFormId: '',
+  editingReviewerFormId: '',
+  editingBookmarkCommentId: '',
+  pendingDeleteBookmarkId: '',
+  notepadSaveTimer: 0,
+  floatingBookmarkButton: null,
   examples: [],
   pdfSearch: {
     query: '',
@@ -270,11 +283,35 @@ const els = {
   customGuidelineSummary: document.getElementById('customGuidelineSummary'),
   customLaneProgress: document.getElementById('customLaneProgress'),
   chatMessageList: document.getElementById('chatMessageList'),
+  chatExamplePrompts: document.getElementById('chatExamplePrompts'),
   chatComposer: document.getElementById('chatComposer'),
   chatInput: document.getElementById('chatInput'),
-  commentList: document.getElementById('commentList'),
-  commentComposer: document.getElementById('commentComposer'),
-  commentInput: document.getElementById('commentInput'),
+  chatSendButton: document.getElementById('chatSendButton'),
+  clearChatButton: document.getElementById('clearChatButton'),
+  clearChatConfirmModal: document.getElementById('clearChatConfirmModal'),
+  confirmClearChatButton: document.getElementById('confirmClearChatButton'),
+  commentsGenerateReportButton: document.getElementById('commentsGenerateReportButton'),
+  commentsActionsButton: document.getElementById('commentsActionsButton'),
+  commentsNotepadInput: document.getElementById('commentsNotepadInput'),
+  commentsNotepadStatus: document.getElementById('commentsNotepadStatus'),
+  commentsBookmarksCollapse: document.getElementById('commentsBookmarksCollapse'),
+  commentsBookmarksHelper: document.getElementById('commentsBookmarksHelper'),
+  commentsBookmarkList: document.getElementById('commentsBookmarkList'),
+  commentsBookmarkCountBadge: document.getElementById('commentsBookmarkCountBadge'),
+  reviewerGuidanceList: document.getElementById('reviewerGuidanceList'),
+  reviewerGuidanceWorkspace: document.getElementById('reviewerGuidanceWorkspace'),
+  createReviewerFormButton: document.getElementById('createReviewerFormButton'),
+  reviewerFormModal: document.getElementById('reviewerFormModal'),
+  reviewerFormName: document.getElementById('reviewerFormName'),
+  reviewerFormDescription: document.getElementById('reviewerFormDescription'),
+  reviewerFormItems: document.getElementById('reviewerFormItems'),
+  addReviewerFormItemButton: document.getElementById('addReviewerFormItemButton'),
+  saveReviewerFormButton: document.getElementById('saveReviewerFormButton'),
+  commentsFeedbackModal: document.getElementById('commentsFeedbackModal'),
+  commentsFeedbackModalBody: document.getElementById('commentsFeedbackModalBody'),
+  copyCommentsFeedbackButton: document.getElementById('copyCommentsFeedbackButton'),
+  deleteBookmarkConfirmModal: document.getElementById('deleteBookmarkConfirmModal'),
+  confirmDeleteBookmarkButton: document.getElementById('confirmDeleteBookmarkButton'),
   customizeChecksModal: document.getElementById('customizeChecksModal'),
   customizeChecksBody: document.getElementById('customizeChecksBody'),
   guidelineSelectorModal: document.getElementById('guidelineSelectorModal'),
@@ -3163,155 +3200,647 @@ function renderCustomGuidelines() {
   `;
 }
 
+const CHAT_EXAMPLE_PROMPTS = [
+  'Summarize the study design.',
+  'What primary outcomes are reported?',
+  'What study limitations are mentioned?'
+];
+const DEFAULT_BOOKMARK_TAGS = ['Topic', 'Motivation', 'Hypothesis', 'Method', 'Results', 'Contribution'];
+const REACTIONS_CONFIG = [
+  { key: '', iconClass: 'bi bi-emoji-smile text-secondary', label: 'None' },
+  { key: 'like', iconClass: 'bi bi-hand-thumbs-up text-primary', label: 'Like' },
+  { key: 'love', iconClass: 'bi bi-heart text-danger', label: 'Love' },
+  { key: 'idea', iconClass: 'bi bi-lightbulb-fill text-warning', label: 'Idea' },
+  { key: 'reference', iconClass: 'bi bi-link-45deg text-primary-emphasis', label: 'Reference' },
+  { key: 'unclear', iconClass: 'bi bi-question-square-fill text-info', label: 'Unclear' },
+  { key: 'minor-issue', iconClass: 'bi bi-exclamation-triangle-fill text-warning', label: 'Minor issue' },
+  { key: 'major-issue', iconClass: 'bi bi-exclamation-triangle-fill text-danger', label: 'Major issue' },
+  { key: 'critical-issue', iconClass: 'bi bi-ban text-danger', label: 'Critical issue' }
+];
+
+function reviewStorageKey() {
+  return state.currentReviewId || state.currentReview?.id || state.precomputedExample.id || '';
+}
+
+function loadJsonStorage(key = '', fallback = {}) {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(key) || '');
+    return parsed && typeof parsed === 'object' ? parsed : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveJsonStorage(key = '', value = {}) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Local reviewer workspace data must never interrupt manuscript analysis.
+  }
+}
+
+function createLocalId(prefix = 'item') {
+  return crypto.randomUUID ? crypto.randomUUID() : `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function chatStorageKey() {
+  return 'deskreview-mistral-2-chat:v1';
+}
+
 function commentsStorageKey() {
-  return 'deskreview-mistral-2-comments:v1';
+  return 'deskreview-mistral-2-comments:v2';
 }
 
-function reviewCommentKey() {
-  return state.currentReviewId || state.currentReview?.id || '';
+function reviewerFormsStorageKey() {
+  return 'deskreview-mistral-2-reviewer-forms:v1';
 }
 
-function readAllComments() {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(commentsStorageKey()) || '{}');
-    return parsed && typeof parsed === 'object' ? parsed : {};
-  } catch {
-    return {};
-  }
+function loadReviewChatHistory() {
+  const key = reviewStorageKey();
+  const all = loadJsonStorage(chatStorageKey(), {});
+  state.chatMessages = key && Array.isArray(all[key]) ? all[key] : [];
 }
 
-function writeAllComments(commentsByReview = {}) {
-  try {
-    localStorage.setItem(commentsStorageKey(), JSON.stringify(commentsByReview));
-  } catch {
-    // Local comments are convenience data; failing to store them must not affect OCR review.
-  }
+function saveReviewChatHistory() {
+  const key = reviewStorageKey();
+  if (!key) return;
+  const all = loadJsonStorage(chatStorageKey(), {});
+  all[key] = state.chatMessages;
+  saveJsonStorage(chatStorageKey(), all);
+}
+
+function clearReviewChatHistory() {
+  const key = reviewStorageKey();
+  if (!key) return;
+  const all = loadJsonStorage(chatStorageKey(), {});
+  delete all[key];
+  saveJsonStorage(chatStorageKey(), all);
+  state.chatMessages = [];
+  state.chatStatus = 'idle';
+  state.chatError = '';
+  renderChatMessages();
+}
+
+function normalizeBookmark(raw = {}) {
+  return {
+    id: String(raw.id || '').trim() || createLocalId('bookmark'),
+    quote: String(raw.quote || '').replace(/\s+/g, ' ').trim(),
+    sourceBlockKey: String(raw.sourceBlockKey || '').trim(),
+    tag: String(raw.tag || '').trim(),
+    reaction: String(raw.reaction || '').trim(),
+    comment: String(raw.comment || raw.note || ''),
+    createdAt: raw.createdAt || new Date().toISOString(),
+    updatedAt: raw.updatedAt || raw.createdAt || new Date().toISOString()
+  };
 }
 
 function loadReviewComments() {
-  const key = reviewCommentKey();
-  if (!key) {
-    state.comments = [];
-    return;
-  }
-  const commentsByReview = readAllComments();
-  state.comments = Array.isArray(commentsByReview[key]) ? commentsByReview[key] : [];
+  const key = reviewStorageKey();
+  const all = loadJsonStorage(commentsStorageKey(), {});
+  const current = key && all[key] && typeof all[key] === 'object' ? all[key] : {};
+  state.commentsData = {
+    notepad: String(current.notepad || ''),
+    bookmarks: (Array.isArray(current.bookmarks) ? current.bookmarks : []).map(normalizeBookmark).filter((bookmark) => bookmark.quote)
+  };
 }
 
 function saveReviewComments() {
-  const key = reviewCommentKey();
+  const key = reviewStorageKey();
   if (!key) return;
-  const commentsByReview = readAllComments();
-  commentsByReview[key] = state.comments;
-  writeAllComments(commentsByReview);
+  const all = loadJsonStorage(commentsStorageKey(), {});
+  all[key] = state.commentsData;
+  saveJsonStorage(commentsStorageKey(), all);
+}
+
+function loadReviewerFormsState() {
+  const forms = loadJsonStorage(reviewerFormsStorageKey(), []);
+  state.reviewerForms = Array.isArray(forms) ? forms : [];
+}
+
+function saveReviewerFormsState() {
+  saveJsonStorage(reviewerFormsStorageKey(), state.reviewerForms);
+}
+
+function normalizedText(value = '') {
+  return String(value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+
+function findBlockKeyForChatQuote(quote = '') {
+  const needle = normalizedText(quote);
+  if (!needle) return '';
+  const blocks = flatBlocks();
+  const direct = blocks.find((block) => normalizedText(block.plainText || block.text).includes(needle));
+  if (direct) return direct.key;
+  const tokens = needle.split(/\W+/).filter((token) => token.length > 3);
+  if (tokens.length < 3) return '';
+  let best = { key: '', score: 0 };
+  blocks.forEach((block) => {
+    const haystack = normalizedText(block.plainText || block.text);
+    const score = tokens.reduce((sum, token) => sum + (haystack.includes(token) ? 1 : 0), 0);
+    if (score > best.score) best = { key: block.key, score };
+  });
+  return best.score >= Math.max(3, Math.ceil(tokens.length * 0.6)) ? best.key : '';
+}
+
+function citationMarkers(answer = '') {
+  const seen = new Set();
+  const markers = [];
+  String(answer || '').replace(/\[\s*(\d+(?:\s*,\s*\d+)*)\s*]/g, (_match, value) => {
+    value.split(',').map((item) => item.trim()).filter(Boolean).forEach((marker) => {
+      if (!seen.has(marker)) {
+        seen.add(marker);
+        markers.push(marker);
+      }
+    });
+    return _match;
+  });
+  return markers;
+}
+
+function normalizeGroundedChatResult(result = {}) {
+  const answer = String(result.answer || '').trim();
+  const rawCitations = Array.isArray(result.citations) ? result.citations : [];
+  if (!answer || !rawCitations.length) throw new Error('Chat response did not include quote-backed citations.');
+  const citations = {};
+  rawCitations.forEach((entry, index) => {
+    const marker = String(Number(entry.marker || 0) || index + 1);
+    const quote = String(entry.quote || '').replace(/\s+/g, ' ').trim();
+    const sourceBlockKey = findBlockKeyForChatQuote(quote);
+    if (quote && sourceBlockKey) citations[marker] = { quote, sourceBlockKey };
+  });
+  const required = citationMarkers(answer);
+  if (!required.length) throw new Error('Chat response did not include inline citation markers.');
+  if (!required.every((marker) => citations[marker])) throw new Error('One or more chat citations could not be mapped to the manuscript.');
+  return { answer, citations };
+}
+
+function chatBlocksForRequest() {
+  return flatBlocks()
+    .filter((block) => block.plainText)
+    .slice(0, 180)
+    .map((block) => ({
+      blockKey: block.key,
+      pageNumber: block.pageNumber,
+      type: block.type,
+      text: block.plainText.slice(0, 2500)
+    }));
+}
+
+function renderChatExamplePrompts() {
+  if (!els.chatExamplePrompts) return;
+  els.chatExamplePrompts.classList.toggle('d-none', state.chatMessages.length > 0 || state.chatStatus === 'running');
+  els.chatExamplePrompts.innerHTML = CHAT_EXAMPLE_PROMPTS.map((prompt) => `
+    <div class="col d-grid">
+      <button type="button" class="btn btn-outline-secondary btn-sm text-start h-100" data-chat-prompt="${escapeHtml(prompt)}">${escapeHtml(prompt)}</button>
+    </div>
+  `).join('');
+}
+
+function renderChatMessageText(message = {}) {
+  if (!message.citations || typeof message.citations !== 'object') return `<div>${escapeHtml(message.text || '')}</div>`;
+  const source = String(message.text || '');
+  let html = '';
+  let lastIndex = 0;
+  source.replace(/\[\s*(\d+(?:\s*,\s*\d+)*)\s*]/g, (match, markers, offset) => {
+    html += escapeHtml(source.slice(lastIndex, offset));
+    html += markers.split(',').map((marker) => {
+      const key = marker.trim();
+      const citation = message.citations[key];
+      if (!citation?.sourceBlockKey) return `[${escapeHtml(key)}]`;
+      return `<button type="button" class="btn btn-link btn-sm p-0 align-baseline text-decoration-none" ${detailLinkAttributes(citation.sourceBlockKey, citation.quote)} title="Locate quote in manuscript">[${escapeHtml(key)}]</button>`;
+    }).join(', ');
+    lastIndex = offset + match.length;
+    return match;
+  });
+  html += escapeHtml(source.slice(lastIndex));
+  return `<div>${html}</div>`;
 }
 
 function renderChatMessages() {
   if (!els.chatMessageList) return;
-  const messages = state.chatMessages.length
-    ? state.chatMessages
-    : [{
+  renderChatExamplePrompts();
+  if (!state.chatMessages.length && state.chatStatus !== 'running') {
+    const hasPdf = state.pages.length > 0;
+    els.chatMessageList.innerHTML = `
+      <div class="d-flex align-items-center justify-content-center h-100 py-4">
+        <div class="text-center p-4 bg-body-tertiary rounded-4 border border-secondary-subtle w-100 chat-empty-state">
+          <div class="text-secondary mb-3"><i class="bi bi-chat-dots fs-2" aria-hidden="true"></i></div>
+          <div class="fw-semibold mb-1">${escapeHtml(hasPdf ? 'Ask about the manuscript' : 'Load a PDF to start chatting')}</div>
+          <div class="text-secondary small">${escapeHtml(hasPdf ? 'Answers appear only when supporting quotes can be linked back to the manuscript.' : 'This chat uses only the loaded manuscript text and will not answer without PDF context.')}</div>
+        </div>
+      </div>`;
+    return;
+  }
+  const pending = state.chatStatus === 'running'
+    ? `<div class="d-flex justify-content-start mb-3"><div class="rounded-4 px-3 py-2 shadow-sm bg-light border small"><span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Checking manuscript quotes...</div></div>`
+    : '';
+  const error = state.chatError
+    ? `<div class="alert alert-danger py-2 px-3 small mb-3">${escapeHtml(state.chatError)}</div>`
+    : '';
+  els.chatMessageList.innerHTML = state.chatMessages.map((message) => {
+    const isUser = message.role === 'user';
+    return `<div class="d-flex ${isUser ? 'justify-content-end' : 'justify-content-start'} mb-3">
+      <div class="chat-bubble rounded-4 px-3 py-2 shadow-sm ${isUser ? 'bg-primary text-white' : 'bg-light border'}">
+        ${isUser ? `<div>${escapeHtml(message.text || '')}</div>` : renderChatMessageText(message)}
+      </div>
+    </div>`;
+  }).join('') + pending + error;
+  els.chatMessageList.scrollTop = els.chatMessageList.scrollHeight;
+}
+
+async function submitChatQuestion(question = '') {
+  const text = String(question || '').trim();
+  if (!text || state.chatStatus === 'running') return;
+  if (!state.pages.length) {
+    state.chatError = 'Open a manuscript before using chat.';
+    renderChatMessages();
+    return;
+  }
+  state.chatMessages.push({ role: 'user', text, createdAt: new Date().toISOString() });
+  state.chatStatus = 'running';
+  state.chatError = '';
+  saveReviewChatHistory();
+  renderChatMessages();
+  try {
+    const response = await requestGroundedChat({
+      question: text,
+      blocks: chatBlocksForRequest(),
+      history: state.chatMessages.slice(-8).map((message) => ({ role: message.role, content: message.text }))
+    });
+    const grounded = normalizeGroundedChatResult(response.result || {});
+    state.chatMessages.push({
       role: 'assistant',
-      text: state.pages.length
-        ? 'Ask about counts, Essential guideline results, matched reporting guidelines, declarations, or source locations in this manuscript.'
-        : 'Upload or open a manuscript to chat about the DeskReview results.'
-    }];
-  els.chatMessageList.innerHTML = messages.map((message) => `
-    <div class="chat-message ${message.role === 'user' ? 'chat-message-user' : ''}">
-      <div class="small text-uppercase text-secondary guide-card-kicker mb-1">${escapeHtml(message.role === 'user' ? 'You' : 'DeskReview')}</div>
-      <div class="small text-body">${escapeHtml(message.text)}</div>
-      ${message.sourceBlockKey ? `
-        <button type="button" class="btn btn-sm btn-light border mt-2" data-detail-block-key="${escapeHtml(message.sourceBlockKey)}">
-          <i class="bi bi-arrow-up-left-square" aria-hidden="true"></i>
-          <span>Jump</span>
+      text: grounded.answer,
+      citations: grounded.citations,
+      createdAt: new Date().toISOString()
+    });
+  } catch (error) {
+    state.chatError = String(error?.message || error || 'Chat failed.');
+  } finally {
+    state.chatStatus = 'idle';
+    saveReviewChatHistory();
+    renderChatMessages();
+  }
+}
+
+function reactionConfig(key = '') {
+  return REACTIONS_CONFIG.find((entry) => entry.key === key) || REACTIONS_CONFIG[0];
+}
+
+function createTagPopoverMarkup(bookmarkId = '', currentTag = '') {
+  return [''].concat(DEFAULT_BOOKMARK_TAGS).map((tag) => {
+    const selected = tag === currentTag;
+    return `<button type="button" class="badge rounded-pill border-0 ${selected ? 'bg-primary-subtle text-primary-emphasis' : 'bg-secondary-subtle text-body'} m-1" data-popover-bookmark-tag="${escapeHtml(bookmarkId)}" data-tag-value="${escapeHtml(tag)}">${escapeHtml(tag || 'No tag')}</button>`;
+  }).join('');
+}
+
+function createReactionPopoverMarkup(bookmarkId = '') {
+  return REACTIONS_CONFIG.map((entry) => `
+    <button type="button" class="btn btn-link text-start text-decoration-none text-body border-0 px-2 py-1 d-flex align-items-center gap-2 w-100" data-popover-bookmark-reaction="${escapeHtml(bookmarkId)}" data-reaction-value="${escapeHtml(entry.key)}">
+      <i class="${escapeHtml(entry.iconClass)}" aria-hidden="true"></i>
+      <span>${escapeHtml(entry.label)}</span>
+    </button>
+  `).join('');
+}
+
+function getBookmarkById(bookmarkId = '') {
+  return state.commentsData.bookmarks.find((bookmark) => bookmark.id === bookmarkId) || null;
+}
+
+function bookmarkMarkup(bookmark = {}) {
+  const reaction = reactionConfig(bookmark.reaction);
+  const isEditing = bookmark.id === state.editingBookmarkCommentId;
+  return `<div class="card border-0 bookmark-card" data-bookmark-id="${escapeHtml(bookmark.id)}">
+    <div class="card-body px-0 py-3">
+      <div class="d-flex align-items-start justify-content-between gap-3 mb-2">
+        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none border-0 ${bookmark.tag ? '' : 'text-secondary'}" data-bookmark-tag-anchor="${escapeHtml(bookmark.id)}">
+          ${bookmark.tag ? `<span class="badge rounded-pill text-bg-secondary">${escapeHtml(bookmark.tag)}</span>` : '<span class="small">Add tag</span>'}
         </button>
-      ` : ''}
+        <div class="dropdown flex-shrink-0">
+          <button type="button" class="btn btn-link btn-sm p-0 text-secondary text-decoration-none border-0" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Bookmark actions">
+            <i class="bi bi-three-dots-vertical" aria-hidden="true"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><button type="button" class="dropdown-item d-flex align-items-center gap-2" data-bookmark-action="tag" data-bookmark-action-id="${escapeHtml(bookmark.id)}"><i class="bi bi-tag" aria-hidden="true"></i><span>Tag</span></button></li>
+            <li><button type="button" class="dropdown-item d-flex align-items-center gap-2" data-bookmark-action="reaction" data-bookmark-action-id="${escapeHtml(bookmark.id)}"><i class="bi bi-emoji-smile" aria-hidden="true"></i><span>Reaction</span></button></li>
+            <li><button type="button" class="dropdown-item d-flex align-items-center gap-2" data-bookmark-action="comment" data-bookmark-action-id="${escapeHtml(bookmark.id)}"><i class="bi bi-pencil-square" aria-hidden="true"></i><span>Comment</span></button></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button type="button" class="dropdown-item text-danger" data-bookmark-action="delete" data-bookmark-action-id="${escapeHtml(bookmark.id)}">Delete bookmark</button></li>
+          </ul>
+        </div>
+      </div>
+      <button type="button" class="btn btn-link p-0 text-start text-decoration-none mb-2" data-open-bookmark-quote="${escapeHtml(bookmark.id)}">
+        <span class="fst-italic text-body small">"${escapeHtml(bookmark.quote)}"</span>
+      </button>
+      <div class="mb-2">
+        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none border-0 d-inline-flex align-items-center gap-2 ${bookmark.reaction ? 'text-body' : 'text-secondary'}" data-bookmark-reaction-anchor="${escapeHtml(bookmark.id)}">
+          <i class="${escapeHtml(reaction.iconClass)}" aria-hidden="true"></i>
+          <span class="small">${escapeHtml(bookmark.reaction ? reaction.label : 'Add reaction')}</span>
+        </button>
+      </div>
+      ${isEditing ? `
+        <div>
+          <textarea class="form-control form-control-sm" rows="3" data-bookmark-note-input="${escapeHtml(bookmark.id)}" placeholder="Add your comment">${escapeHtml(bookmark.comment || '')}</textarea>
+          <div class="d-flex justify-content-end gap-2 mt-1">
+            <button type="button" class="btn btn-light border btn-sm" data-cancel-bookmark-comment="${escapeHtml(bookmark.id)}">Cancel</button>
+            <button type="button" class="btn btn-light border btn-sm" data-save-bookmark-note="${escapeHtml(bookmark.id)}">Save comment</button>
+          </div>
+        </div>
+      ` : (bookmark.comment ? `<div class="small text-body-secondary bookmark-comment">${escapeHtml(bookmark.comment)}</div>` : '')}
+    </div>
+  </div>`;
+}
+
+function renderReviewerFormEditor(items = [{ section: 'General', question: '' }]) {
+  if (!els.reviewerFormItems) return;
+  const safeItems = Array.isArray(items) && items.length ? items : [{ section: 'General', question: '' }];
+  els.reviewerFormItems.innerHTML = safeItems.map((item, index) => `
+    <div class="card" data-reviewer-form-item="${index}">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="small text-secondary fw-semibold">Question ${escapeHtml(index + 1)}</div>
+          <button type="button" class="btn btn-outline-danger btn-sm" data-remove-reviewer-form-item="${index}" aria-label="Remove question"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        </div>
+        <div class="mb-2">
+          <label class="form-label small text-secondary">Section</label>
+          <input type="text" class="form-control form-control-sm" data-reviewer-form-section="${index}" value="${escapeHtml(item.section || 'General')}">
+        </div>
+        <div>
+          <label class="form-label small text-secondary">Question</label>
+          <textarea class="form-control form-control-sm" rows="3" data-reviewer-form-question="${index}" placeholder="Enter the reviewer prompt">${escapeHtml(item.question || '')}</textarea>
+        </div>
+      </div>
     </div>
   `).join('');
 }
 
-function essentialGuideSummaryText() {
-  updateEssentialResults();
-  if (!state.essentialResults.length) return 'Essential guidelines are still loading.';
-  return state.essentialResults.map((guide) => {
-    const summary = guide.summary || {};
-    return `${guide.name}: ${summary.present || 0} present, ${summary.warning || 0} review, ${summary.absent || 0} missing`;
-  }).join('\n');
+function collectReviewerFormEditorValue() {
+  const cards = [...(els.reviewerFormItems?.querySelectorAll('[data-reviewer-form-item]') || [])];
+  const items = cards.map((card, index) => ({
+    section: String(card.querySelector(`[data-reviewer-form-section="${index}"]`)?.value || '').trim() || 'General',
+    question: String(card.querySelector(`[data-reviewer-form-question="${index}"]`)?.value || '').trim()
+  })).filter((item) => item.question);
+  return {
+    id: state.editingReviewerFormId || createLocalId('reviewer-form'),
+    name: String(els.reviewerFormName?.value || '').trim() || 'Untitled reviewer form',
+    description: String(els.reviewerFormDescription?.value || '').trim(),
+    items: items.length ? items : [{ section: 'General', question: '' }]
+  };
 }
 
-function declarationSummaryText() {
-  updateEssentialResults();
-  const declarations = state.essentialResults.find((guide) => guide.id === 'ease-declarations');
-  if (!declarations) return 'Declarations are still loading.';
-  return declarations.results.map((item) => `${item.label}: ${guidelineStatusLabel(item.status)} - ${item.message}`).join('\n');
+function openReviewerFormEditor(form = null) {
+  state.editingReviewerFormId = String(form?.id || '').trim();
+  if (els.reviewerFormName) els.reviewerFormName.value = String(form?.name || '');
+  if (els.reviewerFormDescription) els.reviewerFormDescription.value = String(form?.description || '');
+  renderReviewerFormEditor(form?.items);
+  window.bootstrap?.Modal?.getOrCreateInstance?.(els.reviewerFormModal)?.show();
 }
 
-function generateChatReply(question = '') {
-  const query = String(question || '').toLowerCase();
-  if (!state.pages.length) return 'No manuscript is open yet. Upload a PDF or open a stored review first.';
-  if (query.includes('declaration') || query.includes('ethic') || query.includes('funding') || query.includes('conflict') || query.includes('data availability')) {
-    return declarationSummaryText();
+function renderReviewerGuidance() {
+  if (!els.reviewerGuidanceList || !els.reviewerGuidanceWorkspace) return;
+  if (!state.reviewerForms.length) {
+    els.reviewerGuidanceList.innerHTML = '<div class="text-secondary small">No reviewer forms yet. Create one to keep reusable review questions close at hand.</div>';
+  } else {
+    els.reviewerGuidanceList.innerHTML = state.reviewerForms.map((form) => `
+      <div class="card" data-reviewer-form-id="${escapeHtml(form.id)}">
+        <div class="card-body">
+          <div class="d-flex align-items-start justify-content-between gap-3">
+            <div>
+              <h3 class="h6 mb-1">${escapeHtml(form.name)}</h3>
+              ${form.description ? `<div class="small text-secondary">${escapeHtml(form.description)}</div>` : ''}
+            </div>
+            <div class="d-flex align-items-center gap-2 flex-shrink-0">
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-edit-reviewer-form="${escapeHtml(form.id)}" aria-label="Edit reviewer form"><i class="bi bi-pencil" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-outline-danger btn-sm" data-delete-reviewer-form="${escapeHtml(form.id)}" aria-label="Delete reviewer form"><i class="bi bi-trash" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div class="mt-3"><button type="button" class="btn btn-outline-primary btn-sm" data-open-reviewer-form="${escapeHtml(form.id)}">Use form</button></div>
+        </div>
+      </div>
+    `).join('');
   }
-  if (query.includes('essential') || query.includes('guideline') || query.includes('imrad') || query.includes('abstract page')) {
-    return essentialGuideSummaryText();
+  const active = state.reviewerForms.find((form) => form.id === state.activeReviewerFormId);
+  if (!active) {
+    els.reviewerGuidanceWorkspace.classList.add('d-none');
+    els.reviewerGuidanceWorkspace.innerHTML = '';
+    return;
   }
-  if (query.includes('reporting') || query.includes('matched') || query.includes('consort') || query.includes('strobe') || query.includes('prisma')) {
-    if (state.reportingMatches.status === 'ready') {
-      const matches = state.reportingMatches.result?.matches || [];
-      return matches.length
-        ? matches.map((match) => `${match.label}: ${Math.round(Number(match.confidence || 0) * 100)}% - ${match.rationale}`).join('\n')
-        : 'No matched reporting guidelines were returned yet.';
-    }
-    return `Reporting guideline matching is ${state.reportingMatches.status || 'waiting'}. It runs after document annotation is ready.`;
-  }
-  if (query.includes('abstract')) {
-    const abstract = state.documentAnnotation.result?.abstract;
-    if (abstract?.countedText) {
-      return `Abstract: ${Number(abstract.wordCount || 0)} words.\n${String(abstract.countedText || '').slice(0, 500)}`;
-    }
-    return 'The annotation has not returned abstract text yet.';
-  }
-  if (query.includes('count') || query.includes('word') || query.includes('reference')) {
-    const counts = { ...getOcrCounts(), ...(state.semanticCounts || {}) };
-    return [
-      `Pages: ${state.pages.length}`,
-      `Article words: ${formatInteger(counts.articleWordCount || counts.words || 0)}`,
-      `Abstract words: ${formatInteger(counts.abstractWordCount || 0)}`,
-      `References: ${formatInteger(counts.referenceCount || 0)}`,
-      `Tables: ${formatInteger(counts.tables || 0)}`,
-      `Figures: ${formatInteger(counts.figures || 0)}`
-    ].join('\n');
-  }
-  return 'I can summarize counts, Essential guideline results, declaration checks, matched reporting guidelines, or source-linked details for the current manuscript.';
+  els.reviewerGuidanceWorkspace.innerHTML = `
+    <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+      <div>
+        <h3 class="h6 mb-1">${escapeHtml(active.name)}</h3>
+        ${active.description ? `<div class="small text-secondary">${escapeHtml(active.description)}</div>` : ''}
+      </div>
+      <button type="button" class="btn-close" aria-label="Close" data-close-reviewer-workspace></button>
+    </div>
+    <form>${active.items.map((item, index) => `
+      <div class="mb-3">
+        <div class="small text-secondary mb-1">${escapeHtml(item.section || 'General')}</div>
+        <label class="form-label small">${escapeHtml(item.question || `Question ${index + 1}`)}</label>
+        <textarea class="form-control form-control-sm" rows="4" placeholder="Write your review notes"></textarea>
+      </div>
+    `).join('')}</form>`;
+  els.reviewerGuidanceWorkspace.classList.remove('d-none');
 }
 
 function renderComments() {
-  if (!els.commentList) return;
-  if (!state.comments.length) {
-    els.commentList.innerHTML = `
-      <div class="comment-card text-secondary small">
-        No comments yet. Add a note for this review, optionally after clicking a source block.
-      </div>
-    `;
+  if (!els.commentsNotepadInput || !els.commentsBookmarkList) return;
+  const hasReview = Boolean(reviewStorageKey());
+  els.commentsNotepadInput.disabled = !hasReview;
+  els.commentsNotepadInput.value = state.commentsData.notepad || '';
+  els.commentsNotepadStatus.textContent = hasReview ? 'Auto-saves' : 'Load a PDF to start taking notes.';
+  const bookmarks = state.commentsData.bookmarks || [];
+  els.commentsBookmarkCountBadge.textContent = String(bookmarks.length);
+  els.commentsBookmarkCountBadge.classList.toggle('d-none', bookmarks.length === 0);
+  if (els.commentsGenerateReportButton) els.commentsGenerateReportButton.disabled = !hasReview;
+  if (els.commentsActionsButton) els.commentsActionsButton.disabled = !hasReview;
+  if (!hasReview) {
+    els.commentsBookmarksHelper.classList.add('d-none');
+    els.commentsBookmarkList.innerHTML = '<div class="text-secondary small">Bookmarks are tied to the current manuscript.</div>';
+  } else if (!bookmarks.length) {
+    els.commentsBookmarksHelper.classList.remove('d-none');
+    els.commentsBookmarksHelper.innerHTML = `
+      <div class="border rounded-3 bg-light-subtle px-3 py-3 d-flex align-items-start gap-3">
+        <div class="fs-4 text-secondary lh-1"><i class="bi bi-highlighter" aria-hidden="true"></i></div>
+        <div>
+          <div class="small fw-semibold text-secondary mb-1">No bookmarks yet</div>
+          <div class="small text-secondary">Select text in the rendered manuscript, then use the floating bookmark button to save a passage here.</div>
+        </div>
+      </div>`;
+    els.commentsBookmarkList.innerHTML = '';
+  } else {
+    els.commentsBookmarksHelper.classList.add('d-none');
+    els.commentsBookmarksHelper.innerHTML = '';
+    els.commentsBookmarkList.innerHTML = bookmarks.map(bookmarkMarkup).join('');
+  }
+  renderReviewerGuidance();
+}
+
+function selectionInsideReader(selection = null) {
+  if (!selection || selection.rangeCount < 1 || !String(selection.toString() || '').trim()) return false;
+  const anchor = selection.anchorNode?.nodeType === Node.ELEMENT_NODE ? selection.anchorNode : selection.anchorNode?.parentElement;
+  const focus = selection.focusNode?.nodeType === Node.ELEMENT_NODE ? selection.focusNode : selection.focusNode?.parentElement;
+  return Boolean(anchor?.closest?.('#htmlDocument, #detailsPanelBody') || focus?.closest?.('#htmlDocument, #detailsPanelBody'));
+}
+
+function ensureFloatingBookmarkButton() {
+  if (state.floatingBookmarkButton) return state.floatingBookmarkButton;
+  const button = document.createElement('button');
+  button.id = 'floatingAddBookmarkButton';
+  button.type = 'button';
+  button.className = 'btn btn-primary btn-sm rounded-circle p-0 d-inline-flex align-items-center justify-content-center shadow position-fixed border-0 floating-bookmark-btn';
+  button.setAttribute('aria-label', 'Add bookmark from selected text');
+  button.innerHTML = '<i class="bi bi-bookmark-plus" aria-hidden="true"></i>';
+  button.style.display = 'none';
+  document.body.appendChild(button);
+  button.addEventListener('click', () => {
+    addBookmarkFromQuote(button.dataset.selectedText || '', { revealPanel: true });
+    hideFloatingBookmarkButton();
+    window.getSelection()?.removeAllRanges?.();
+  });
+  state.floatingBookmarkButton = button;
+  return button;
+}
+
+function hideFloatingBookmarkButton() {
+  const button = state.floatingBookmarkButton;
+  if (!button) return;
+  button.style.display = 'none';
+  delete button.dataset.selectedText;
+}
+
+function scheduleFloatingBookmarkButton() {
+  window.setTimeout(() => {
+    const selection = window.getSelection();
+    const selectedText = String(selection?.toString?.() || '').replace(/\s+/g, ' ').trim();
+    if (!reviewStorageKey() || !selectionInsideReader(selection) || !selectedText) {
+      hideFloatingBookmarkButton();
+      return;
+    }
+    const range = selection.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    if (!rect || !(rect.width || rect.height)) {
+      hideFloatingBookmarkButton();
+      return;
+    }
+    const button = ensureFloatingBookmarkButton();
+    button.dataset.selectedText = selectedText;
+    button.style.left = `${Math.min(Math.max(rect.right + 8, 8), window.innerWidth - 48)}px`;
+    button.style.top = `${Math.min(Math.max(rect.bottom + 8, 8), window.innerHeight - 48)}px`;
+    button.style.display = 'inline-flex';
+  }, 20);
+}
+
+function revealBookmarksPanel() {
+  window.bootstrap?.Tab?.getOrCreateInstance?.(document.getElementById('comment-tab'))?.show();
+  window.bootstrap?.Collapse?.getOrCreateInstance?.(els.commentsBookmarksCollapse, { toggle: false })?.show();
+}
+
+function addBookmarkFromQuote(quote = '', { revealPanel = false } = {}) {
+  const cleanedQuote = String(quote || '').replace(/\s+/g, ' ').trim();
+  if (!cleanedQuote || !reviewStorageKey()) return false;
+  state.commentsData.bookmarks.push(normalizeBookmark({
+    id: createLocalId('bookmark'),
+    quote: cleanedQuote,
+    sourceBlockKey: findBlockKeyForChatQuote(cleanedQuote),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  }));
+  state.editingBookmarkCommentId = '';
+  saveReviewComments();
+  renderComments();
+  if (revealPanel) revealBookmarksPanel();
+  window.setTimeout(() => els.commentsBookmarkList?.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  return true;
+}
+
+function updateBookmark(bookmarkId = '', updates = {}) {
+  state.commentsData.bookmarks = state.commentsData.bookmarks.map((bookmark) => (
+    bookmark.id === bookmarkId
+      ? normalizeBookmark({ ...bookmark, ...updates, updatedAt: new Date().toISOString() })
+      : bookmark
+  ));
+  saveReviewComments();
+  renderComments();
+}
+
+function deleteBookmark(bookmarkId = '') {
+  state.commentsData.bookmarks = state.commentsData.bookmarks.filter((bookmark) => bookmark.id !== bookmarkId);
+  if (state.editingBookmarkCommentId === bookmarkId) state.editingBookmarkCommentId = '';
+  saveReviewComments();
+  renderComments();
+}
+
+function openBookmarkPopover(anchor = null, html = '') {
+  if (!anchor || !window.bootstrap?.Popover) return;
+  window.bootstrap.Popover.getInstance(anchor)?.dispose();
+  const popover = new window.bootstrap.Popover(anchor, {
+    content: html,
+    html: true,
+    sanitize: false,
+    placement: 'bottom',
+    trigger: 'focus'
+  });
+  anchor.addEventListener('hidden.bs.popover', () => popover.dispose(), { once: true });
+  anchor.focus();
+  popover.show();
+}
+
+function exportComments(format = 'txt') {
+  const data = state.commentsData;
+  if (format === 'json') {
+    triggerDownload('manuscript-comments.json', JSON.stringify(data, null, 2), 'application/json');
     return;
   }
-  els.commentList.innerHTML = state.comments.map((comment) => `
-    <div class="comment-card" data-comment-id="${escapeHtml(comment.id)}">
-      <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
-        <div class="small text-secondary">${escapeHtml(formatDateTime(comment.createdAt))}</div>
-        <button type="button" class="btn btn-sm btn-light border" data-delete-comment-id="${escapeHtml(comment.id)}" aria-label="Delete comment">
-          <i class="bi bi-trash" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div class="small text-body">${escapeHtml(comment.text)}</div>
-      ${comment.sourceBlockKey ? `
-        <button type="button" class="btn btn-sm btn-light border mt-2" data-detail-block-key="${escapeHtml(comment.sourceBlockKey)}">
-          <i class="bi bi-arrow-up-left-square" aria-hidden="true"></i>
-          <span>Jump to source</span>
-        </button>
-      ` : ''}
-    </div>
-  `).join('');
+  const lines = ['DeskReview Comments Export', '', 'Notepad', '-------', data.notepad || '(empty)', '', 'Annotated Bookmarks', '------------------'];
+  if (!data.bookmarks.length) {
+    lines.push('(none)');
+  } else {
+    data.bookmarks.forEach((bookmark, index) => {
+      lines.push(`${index + 1}. "${bookmark.quote}"`);
+      if (bookmark.tag) lines.push(`   Tag: ${bookmark.tag}`);
+      if (bookmark.reaction) lines.push(`   Reaction: ${reactionConfig(bookmark.reaction).label}`);
+      lines.push(`   Comment: ${bookmark.comment || '(no comment)'}`);
+    });
+  }
+  triggerDownload('manuscript-comments.txt', lines.join('\n'), 'text/plain;charset=utf-8');
+}
+
+function triggerDownload(filename = 'download.txt', content = '', type = 'text/plain') {
+  const blob = new Blob([content], { type });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
+}
+
+function commentsFeedbackMarkdown() {
+  const parts = ['# Comments feedback'];
+  if (state.commentsData.notepad.trim()) {
+    parts.push('', '## Notepad', state.commentsData.notepad.trim());
+  }
+  if (state.commentsData.bookmarks.length) {
+    parts.push('', '## Annotated bookmarks');
+    state.commentsData.bookmarks.forEach((bookmark, index) => {
+      parts.push(`${index + 1}. "${bookmark.quote}"`);
+      const meta = [bookmark.tag, reactionConfig(bookmark.reaction).key ? reactionConfig(bookmark.reaction).label : '', bookmark.comment].filter(Boolean);
+      if (meta.length) parts.push(`   ${meta.join(' · ')}`);
+    });
+  }
+  if (parts.length === 1) parts.push('', 'No comments have been added yet.');
+  return parts.join('\n');
+}
+
+function formatSimpleMarkdown(value = '') {
+  return String(value || '').split(/\r?\n/).map((line) => {
+    if (/^#\s+/.test(line)) return `<h3 class="h5 mt-2">${escapeHtml(line.replace(/^#\s+/, ''))}</h3>`;
+    if (/^##\s+/.test(line)) return `<h4 class="h6 mt-3">${escapeHtml(line.replace(/^##\s+/, ''))}</h4>`;
+    if (/^\d+\.\s+/.test(line)) return `<div class="mb-2">${escapeHtml(line)}</div>`;
+    return line.trim() ? `<p class="mb-2">${escapeHtml(line)}</p>` : '';
+  }).join('');
 }
 
 function renderReportingMatchDetails(guidelineId = '') {
@@ -6713,7 +7242,17 @@ function resetReaderState(file = null) {
   state.reportingGuideResults = [];
   state.precomputedExample = { active: false, id: '', title: '' };
   state.chatMessages = [];
-  state.comments = [];
+  state.chatStatus = 'idle';
+  state.chatError = '';
+  state.commentsData = { notepad: '', bookmarks: [] };
+  state.activeReviewerFormId = '';
+  state.editingReviewerFormId = '';
+  state.editingBookmarkCommentId = '';
+  state.pendingDeleteBookmarkId = '';
+  if (state.notepadSaveTimer) {
+    window.clearTimeout(state.notepadSaveTimer);
+    state.notepadSaveTimer = 0;
+  }
   state.pdfSearch = { query: '', matches: [], index: -1 };
   state.ocrProgress = { status: 'idle', startedAt: 0, estimateMs: 18000 };
   state.checkReveal = { phase: 'idle', startedAt: 0, visibleKinds: [], resultKinds: [], lastResultAt: 0, resultTimer: 0, timers: [] };
@@ -6763,7 +7302,9 @@ async function saveReviewToLibrary(file = null, ocr = {}) {
   await putStoredReview(review);
   state.currentReviewId = id;
   state.currentReview = review;
+  loadReviewChatHistory();
   loadReviewComments();
+  loadReviewerFormsState();
   renderComments();
   renderChatMessages();
   refreshLibrary().catch((error) => console.warn('[deskreview-mistral-2] library refresh failed', error));
@@ -6849,7 +7390,9 @@ async function renderReviewFromRecord(review = {}) {
       });
     }
   }
+  loadReviewChatHistory();
   loadReviewComments();
+  loadReviewerFormsState();
   renderComments();
   renderChatMessages();
   if (review.referenceResolver?.status === 'ready' && review.referenceResolver.result) {
@@ -6934,7 +7477,6 @@ async function renderReviewFromRecord(review = {}) {
   state.pdfUrl = URL.createObjectURL(review.pdfBlob);
   state.pages = Array.isArray(review.ocr.pages) ? review.ocr.pages : [];
   state.semanticCounts = review.ocr.semanticCounts || null;
-  renderChatMessages();
   hydrateSemanticCountsFromSavedResults(flatBlocks());
   showReader();
   switchView('pdf');
@@ -7383,11 +7925,33 @@ els.chatComposer?.addEventListener('submit', (event) => {
   event.preventDefault();
   const question = String(els.chatInput?.value || '').trim();
   if (!question) return;
-  state.chatMessages.push({ role: 'user', text: question });
-  state.chatMessages.push({ role: 'assistant', text: generateChatReply(question) });
   if (els.chatInput) els.chatInput.value = '';
-  renderChatMessages();
-  els.chatMessageList?.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  submitChatQuestion(question).catch((error) => {
+    state.chatStatus = 'idle';
+    state.chatError = String(error?.message || error || 'Chat failed.');
+    renderChatMessages();
+  });
+});
+
+els.chatExamplePrompts?.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-chat-prompt]');
+  if (!button) return;
+  event.preventDefault();
+  submitChatQuestion(button.dataset.chatPrompt || '').catch((error) => {
+    state.chatStatus = 'idle';
+    state.chatError = String(error?.message || error || 'Chat failed.');
+    renderChatMessages();
+  });
+});
+
+els.clearChatButton?.addEventListener('click', () => {
+  if (!state.chatMessages.length) return;
+  window.bootstrap?.Modal?.getOrCreateInstance?.(els.clearChatConfirmModal)?.show();
+});
+
+els.confirmClearChatButton?.addEventListener('click', () => {
+  clearReviewChatHistory();
+  window.bootstrap?.Modal?.getInstance?.(els.clearChatConfirmModal)?.hide();
 });
 
 els.chatMessageList?.addEventListener('click', (event) => {
@@ -7397,35 +7961,190 @@ els.chatMessageList?.addEventListener('click', (event) => {
   focusBlock(target.dataset.detailBlockKey, 'chat', detailQuoteFromTarget(target));
 });
 
-els.commentComposer?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const textValue = String(els.commentInput?.value || '').trim();
-  if (!textValue) return;
-  state.comments.push({
-    id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-    text: textValue,
-    sourceBlockKey: state.activeBlockKey || '',
-    createdAt: new Date().toISOString()
-  });
-  if (els.commentInput) els.commentInput.value = '';
-  saveReviewComments();
-  renderComments();
-  els.commentList?.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+els.commentsNotepadInput?.addEventListener('input', () => {
+  if (!reviewStorageKey()) return;
+  window.clearTimeout(state.notepadSaveTimer);
+  if (els.commentsNotepadStatus) els.commentsNotepadStatus.textContent = 'Saving...';
+  state.notepadSaveTimer = window.setTimeout(() => {
+    state.commentsData.notepad = String(els.commentsNotepadInput?.value || '');
+    saveReviewComments();
+    if (els.commentsNotepadStatus) els.commentsNotepadStatus.textContent = 'Saved';
+  }, 250);
 });
 
-els.commentList?.addEventListener('click', (event) => {
-  const deleteButton = event.target.closest('[data-delete-comment-id]');
-  if (deleteButton) {
+document.addEventListener('mouseup', scheduleFloatingBookmarkButton);
+document.addEventListener('keyup', scheduleFloatingBookmarkButton);
+document.addEventListener('mousedown', (event) => {
+  if (!state.floatingBookmarkButton?.contains(event.target)) hideFloatingBookmarkButton();
+});
+
+document.addEventListener('click', (event) => {
+  const tagButton = event.target.closest('[data-popover-bookmark-tag]');
+  if (tagButton) {
     event.preventDefault();
-    state.comments = state.comments.filter((comment) => comment.id !== deleteButton.dataset.deleteCommentId);
-    saveReviewComments();
-    renderComments();
+    updateBookmark(tagButton.dataset.popoverBookmarkTag || '', { tag: tagButton.dataset.tagValue || '' });
     return;
   }
-  const target = event.target.closest('[data-detail-block-key]');
-  if (!target) return;
+  const reactionButton = event.target.closest('[data-popover-bookmark-reaction]');
+  if (reactionButton) {
+    event.preventDefault();
+    updateBookmark(reactionButton.dataset.popoverBookmarkReaction || '', { reaction: reactionButton.dataset.reactionValue || '' });
+  }
+});
+
+els.commentsBookmarkList?.addEventListener('click', (event) => {
+  const quoteButton = event.target.closest('[data-open-bookmark-quote]');
+  if (quoteButton) {
+    event.preventDefault();
+    const bookmark = getBookmarkById(quoteButton.dataset.openBookmarkQuote || '');
+    if (bookmark?.sourceBlockKey) focusBlock(bookmark.sourceBlockKey, 'comment', bookmark.quote);
+    else if (bookmark?.quote) {
+      const blockKey = findBlockKeyForChatQuote(bookmark.quote) || findBlockKeyForQuote(bookmark.quote);
+      if (blockKey) focusBlock(blockKey, 'comment', bookmark.quote);
+    }
+    return;
+  }
+  const tagAnchor = event.target.closest('[data-bookmark-tag-anchor]');
+  if (tagAnchor) {
+    event.preventDefault();
+    const bookmark = getBookmarkById(tagAnchor.dataset.bookmarkTagAnchor || '');
+    openBookmarkPopover(tagAnchor, createTagPopoverMarkup(bookmark?.id || '', bookmark?.tag || ''));
+    return;
+  }
+  const reactionAnchor = event.target.closest('[data-bookmark-reaction-anchor]');
+  if (reactionAnchor) {
+    event.preventDefault();
+    openBookmarkPopover(reactionAnchor, createReactionPopoverMarkup(reactionAnchor.dataset.bookmarkReactionAnchor || ''));
+    return;
+  }
+  const actionButton = event.target.closest('[data-bookmark-action]');
+  if (actionButton) {
+    event.preventDefault();
+    const bookmarkId = actionButton.dataset.bookmarkActionId || '';
+    const action = actionButton.dataset.bookmarkAction || '';
+    if (action === 'tag') {
+      const bookmark = getBookmarkById(bookmarkId);
+      openBookmarkPopover(actionButton, createTagPopoverMarkup(bookmarkId, bookmark?.tag || ''));
+      return;
+    }
+    if (action === 'reaction') {
+      openBookmarkPopover(actionButton, createReactionPopoverMarkup(bookmarkId));
+      return;
+    }
+    if (action === 'comment') {
+      state.editingBookmarkCommentId = bookmarkId;
+      renderComments();
+      els.commentsBookmarkList?.querySelector(`[data-bookmark-note-input="${CSS.escape(bookmarkId)}"]`)?.focus();
+      return;
+    }
+    if (action === 'delete') {
+      state.pendingDeleteBookmarkId = bookmarkId;
+      window.bootstrap?.Modal?.getOrCreateInstance?.(els.deleteBookmarkConfirmModal)?.show();
+    }
+    return;
+  }
+  const saveButton = event.target.closest('[data-save-bookmark-note]');
+  if (saveButton) {
+    event.preventDefault();
+    const bookmarkId = saveButton.dataset.saveBookmarkNote || '';
+    const note = els.commentsBookmarkList?.querySelector(`[data-bookmark-note-input="${CSS.escape(bookmarkId)}"]`)?.value || '';
+    state.editingBookmarkCommentId = '';
+    updateBookmark(bookmarkId, { comment: note });
+    return;
+  }
+  const cancelButton = event.target.closest('[data-cancel-bookmark-comment]');
+  if (cancelButton) {
+    event.preventDefault();
+    state.editingBookmarkCommentId = '';
+    renderComments();
+  }
+});
+
+els.confirmDeleteBookmarkButton?.addEventListener('click', () => {
+  deleteBookmark(state.pendingDeleteBookmarkId);
+  state.pendingDeleteBookmarkId = '';
+  window.bootstrap?.Modal?.getInstance?.(els.deleteBookmarkConfirmModal)?.hide();
+});
+
+els.commentsActionsButton?.closest('.dropdown')?.addEventListener('click', (event) => {
+  const actionButton = event.target.closest('[data-comment-action]');
+  if (!actionButton) return;
+  const action = actionButton.dataset.commentAction || '';
+  if (action === 'export-txt') exportComments('txt');
+  if (action === 'export-json') exportComments('json');
+});
+
+els.commentsGenerateReportButton?.addEventListener('click', () => {
+  if (!reviewStorageKey()) return;
+  if (els.commentsFeedbackModalBody) els.commentsFeedbackModalBody.innerHTML = formatSimpleMarkdown(commentsFeedbackMarkdown());
+  window.bootstrap?.Modal?.getOrCreateInstance?.(els.commentsFeedbackModal)?.show();
+});
+
+els.copyCommentsFeedbackButton?.addEventListener('click', () => {
+  navigator.clipboard?.writeText(String(els.commentsFeedbackModalBody?.textContent || '').trim()).catch(() => {});
+});
+
+els.createReviewerFormButton?.addEventListener('click', () => openReviewerFormEditor());
+
+els.addReviewerFormItemButton?.addEventListener('click', () => {
+  const cards = [...(els.reviewerFormItems?.querySelectorAll('[data-reviewer-form-item]') || [])];
+  const items = cards.map((card, index) => ({
+    section: String(card.querySelector(`[data-reviewer-form-section="${index}"]`)?.value || '').trim() || 'General',
+    question: String(card.querySelector(`[data-reviewer-form-question="${index}"]`)?.value || '').trim()
+  }));
+  items.push({ section: 'General', question: '' });
+  renderReviewerFormEditor(items);
+});
+
+els.saveReviewerFormButton?.addEventListener('click', () => {
+  const form = collectReviewerFormEditorValue();
+  const index = state.reviewerForms.findIndex((entry) => entry.id === form.id);
+  if (index === -1) state.reviewerForms.push(form);
+  else state.reviewerForms[index] = form;
+  state.activeReviewerFormId = form.id;
+  saveReviewerFormsState();
+  window.bootstrap?.Modal?.getInstance?.(els.reviewerFormModal)?.hide();
+  renderComments();
+});
+
+els.reviewerFormItems?.addEventListener('click', (event) => {
+  const removeButton = event.target.closest('[data-remove-reviewer-form-item]');
+  if (!removeButton) return;
   event.preventDefault();
-  focusBlock(target.dataset.detailBlockKey, 'comment', detailQuoteFromTarget(target));
+  const removeIndex = Number(removeButton.dataset.removeReviewerFormItem || -1);
+  const cards = [...els.reviewerFormItems.querySelectorAll('[data-reviewer-form-item]')];
+  renderReviewerFormEditor(cards.map((card, index) => ({
+    section: String(card.querySelector(`[data-reviewer-form-section="${index}"]`)?.value || '').trim() || 'General',
+    question: String(card.querySelector(`[data-reviewer-form-question="${index}"]`)?.value || '').trim()
+  })).filter((_item, index) => index !== removeIndex));
+});
+
+els.reviewerGuidanceList?.addEventListener('click', (event) => {
+  const openButton = event.target.closest('[data-open-reviewer-form]');
+  if (openButton) {
+    state.activeReviewerFormId = openButton.dataset.openReviewerForm || '';
+    renderReviewerGuidance();
+    return;
+  }
+  const editButton = event.target.closest('[data-edit-reviewer-form]');
+  if (editButton) {
+    openReviewerFormEditor(state.reviewerForms.find((form) => form.id === editButton.dataset.editReviewerForm) || null);
+    return;
+  }
+  const deleteButton = event.target.closest('[data-delete-reviewer-form]');
+  if (deleteButton && window.confirm('Delete this reviewer form?')) {
+    const id = deleteButton.dataset.deleteReviewerForm || '';
+    state.reviewerForms = state.reviewerForms.filter((form) => form.id !== id);
+    if (state.activeReviewerFormId === id) state.activeReviewerFormId = '';
+    saveReviewerFormsState();
+    renderComments();
+  }
+});
+
+els.reviewerGuidanceWorkspace?.addEventListener('click', (event) => {
+  if (!event.target.closest('[data-close-reviewer-workspace]')) return;
+  state.activeReviewerFormId = '';
+  renderReviewerGuidance();
 });
 
 els.runtimeSummaryModal?.addEventListener('show.bs.modal', renderRuntimeSummary);

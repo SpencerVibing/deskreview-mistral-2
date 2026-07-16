@@ -196,17 +196,48 @@ async function main() {
 
     await page.click('#chat-tab');
     await assertVisible(page, '#chatInput');
-    await page.fill('#chatInput', 'What are the counts?');
+    const chatQuote = await page.locator('#htmlDocument .ocr-block').first().innerText();
+    const safeChatQuote = chatQuote.replace(/\s+/g, ' ').trim().slice(0, 160);
+    await page.route('**/api/chat', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json; charset=utf-8',
+        body: JSON.stringify({
+          elapsedMs: 12,
+          model: 'mock-chat',
+          result: {
+            answer: 'The manuscript contains source text that can be linked back to the reader [1].',
+            citations: [{ marker: 1, quote: safeChatQuote }]
+          }
+        })
+      });
+    });
+    await page.fill('#chatInput', 'What does this manuscript contain?');
     await page.click('#chatSendButton');
-    await assertText(page, '#chatMessageList', /References:\s+22/i);
-    await assertText(page, '#chatMessageList', /Tables:\s+3/i);
-    await assertText(page, '#chatMessageList', /Figures:\s+1/i);
+    await assertText(page, '#chatMessageList', /linked back to the reader/i);
+    assert.equal(await page.locator('#chatMessageList [data-detail-block-key]').count(), 1, 'Chat answers should render citation jump links.');
+    await page.click('#clearChatButton');
+    await page.waitForSelector('#clearChatConfirmModal.show', { timeout: 10000 });
+    await page.click('#confirmClearChatButton');
+    await page.waitForSelector('#clearChatConfirmModal.show', { state: 'detached', timeout: 10000 });
 
     await page.click('#comment-tab');
-    await assertVisible(page, '#commentInput');
-    await page.fill('#commentInput', 'UI parity smoke comment');
-    await page.click('#commentAddButton');
-    await assertText(page, '#commentList', /UI parity smoke comment/i);
+    await assertVisible(page, '#commentsAccordion');
+    await assertText(page, '#commentsAccordion', /Notepad/i);
+    await assertText(page, '#commentsAccordion', /Annotated bookmarks/i);
+    await assertText(page, '#commentsAccordion', /Reviewer guidance/i);
+    await page.click('[data-bs-target="#commentsNotepadCollapse"]');
+    await assertVisible(page, '#commentsNotepadInput');
+    await page.fill('#commentsNotepadInput', 'UI parity smoke note');
+    await assertText(page, '#commentsNotepadStatus', /Saved|Saving/i);
+    await page.click('[data-bs-target="#commentsReviewerGuidanceCollapse"]');
+    await page.click('#createReviewerFormButton');
+    await page.waitForSelector('#reviewerFormModal.show', { timeout: 10000 });
+    await page.fill('#reviewerFormName', 'UI parity reviewer form');
+    await page.fill('[data-reviewer-form-question="0"]', 'Is the method clearly described?');
+    await page.click('#saveReviewerFormButton');
+    await page.waitForSelector('#reviewerFormModal.show', { state: 'detached', timeout: 10000 });
+    await assertText(page, '#reviewerGuidanceList', /UI parity reviewer form/i);
     await page.screenshot({ path: join(OUT_DIR, 'medrxiv-chat-comments.png'), fullPage: true });
 
     await page.setViewportSize({ width: 1440, height: 420 });

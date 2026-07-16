@@ -636,11 +636,51 @@ body {
   background: rgba(var(--bs-primary-rgb), 0.045);
 }
 
+.chat-message-list {
+  overscroll-behavior: contain;
+}
+
+.chat-bubble {
+  max-width: 92%;
+  word-wrap: break-word;
+}
+
+.chat-empty-state {
+  max-width: 640px;
+  border-style: dashed !important;
+}
+
 .comment-card {
   border: 1px solid var(--studio-border);
   border-radius: 0.5rem;
   padding: 0.75rem;
   background: #fff;
+}
+
+#commentsAccordion {
+  --bs-accordion-active-bg: var(--bs-body-bg);
+  --bs-accordion-active-color: var(--bs-body-color);
+  --bs-accordion-btn-focus-box-shadow: none;
+}
+
+#commentsAccordion .accordion-button,
+#commentsAccordion .accordion-body {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.bookmark-card + .bookmark-card {
+  border-top: 1px solid var(--studio-border) !important;
+}
+
+.bookmark-comment {
+  white-space: pre-wrap;
+}
+
+.floating-bookmark-btn {
+  width: 2rem;
+  height: 2rem;
+  z-index: 1080;
 }
 
 .reader-tab-panel {
